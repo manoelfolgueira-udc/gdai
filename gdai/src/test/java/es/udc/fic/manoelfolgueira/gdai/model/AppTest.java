@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai;
+package es.udc.fic.manoelfolgueira.gdai.model;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
