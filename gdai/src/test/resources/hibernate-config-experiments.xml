@@ -25,6 +25,7 @@
         <property name="current_session_context_class">thread</property>
         
         <!--  List of persistent classes -->
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.group.User" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.user.User" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.group.Group" />
     </session-factory>
 </hibernate-configuration>

@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<display-name>md-app Project</display-name>
+	<display-name>gdai Project</display-name>
 	
 	<context-param>
 		<param-name>tapestry.app-package</param-name>
-		<param-value>es.udc.mdapp.web</param-value>
+		<param-value>es.udc.fic.manoelfolgueira.gdai.web</param-value>
 	</context-param>
     <context-param>
     	<param-name>contextConfigLocation</param-name>

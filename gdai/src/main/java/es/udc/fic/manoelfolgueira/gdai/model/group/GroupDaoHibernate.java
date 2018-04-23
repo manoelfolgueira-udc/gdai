@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDaoHibernate;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
-@Repository("userDao")
+@Repository("groupDao")
 public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implements GroupDao {
 
 	public Group findByName(String name) throws InstanceNotFoundException {
