@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -8,18 +8,18 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.user.ControlPanel;
+import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
-public class Index {
+public class Login {
 
     @Property
     private String loginName;
@@ -45,7 +45,7 @@ public class Index {
     @Inject
     private UserService userService;
 
-    private User user = null;
+    private User userProfile = null;
 
 
     void onValidateFromLoginForm() {
@@ -55,7 +55,7 @@ public class Index {
         }
 
         try {
-            user = userService.login(loginName, password, false);
+            userProfile = userService.login(loginName, password, false);
         } catch (InstanceNotFoundException e) {
             loginForm.recordError(messages.get("error-authenticationFailed"));
         } catch (IncorrectPasswordException e) {
@@ -67,14 +67,14 @@ public class Index {
     Object onSuccess() {
 
     	userSession = new UserSession();
-        userSession.setUserId(user.getUserId());
-        userSession.setFirstName(user.getFirstName());
+        userSession.setUserId(userProfile.getUserId());
+        userSession.setFirstName(userProfile.getFirstName());
 
         if (rememberMyPassword) {
-            CookiesManager.leaveCookies(cookies, loginName, user
+            CookiesManager.leaveCookies(cookies, loginName, userProfile
                     .getEncryptedPassword());
         }
-        return ControlPanel.class;
+        return Index.class;
 
     }
 

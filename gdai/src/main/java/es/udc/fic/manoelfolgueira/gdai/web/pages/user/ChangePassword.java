@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -8,36 +8,35 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.user.ControlPanel;
+import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
-@AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
-public class Index {
+@AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
+public class ChangePassword {
 
     @Property
-    private String loginName;
+    private String oldPassword;
 
     @Property
-    private String password;
+    private String newPassword;
 
     @Property
-    private boolean rememberMyPassword;
+    private String retypeNewPassword;
 
     @SessionState(create=false)
     private UserSession userSession;
 
+    @Component
+    private Form changePasswordForm;
+
     @Inject
     private Cookies cookies;
-
-    @Component
-    private Form loginForm;
 
     @Inject
     private Messages messages;
@@ -45,36 +44,33 @@ public class Index {
     @Inject
     private UserService userService;
 
-    private User user = null;
+    void onValidateFromChangePasswordForm() throws InstanceNotFoundException {
 
-
-    void onValidateFromLoginForm() {
-
-        if (!loginForm.isValid()) {
+        if (!changePasswordForm.isValid()) {
             return;
         }
 
-        try {
-            user = userService.login(loginName, password, false);
-        } catch (InstanceNotFoundException e) {
-            loginForm.recordError(messages.get("error-authenticationFailed"));
-        } catch (IncorrectPasswordException e) {
-            loginForm.recordError(messages.get("error-authenticationFailed"));
+        if (!newPassword.equals(retypeNewPassword)) {
+            changePasswordForm
+                    .recordError(messages.get("error-passwordsDontMatch"));
+        } else {
+
+            try {
+                userService.changePassword(userSession.getUserId(),
+                        oldPassword, newPassword);
+            } catch (IncorrectPasswordException e) {
+                changePasswordForm.recordError(messages
+                        .get("error-invalidPassword"));
+            }
+
         }
 
     }
 
     Object onSuccess() {
 
-    	userSession = new UserSession();
-        userSession.setUserId(user.getUserId());
-        userSession.setFirstName(user.getFirstName());
-
-        if (rememberMyPassword) {
-            CookiesManager.leaveCookies(cookies, loginName, user
-                    .getEncryptedPassword());
-        }
-        return ControlPanel.class;
+        CookiesManager.removeCookies(cookies);
+        return Index.class;
 
     }
 

@@ -1,8 +1,3 @@
--- ---------- Table for validation queries from the connection pool. ---
-DROP TABLE IF EXISTS PingTable;
-CREATE TABLE PingTable (foo CHAR(1));
-------------------------------------------------------------------------
-
 -- ------------------ Drop Tables --------------------------------------
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS gdai_user;
@@ -13,7 +8,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ------------------------------ Group --------------------------------
 CREATE TABLE gdai_group
   ( 
-     id             BIGINT NOT NULL auto_increment, 
+     id         BIGINT NOT NULL auto_increment, 
      name           VARCHAR(30) NOT NULL,
      creationtime   TIMESTAMP, 
      expirationtime TIMESTAMP, 

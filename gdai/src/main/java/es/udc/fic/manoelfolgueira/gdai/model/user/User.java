@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="gdai_user")
 public class User {
 
 	private Long userId;
@@ -35,7 +37,7 @@ public class User {
 		this.email = email;
 	}
 
-	@Column(name = "userId")
+	@Column(name = "id")
 	@SequenceGenerator( // It only takes effect for
 		name = "UserIdGenerator", // databases providing identifier
 		sequenceName = "UserSeq")
@@ -57,8 +59,7 @@ public class User {
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
 	}
-
-	@Column(name = "enPassword")
+	
 	public String getEncryptedPassword() {
 		return encryptedPassword;
 	}

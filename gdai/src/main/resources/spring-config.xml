@@ -31,16 +31,16 @@
 	     change "sessionFactory" bean (below) to use "dataSourceProxy" instead
 	     of "dataSource".
 	     
-	-->
+
 	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
 		p:targetDataSource-ref="dataSource"/>
-	<!-- -->
+	-->
 
 	<!-- use p:dataSource-ref="dataSource" to go back -->
 	<!-- Hibernate Session Factory -->
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-        p:dataSource-ref="dataSourceProxy"
+        p:dataSource-ref="dataSource"
         p:configLocation="classpath:/hibernate-config.xml"/>
 
     <!-- Transaction manager for a single Hibernate SessionFactory.  -->

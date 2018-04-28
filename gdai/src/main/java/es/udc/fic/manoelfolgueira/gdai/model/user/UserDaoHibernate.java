@@ -10,14 +10,14 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 
 	public User findByLoginName(String loginName) throws InstanceNotFoundException {
 
-    	User userProfile = (User) getSession().createQuery(
+    	User user = (User) getSession().createQuery(
     			"SELECT u FROM User u WHERE u.loginName = :loginName")
     			.setParameter("loginName", loginName)
     			.uniqueResult();
-    	if (userProfile == null) {
+    	if (user == null) {
    			throw new InstanceNotFoundException(loginName, User.class.getName());
     	} else {
-    		return userProfile;
+    		return user;
     	}
 
 	}
