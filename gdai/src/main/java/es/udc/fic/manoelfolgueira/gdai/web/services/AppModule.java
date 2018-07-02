@@ -3,6 +3,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.services;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 
+import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
+
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry,
@@ -14,7 +16,9 @@ public class AppModule {
     public static void contributeApplicationDefaults(
         MappedConfiguration<String, String> configuration) {
 
-        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en");
+    	AvailableLanguages.initialize();
+        configuration.add(SymbolConstants.SUPPORTED_LOCALES, 
+        		AvailableLanguages.getCodes());
 
     }
 

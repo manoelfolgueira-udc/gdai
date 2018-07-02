@@ -304,6 +304,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${mavenResourcesPlugin.version}</version>
+                <configuration>
+				<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
             </plugin>
 
             <!-- ========================================================== -->
