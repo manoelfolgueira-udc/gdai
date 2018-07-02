@@ -13,6 +13,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordExcept
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.pages.user.ControlPanel;
+import es.udc.fic.manoelfolgueira.gdai.web.pages.user.Login;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
@@ -46,6 +47,14 @@ public class Index {
     private UserService userService;
 
     private User user = null;
+    
+    Object onActivate() {
+    	
+    	if (userSession != null)
+    		 return ControlPanel.class;
+    	else return Login.class;
+
+    }
 
 
     void onValidateFromLoginForm() {

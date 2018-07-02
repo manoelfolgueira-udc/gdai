@@ -74,7 +74,7 @@ public class Login {
             CookiesManager.leaveCookies(cookies, loginName, userProfile
                     .getEncryptedPassword());
         }
-        return Index.class;
+        return ControlPanel.class;
 
     }
 

@@ -30,6 +30,13 @@ public class ControlPanel {
 
     @Inject
     private UserService userService;
+    
+    Object onActivate() {
+    	
+    	if (userSession == null) return Login.class;
+    	return null;
+
+    }
 
     void onPrepareForRender() throws InstanceNotFoundException {
 
