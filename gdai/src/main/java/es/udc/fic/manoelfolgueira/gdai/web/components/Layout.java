@@ -14,7 +14,7 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @Import(library = {"tapestry5/bootstrap/js/collapse.js", "tapestry5/bootstrap/js/dropdown.js"},
-        stylesheet="tapestry5/bootstrap/css/bootstrap-theme.css")
+        stylesheet= {"tapestry5/bootstrap/css/bootstrap-theme.css", "context:css/gdai_layout.css"})
 public class Layout {
 
     @Property

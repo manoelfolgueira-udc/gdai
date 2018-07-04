@@ -6,21 +6,8 @@
 <meta charset="utf-8" />
 <title>${title} - GDAI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style type="text/css">
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
+<link href="${context:favicon.ico}" rel="shortcut icon" /> 
 
-.header-menu-text {
-	font-family: Sans-Serif;
-}
-
-.header-menu-brand-text {
-	font-family: Sans-Serif;
-	font-size: 1.2em;
-}
-</style>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -66,23 +53,11 @@ body {
 									t:page="user/changepassword">${message:changePassword}</a></li>
 							</ul></li>
 						<p:else>
-							<li><a href="#" t:type="PageLink" t:page="user/login"><span
-									class="glyphicon glyphicon-log-in"> <span
-										class="header-menu-text"> ${message:authenticate}</span></span></a></li>
+							<li><a href="#" t:type="PageLink" t:page="configuration/languageselection"><span
+									class="glyphicon glyphicon-comment"> <span
+										class="header-menu-text"> ${message:config-language-selection}</span></span></a></li>
 						</p:else>
 					</t:if>
-
-					<!-- Configuration Dropdown Menu -->
-
-					<li class="dropdown"><a data-target="#"
-						class="dropdown-toggle" data-toggle="dropdown"> <span
-							class="glyphicon glyphicon-cog"> <span
-								class="header-menu-text"> ${message:config}</span></span> <span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#" t:type="PageLink"
-								t:page="configuration/languageselection">${message:config-language-selection}</a></li>
-						</ul></li>
 
 					<!-- User Dropdown Menu -->
 					<t:if test="userSession">
@@ -92,11 +67,17 @@ body {
 									class="header-menu-text"> ${userSession.firstName}</span>
 							</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
+								<li class="dropdown-header">${message:userdropdown-header-user}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="user/viewprofile">${message:viewProfile}</a></li>
 								<li><a href="#" t:type="PageLink"
 									t:page="user/updateprofile">${message:updateProfile}</a></li>
 								<li><a href="#" t:type="PageLink"
 									t:page="user/changepassword">${message:changePassword}</a></li>
-								<li class="divider"></li>
+								<li class="divider"></li><li class="dropdown-header">${message:userdropdown-header-config}</li>
+								<li><a href="#" t:type="PageLink"
+								t:page="configuration/languageselection">${message:config-language-selection}</a></li>
+							    <li class="divider"></li><li class="dropdown-header">${message:userdropdown-header-more}</li>
 								<li><a href="#" t:type="ActionLink" t:id="logout">${message:logout}</a></li>
 							</ul></li>
 					</t:if>
@@ -107,8 +88,7 @@ body {
 	</div>
 	<div class="container">
 		<t:if test="showTitleInBody">
-			<h3 class="text-center">${title}</h3>
-			<br />
+			<h1 class="text-center">${title}</h1>
 		</t:if>
 		<t:body />
 		<hr />
