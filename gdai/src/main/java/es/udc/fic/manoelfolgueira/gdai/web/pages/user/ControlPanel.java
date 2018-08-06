@@ -52,12 +52,8 @@ public class ControlPanel {
 
     Object onSuccess() throws InstanceNotFoundException {
 
-        userService.updateUserDetails(
-                userSession.getUserId(), new UserDetails(
-                        firstName, lastName, email));
-        userSession.setFirstName(firstName);
-        return Index.class;
-
+    	return null;
+        
     }
 
 }

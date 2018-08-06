@@ -1,5 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.model.userservice;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -7,7 +8,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 public interface UserService {
 
     public User registerUser(String loginName, String clearPassword,
-            UserDetails userProfileDetails)
+            UserDetails userProfileDetails, Group group)
             throws DuplicateInstanceException;
 
     public User login(String loginName, String password,

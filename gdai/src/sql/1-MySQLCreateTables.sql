@@ -8,7 +8,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ------------------------------ Group --------------------------------
 CREATE TABLE gdai_group
   ( 
-     id         BIGINT NOT NULL auto_increment, 
+     id             BIGINT NOT NULL auto_increment, 
      name           VARCHAR(30) NOT NULL,
      creationtime   TIMESTAMP, 
      expirationtime TIMESTAMP, 
@@ -28,11 +28,16 @@ CREATE TABLE gdai_user
      firstname         VARCHAR(30) NOT NULL, 
      lastname          VARCHAR(40) NOT NULL, 
      email             VARCHAR(60) NOT NULL, 
-     ext               VARCHAR(20), 
-     creationtime      TIMESTAMP, 
-     expirationtime    TIMESTAMP, 
+     phoneNumber       VARCHAR(20),
+     avatarUrl         VARCHAR(500),
+     gender            VARCHAR(20),
+     hireDate          DATE, 
+     dateOfBirth       DATE,
+     expirationTime    TIMESTAMP,
+     group_id           BIGINT NOT NULL,
      CONSTRAINT user_pk PRIMARY KEY (id), 
-     CONSTRAINT userloginnameuniquekey UNIQUE (loginname) 
+     CONSTRAINT userloginnameuniquekey UNIQUE (loginname),
+     FOREIGN KEY (group_id) REFERENCES gdai_group(id)
   ) 
 engine = innodb; 
 

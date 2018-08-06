@@ -1,19 +1,28 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
+import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.SelectModelFactory;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
+import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -21,6 +30,9 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
 public class Register {
+	
+	// The activation context
+    private Long groupId;
 
     @Property
     private String loginName;
@@ -39,12 +51,39 @@ public class Register {
 
     @Property
     private String email;
+    
+    @Property
+    private String phoneNumber;
+    
+    @Property
+    private String avatarUrl;
+    
+    @Property
+    private String hireDate;
+    
+    @Property
+    private String dateOfBirth;
 
+    @Property
+    private String expirationTime;
+    
     @SessionState(create=false)
     private UserSession userSession;
 
     @Inject
     private UserService userService;
+    
+    @Inject
+    private GroupService groupService;
+    
+    @Property
+    private SelectModel groupsModel;
+    
+    @Inject
+    private SelectModelFactory selectModelFactory;
+    
+    @Property
+    private Group group;
 
     @Component
     private Form registrationForm;
@@ -59,8 +98,13 @@ public class Register {
     private Messages messages;
 
     private Long userProfileId;
+    
+    @Inject
+    private Locale locale;
 
     void onValidateFromRegistrationForm() {
+    	
+    	groupId = group == null ? null : group.getGroupId();
 
         if (!registrationForm.isValid()) {
             return;
@@ -72,14 +116,27 @@ public class Register {
         } else {
 
             try {
+            	
+            	Calendar calHireDate = Calendar.getInstance();
+            	Calendar calDateOfBirth = Calendar.getInstance();
+            	Calendar calCreationTime = Calendar.getInstance();
+            	Calendar calExpirationTime = Calendar.getInstance();
+            	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            	if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
+            	if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
+            	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
+            	
                 User userProfile = userService.registerUser(loginName, password,
-                    new UserDetails(firstName, lastName, email));
+                    new UserDetails(loginName, firstName, lastName, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calCreationTime, calExpirationTime), group);
                 userProfileId = userProfile.getUserId();
             } catch (DuplicateInstanceException e) {
                 registrationForm.recordError(loginNameField, messages
                         .get("error-loginNameAlreadyExists"));
+            } catch (Exception e) {
+            	registrationForm.recordError(messages
+                        .get("error-unexpectedError"));
             }
-
+            	
         }
 
     }
@@ -91,6 +148,35 @@ public class Register {
         userSession.setFirstName(firstName);
         return Index.class;
 
+    }
+    
+    public GroupEncoder getGroupEncoder() {
+        return new GroupEncoder(groupService);
+    }
+    
+
+    Long onPassivate() {
+        return groupId;
+    }
+
+    void onPrepare() {
+    	
+        List<Group> groups = groupService.findAll();
+
+        if (groupId != null) {
+            group = findGroupInList(groupId, groups);
+        }
+
+        groupsModel = selectModelFactory.create(groups, "name");
+    }
+
+    private Group findGroupInList(Long groupId, List<Group> groups) {
+        for (Group g : groups) {
+            if (g.getGroupId().equals(groupId)) {
+                return g;
+            }
+        }
+        return null;
     }
 
 }

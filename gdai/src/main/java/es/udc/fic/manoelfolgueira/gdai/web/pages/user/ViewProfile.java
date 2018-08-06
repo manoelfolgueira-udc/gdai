@@ -1,5 +1,8 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -22,11 +25,33 @@ public class ViewProfile {
     
     @Property
     private User user;
+    
+    @Property
+    private String hireDateParsed = null;
+    
+    @Property
+    private String dateOfBirthParsed = null;
 
     void onActivate() throws InstanceNotFoundException {
 
         user = userService.findUserProfile(userSession
                 .getUserId());
+        
+        if (user.getHireDate() == null) hireDateParsed = "";
+        else {
+        	Calendar cal = user.getHireDate();
+            cal.add(Calendar.DATE, 1);
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+            hireDateParsed = f.format(cal.getTime());
+        }
+        
+        if (user.getDateOfBirth() == null) dateOfBirthParsed = "";
+        else {
+        	Calendar cal = user.getHireDate();
+            cal.add(Calendar.DATE, 1);
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+            dateOfBirthParsed = f.format(cal.getTime());
+        }
 
     }
 

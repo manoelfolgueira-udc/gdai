@@ -56,6 +56,8 @@
 							<li><a href="#" t:type="PageLink" t:page="configuration/languageselection"><span
 									class="glyphicon glyphicon-comment"> <span
 										class="header-menu-text"> ${message:config-language-selection}</span></span></a></li>
+										<li><a href="#" t:type="PageLink"
+									t:page="user/register">register</a></li>
 						</p:else>
 					</t:if>
 

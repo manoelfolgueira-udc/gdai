@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.user.UserDao;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.util.PasswordEncrypter;
@@ -16,9 +17,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    
+    private Group group = new Group();
 
     public User registerUser(String loginName, String clearPassword,
-            UserDetails userDetails)
+            UserDetails userDetails, Group group)
             throws DuplicateInstanceException {
 
         try {
@@ -31,7 +34,8 @@ public class UserServiceImpl implements UserService {
             User userProfile = new User(loginName,
                     encryptedPassword, userDetails.getFirstName(),
                     userDetails.getLastName(), userDetails
-                        .getEmail());
+                        .getEmail(), userDetails.getPhoneNumber(), userDetails.getAvatarUrl(),
+                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationTime(), group);
 
             userDao.save(userProfile);
             return userProfile;

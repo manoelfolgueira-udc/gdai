@@ -3,47 +3,45 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">${user.getFirstName()} ${user.getLastName()}</h3>
+					<h3 class="panel-title">${user.getLoginName()} (${user.getFirstName()} ${user.getLastName()})</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-3 col-lg-3 " align="center">
 							<img
-								src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+								src="${user.getAvatarUrl()}"
 								class="img-circle img-responsive" />
 						</div>
 						<div class=" col-md-9 col-lg-9 ">
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>${message:ViewProfileLabel-HireDate}</td>
+										<td>${message:ViewProfileLabel-DeveloperTeam}</td>
 										<td>06/23/2013</td>
 									</tr>
 									<tr>
-										<td>Date of Birth</td>
-										<td>01/24/1988</td>
+										<td>${message:ViewProfileLabel-Email}</td>
+										<td><a href="mailto:${user.getEmail()}">${user.getEmail()}</a></td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-PhoneNumber}</td>
+										<td><a href="mailto:${user.getEmail()}">${user.getPhoneNumber()}</a></td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-HireDate}</td>
+										<td>${hireDateParsed}</td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-DateOfBirth}</td>
+										<td>${dateOfBirthParsed}</td>
 									</tr>
 
 									<tr>
-									<tr>
-										<td>Gender</td>
-										<td>Female</td>
-									</tr>
-									<tr>
-										<td>Home Address</td>
-										<td>Kathmandu,Nepal</td>
-									</tr>
-									<tr>
-										<td>Email</td>
-										<td><a href="mailto:info@support.com">info@support.com</a></td>
-									</tr>
-									<td>Phone Number</td>
-									<td>123-4567-890(Landline)<br />
-									<br />555-4567-890(Mobile)
-									</td>
+										<td>${message:ViewProfileLabel-Gender}</td>
+										<td>${user.getGender()}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -55,9 +53,12 @@
 	</div>
 	
 	<div class="form-group">
-	    	<div class="col-md-offset-5 col-md-1">
+	    	<div class="col-md-offset-4 col-md-6 col-md-6">
         		<button type="submit" class="btn btn-default" t:type="PageLink"
 									t:page="user/controlpanel">${message:return}</button>
+				<span style="display:inline-block; width: 10px;"></span>					
+				<button type="submit" class="btn btn-default" t:type="PageLink"
+									t:page="user/updateprofile">${message:updateProfile}</button>
         	</div>
         </div>
 	
