@@ -1,5 +1,6 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	t:type="Layout" t:title="title">
+	t:type="Layout" t:title="title"
+	xmlns:p="tapestry:parameter">
 
 <div class="container">
 	<div class="row">
@@ -10,7 +11,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-3 col-lg-3 " align="center">
+						<div class="col-md-3 col-lg-3" align="center">
 							<img
 								src="${user.getAvatarUrl()}"
 								class="img-circle img-responsive" />
@@ -41,7 +42,14 @@
 
 									<tr>
 										<td>${message:ViewProfileLabel-Gender}</td>
-										<td>${user.getGender()}</td>
+										<td>
+										<t:if test="isUserMale">
+												<span>&#9794;</span>
+											<p:else>
+												<span>&#9792;</span>
+											</p:else>
+										</t:if>
+										</td>
 									</tr>
 								</tbody>
 							</table>
