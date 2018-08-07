@@ -18,8 +18,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     
-    private Group group = new Group();
-
     public User registerUser(String loginName, String clearPassword,
             UserDetails userDetails, Group group)
             throws DuplicateInstanceException {
@@ -33,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
             User userProfile = new User(loginName,
                     encryptedPassword, userDetails.getFirstName(),
-                    userDetails.getLastName(), userDetails
+                    userDetails.getLastName(), userDetails.getGender(), userDetails
                         .getEmail(), userDetails.getPhoneNumber(), userDetails.getAvatarUrl(),
                         userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationTime(), group);
 

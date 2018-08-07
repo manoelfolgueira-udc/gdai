@@ -46,6 +46,16 @@
 	   </div>
 	   
 	   <div class="form-group">        
+	        <t:label for="gender" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <t:RadioGroup value="genderValue" t:id="gender" validate="required">
+                    <t:Radio t:id="genderM" value="literal:M" label="Male" type="radio" name="group"/><t:label for="genderM"/>&nbsp;
+                    <t:Radio t:id="genderF" value="literal:F" label="Female" type="radio" name="group"/><t:label for="genderF"/>
+                </t:RadioGroup>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
 	        <t:label for="email" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="email" t:type="TextField"

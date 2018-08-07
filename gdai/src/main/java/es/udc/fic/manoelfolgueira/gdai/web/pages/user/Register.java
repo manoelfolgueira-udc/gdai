@@ -11,6 +11,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.PasswordField;
+import org.apache.tapestry5.corelib.components.RadioGroup;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -48,6 +49,12 @@ public class Register {
 
     @Property
     private String lastName;
+    
+    @Property
+    private String genderValue;
+    
+    @Component
+    private RadioGroup gender;
 
     @Property
     private String email;
@@ -103,7 +110,9 @@ public class Register {
     private Locale locale;
 
     void onValidateFromRegistrationForm() {
-    	
+
+		System.out.println("GenderValue: " + genderValue);
+
     	groupId = group == null ? null : group.getGroupId();
 
         if (!registrationForm.isValid()) {
@@ -127,7 +136,7 @@ public class Register {
             	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
             	
                 User userProfile = userService.registerUser(loginName, password,
-                    new UserDetails(loginName, firstName, lastName, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calCreationTime, calExpirationTime), group);
+                    new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calCreationTime, calExpirationTime), group);
                 userProfileId = userProfile.getUserId();
             } catch (DuplicateInstanceException e) {
                 registrationForm.recordError(loginNameField, messages

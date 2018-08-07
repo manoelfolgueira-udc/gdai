@@ -52,7 +52,7 @@ public class UpdateProfile {
     Object onSuccess() throws InstanceNotFoundException {
 
         userService.updateUserDetails(
-                userSession.getUserId(), new UserDetails(null, firstName, lastName, email, phoneNumber, avatarUrl, null, null, null, null));
+                userSession.getUserId(), new UserDetails(null, firstName, lastName, null, email, phoneNumber, avatarUrl, null, null, null, null));
         userSession.setFirstName(firstName);
         return Index.class;
 

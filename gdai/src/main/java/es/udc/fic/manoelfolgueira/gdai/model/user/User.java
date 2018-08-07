@@ -44,7 +44,7 @@ public class User {
 	}
 
 	public User(String loginName, String encryptedPassword,
-			String firstName, String lastName, String email, String phoneNumber, String avatarUrl,
+			String firstName, String lastName, String gender, String email, String phoneNumber, String avatarUrl,
 			Calendar hireDate, Calendar dateOfBirth, Calendar expirationTime, Group group) {
 
 		/**
@@ -56,6 +56,7 @@ public class User {
 		this.encryptedPassword = encryptedPassword;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.gender = gender;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.avatarUrl = avatarUrl;

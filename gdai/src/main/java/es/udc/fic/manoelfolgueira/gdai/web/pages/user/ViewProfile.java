@@ -56,7 +56,8 @@ public class ViewProfile {
     }
     
     public boolean getIsUserMale() {
-    	return user.getGender().equals("M");
+    	if (user.getGender() == null) return true;
+    	else return user.getGender().equals("M");
     }
 
 }

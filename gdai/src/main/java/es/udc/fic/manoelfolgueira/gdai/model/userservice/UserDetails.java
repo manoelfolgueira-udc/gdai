@@ -7,6 +7,7 @@ public class UserDetails {
 	private String loginName;
 	private String firstName;
 	private String lastName;
+	private String gender;
 	private String email;
 	private String phoneNumber;
 	private String avatarUrl;
@@ -26,12 +27,13 @@ public class UserDetails {
 	 * @param dateOfBirth
 	 * @param expirationTime
 	 */
-	public UserDetails(String loginName, String firstName, String lastName, String email, String phoneNumber,
+	public UserDetails(String loginName, String firstName, String lastName, String gender, String email, String phoneNumber,
 			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar creationTime, Calendar expirationTime) {
 		super();
 		this.loginName = loginName;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.gender = gender;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.avatarUrl = avatarUrl;
@@ -100,6 +102,14 @@ public class UserDetails {
 	}
 	public void setExpirationTime(Calendar expirationTime) {
 		this.expirationTime = expirationTime;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 }
