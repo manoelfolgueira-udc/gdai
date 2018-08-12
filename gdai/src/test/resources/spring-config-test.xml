@@ -13,7 +13,7 @@
     <context:annotation-config/>
 
     <!-- Enable component scanning for defining beans with annotations. -->
-    <context:component-scan base-package="es.udc.mdapp.model"/>
+    <context:component-scan base-package="es.udc.fic.manoelfolgueira.gdai.model"/>
 
     <!--  For translating native persistence exceptions to Spring's 
           DataAccessException hierarchy. -->

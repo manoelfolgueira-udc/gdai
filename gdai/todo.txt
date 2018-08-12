@@ -1,0 +1,2 @@
+# Arreglar charset encoding
+# Añadir campos a bd de usuario incluyendo img
