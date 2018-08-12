@@ -19,7 +19,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 @Table(name="gdai_group")
 public class Group {
 
-	@Column(name = "id")
+	@Column(name = "groupId")
 	@SequenceGenerator( // It only takes effect for
 		name = "groupIdGenerator", // databases providing identifier
 		sequenceName = "groupSeq")

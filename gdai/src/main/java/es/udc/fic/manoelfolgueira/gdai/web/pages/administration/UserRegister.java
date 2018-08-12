@@ -169,7 +169,7 @@ public class UserRegister {
             group = findGroupInList(groupId, groups);
         }
 
-        groupsModel = selectModelFactory.create(groups, "name");
+        groupsModel = selectModelFactory.create(groups, "groupName");
     }
 
     private Group findGroupInList(Long groupId, List<Group> groups) {

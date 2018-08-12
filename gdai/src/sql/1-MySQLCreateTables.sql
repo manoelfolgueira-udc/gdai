@@ -35,12 +35,12 @@ CREATE TABLE gdai_user
      hireDate          DATE, 
      dateOfBirth       DATE,
      expirationTime    TIMESTAMP,
-     groupId          BIGINT,
+     groupId           BIGINT,
      CONSTRAINT UserPK PRIMARY KEY (userId), 
      CONSTRAINT UserUniqueKeyLoginName UNIQUE (loginName),
      FOREIGN KEY (groupId) REFERENCES gdai_group(groupId)
   ) 
 engine = innodb; 
 
-CREATE INDEX UserIndexByLoginName ON gdai_user(logiNname); 
+CREATE INDEX UserIndexByLoginName ON gdai_user(loginName); 
 ------------------------------------------------------------------------
