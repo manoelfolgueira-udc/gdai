@@ -8,25 +8,26 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ------------------------------ Group --------------------------------
 CREATE TABLE gdai_group
   ( 
-     id             BIGINT NOT NULL auto_increment, 
-     name           VARCHAR(30) NOT NULL,
-     creationtime   TIMESTAMP, 
-     expirationtime TIMESTAMP, 
-     CONSTRAINT group_pk PRIMARY KEY (id, name) 
+     groupId        BIGINT NOT NULL auto_increment,
+     groupName      VARCHAR(30) NOT NULL,
+     creationTime   TIMESTAMP, 
+     expirationTime TIMESTAMP,
+     CONSTRAINT GroupPK PRIMARY KEY (groupId),
+     CONSTRAINT GroupUniqueKeyGroupName UNIQUE (groupName)
   ) 
 engine = innodb; 
 
-CREATE INDEX groupindexbyname ON gdai_group (name); 
+CREATE INDEX GroupIndexByGroupName ON gdai_group(groupName); 
 ------------------------------------------------------------------------
 
 -- ------------------------------ User ---------------------------------
 CREATE TABLE gdai_user
   ( 
-     id                BIGINT NOT NULL auto_increment, 
-     loginname         VARCHAR(30) NOT NULL, 
-     encryptedpassword VARCHAR(13) NOT NULL, 
-     firstname         VARCHAR(30) NOT NULL, 
-     lastname          VARCHAR(40) NOT NULL, 
+     userId            BIGINT NOT NULL auto_increment, 
+     loginName         VARCHAR(30) NOT NULL, 
+     encryptedPassword VARCHAR(13) NOT NULL, 
+     firstName         VARCHAR(30) NOT NULL, 
+     lastName          VARCHAR(40) NOT NULL, 
      email             VARCHAR(60) NOT NULL, 
      phoneNumber       VARCHAR(20),
      avatarUrl         VARCHAR(500),
@@ -34,12 +35,12 @@ CREATE TABLE gdai_user
      hireDate          DATE, 
      dateOfBirth       DATE,
      expirationTime    TIMESTAMP,
-     group_id           BIGINT NOT NULL,
-     CONSTRAINT user_pk PRIMARY KEY (id), 
-     CONSTRAINT userloginnameuniquekey UNIQUE (loginname),
-     FOREIGN KEY (group_id) REFERENCES gdai_group(id)
+     groupId          BIGINT,
+     CONSTRAINT UserPK PRIMARY KEY (userId), 
+     CONSTRAINT UserUniqueKeyLoginName UNIQUE (loginName),
+     FOREIGN KEY (groupId) REFERENCES gdai_group(groupId)
   ) 
 engine = innodb; 
 
-CREATE INDEX userindexbyloginname ON gdai_user (loginname); 
+CREATE INDEX UserIndexByLoginName ON gdai_user(logiNname); 
 ------------------------------------------------------------------------

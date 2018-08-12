@@ -37,6 +37,24 @@
 
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+				
+					<!-- Administration Dropdown Menu -->
+
+					<t:if test="isUserAdministrator">
+						<li class="dropdown"><a data-target="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <span
+								class="glyphicon glyphicon-record"> <span
+									class="header-menu-text"> ${message:AdminText}</span></span> <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="dropdown-header">${message:administrationdropdown-header-usersandgroups}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/userregister">${message:registerUser}</a></li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/groupregister">${message:registerGroup}</a></li>
+									<li class="divider"></li>
+							</ul></li>
+					</t:if>
 
 					<!-- Control Panel Dropdown Menu -->
 
@@ -44,20 +62,15 @@
 						<li class="dropdown"><a data-target="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <span
 								class="glyphicon glyphicon-align-justify"> <span
-									class="header-menu-text"> ${message:cPanelText}</span></span> <span
+									class="header-menu-text"> ${message:cPanelText}</span></span> <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#" t:type="PageLink"
-									t:page="user/updateprofile">${message:updateProfile}</a></li>
-								<li><a href="#" t:type="PageLink"
-									t:page="user/changepassword">${message:changePassword}</a></li>
+								<!-- Links here -->
 							</ul></li>
 						<p:else>
 							<li><a href="#" t:type="PageLink" t:page="configuration/languageselection"><span
 									class="glyphicon glyphicon-comment"> <span
 										class="header-menu-text"> ${message:config-language-selection}</span></span></a></li>
-										<li><a href="#" t:type="PageLink"
-									t:page="user/register">register</a></li>
 						</p:else>
 					</t:if>
 
@@ -67,7 +80,7 @@
 							class="dropdown-toggle" data-toggle="dropdown"> <span
 								class="glyphicon glyphicon-user"> <span
 									class="header-menu-text"> ${userSession.firstName}</span>
-							</span> <span class="caret"></span></a>
+							</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:userdropdown-header-user}</li>
 								<li><a href="#" t:type="PageLink"

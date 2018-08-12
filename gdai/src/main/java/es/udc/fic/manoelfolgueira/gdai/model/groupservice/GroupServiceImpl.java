@@ -29,7 +29,7 @@ public class GroupServiceImpl implements GroupService {
                     User.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            Group group = new Group(groupDetails.getName(), null, groupDetails.getExpirationTime());
+            Group group = new Group(groupDetails.getGroupName(), null, groupDetails.getExpirationTime());
 
             groupDao.save(group);
             return group;
@@ -50,7 +50,7 @@ public class GroupServiceImpl implements GroupService {
 
         Group group = groupDao.find(groupId);
         
-        group.setName(groupDetails.getName());
+        group.setGroupName(groupDetails.getGroupName());
         group.setExpirationTime(groupDetails.getExpirationTime());
     }
     

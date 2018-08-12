@@ -47,5 +47,10 @@ public class Layout {
         CookiesManager.removeCookies(cookies);
         return Index.class;
     }
+    
+    public boolean getIsUserAdministrator() {
+    	if (userSession == null) return false;
+    	return userSession.isAdministrator();
+    }
 
 }

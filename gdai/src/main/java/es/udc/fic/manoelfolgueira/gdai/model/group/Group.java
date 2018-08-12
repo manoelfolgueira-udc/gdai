@@ -27,7 +27,7 @@ public class Group {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "groupIdGenerator")
 	private Long groupId;
-	private String name;
+	private String groupName;
 	private Calendar creationTime = Calendar.getInstance();
 	private Calendar expirationTime = null;
 	
@@ -37,14 +37,14 @@ public class Group {
 	public Group() {
 	}
 
-	public Group(String name, List<User> users, Calendar expirationTime) {
+	public Group(String groupName, List<User> users, Calendar expirationTime) {
 
 		/**
 		 * NOTE: "groupId" *must* be left as "null" since its value is
 		 * automatically generated.
 		 */
 
-		this.name = name;
+		this.groupName = groupName;
 		this.users = users;
 		this.expirationTime = expirationTime;
 	}
@@ -57,12 +57,12 @@ public class Group {
 		this.groupId = groupId;
 	}
 
-	public String getName() {
-		return name;
+	public String getGroupName() {
+		return groupName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	public Calendar getCreationTime() {

@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,8 +29,8 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
-@AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
-public class Register {
+@AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
+public class UserRegister {
 	
 	// The activation context
     private Long groupId;
@@ -104,14 +104,10 @@ public class Register {
     @Inject
     private Messages messages;
 
-    private Long userProfileId;
-    
     @Inject
     private Locale locale;
 
     void onValidateFromRegistrationForm() {
-
-		System.out.println("GenderValue: " + genderValue);
 
     	groupId = group == null ? null : group.getGroupId();
 
@@ -137,7 +133,7 @@ public class Register {
             	
                 User userProfile = userService.registerUser(loginName, password,
                     new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calCreationTime, calExpirationTime), group);
-                userProfileId = userProfile.getUserId();
+                userProfile.getUserId();
             } catch (DuplicateInstanceException e) {
                 registrationForm.recordError(loginNameField, messages
                         .get("error-loginNameAlreadyExists"));
@@ -152,9 +148,6 @@ public class Register {
 
     Object onSuccess() {
 
-        userSession = new UserSession();
-        userSession.setUserId(userProfileId);
-        userSession.setFirstName(firstName);
         return Index.class;
 
     }

@@ -4,22 +4,22 @@ import java.util.Calendar;
 
 public class GroupDetails {
 
-	private String name;
+	private String groupName;
 	private Calendar creationTime;
 	private Calendar expirationTime;
 	
-	public GroupDetails(String name, Calendar creationTime, Calendar expirationTime) {
-		this.name = name;
+	public GroupDetails(String groupName, Calendar creationTime, Calendar expirationTime) {
+		this.groupName = groupName;
 		this.creationTime = creationTime;
 		this.expirationTime = expirationTime;
 	}
 	
-	public String getName() {
-		return name;
+	public String getGroupName() {
+		return groupName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 	
 	public Calendar getCreationTime() {

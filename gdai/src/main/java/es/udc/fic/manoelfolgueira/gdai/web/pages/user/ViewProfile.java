@@ -59,5 +59,9 @@ public class ViewProfile {
     	if (user.getGender() == null) return true;
     	else return user.getGender().equals("M");
     }
+    
+    public String getGroupName() {
+    	return user.getGroup() == null ? "" : user.getGroup().getGroupName();
+    }
 
 }

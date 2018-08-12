@@ -10,14 +10,14 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("groupDao")
 public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implements GroupDao {
 
-	public Group findByName(String name) throws InstanceNotFoundException {
+	public Group findByName(String groupName) throws InstanceNotFoundException {
 
     	Group group = (Group) getSession().createQuery(
-    			"SELECT g FROM Group g WHERE u.name = :name")
-    			.setParameter("name", name)
+    			"SELECT g FROM Group g WHERE g.groupName = :groupName")
+    			.setParameter("groupName", groupName)
     			.uniqueResult();
     	if (group == null) {
-   			throw new InstanceNotFoundException(name, Group.class.getName());
+   			throw new InstanceNotFoundException(groupName, Group.class.getName());
     	} else {
     		return group;
     	}

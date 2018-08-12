@@ -68,6 +68,10 @@ public class Login {
     	userSession = new UserSession();
         userSession.setUserId(userProfile.getUserId());
         userSession.setFirstName(userProfile.getFirstName());
+        
+        String userGroupName = userProfile.getGroup() == null ? "" : userProfile.getGroup().getGroupName();
+
+        userSession.setAdministrator(userGroupName.equals("Administrators"));
 
         if (rememberMyPassword) {
             CookiesManager.leaveCookies(cookies, loginName, userProfile

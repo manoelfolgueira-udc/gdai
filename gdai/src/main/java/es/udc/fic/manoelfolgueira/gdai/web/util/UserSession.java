@@ -5,6 +5,7 @@ public class UserSession {
 
 	private Long userId;
 	private String firstName;
+	private boolean isAdministrator;
 
 	public Long getUserId() {
 		return userId;
@@ -21,5 +22,14 @@ public class UserSession {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
+	public boolean isAdministrator() {
+		return isAdministrator;
+	}
+
+	public void setAdministrator(boolean isAdministrator) {
+		this.isAdministrator = isAdministrator;
+	}
+
 
 }

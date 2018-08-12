@@ -20,8 +20,8 @@
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>${message:ViewProfileLabel-DeveloperTeam}</td>
-										<td>${user.getGroup().getName()}</td>
+										<td>${message:ViewProfileLabel-DeveloperGroup}</td>
+										<td>${groupName}</td>
 									</tr>
 									<tr>
 										<td>${message:ViewProfileLabel-Email}</td>

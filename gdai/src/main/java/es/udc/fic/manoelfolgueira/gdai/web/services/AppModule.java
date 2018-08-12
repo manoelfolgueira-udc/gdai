@@ -19,6 +19,9 @@ public class AppModule {
     	AvailableLanguages.initialize();
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, 
         		AvailableLanguages.getCodes());
+        configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER, "jquery");
     }
+    
+    
 
 }

@@ -49,8 +49,8 @@
 	        <t:label for="gender" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <t:RadioGroup value="genderValue" t:id="gender" validate="required">
-                    <t:Radio t:id="genderM" value="literal:M" label="Male" type="radio" name="group"/><t:label for="genderM"/>&nbsp;
-                    <t:Radio t:id="genderF" value="literal:F" label="Female" type="radio" name="group"/><t:label for="genderF"/>
+                    <t:Radio t:id="genderM" value="literal:M" label="${message:genderM-label}" type="radio" name="group"/><t:label for="genderM"/>&nbsp;
+                    <t:Radio t:id="genderF" value="literal:F" label="${message:genderF-label}" type="radio" name="group"/><t:label for="genderF"/>
                 </t:RadioGroup>
 	        </div>
 	   </div>
