@@ -1,6 +1,6 @@
 -- Groups
 insert into gdai_group(groupName, creationTime, expirationTime)
-values('Administrators', NOW(), NULL);        
+values('GDAI Administrators', NOW(), NULL);        
     
 -- Users
 insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationtime, groupId)

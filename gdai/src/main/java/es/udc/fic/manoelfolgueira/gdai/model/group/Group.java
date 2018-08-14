@@ -31,7 +31,7 @@ public class Group {
 	private Calendar creationTime = Calendar.getInstance();
 	private Calendar expirationTime = null;
 	
-	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY)
 	private List<User> users;
 
 	public Group() {

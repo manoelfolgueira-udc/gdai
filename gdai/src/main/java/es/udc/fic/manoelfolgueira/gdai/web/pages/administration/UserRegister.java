@@ -147,9 +147,7 @@ public class UserRegister {
     }
 
     Object onSuccess() {
-
         return Index.class;
-
     }
     
     public GroupEncoder getGroupEncoder() {
