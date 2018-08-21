@@ -11,6 +11,7 @@ CREATE TABLE gdai_language
      languageId      BIGINT NOT NULL auto_increment,
      languageName    VARCHAR(10) NOT NULL,
      languageCountry VARCHAR(10) NOT NULL,
+     options         TEXT NOT NULL,
      creationTime    TIMESTAMP, 
      CONSTRAINT LanguagePK PRIMARY KEY (languageId, languageName)
   ) 

@@ -17,7 +17,7 @@ public interface GroupDao extends GenericDao<Group, Long> {
     public Group findByName(String name) throws InstanceNotFoundException;
     
     /**
-     * Returns all groups as a Map
+     * Returns all groups
      *
      * @return all Group
      */

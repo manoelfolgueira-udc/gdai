@@ -1,8 +1,16 @@
+-- AvailableLanguages
+insert into gdai_language(languageName, languageCountry, options, creationTime)
+values('en', 'EN', 'en=English, gl=Galician, es=Spanish', NOW());
+insert into gdai_language(languageName, languageCountry, options, creationTime)
+values('es', 'ES', 'es=Español, gl=Gallego, en=Inglés', NOW());
+insert into gdai_language(languageName, languageCountry, options, creationTime)
+values('gl', 'ES', 'es=Español, gl=Galego, en=Inglés', NOW());
+
 -- Groups
 insert into gdai_group(groupName, creationTime, expirationTime)
 values('GDAI_ADM', NOW(), NULL);
 insert into gdai_group(groupName, creationTime, expirationTime)
-values('Grupo Prueba', NOW(), NULL);  
+values('GP', NOW(), NULL);  
     
 -- Users
 insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationtime, groupId)

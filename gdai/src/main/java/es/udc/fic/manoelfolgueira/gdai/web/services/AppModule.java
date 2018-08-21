@@ -2,7 +2,10 @@ package es.udc.fic.manoelfolgueira.gdai.web.services;
 
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
+import es.udc.fic.manoelfolgueira.gdai.model.languageservice.LanguageService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 
@@ -12,14 +15,18 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
  * it's a good place to configure and extend Tapestry, or to place your own
  * service definitions.
  */
+
 public class AppModule {
+	
+	@Inject
+	private LanguageService languageService;
+	
+    public void contributeApplicationDefaults(
+        MappedConfiguration<String, String> configuration) throws InstanceNotFoundException {
 
-    public static void contributeApplicationDefaults(
-        MappedConfiguration<String, String> configuration) {
-
-    	AvailableLanguages.initialize();
+    	AvailableLanguages.initialize(languageService);
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, 
-        		AvailableLanguages.getCodes());
+        		AvailableLanguages.getNames());
         configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER, "jquery");
         
         // Initialize Properties Configuration
