@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.fic.manoelfolgueira.gdai.model.language.Language;
 import es.udc.fic.manoelfolgueira.gdai.model.language.LanguageDao;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
+import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
 
 @Service("languageService")
 @Transactional
@@ -77,6 +78,11 @@ public class LanguageServiceImpl implements LanguageService {
 				
 		return lns.substring(0, lns.length() - 1);
 			
+	}
+
+	@Override
+	public void reload() throws InstanceNotFoundException {
+		AvailableLanguages.reload();		
 	}
 
     

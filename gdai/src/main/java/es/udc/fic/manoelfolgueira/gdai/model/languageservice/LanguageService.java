@@ -9,4 +9,6 @@ public interface LanguageService {
 	public Map<String, String> getOptionsOrdered() throws InstanceNotFoundException;
 
 	public String getNames() throws InstanceNotFoundException;
+	
+	public void reload() throws InstanceNotFoundException;
 }

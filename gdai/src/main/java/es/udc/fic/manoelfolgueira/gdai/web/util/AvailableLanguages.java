@@ -10,13 +10,17 @@ public class AvailableLanguages {
     private static Map<String, String> options;
 
     private static String names = "";
+    
+    private static LanguageService languageService;
 
     private AvailableLanguages() {}
 
     public static void initialize(LanguageService languageService) throws InstanceNotFoundException {
+    	
+    	AvailableLanguages.languageService = languageService;
 
-    	options = languageService.getOptionsOrdered();
-        names   = languageService.getNames();
+    	options = AvailableLanguages.languageService.getOptionsOrdered();
+        names   = AvailableLanguages.languageService.getNames();
         
     }
 
@@ -34,6 +38,13 @@ public class AvailableLanguages {
             return options.get("en");
         }
 
+    }
+    
+    public static void reload() throws InstanceNotFoundException {
+
+    	options = AvailableLanguages.languageService.getOptionsOrdered();
+        names   = AvailableLanguages.languageService.getNames();
+        
     }
 
 }
