@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 @Table(name="gdai_user")
 public class User {
 
-	@Column(name = "id")
+	@Column(name = "userId")
 	@SequenceGenerator( // It only takes effect for
 		name = "UserIdGenerator", // databases providing identifier
 		sequenceName = "UserSeq")
@@ -38,6 +39,7 @@ public class User {
 	private String gender;
 	
 	@ManyToOne
+	@JoinColumn(name = "groupId")
 	private Group group;
 
 	public User() {

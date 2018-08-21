@@ -4,6 +4,7 @@ import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 
 import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
+import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 
 
 /**
@@ -20,6 +21,10 @@ public class AppModule {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, 
         		AvailableLanguages.getCodes());
         configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER, "jquery");
+        
+        // Initialize Properties Configuration
+        Config.getInstance();
+        
     }
     
     

@@ -2,9 +2,23 @@
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS gdai_user;
 DROP TABLE IF EXISTS gdai_group;
+DROP TABLE IF EXISTS gdai_language;
 SET FOREIGN_KEY_CHECKS = 1;
 
--- N:N relationship between Group & User is still missing. Fixed in further updates.
+-- ------------------------------ Language --------------------------------
+CREATE TABLE gdai_language
+  ( 
+     languageId      BIGINT NOT NULL auto_increment,
+     languageName    VARCHAR(10) NOT NULL,
+     languageCountry VARCHAR(10) NOT NULL,
+     creationTime    TIMESTAMP, 
+     CONSTRAINT LanguagePK PRIMARY KEY (languageId, languageName)
+  ) 
+engine = innodb; 
+
+CREATE INDEX languageName ON gdai_language(languageName); 
+------------------------------------------------------------------------
+
 -- ------------------------------ Group --------------------------------
 CREATE TABLE gdai_group
   ( 

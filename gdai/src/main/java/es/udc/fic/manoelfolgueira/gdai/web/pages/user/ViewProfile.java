@@ -2,6 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -13,6 +14,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
+import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ViewProfile {
@@ -31,6 +33,9 @@ public class ViewProfile {
     
     @Property
     private String dateOfBirthParsed = null;
+    
+    @Inject
+    private Locale locale;
 
     void onActivate() throws InstanceNotFoundException {
 
@@ -62,6 +67,14 @@ public class ViewProfile {
     
     public String getGroupName() {
     	return user.getGroup() == null ? "" : user.getGroup().getGroupName();
+    }
+    
+    public String getHireDateDBValue() {
+    	return Utils.getFormattedDate(user.getHireDate().getTime(), locale);
+    }
+    
+    public String getDateOfBirthDBValue() {
+    	return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
     }
 
 }

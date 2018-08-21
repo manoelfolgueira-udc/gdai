@@ -1,39 +1,111 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	t:type="Layout" t:title="title">
+	t:type="Layout" t:title="title"
+	xmlns:p="tapestry:parameter">
 
 	<form t:type="Form" class="form-horizontal" t:id="updateProfileForm">
 	
 	   <t:errors/>
-
+	   
+	   <div class="form-group">        
+	        <t:label for="loginName" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="loginName" t:type="TextField"
+				       t:validate="required" maxlength="30" readonly="readonly" value="${user.loginName}"/>
+	        </div>
+	   </div>
+	    
 	   <div class="form-group">        
 	        <t:label for="firstName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="firstName" t:type="TextField"
-				       t:validate="required" maxlength="30" />
+				       t:validate="required" maxlength="30"  value="${user.firstName}"/>
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="lastName" class="col-md-offset-3 col-md-2"/>
-	        <div class="col-md-3">    
+	        <div class="col-md-3">
 	            <input t:id="lastName" t:type="TextField"
-				       t:validate="required" maxlength="30" />
+				       t:validate="required" maxlength="30" value="${user.lastName}"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="gender" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <t:RadioGroup value="genderValue" t:id="gender" validate="required">
+                    <t:if test="testMale">
+                    
+               			<t:Radio t:id="genderMA" value="literal:M" label="${message:genderM-label}" type="radio" name="group" checked="checked"/><t:label for="genderMA"/>&nbsp;
+						<t:Radio t:id="genderFA" value="literal:F" label="${message:genderF-label}" type="radio" name="group"/><t:label for="genderFA"/>
+               
+                    <p:else>
+                    
+                    	<t:Radio t:id="genderMB" value="literal:M" label="${message:genderM-label}" type="radio" name="group"/><t:label for="genderMB"/>&nbsp;
+						<t:Radio t:id="genderFB" value="literal:F" label="${message:genderF-label}" type="radio" name="group" checked="checked"/><t:label for="genderFB"/>
+                    
+                    </p:else>
+                    </t:if>
+                </t:RadioGroup>
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="email" class="col-md-offset-3 col-md-2"/>
-	        <div class="col-md-3">    
+	        <div class="col-md-3">
 	            <input t:id="email" t:type="TextField"
-				       t:validate="email" maxlength="30" />
+				       t:validate="email,required" maxlength="30" value="${user.email}"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="phoneNumber" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="phoneNumber" t:type="TextField" value="${user.phoneNumber}"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="avatarUrl" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="avatarUrl" t:type="TextField" value="avatarUrl"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="hireDate" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="hireDate" t:type="TextField" readonly="readonly" value="getHireDateDBValue()"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="dateOfBirth" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="dateOfBirth" t:type="TextField" readonly="readonly" value="getDateOfBirthDBValue()"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="expirationTime" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="expirationTime" t:type="TextField" readonly="readonly" value="getExpirationTimeDBValue()"/>
+	        </div>
+	   </div>
+	   
+	   <div class="form-group">        
+	        <t:label for="group" class="col-md-offset-3 col-md-2"/>
+	        <div class="col-md-3">
+	            <input t:id="group" t:type="TextField"
+				       t:validate="required" maxlength="30" readonly="readonly" value="${user.group.groupName}"/>
 	        </div>
 	   </div>
 	    
-       <div class="form-group">
+	   <div class="form-group">
 	    	<div class="col-md-offset-5 col-md-1">
         		<button type="submit" class="btn btn-primary">${message:submit}</button>
         	</div>
-        </div>     
+       </div>
 	    
 	</form>
 
