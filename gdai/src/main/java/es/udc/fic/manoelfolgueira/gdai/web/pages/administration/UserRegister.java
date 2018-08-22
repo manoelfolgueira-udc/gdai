@@ -147,9 +147,7 @@ public class UserRegister {
     }
 
     Object onSuccess() {
-
         return Index.class;
-
     }
     
     public GroupEncoder getGroupEncoder() {
@@ -169,7 +167,7 @@ public class UserRegister {
             group = findGroupInList(groupId, groups);
         }
 
-        groupsModel = selectModelFactory.create(groups, "name");
+        groupsModel = selectModelFactory.create(groups, "groupName");
     }
 
     private Group findGroupInList(Long groupId, List<Group> groups) {

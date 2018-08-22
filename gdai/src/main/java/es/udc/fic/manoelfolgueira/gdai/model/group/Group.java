@@ -19,7 +19,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 @Table(name="gdai_group")
 public class Group {
 
-	@Column(name = "id")
+	@Column(name = "groupId")
 	@SequenceGenerator( // It only takes effect for
 		name = "groupIdGenerator", // databases providing identifier
 		sequenceName = "groupSeq")
@@ -31,7 +31,7 @@ public class Group {
 	private Calendar creationTime = Calendar.getInstance();
 	private Calendar expirationTime = null;
 	
-	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY)
 	private List<User> users;
 
 	public Group() {

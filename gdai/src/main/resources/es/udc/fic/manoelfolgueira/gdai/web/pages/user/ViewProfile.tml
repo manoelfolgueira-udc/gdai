@@ -21,7 +21,7 @@
 								<tbody>
 									<tr>
 										<td>${message:ViewProfileLabel-DeveloperGroup}</td>
-										<td>${groupName}</td>
+										<td><span class="devgroup">${groupName}</span></td>
 									</tr>
 									<tr>
 										<td>${message:ViewProfileLabel-Email}</td>

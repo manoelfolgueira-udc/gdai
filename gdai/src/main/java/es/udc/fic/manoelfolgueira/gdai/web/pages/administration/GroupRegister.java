@@ -46,6 +46,9 @@ public class GroupRegister {
 
     @Inject
     private Locale locale;
+    
+    @Property
+    private String result = null;
 
     void onValidateFromRegistrationForm() {
 
@@ -61,6 +64,8 @@ public class GroupRegister {
         	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
         	
         	groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationTime, calExpirationTime));
+        	
+        	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(groupNameField, messages
                     .get("error-groupNameAlreadyExists"));
@@ -75,9 +80,9 @@ public class GroupRegister {
         return Index.class;
     }
     
-
-    void onPrepare() {
-
+    
+    String onPassivate() {
+    	return result;
     }
 
 }
