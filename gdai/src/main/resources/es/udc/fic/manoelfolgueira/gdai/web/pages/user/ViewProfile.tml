@@ -33,11 +33,11 @@
 									</tr>
 									<tr>
 										<td>${message:ViewProfileLabel-HireDate}</td>
-										<td>${hireDateParsed}</td>
+										<td>${getHireDateDBValue()}</td>
 									</tr>
 									<tr>
 										<td>${message:ViewProfileLabel-DateOfBirth}</td>
-										<td>${dateOfBirthParsed}</td>
+										<td>${getDateOfBirthDBValue()}</td>
 									</tr>
 
 									<tr>

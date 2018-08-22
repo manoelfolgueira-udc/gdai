@@ -39,7 +39,7 @@ public class User {
 	private String gender;
 	
 	@ManyToOne
-	@JoinColumn(name="groupId")
+	@JoinColumn(name = "groupId")
 	private Group group;
 
 	public User() {

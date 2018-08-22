@@ -15,6 +15,7 @@
 
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.user.User" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.group.Group" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.language.Language" />
 
     </session-factory>
 </hibernate-configuration>
