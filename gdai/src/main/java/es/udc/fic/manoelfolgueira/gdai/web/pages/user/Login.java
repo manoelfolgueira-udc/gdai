@@ -79,11 +79,7 @@ public class Login {
         
         String userGroupName = userProfile.getGroup() == null ? "" : userProfile.getGroup().getGroupName();
 
-<<<<<<< HEAD
-        userSession.setAdministrator(userGroupName.equals("GDAI Administrators"));
-=======
         userSession.setAdministrator(userGroupName.equals(Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
->>>>>>> US/2
 
         if (rememberMyPassword) {
             CookiesManager.leaveCookies(cookies, loginName, userProfile
