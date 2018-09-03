@@ -161,7 +161,7 @@ public class UserRegister {
 
     void onPrepare() {
     	
-        List<Group> groups = groupService.findAll();
+        List<Group> groups = groupService.findAllOrderedByGroupName();
 
         if (groupId != null) {
             group = findGroupInList(groupId, groups);

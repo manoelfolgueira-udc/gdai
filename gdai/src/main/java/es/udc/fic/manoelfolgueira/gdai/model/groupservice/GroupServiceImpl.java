@@ -54,8 +54,8 @@ public class GroupServiceImpl implements GroupService {
         group.setExpirationTime(groupDetails.getExpirationTime());
     }
     
-    public List<Group> findAll() {
-    	return groupDao.findAll();
+    public List<Group> findAllOrderedByGroupName() {
+    	return groupDao.findAllOrderedByGroupName();
     }
     
 }
