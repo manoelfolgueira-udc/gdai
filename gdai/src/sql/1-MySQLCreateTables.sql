@@ -3,6 +3,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS gdai_user;
 DROP TABLE IF EXISTS gdai_group;
 DROP TABLE IF EXISTS gdai_language;
+DROP TABLE IF EXISTS gdai_project;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ------------------------------ Language --------------------------------
@@ -58,4 +59,22 @@ CREATE TABLE gdai_user
 engine = innodb; 
 
 CREATE INDEX UserIndexByLoginName ON gdai_user(loginName); 
+------------------------------------------------------------------------
+
+-- ------------------------------ Project --------------------------------
+CREATE TABLE gdai_project
+  ( 
+     projectId    	    BIGINT NOT NULL auto_increment,
+     projectName        VARCHAR(255) NOT NULL,
+     projectDescription VARCHAR(10000) NOT NULL,
+     creationTime       TIMESTAMP NOT NULL,
+     createdById        BIGINT NOT NULL,
+     targetDate         TIMESTAMP,
+     CONSTRAINT ProjectPK PRIMARY KEY (projectId),
+     CONSTRAINT ProjectUniqueKeyProjectName UNIQUE (projectName),
+     FOREIGN KEY (createdById) REFERENCES gdai_user(userId)
+  ) 
+engine = innodb; 
+
+CREATE INDEX ProjectIndexByProjectName ON gdai_project(projectName); 
 ------------------------------------------------------------------------
