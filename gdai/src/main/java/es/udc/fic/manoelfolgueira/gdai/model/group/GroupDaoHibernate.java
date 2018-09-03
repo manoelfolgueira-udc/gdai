@@ -26,8 +26,8 @@ public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implemen
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Group> findAll() {
-		List<Group> groups = getSession().createQuery("SELECT g FROM Group g").list();
+	public List<Group> findAllOrderedByGroupName() {
+		List<Group> groups = getSession().createQuery("SELECT g FROM Group g ORDER BY g.groupName").list();
 		return groups;
 	}
 

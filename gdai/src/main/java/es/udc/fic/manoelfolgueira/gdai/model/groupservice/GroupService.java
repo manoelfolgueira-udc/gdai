@@ -20,6 +20,6 @@ public interface GroupService {
             GroupDetails groupDetails)
             throws InstanceNotFoundException;
     
-    public List<Group> findAll();
+    public List<Group> findAllOrderedByGroupName();
 
 }
