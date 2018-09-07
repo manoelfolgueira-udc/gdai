@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.group.GroupDao;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -26,7 +25,7 @@ public class GroupServiceImpl implements GroupService {
         try {
             groupDao.findByName(name);
             throw new DuplicateInstanceException(name,
-                    User.class.getName());
+                    Group.class.getName());
         } catch (InstanceNotFoundException e) {
         	
             Group group = new Group(groupDetails.getGroupName(), null, groupDetails.getExpirationTime());

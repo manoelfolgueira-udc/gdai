@@ -34,20 +34,19 @@ public class Project {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdById")
-	private User user;
+	private User createdBy;
 	
 
 	public Project() {
 	}
 	
-	public Project(String projectName, String projectDescription, Calendar creationTime, Calendar targetTime,
-			User user) {
+	public Project(String projectName, String projectDescription, Calendar targetTime,
+			User createdBy) {
 		super();
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
-		this.creationTime = creationTime;
-		this.setTargetTime(targetTime);
-		this.user = user;
+		this.targetTime = targetTime;
+		this.createdBy = createdBy;
 	}
 
 	public Long getProjectId() {
@@ -95,13 +94,13 @@ public class Project {
 	}
 
 
-	public User getUser() {
-		return user;
+	public User getCreatedBy() {
+		return createdBy;
 	}
 
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	
