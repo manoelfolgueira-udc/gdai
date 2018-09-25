@@ -21,5 +21,5 @@ public interface GroupDao extends GenericDao<Group, Long> {
      *
      * @return all Group
      */
-    public List<Group> findAllOrderedByGroupName();
+    public List<Group> findAllOrderedByGroupNameIC();
 }

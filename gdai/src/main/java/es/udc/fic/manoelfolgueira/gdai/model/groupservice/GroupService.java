@@ -1,7 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.model.groupservice;
 
 import java.util.List;
-import java.util.Map;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -20,6 +19,6 @@ public interface GroupService {
             GroupDetails groupDetails)
             throws InstanceNotFoundException;
     
-    public List<Group> findAllOrderedByGroupName();
+    public List<Group> findAllOrderedByGroupNameIC();
 
 }

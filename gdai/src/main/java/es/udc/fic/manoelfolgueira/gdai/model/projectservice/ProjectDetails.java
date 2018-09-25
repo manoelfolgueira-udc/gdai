@@ -3,21 +3,24 @@ package es.udc.fic.manoelfolgueira.gdai.model.projectservice;
 import java.util.Calendar;
 
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 
 public class ProjectDetails {
 
 	private String projectName;
 	private String projectDescription;
 	private Calendar creationTime;
-	private Calendar targetTime;
+	private Calendar targetDate;
 	private User createdBy;
+	private System system;
 	
-	public ProjectDetails(String projectName, String projectDescription,  Calendar creationTime, Calendar targetTime, User createdBy) {
+	public ProjectDetails(String projectName, String projectDescription,  Calendar creationTime, Calendar targetDate, User createdBy, System system) {
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
 		this.creationTime = creationTime;
-		this.targetTime = targetTime;
+		this.targetDate = targetDate;
 		this.createdBy = createdBy;
+		this.system = system;
 	}
 	
 	public String getProjectName() {
@@ -40,12 +43,12 @@ public class ProjectDetails {
 		return creationTime;
 	}
 
-	public Calendar getTargetTime() {
-		return targetTime;
+	public Calendar getTargetDate() {
+		return targetDate;
 	}
 
-	public void setTargetTime(Calendar targetTime) {
-		this.targetTime = targetTime;
+	public void setTargetDate(Calendar targetDate) {
+		this.targetDate = targetDate;
 	}
 
 	public User getCreatedBy() {
@@ -54,6 +57,14 @@ public class ProjectDetails {
 
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public System getSystem() {
+		return system;
+	}
+
+	public void setSystem(System system) {
+		this.system = system;
 	}
 	
 }

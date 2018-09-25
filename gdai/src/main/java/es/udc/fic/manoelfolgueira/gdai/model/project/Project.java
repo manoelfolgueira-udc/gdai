@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 
 @Entity
@@ -30,23 +31,28 @@ public class Project {
 	private String projectName;
 	private String projectDescription;
 	private Calendar creationTime = Calendar.getInstance();
-	private Calendar targetTime;
+	private Calendar targetDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdById")
 	private User createdBy;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "systemId")
+	private System system;
+	
 
 	public Project() {
 	}
 	
-	public Project(String projectName, String projectDescription, Calendar targetTime,
-			User createdBy) {
+	public Project(String projectName, String projectDescription, Calendar targetDate,
+			User createdBy, System system) {
 		super();
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
-		this.targetTime = targetTime;
+		this.targetDate = targetDate;
 		this.createdBy = createdBy;
+		this.system = system;
 	}
 
 	public Long getProjectId() {
@@ -84,13 +90,13 @@ public class Project {
 	}
 	
 	
-	public Calendar getTargetTime() {
-		return targetTime;
+	public Calendar getTargetDate() {
+		return targetDate;
 	}
 
 	
-	public void setTargetTime(Calendar targetTime) {
-		this.targetTime = targetTime;
+	public void setTargetDate(Calendar targetDate) {
+		this.targetDate = targetDate;
 	}
 
 
@@ -102,8 +108,15 @@ public class Project {
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
-
 	
+	public System getSystem() {
+		return system;
+	}
+
+	public void setSystem(System system) {
+		this.system = system;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

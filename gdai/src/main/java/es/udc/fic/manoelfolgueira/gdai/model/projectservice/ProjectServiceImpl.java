@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.project.ProjectDao;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -30,8 +29,9 @@ public class ProjectServiceImpl implements ProjectService {
             Project project = new Project(
 	            		projectDetails.getProjectName(),
 	            		projectDetails.getProjectDescription(),
-	            		projectDetails.getTargetTime(),
-	            		projectDetails.getCreatedBy()            		
+	            		projectDetails.getTargetDate(),
+	            		projectDetails.getCreatedBy(),
+	            		projectDetails.getSystem()
             		);
 
             projectDao.save(project);
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
         
 		project.setProjectName(projectDetails.getProjectName());
 		project.setProjectDescription(projectDetails.getProjectDescription());
-		project.setTargetTime(projectDetails.getTargetTime());
+		project.setTargetDate(projectDetails.getTargetDate());
 		
 		project.setCreatedBy(projectDetails.getCreatedBy()); // should not be modified, consider getting rid of it
 	}
