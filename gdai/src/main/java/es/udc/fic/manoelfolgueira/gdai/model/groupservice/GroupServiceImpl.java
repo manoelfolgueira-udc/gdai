@@ -57,5 +57,10 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> findAllOrderedByGroupName() {
     	return groupDao.findAllOrderedByGroupName();
     }
+
+	@Override
+	public void removeGroup(Long groupId) throws InstanceNotFoundException {
+		groupDao.remove(groupId);
+	}
     
 }

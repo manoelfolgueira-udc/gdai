@@ -3,6 +3,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.group;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Group {
 	private Calendar creationTime = Calendar.getInstance();
 	private Calendar expirationTime = null;
 	
-	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY)
+	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<User> users;
 
 	public Group() {

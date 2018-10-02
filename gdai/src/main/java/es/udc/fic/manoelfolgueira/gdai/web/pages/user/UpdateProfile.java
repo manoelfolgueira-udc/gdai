@@ -111,7 +111,6 @@ public class UpdateProfile {
         	
         	Calendar calHireDate = Calendar.getInstance();
         	Calendar calDateOfBirth = Calendar.getInstance();
-        	Calendar calCreationTime = Calendar.getInstance();
         	Calendar calExpirationTime = Calendar.getInstance();
         	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         	if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;

@@ -47,11 +47,12 @@
 									class="header-menu-text"> ${message:AdminText}</span></span> <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li class="dropdown-header">${message:administrationdropdown-header-usersandgroups}</li>
+								<li class="dropdown-header">${message:administrationdropdown-header-users}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/userregister">${message:registerUser}</a></li>
+									t:page="administration/manageusers">${message:manageUsers}</a></li>
+								<li class="dropdown-header">${message:administrationdropdown-header-groups}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/groupregister">${message:registerGroup}</a></li>
+									t:page="administration/managegroups">${message:manageGroups}</a></li>
 									<li class="divider"></li>
 							</ul></li>
 					</t:if>

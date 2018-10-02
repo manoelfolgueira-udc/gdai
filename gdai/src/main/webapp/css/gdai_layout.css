@@ -44,10 +44,19 @@ h1 { color: #777; font-family: 'Helvetica Neue', sans-serif; font-size: 35px; fo
 .table-user-information > tbody > tr > td {
     border-top: 0;
 }
-.toppad
-{margin-top:20px;
+.toppad {
+	margin-top:20px;
 }
 
 .devgroup {
 	font-weight: Bold;
+}
+
+.eg {
+    margin: 20px 0;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -mox-border-radius: 6px;
 }

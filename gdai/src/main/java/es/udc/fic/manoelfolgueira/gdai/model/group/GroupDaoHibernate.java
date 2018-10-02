@@ -2,6 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.group;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDaoHibernate;
