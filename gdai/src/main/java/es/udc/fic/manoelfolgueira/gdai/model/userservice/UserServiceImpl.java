@@ -74,10 +74,15 @@ public class UserServiceImpl implements UserService {
             UserDetails userDetails)
             throws InstanceNotFoundException {
 
-        User userProfile = userDao.find(userProfileId);
-        userProfile.setFirstName(userDetails.getFirstName());
-        userProfile.setLastName(userDetails.getLastName());
-        userProfile.setEmail(userDetails.getEmail());
+        User user = userDao.find(userProfileId);
+        
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        user.setGender(userDetails.getGender());
+        user.setPhoneNumber(userDetails.getPhoneNumber());
+        user.setAvatarUrl(userDetails.getAvatarUrl());
+        
+        userDao.save(user);
 
     }
 

@@ -1,7 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.user;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Component;
@@ -9,7 +7,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.RadioGroup;
-import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -42,6 +39,9 @@ public class UpdateProfile {
     
     @Property
     private String avatarUrl;
+    
+    @Property
+    private String groupName;
 
     @SessionState(create=false)
     private UserSession userSession;
@@ -80,9 +80,6 @@ public class UpdateProfile {
     @Component
     private Form updateProfileForm;
 
-    @Component(id = "loginName")
-    private TextField loginNameField;
-
     @Inject
     private Messages messages;
 
@@ -91,13 +88,22 @@ public class UpdateProfile {
     
     void onPrepareForRender() throws InstanceNotFoundException {
 
-        user= userService.findUserProfile(userSession
+        user = userService.findUserProfile(userSession
                 .getUserId());
+
+        loginName = user.getLoginName();
         firstName = user.getFirstName();
         lastName = user.getLastName();
         email = user.getEmail();
+        phoneNumber = user.getPhoneNumber();
+        
+        hireDate = getHireDateDBValue();
+        dateOfBirth = getDateOfBirthDBValue();
+        expirationTime = getExpirationTimeDBValue();
         
         avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
+        
+        groupName = user.getGroup().getGroupName();
 
     }
     
@@ -109,20 +115,8 @@ public class UpdateProfile {
 
         try {
         	
-        	Calendar calHireDate = Calendar.getInstance();
-        	Calendar calDateOfBirth = Calendar.getInstance();
-        	Calendar calExpirationTime = Calendar.getInstance();
-        	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        	if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
-        	if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
-        	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
-        	
-            // TODO: UPDATE USER
-            // userProfile.getUserId();
-    //    } catch (DuplicateInstanceException e) {
-        	//         updateProfileForm.recordError(loginNameField, messages
-        	//      .get("error-loginNameAlreadyExists"));
         } catch (Exception e) {
+        	e.printStackTrace();
         	updateProfileForm.recordError(messages
                     .get("error-unexpectedError"));
         }
@@ -130,9 +124,13 @@ public class UpdateProfile {
     }
 
     Object onSuccess() throws InstanceNotFoundException {
-
+    	
+    	user = userService.findUserProfile(userSession
+                .getUserId());
+    	
         userService.updateUserDetails(
-                userSession.getUserId(), new UserDetails(null, firstName, lastName, null, email, phoneNumber, avatarUrl, null, null, null, null));
+                userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationTime()));
         userSession.setFirstName(firstName);
         
         return Index.class;

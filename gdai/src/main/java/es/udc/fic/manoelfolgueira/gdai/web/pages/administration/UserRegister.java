@@ -124,7 +124,6 @@ public class UserRegister {
             	
             	Calendar calHireDate = Calendar.getInstance();
             	Calendar calDateOfBirth = Calendar.getInstance();
-            	Calendar calCreationTime = Calendar.getInstance();
             	Calendar calExpirationTime = Calendar.getInstance();
             	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
             	if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
@@ -132,7 +131,7 @@ public class UserRegister {
             	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
             	
                 User userProfile = userService.registerUser(loginName, password,
-                    new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calCreationTime, calExpirationTime), group);
+                    new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationTime), group);
                 userProfile.getUserId();
             } catch (DuplicateInstanceException e) {
                 registrationForm.recordError(loginNameField, messages
