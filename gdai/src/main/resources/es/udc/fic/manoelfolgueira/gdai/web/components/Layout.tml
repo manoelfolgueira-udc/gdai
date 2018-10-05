@@ -49,10 +49,10 @@
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:administrationdropdown-header-users}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/manageusers">${message:manageUsers}</a></li>
+									t:page="administration/user/manageusers">${message:manageUsers}</a></li>
 								<li class="dropdown-header">${message:administrationdropdown-header-groups}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/managegroups">${message:manageGroups}</a></li>
+									t:page="administration/group/managegroups">${message:manageGroups}</a></li>
 									<li class="divider"></li>
 							</ul></li>
 					</t:if>

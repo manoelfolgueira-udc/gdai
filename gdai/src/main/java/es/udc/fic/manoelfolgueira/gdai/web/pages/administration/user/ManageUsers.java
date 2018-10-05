@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.user;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

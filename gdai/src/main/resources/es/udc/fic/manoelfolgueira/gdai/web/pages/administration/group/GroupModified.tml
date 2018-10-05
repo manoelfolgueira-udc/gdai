@@ -12,7 +12,7 @@
 	
 		<div align="center">
 	   		<button type="submit" class="btn btn-default" t:type="PageLink"
-					t:page="administration/managegroups">${message:back}</button>
+					t:page="administration/group/managegroups">${message:back}</button>
 	   	</div>
 	
 	</div>

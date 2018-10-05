@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
 import java.util.Locale;
 
@@ -71,7 +71,7 @@ public class DeleteGroup {
 	Object onValidateFromDeleteForm() {
 		try {
 			groupService.removeGroup(groupId);
-			return pageRenderLS.createPageRenderLinkWithContext("administration/GroupDeleted", groupId);
+			return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupDeleted", groupId);
 		} catch (InstanceNotFoundException e) {
 			deleteForm.recordError(messages
                     .get("error-groupDoesNotExist") + group.getGroupName());

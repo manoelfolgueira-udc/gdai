@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
 import java.awt.Desktop.Action;
 import java.util.List;

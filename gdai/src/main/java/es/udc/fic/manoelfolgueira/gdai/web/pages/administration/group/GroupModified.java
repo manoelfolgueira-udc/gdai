@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
 import org.apache.tapestry5.annotations.Property;
 
