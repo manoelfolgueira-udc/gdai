@@ -38,25 +38,28 @@ public class ViewProfile {
     private Locale locale;
 
     void onActivate() throws InstanceNotFoundException {
+    	
+    	if (userSession != null) {
 
-        user = userService.findUserProfile(userSession
-                .getUserId());
-        
-        if (user.getHireDate() == null) hireDateParsed = "";
-        else {
-        	Calendar cal = user.getHireDate();
-            cal.add(Calendar.DATE, 1);
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            hireDateParsed = f.format(cal.getTime());
-        }
-        
-        if (user.getDateOfBirth() == null) dateOfBirthParsed = "";
-        else {
-        	Calendar cal = user.getHireDate();
-            cal.add(Calendar.DATE, 1);
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            dateOfBirthParsed = f.format(cal.getTime());
-        }
+	        user = userService.findUserProfile(userSession
+	                .getUserId());
+	        
+	        if (user.getHireDate() == null) hireDateParsed = "";
+	        else {
+	        	Calendar cal = user.getHireDate();
+	            cal.add(Calendar.DATE, 1);
+	            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+	            hireDateParsed = f.format(cal.getTime());
+	        }
+	        
+	        if (user.getDateOfBirth() == null) dateOfBirthParsed = "";
+	        else {
+	        	Calendar cal = user.getHireDate();
+	            cal.add(Calendar.DATE, 1);
+	            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+	            dateOfBirthParsed = f.format(cal.getTime());
+	        }
+    	}
 
     }
     
@@ -70,11 +73,12 @@ public class ViewProfile {
     }
     
     public String getHireDateDBValue() {
-    	return Utils.getFormattedDate(user.getHireDate().getTime(), locale);
+    	
+    	return user.getHireDate().getTime() == null ? "" : Utils.getFormattedDate(user.getHireDate().getTime(), locale);
     }
     
     public String getDateOfBirthDBValue() {
-    	return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
+    	return user.getDateOfBirth() == null ? "" : Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
     }
 
 }

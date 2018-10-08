@@ -19,7 +19,7 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ManageGroups {
+public class ManageGroupsBak {
     
     @Property
     private Group group;
@@ -66,7 +66,6 @@ public class ManageGroups {
     }
     
     void setupRender() {
-    	// A GridDataSource is not provided due to the little ammount of groups which are going to be in the app at a time
         groups = groupService.findAllOrderedByGroupName();
     }
     

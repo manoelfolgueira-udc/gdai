@@ -1,5 +1,6 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	t:type="Layout" t:title="title">
+	t:type="Layout" t:title="title"
+	xmlns:p="tapestry:parameter">
 
 	<div class="form-group">
     	<div class="col-md-offset-5 col-md-6 col-md-6">
@@ -10,35 +11,21 @@
     
     <br /><br />
     
-    <!-- Loop de Group con elementos para modificar y eliminar -->
+    <!-- Grid de Group con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <table class="table table-hover table-bordered table-striped">
-            <thead>
-                <tr> <!-- Translate -->
-                    <th>${message:id}</th>
-                    <th>${message:groupName}</th>
-                    <th>${message:creationDate}</th>
-                    <th>${message:expirationDate}</th>
-                    <th>${message:manage}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr t:type="loop" t:source="groups" t:value="group">
-                    <td>${group.groupId}</td>
-                    <td><span class="devgroup">${group.groupName}</span></td>
-                    <td>${getGroupCreationDateTimeFormatted()}</td>
-                    <td>${getGroupExpirationDateTimeFormatted()}</td>
-                    <td>
-                    	<button type="submit" class="btn btn-default" t:type="PageLink"
-									t:page="administration/group/deletegroup" t:context="group.groupId">${message:delete}</button>
-						<span style="display:inline-block; width: 10px;"></span>
-						<button type="submit" class="btn btn-default" t:type="PageLink"
-									t:page="administration/group/modifygroup" t:context="group.groupId">${message:modify}</button>
-					</td>
-                </tr>
-            </tbody>
-        </table>
-     </div>
-        
+        <t:grid source="groups" row="group" add="manageGroup" rowsPerPage="1" pagerPosition="top">
+        <p:groupNameCell>
+                <t:pagelink page="group/viewgroup" context="group.groupId">${group.groupName}</t:pagelink>
+            </p:groupNameCell>
+        <p:manageGroupCell>
+        <button type="submit" class="btn btn-default" t:type="PageLink"
+						t:page="administration/group/deletegroup" t:context="group.groupId">${message:delete}</button>
+			<span style="display:inline-block; width: 10px;"></span>
+			<button type="submit" class="btn btn-default" t:type="PageLink"
+						t:page="administration/group/modifygroup" t:context="group.groupId">${message:modify}</button>
+        </p:manageGroupCell>
+        </t:grid>
+    </div>
+    
 </html>
