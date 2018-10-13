@@ -39,11 +39,11 @@ public class ManageGroups {
     @Inject
     private GroupService groupService;
     
-    @Property
-    private SelectModel groupsModel;
-    
-    @Inject
-    private SelectModelFactory selectModelFactory;
+//    @Property
+//    private SelectModel groupsModel;
+//    
+//    @Inject
+//    private SelectModelFactory selectModelFactory;
 
     @Inject
     private Messages messages;

@@ -4,7 +4,7 @@ package es.udc.fic.manoelfolgueira.gdai.web.util;
 public class UserSession {
 
 	private Long userId;
-	private String firstName;
+	private String loginName;
 	private boolean isAdministrator;
 
 	public Long getUserId() {
@@ -15,12 +15,12 @@ public class UserSession {
 		this.userId = userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public boolean isAdministrator() {

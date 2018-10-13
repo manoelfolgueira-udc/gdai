@@ -77,7 +77,7 @@ public class Index {
 
     	userSession = new UserSession();
         userSession.setUserId(user.getUserId());
-        userSession.setFirstName(user.getFirstName());
+        userSession.setLoginName(user.getLoginName());
 
         if (rememberMyPassword) {
             CookiesManager.leaveCookies(cookies, loginName, user

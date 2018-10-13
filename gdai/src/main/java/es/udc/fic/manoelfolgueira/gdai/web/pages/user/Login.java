@@ -64,8 +64,10 @@ public class Login {
             	throw new UserExpiratedException(userProfile.getUserId(), User.class.getName());
             }
         } catch (InstanceNotFoundException | IncorrectPasswordException e) {
+        	e.printStackTrace();
             loginForm.recordError(messages.get("error-authenticationFailed"));
         }  catch (UserExpiratedException e) {
+        	e.printStackTrace();
         	loginForm.recordError(messages.get("error-expiratedUser"));
 		}
 
@@ -75,7 +77,7 @@ public class Login {
 
     	userSession = new UserSession();
         userSession.setUserId(userProfile.getUserId());
-        userSession.setFirstName(userProfile.getFirstName());
+        userSession.setLoginName(userProfile.getLoginName());
         
         String userGroupName = userProfile.getGroup() == null ? "" : userProfile.getGroup().getGroupName();
 

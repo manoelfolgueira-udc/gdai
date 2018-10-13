@@ -130,8 +130,8 @@ public class UpdateProfile {
     	
         userService.updateUserDetails(
                 userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationTime()));
-        userSession.setFirstName(firstName);
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationTime(), group));
+        userSession.setLoginName(loginName);
         
         return Index.class;
 

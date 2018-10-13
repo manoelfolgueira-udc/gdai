@@ -1,5 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.model.userservice;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     
     public User registerUser(String loginName, String clearPassword,
-            UserDetails userDetails, Group group)
+            UserDetails userDetails)
             throws DuplicateInstanceException {
 
         try {
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
                     encryptedPassword, userDetails.getFirstName(),
                     userDetails.getLastName(), userDetails.getGender(), userDetails
                         .getEmail(), userDetails.getPhoneNumber(), userDetails.getAvatarUrl(),
-                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationTime(), group);
+                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationTime(), userDetails.getGroup());
 
             userDao.save(userProfile);
             return userProfile;
@@ -82,6 +84,12 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userDetails.getPhoneNumber());
         user.setAvatarUrl(userDetails.getAvatarUrl());
         
+        user.setHireDate(userDetails.getHiredate());
+        user.setDateOfBirth(userDetails.getDateOfBirth());
+        user.setExpirationTime(userDetails.getExpirationTime());
+        
+        user.setGroup(userDetails.getGroup());
+        
         userDao.save(user);
 
     }
@@ -104,5 +112,15 @@ public class UserServiceImpl implements UserService {
                 .crypt(newClearPassword));
 
     }
+
+	@Override
+	public List<User> findAllSortedByName() {
+		return userDao.findAllSortedByName();
+	}
+
+	@Override
+	public void remove(Long userId) throws InstanceNotFoundException {
+		userDao.remove(userId);		
+	}
 
 }

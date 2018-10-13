@@ -31,151 +31,151 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserRegister {
-	
+
 	// The activation context
-    private Long groupId;
+	private Long groupId;
 
-    @Property
-    private String loginName;
+	@Property
+	private String loginName;
 
-    @Property
-    private String password;
+	@Property
+	private String password;
 
-    @Property
-    private String retypePassword;
+	@Property
+	private String retypePassword;
 
-    @Property
-    private String firstName;
+	@Property
+	private String firstName;
 
-    @Property
-    private String lastName;
-    
-    @Property
-    private String genderValue;
-    
-    @Component
-    private RadioGroup gender;
+	@Property
+	private String lastName;
 
-    @Property
-    private String email;
-    
-    @Property
-    private String phoneNumber;
-    
-    @Property
-    private String avatarUrl;
-    
-    @Property
-    private String hireDate;
-    
-    @Property
-    private String dateOfBirth;
+	@Property
+	private String genderValue;
 
-    @Property
-    private String expirationTime;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
+	@Component
+	private RadioGroup gender;
 
-    @Inject
-    private UserService userService;
-    
-    @Inject
-    private GroupService groupService;
-    
-    @Property
-    private SelectModel groupsModel;
-    
-    @Inject
-    private SelectModelFactory selectModelFactory;
-    
-    @Property
-    private Group group;
+	@Property
+	private String email;
 
-    @Component
-    private Form registrationForm;
+	@Property
+	private String phoneNumber;
 
-    @Component(id = "loginName")
-    private TextField loginNameField;
+	@Property
+	private String avatarUrl;
 
-    @Component(id = "password")
-    private PasswordField passwordField;
+	@Property
+	private String hireDate;
 
-    @Inject
-    private Messages messages;
+	@Property
+	private String dateOfBirth;
 
-    @Inject
-    private Locale locale;
+	@Property
+	private String expirationTime;
 
-    void onValidateFromRegistrationForm() {
+	@SessionState(create=false)
+	private UserSession userSession;
 
-    	groupId = group == null ? null : group.getGroupId();
+	@Inject
+	private UserService userService;
 
-        if (!registrationForm.isValid()) {
-            return;
-        }
+	@Inject
+	private GroupService groupService;
 
-        if (!password.equals(retypePassword)) {
-            registrationForm.recordError(passwordField, messages
-                    .get("error-passwordsDontMatch"));
-        } else {
+	@Property
+	private SelectModel groupsModel;
 
-            try {
-            	
-            	Calendar calHireDate = Calendar.getInstance();
-            	Calendar calDateOfBirth = Calendar.getInstance();
-            	Calendar calExpirationTime = Calendar.getInstance();
-            	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-            	if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
-            	if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
-            	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
-            	
-                User userProfile = userService.registerUser(loginName, password,
-                    new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationTime), group);
-                userProfile.getUserId();
-            } catch (DuplicateInstanceException e) {
-                registrationForm.recordError(loginNameField, messages
-                        .get("error-loginNameAlreadyExists"));
-            } catch (Exception e) {
-            	registrationForm.recordError(messages
-                        .get("error-unexpectedError"));
-            }
-            	
-        }
+	@Inject
+	private SelectModelFactory selectModelFactory;
 
-    }
+	@Property
+	private Group group;
 
-    Object onSuccess() {
-        return Index.class;
-    }
-    
-    public GroupEncoder getGroupEncoder() {
-        return new GroupEncoder(groupService);
-    }
-    
+	@Component
+	private Form registrationForm;
 
-    Long onPassivate() {
-        return groupId;
-    }
+	@Component(id = "loginName")
+	private TextField loginNameField;
 
-    void onPrepare() {
-    	
-        List<Group> groups = groupService.findAllOrderedByGroupName();
+	@Component(id = "password")
+	private PasswordField passwordField;
 
-        if (groupId != null) {
-            group = findGroupInList(groupId, groups);
-        }
+	@Inject
+	private Messages messages;
 
-        groupsModel = selectModelFactory.create(groups, "groupName");
-    }
+	@Inject
+	private Locale locale;
 
-    private Group findGroupInList(Long groupId, List<Group> groups) {
-        for (Group g : groups) {
-            if (g.getGroupId().equals(groupId)) {
-                return g;
-            }
-        }
-        return null;
-    }
+	void onValidateFromRegistrationForm() {
+
+		groupId = group == null ? null : group.getGroupId();
+
+		if (!registrationForm.isValid()) {
+			return;
+		}
+
+		if (!password.equals(retypePassword)) {
+			registrationForm.recordError(passwordField, messages
+					.get("error-passwordsDontMatch"));
+		} else {
+
+			try {
+
+				Calendar calHireDate = Calendar.getInstance();
+				Calendar calDateOfBirth = Calendar.getInstance();
+				Calendar calExpirationTime = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+				if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
+				if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
+				if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
+
+				userService.registerUser(loginName, password,
+						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationTime, group));
+
+			} catch (DuplicateInstanceException e) {
+				registrationForm.recordError(loginNameField, messages
+						.get("error-loginNameAlreadyExists"));
+			} catch (Exception e) {
+				registrationForm.recordError(messages
+						.get("error-unexpectedError"));
+			}
+
+		}
+
+	}
+
+	Object onSuccess() {
+		return Index.class;
+	}
+
+	public GroupEncoder getGroupEncoder() {
+		return new GroupEncoder(groupService);
+	}
+
+
+	Long onPassivate() {
+		return groupId;
+	}
+
+	void onPrepare() {
+
+		List<Group> groups = groupService.findAllOrderedByGroupName();
+
+		if (groupId != null) {
+			group = findGroupInList(groupId, groups);
+		}
+
+		groupsModel = selectModelFactory.create(groups, "groupName");
+	}
+
+	private Group findGroupInList(Long groupId, List<Group> groups) {
+		for (Group g : groups) {
+			if (g.getGroupId().equals(groupId)) {
+				return g;
+			}
+		}
+		return null;
+	}
 
 }

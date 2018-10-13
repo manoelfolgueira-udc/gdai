@@ -47,10 +47,9 @@
 									class="header-menu-text"> ${message:AdminText}</span></span> <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li class="dropdown-header">${message:administrationdropdown-header-users}</li>
+								<li class="dropdown-header">${message:administrationdropdown-header-usersandgroups}</li>
 								<li><a href="#" t:type="PageLink"
 									t:page="administration/user/manageusers">${message:manageUsers}</a></li>
-								<li class="dropdown-header">${message:administrationdropdown-header-groups}</li>
 								<li><a href="#" t:type="PageLink"
 									t:page="administration/group/managegroups">${message:manageGroups}</a></li>
 									<li class="divider"></li>
@@ -80,7 +79,7 @@
 						<li class="dropdown"><a data-target="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <span
 								class="glyphicon glyphicon-user"> <span
-									class="header-menu-text"> ${userSession.firstName}</span>
+									class="header-menu-text"> ${userSession.loginName}</span>
 							</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:userdropdown-header-user}</li>
