@@ -1,6 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.model.userservice;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import java.util.List;
+
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -8,7 +9,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 public interface UserService {
 
     public User registerUser(String loginName, String clearPassword,
-            UserDetails userProfileDetails, Group group)
+            UserDetails userProfileDetails)
             throws DuplicateInstanceException;
 
     public User login(String loginName, String password,
@@ -17,6 +18,8 @@ public interface UserService {
 
     public User findUserProfile(Long userProfileId)
             throws InstanceNotFoundException;
+    
+    public List<User> findAllSortedByName();
 
     public void updateUserDetails(Long userProfileId,
             UserDetails userProfileDetails)
@@ -25,5 +28,7 @@ public interface UserService {
     public void changePassword(Long userProfileId, String oldClearPassword,
             String newClearPassword) throws IncorrectPasswordException,
             InstanceNotFoundException;
+    
+    public void remove(Long userId) throws InstanceNotFoundException;
 
 }

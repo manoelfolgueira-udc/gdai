@@ -2,6 +2,8 @@ package es.udc.fic.manoelfolgueira.gdai.model.userservice;
 
 import java.util.Calendar;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+
 public class UserDetails {
 
 	private String loginName;
@@ -15,6 +17,7 @@ public class UserDetails {
 	private Calendar dateOfBirth;
 	private Calendar creationTime;
 	private Calendar expirationTime;
+	private Group group;
 	
 	/**
 	 * @param loginName
@@ -28,7 +31,7 @@ public class UserDetails {
 	 * @param expirationTime
 	 */
 	public UserDetails(String loginName, String firstName, String lastName, String gender, String email, String phoneNumber,
-			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar creationTime, Calendar expirationTime) {
+			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationTime, Group group) {
 		super();
 		this.loginName = loginName;
 		this.firstName = firstName;
@@ -39,8 +42,8 @@ public class UserDetails {
 		this.avatarUrl = avatarUrl;
 		this.hiredate = hiredate;
 		this.dateOfBirth = dateOfBirth;
-		this.creationTime = creationTime;
 		this.expirationTime = expirationTime;
+		this.group = group;
 	}
 	
 	public String getLoginName() {
@@ -91,12 +94,6 @@ public class UserDetails {
 	public void setDateOfBirth(Calendar dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	public Calendar getCreationTime() {
-		return creationTime;
-	}
-	public void setCreationTime(Calendar creationTime) {
-		this.creationTime = creationTime;
-	}
 	public Calendar getExpirationTime() {
 		return expirationTime;
 	}
@@ -110,6 +107,14 @@ public class UserDetails {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 	
 }

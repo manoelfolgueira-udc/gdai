@@ -10,7 +10,7 @@
 	        <t:label for="loginName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="loginName" t:type="TextField"
-				       t:validate="required" maxlength="30" readonly="readonly" value="${user.loginName}"/>
+				       t:validate="required" maxlength="30" readonly="readonly" />
 	        </div>
 	   </div>
 	    
@@ -18,7 +18,7 @@
 	        <t:label for="firstName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="firstName" t:type="TextField"
-				       t:validate="required" maxlength="30"  value="${user.firstName}"/>
+				       t:validate="required" maxlength="30" />
 	        </div>
 	   </div>
 	   
@@ -26,7 +26,7 @@
 	        <t:label for="lastName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="lastName" t:type="TextField"
-				       t:validate="required" maxlength="30" value="${user.lastName}"/>
+				       t:validate="required" maxlength="30" />
 	        </div>
 	   </div>
 	   
@@ -54,50 +54,51 @@
 	        <t:label for="email" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="email" t:type="TextField"
-				       t:validate="email,required" maxlength="30" value="${user.email}"/>
+				       t:validate="email,required" maxlength="30" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="phoneNumber" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="phoneNumber" t:type="TextField" value="${user.phoneNumber}"/>
+	            <input t:id="phoneNumber" t:type="TextField"
+					t:validate="required" maxlength="30" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="avatarUrl" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="avatarUrl" t:type="TextField" value="avatarUrl"/>
+	            <input t:id="avatarUrl" t:type="TextField" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="hireDate" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="hireDate" t:type="TextField" readonly="readonly" value="getHireDateDBValue()"/>
+	            <input t:id="hireDate" t:type="TextField" readonly="readonly" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="dateOfBirth" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="dateOfBirth" t:type="TextField" readonly="readonly" value="getDateOfBirthDBValue()"/>
+	            <input t:id="dateOfBirth" t:type="TextField" readonly="readonly" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
 	        <t:label for="expirationTime" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="expirationTime" t:type="TextField" readonly="readonly" value="getExpirationTimeDBValue()"/>
+	            <input t:id="expirationTime" t:type="TextField" readonly="readonly" />
 	        </div>
 	   </div>
 	   
 	   <div class="form-group">        
-	        <t:label for="group" class="col-md-offset-3 col-md-2"/>
+	        <t:label for="groupName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
-	            <input t:id="group" t:type="TextField"
-				       t:validate="required" maxlength="30" readonly="readonly" value="${user.group.groupName}"/>
+	            <input t:id="groupName" t:type="TextField"
+				       t:validate="required" maxlength="30" readonly="readonly" />
 	        </div>
 	   </div>
 	    

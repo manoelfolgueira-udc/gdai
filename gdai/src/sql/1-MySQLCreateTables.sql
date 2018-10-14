@@ -53,7 +53,7 @@ CREATE TABLE gdai_user
      groupId           BIGINT,
      CONSTRAINT UserPK PRIMARY KEY (userId), 
      CONSTRAINT UserUniqueKeyLoginName UNIQUE (loginName),
-     FOREIGN KEY (groupId) REFERENCES gdai_group(groupId)
+     FOREIGN KEY (groupId) REFERENCES gdai_group(groupId) ON DELETE CASCADE
   ) 
 engine = innodb; 
 

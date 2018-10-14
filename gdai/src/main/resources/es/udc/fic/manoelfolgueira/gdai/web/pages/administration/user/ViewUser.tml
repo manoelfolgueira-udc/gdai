@@ -1,0 +1,75 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title"
+	xmlns:p="tapestry:parameter">
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">${user.getLoginName()} (${user.getFirstName()} ${user.getLastName()})</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 col-lg-3" align="center">
+							<img
+								src="${user.getAvatarUrl()}"
+								class="img-circle img-responsive" />
+						</div>
+						<div class=" col-md-9 col-lg-9 ">
+							<table class="table table-user-information">
+								<tbody>
+									<tr>
+										<td>${message:ViewProfileLabel-DeveloperGroup}</td>
+										<td><span class="devgroup">${groupName}</span></td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-Email}</td>
+										<td><a href="mailto:${user.getEmail()}">${user.getEmail()}</a></td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-PhoneNumber}</td>
+										<td>${user.getPhoneNumber()}</td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-HireDate}</td>
+										<td>${getHireDateDBValue()}</td>
+									</tr>
+									<tr>
+										<td>${message:ViewProfileLabel-DateOfBirth}</td>
+										<td>${getDateOfBirthDBValue()}</td>
+									</tr>
+
+									<tr>
+										<td>${message:ViewProfileLabel-Gender}</td>
+										<td>
+										<t:if test="isUserMale">
+												<span>&#9794;</span>
+											<p:else>
+												<span>&#9792;</span>
+											</p:else>
+										</t:if>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+	    	<div class="col-md-offset-4 col-md-6 col-md-6">
+        		<button type="submit" class="btn btn-default" t:type="PageLink"
+									t:page="administration/user/manageusers">${message:return}</button>
+				<span style="display:inline-block; width: 10px;"></span>
+				<button type="submit" class="btn btn-default" t:type="PageLink"
+									t:page="administration/user/modifyuser" context="user.userId">${message:updateProfile}</button>
+        	</div>
+        </div>
+	
+</div>
+
+</html>
