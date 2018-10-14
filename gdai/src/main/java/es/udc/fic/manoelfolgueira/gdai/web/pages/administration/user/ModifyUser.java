@@ -134,7 +134,7 @@ public class ModifyUser {
 
 		groupName = user.getGroup().getGroupName();
 
-		List<Group> groups = groupService.findAllOrderedByGroupName();
+		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
 
 		Long groupId = user.getGroup().getGroupId();
 		if (groupId != null) {
