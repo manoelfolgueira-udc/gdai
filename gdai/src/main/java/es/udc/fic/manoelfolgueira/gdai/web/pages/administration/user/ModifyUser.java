@@ -156,6 +156,10 @@ public class ModifyUser {
 			calDateOfBirth.setTime(dateOfBirth);
 			calExpirationTime.setTime(expirationTime);
 
+			userService.updateUserDetails(
+					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
+							avatarUrl, calHireDate, calDateOfBirth, calExpirationTime, group));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			updateProfileForm.recordError(messages
@@ -165,25 +169,7 @@ public class ModifyUser {
 	}
 
 	Object onSuccess() throws InstanceNotFoundException {
-
-		try {
-
-			calHireDate.setTime(hireDate);
-			calDateOfBirth.setTime(dateOfBirth);
-			calExpirationTime.setTime(expirationTime);
-
-			userService.updateUserDetails(
-					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-							avatarUrl, calHireDate, calDateOfBirth, calExpirationTime, group));
-
-		} catch (InstanceNotFoundException e) {
-			e.printStackTrace();
-			updateProfileForm.recordError(messages
-					.get("error-unexpectedError"));
-		}
-
 		return pageRenderLS.createPageRenderLinkWithContext("administration/user/UserModified", userId);
-
 	}
 
 	public String getHireDateDBValue() {
