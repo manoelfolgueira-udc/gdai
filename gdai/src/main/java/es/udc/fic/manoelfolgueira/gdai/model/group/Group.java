@@ -10,10 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 
 @Entity
@@ -34,11 +37,15 @@ public class Group {
 	
 	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<User> users;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "systemId")
+	private System system;
 
 	public Group() {
 	}
 
-	public Group(String groupName, List<User> users, Calendar expirationTime) {
+	public Group(String groupName, List<User> users, Calendar expirationTime, System system) {
 
 		/**
 		 * NOTE: "groupId" *must* be left as "null" since its value is
@@ -48,6 +55,7 @@ public class Group {
 		this.groupName = groupName;
 		this.users = users;
 		this.expirationTime = expirationTime;
+		this.system = system;
 	}
 	
 	public Long getGroupId() {

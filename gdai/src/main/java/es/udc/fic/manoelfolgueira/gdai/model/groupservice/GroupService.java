@@ -19,7 +19,7 @@ public interface GroupService {
             GroupDetails groupDetails)
             throws InstanceNotFoundException;
     
-    public List<Group> findAllOrderedByGroupName();
+    public List<Group> findAllOrderedByGroupNameIC();
     
     public void removeGroup(Long groupId) throws InstanceNotFoundException;
 
