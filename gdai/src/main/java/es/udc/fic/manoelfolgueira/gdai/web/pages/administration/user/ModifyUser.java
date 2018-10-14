@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.user;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +25,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
+import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
@@ -155,6 +155,12 @@ public class ModifyUser {
 			calHireDate.setTime(hireDate);
 			calDateOfBirth.setTime(dateOfBirth);
 			calExpirationTime.setTime(expirationTime);
+			
+			// Modifying myself
+			if (userId.equals(userSession.getUserId())) {
+				userSession.setAdministrator(group.getGroupName().equals(
+						Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+			}
 
 			userService.updateUserDetails(
 					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
