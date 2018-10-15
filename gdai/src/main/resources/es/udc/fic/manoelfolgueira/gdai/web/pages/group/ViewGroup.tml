@@ -12,11 +12,11 @@
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>${message:ViewProfileLabel-DeveloperGroup}</td>
+										<td>${message:groupName}</td>
 										<td><span class="devgroup">${group.groupName}</span></td>
 									</tr>
 									<tr>
-										<td>${message:ViewProfileLabel-HireDate}</td>
+										<td>${message:expirationDate}</td>
 										<td>${getExpirationDateFormatted()}</td>
 									</tr>
 								</tbody>
