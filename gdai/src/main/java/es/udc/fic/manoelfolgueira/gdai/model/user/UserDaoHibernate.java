@@ -33,18 +33,6 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 				.list();
 	}
 	
-	@Override
-	public void remove(Long userId) throws InstanceNotFoundException {
-		int numRows = getSession().createQuery(
-				"DELETE FROM User u WHERE u.userId = :userId")
-			.setParameter("userId", userId).executeUpdate();
-		
-		if (numRows == 0) {
-			throw new InstanceNotFoundException(userId, User.class.getName());
-		}
-				
-	}
-	
 	
 
 }

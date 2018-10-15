@@ -27,7 +27,7 @@ public class ApplicationDaoHibernate extends GenericDaoHibernate<Application, Lo
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> findAllOrderedByApplicationName() {
-		List<Application> applications = getSession().createQuery("SELECT p FROM Application p ORDER BY p.applicationName").list();
+		List<Application> applications = getSession().createQuery("SELECT p FROM Application p ORDER BY lower(p.applicationName)").list();
 		return applications;
 	}
 

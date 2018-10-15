@@ -27,7 +27,7 @@ public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<System> findAllOrderedBySystemName() {
-		List<System> systems = getSession().createQuery("SELECT p FROM System p ORDER BY p.systemName").list();
+		List<System> systems = getSession().createQuery("SELECT p FROM System p ORDER BY lower(p.systemName)").list();
 		return systems;
 	}
 

@@ -16,6 +16,4 @@ public interface UserDao extends GenericDao<User, Long> {
     public User findByLoginName(String loginName) throws InstanceNotFoundException;
 
 	public List<User> findAllSortedByName();
-	
-	public void remove(Long userId) throws InstanceNotFoundException;
 }

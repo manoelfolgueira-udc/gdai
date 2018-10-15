@@ -15,7 +15,6 @@ public class UserDetails {
 	private String avatarUrl;
 	private Calendar hiredate;	
 	private Calendar dateOfBirth;
-	private Calendar creationDate;
 	private Calendar expirationDate;
 	private Group group;
 	

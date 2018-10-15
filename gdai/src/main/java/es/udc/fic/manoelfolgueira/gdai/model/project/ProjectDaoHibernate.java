@@ -27,7 +27,7 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> findAllOrderedByProjectName() {
-		List<Project> projects = getSession().createQuery("SELECT p FROM Project p ORDER BY p.projectName").list();
+		List<Project> projects = getSession().createQuery("SELECT p FROM Project p ORDER BY lower(p.projectName)").list();
 		return projects;
 	}
 
