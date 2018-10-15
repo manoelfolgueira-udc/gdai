@@ -1,17 +1,17 @@
 -- AvailableLanguages
-insert into gdai_language(languageName, languageCountry, options, creationTime)
+insert into gdai_language(languageName, languageCountry, options, creationDate)
 values
 	('en', 'EN', 'en=English, gl=Galician, es=Spanish', NOW()),
 	('es', 'ES', 'es=Español, gl=Gallego, en=Inglés', NOW()),
 	('gl', 'ES', 'es=Español, gl=Galego, en=Inglés', NOW());
 
 -- Systems
-insert into gdai_system(systemName, systemDescription, creationTime)
+insert into gdai_system(systemName, systemDescription, creationDate)
 values
 	('Billing', 'Description here.', NOW());
 
 -- Groups
-insert into gdai_group(groupName, creationTime, expirationTime, systemId)
+insert into gdai_group(groupName, creationDate, expirationDate, systemId)
 values
 	('GDAI_ADM', NOW(), NULL, NULL),
 	('GP1', NOW(), NULL, 1),
@@ -26,7 +26,7 @@ values
 	('GP10', NOW(), NULL, NULL);
     
 -- Users
-insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationtime, groupId)
+insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationDate, groupId)
 values
 	('Manoel', 'AZ0OZU/oardxM', 'Manoel', 'Folgueira', 'manoel.folgueira@gdai.com', '1456',
 		'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e2/Smiley-300x300.png/revision/latest?cb=20090401005140',
@@ -47,10 +47,10 @@ values
 		'1456', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e2/Smiley-300x300.png/revision/latest?cb=20090401005140',
 		'M', NOW(), NOW(), NOW(), 2);
 		
-insert into gdai_project(projectName, projectDescription, creationTime, targetDate, createdById, systemId)
+insert into gdai_project(projectName, projectDescription, creationDate, targetDate, createdById, systemId)
 values
 	('Billing Entities', 'Project Desc.', NOW(), null, 2, 1);
 
-insert into gdai_application(applicationName, applicationDescription, creationTime, systemId)
+insert into gdai_application(applicationName, applicationDescription, creationDate, systemId)
 values
 	('GDAIBillingEntities', 'GDAIBillingEntities Desc.', NOW(), 1);

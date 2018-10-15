@@ -20,28 +20,28 @@
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>${message:ViewProfileLabel-DeveloperGroup}</td>
+										<td>${message:groupName}</td>
 										<td><span class="devgroup">${groupName}</span></td>
 									</tr>
 									<tr>
-										<td>${message:ViewProfileLabel-Email}</td>
+										<td>${message:email}</td>
 										<td><a href="mailto:${user.getEmail()}">${user.getEmail()}</a></td>
 									</tr>
 									<tr>
-										<td>${message:ViewProfileLabel-PhoneNumber}</td>
+										<td>${message:phoneNumber}</td>
 										<td>${user.getPhoneNumber()}</td>
 									</tr>
 									<tr>
-										<td>${message:ViewProfileLabel-HireDate}</td>
+										<td>${message:hireDate}</td>
 										<td>${getHireDateDBValue()}</td>
 									</tr>
 									<tr>
-										<td>${message:ViewProfileLabel-DateOfBirth}</td>
+										<td>${message:dateOfBirth}</td>
 										<td>${getDateOfBirthDBValue()}</td>
 									</tr>
 
 									<tr>
-										<td>${message:ViewProfileLabel-Gender}</td>
+										<td>${message:gender}</td>
 										<td>
 										<t:if test="isUserMale">
 												<span>&#9794;</span>

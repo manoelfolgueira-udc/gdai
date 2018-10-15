@@ -32,8 +32,8 @@ public class Group {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "groupIdGenerator")
 	private Long groupId;
 	private String groupName;
-	private Calendar creationTime = Calendar.getInstance();
-	private Calendar expirationTime = null;
+	private Calendar creationDate = Calendar.getInstance();
+	private Calendar expirationDate = null;
 	
 	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<User> users;
@@ -45,7 +45,7 @@ public class Group {
 	public Group() {
 	}
 
-	public Group(String groupName, List<User> users, Calendar expirationTime, System system) {
+	public Group(String groupName, List<User> users, Calendar expirationDate, System system) {
 
 		/**
 		 * NOTE: "groupId" *must* be left as "null" since its value is
@@ -54,7 +54,7 @@ public class Group {
 
 		this.groupName = groupName;
 		this.users = users;
-		this.expirationTime = expirationTime;
+		this.expirationDate = expirationDate;
 		this.system = system;
 	}
 	
@@ -74,20 +74,20 @@ public class Group {
 		this.groupName = groupName;
 	}
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 
-	public void setCreationTime(Calendar creationTime) {
-		this.creationTime = creationTime;
+	public void setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
 	}
 
-	public Calendar getExpirationTime() {
-		return expirationTime;
+	public Calendar getExpirationDate() {
+		return expirationDate;
 	}
 
-	public void setExpirationTime(Calendar expirationTime) {
-		this.expirationTime = expirationTime;
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	public List<User> getUsers() {

@@ -34,7 +34,7 @@ public class ModifyGroup {
     private TextField groupNameField;
 
     @Property
-    private Date expirationTime;
+    private Date expirationDate;
 
     @SessionState(create=false)
     private UserSession userSession;
@@ -69,7 +69,7 @@ public class ModifyGroup {
     void setupRender() throws InstanceNotFoundException {
     	group = groupService.findGroup(groupId);
     	groupName = group.getGroupName();
-    	expirationTime = (group.getExpirationTime() == null) ? null : group.getExpirationTime().getTime();
+    	expirationDate = (group.getExpirationDate() == null) ? null : group.getExpirationDate().getTime();
     }
 
     void onValidateFromRegistrationForm() {
@@ -80,11 +80,11 @@ public class ModifyGroup {
 
         try {
 
-        	Calendar calCreationTime = Calendar.getInstance();
-        	Calendar calExpirationTime = Calendar.getInstance();
-        	if (expirationTime != null) calExpirationTime.setTime(expirationTime); else calExpirationTime = null;
+        	Calendar calCreationDate = Calendar.getInstance();
+        	Calendar calExpirationDate = Calendar.getInstance();
+        	if (expirationDate != null) calExpirationDate.setTime(expirationDate); else calExpirationDate = null;
         	
-         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, calCreationTime, calExpirationTime));
+         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, calCreationDate, calExpirationDate));
         	
         	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
         	        	

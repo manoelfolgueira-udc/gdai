@@ -9,15 +9,15 @@ public class ProjectDetails {
 
 	private String projectName;
 	private String projectDescription;
-	private Calendar creationTime;
+	private Calendar creationDate;
 	private Calendar targetDate;
 	private User createdBy;
 	private System system;
 	
-	public ProjectDetails(String projectName, String projectDescription,  Calendar creationTime, Calendar targetDate, User createdBy, System system) {
+	public ProjectDetails(String projectName, String projectDescription,  Calendar creationDate, Calendar targetDate, User createdBy, System system) {
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
-		this.creationTime = creationTime;
+		this.creationDate = creationDate;
 		this.targetDate = targetDate;
 		this.createdBy = createdBy;
 		this.system = system;
@@ -39,8 +39,8 @@ public class ProjectDetails {
 		this.projectDescription = projectDescription;
 	}
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 
 	public Calendar getTargetDate() {

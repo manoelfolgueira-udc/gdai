@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.user;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +25,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
+import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
@@ -78,7 +78,7 @@ public class ModifyUser {
 	private Date dateOfBirth;
 
 	@Property
-	private Date expirationTime;
+	private Date expirationDate;
 
 	@Inject
 	private GroupService groupService;
@@ -106,7 +106,7 @@ public class ModifyUser {
 
 	private Calendar calHireDate = Calendar.getInstance();
 	private Calendar calDateOfBirth = Calendar.getInstance();
-	private Calendar calExpirationTime = Calendar.getInstance();
+	private Calendar calExpirationDate = Calendar.getInstance();
 
 	void onActivate(Long userId) {
 		this.userId = userId;
@@ -128,13 +128,13 @@ public class ModifyUser {
 
 		hireDate = user.getHireDate().getTime();
 		dateOfBirth = user.getDateOfBirth().getTime();
-		expirationTime = user.getExpirationTime().getTime();
+		expirationDate = user.getExpirationDate().getTime();
 
 		avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
 
 		groupName = user.getGroup().getGroupName();
 
-		List<Group> groups = groupService.findAllOrderedByGroupName();
+		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
 
 		Long groupId = user.getGroup().getGroupId();
 		if (groupId != null) {
@@ -154,7 +154,17 @@ public class ModifyUser {
 
 			calHireDate.setTime(hireDate);
 			calDateOfBirth.setTime(dateOfBirth);
-			calExpirationTime.setTime(expirationTime);
+			calExpirationDate.setTime(expirationDate);
+			
+			// Modifying myself
+			if (userId.equals(userSession.getUserId())) {
+				userSession.setAdministrator(group.getGroupName().equals(
+						Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+			}
+
+			userService.updateUserDetails(
+					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
+							avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, group));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,25 +175,7 @@ public class ModifyUser {
 	}
 
 	Object onSuccess() throws InstanceNotFoundException {
-
-		try {
-
-			calHireDate.setTime(hireDate);
-			calDateOfBirth.setTime(dateOfBirth);
-			calExpirationTime.setTime(expirationTime);
-
-			userService.updateUserDetails(
-					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-							avatarUrl, calHireDate, calDateOfBirth, calExpirationTime, group));
-
-		} catch (InstanceNotFoundException e) {
-			e.printStackTrace();
-			updateProfileForm.recordError(messages
-					.get("error-unexpectedError"));
-		}
-
 		return pageRenderLS.createPageRenderLinkWithContext("administration/user/UserModified", userId);
-
 	}
 
 	public String getHireDateDBValue() {
@@ -194,8 +186,8 @@ public class ModifyUser {
 		return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
 	}
 
-	public String getExpirationTimeDBValue() {
-		return Utils.getFormattedDate(user.getExpirationTime().getTime(), locale);
+	public String getExpirationDateDBValue() {
+		return Utils.getFormattedDate(user.getExpirationDate().getTime(), locale);
 	}
 
 	public boolean getTestMale() {

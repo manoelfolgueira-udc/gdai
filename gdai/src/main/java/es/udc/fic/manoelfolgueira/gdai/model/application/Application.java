@@ -29,7 +29,7 @@ public class Application {
 	private Long applicationId;
 	private String applicationName;
 	private String applicationDescription;
-	private Calendar creationTime = Calendar.getInstance();
+	private Calendar creationDate = Calendar.getInstance();
 	
 	// TODO relations
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -76,8 +76,8 @@ public class Application {
 	}
 
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 		
 	@Override

@@ -30,7 +30,7 @@ public class GroupRegister {
     private TextField groupNameField;
 
     @Property
-    private String expirationTime;
+    private String expirationDate;
     
     @SessionState(create=false)
     private UserSession userSession;
@@ -58,12 +58,12 @@ public class GroupRegister {
 
         try {
 
-        	Calendar calCreationTime = Calendar.getInstance();
-        	Calendar calExpirationTime = Calendar.getInstance();
+        	Calendar calCreationDate = Calendar.getInstance();
+        	Calendar calExpirationDate = Calendar.getInstance();
         	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        	if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
+        	if (expirationDate != null) calExpirationDate.setTime(sdf.parse(expirationDate)); else calExpirationDate = null;
         	
-        	groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationTime, calExpirationTime));
+        	groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationDate, calExpirationDate));
         	
         	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
         } catch (DuplicateInstanceException e) {

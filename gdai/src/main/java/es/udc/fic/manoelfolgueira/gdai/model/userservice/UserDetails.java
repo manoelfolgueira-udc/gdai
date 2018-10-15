@@ -15,8 +15,8 @@ public class UserDetails {
 	private String avatarUrl;
 	private Calendar hiredate;	
 	private Calendar dateOfBirth;
-	private Calendar creationTime;
-	private Calendar expirationTime;
+	private Calendar creationDate;
+	private Calendar expirationDate;
 	private Group group;
 	
 	/**
@@ -28,10 +28,10 @@ public class UserDetails {
 	 * @param avatarUrl
 	 * @param hiredate
 	 * @param dateOfBirth
-	 * @param expirationTime
+	 * @param expirationDate
 	 */
 	public UserDetails(String loginName, String firstName, String lastName, String gender, String email, String phoneNumber,
-			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationTime, Group group) {
+			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate, Group group) {
 		super();
 		this.loginName = loginName;
 		this.firstName = firstName;
@@ -42,7 +42,7 @@ public class UserDetails {
 		this.avatarUrl = avatarUrl;
 		this.hiredate = hiredate;
 		this.dateOfBirth = dateOfBirth;
-		this.expirationTime = expirationTime;
+		this.expirationDate = expirationDate;
 		this.group = group;
 	}
 	
@@ -94,11 +94,11 @@ public class UserDetails {
 	public void setDateOfBirth(Calendar dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	public Calendar getExpirationTime() {
-		return expirationTime;
+	public Calendar getExpirationDate() {
+		return expirationDate;
 	}
-	public void setExpirationTime(Calendar expirationTime) {
-		this.expirationTime = expirationTime;
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	public String getGender() {

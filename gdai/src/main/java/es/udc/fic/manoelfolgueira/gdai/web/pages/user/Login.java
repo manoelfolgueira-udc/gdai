@@ -59,8 +59,8 @@ public class Login {
 
         try {
             userProfile = userService.login(loginName, password, false);
-            if ( (userProfile.getExpirationTime() != null) &&
-            		(userProfile.getExpirationTime().compareTo(Calendar.getInstance()) < 0) ) {
+            if ( (userProfile.getExpirationDate() != null) &&
+            		(userProfile.getExpirationDate().compareTo(Calendar.getInstance()) < 0) ) {
             	throw new UserExpiratedException(userProfile.getUserId(), User.class.getName());
             }
         } catch (InstanceNotFoundException | IncorrectPasswordException e) {

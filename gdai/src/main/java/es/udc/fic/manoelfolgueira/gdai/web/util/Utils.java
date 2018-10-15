@@ -16,14 +16,4 @@ public final class Utils {
 		return formattedDate;
 	}
 	
-	/*public static Date parseDate(String date, Locale locale) {
-		
-		if ("".equals(date)) return null;
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", locale);
-
-		
-		return formattedDate;
-	}*/
-
 }

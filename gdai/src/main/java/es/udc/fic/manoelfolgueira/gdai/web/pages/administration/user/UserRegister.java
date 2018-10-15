@@ -72,7 +72,7 @@ public class UserRegister {
 	private String dateOfBirth;
 
 	@Property
-	private String expirationTime;
+	private String expirationDate;
 
 	@SessionState(create=false)
 	private UserSession userSession;
@@ -124,14 +124,14 @@ public class UserRegister {
 
 				Calendar calHireDate = Calendar.getInstance();
 				Calendar calDateOfBirth = Calendar.getInstance();
-				Calendar calExpirationTime = Calendar.getInstance();
+				Calendar calExpirationDate = Calendar.getInstance();
 				SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
 				if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
 				if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
-				if (expirationTime != null) calExpirationTime.setTime(sdf.parse(expirationTime)); else calExpirationTime = null;
+				if (expirationDate != null) calExpirationDate.setTime(sdf.parse(expirationDate)); else calExpirationDate = null;
 
 				userService.registerUser(loginName, password,
-						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationTime, group));
+						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, group));
 
 			} catch (DuplicateInstanceException e) {
 				registrationForm.recordError(loginNameField, messages
@@ -160,7 +160,7 @@ public class UserRegister {
 
 	void onPrepare() {
 
-		List<Group> groups = groupService.findAllOrderedByGroupName();
+		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
 
 		if (groupId != null) {
 			group = findGroupInList(groupId, groups);

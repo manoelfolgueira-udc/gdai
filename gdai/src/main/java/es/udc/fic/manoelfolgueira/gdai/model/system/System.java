@@ -24,7 +24,7 @@ public class System {
 	private Long systemId;
 	private String systemName;
 	private String systemDescription;
-	private Calendar creationTime = Calendar.getInstance();	
+	private Calendar creationDate = Calendar.getInstance();	
 
 	public System() {
 	}
@@ -65,8 +65,8 @@ public class System {
 	}
 
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 		
 	@Override

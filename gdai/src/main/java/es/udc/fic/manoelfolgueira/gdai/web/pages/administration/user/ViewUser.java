@@ -44,15 +44,13 @@ public class ViewUser {
         if (user.getHireDate() == null) hireDateParsed = "";
         else {
         	Calendar cal = user.getHireDate();
-            cal.add(Calendar.DATE, 1);
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             hireDateParsed = f.format(cal.getTime());
         }
         
         if (user.getDateOfBirth() == null) dateOfBirthParsed = "";
         else {
-        	Calendar cal = user.getHireDate();
-            cal.add(Calendar.DATE, 1);
+        	Calendar cal = user.getDateOfBirth();
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             dateOfBirthParsed = f.format(cal.getTime());
         }

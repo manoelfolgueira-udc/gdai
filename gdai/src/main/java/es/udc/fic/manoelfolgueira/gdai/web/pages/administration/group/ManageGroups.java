@@ -4,12 +4,10 @@ import java.awt.Desktop.Action;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.SelectModelFactory;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
@@ -38,12 +36,6 @@ public class ManageGroups {
     
     @Inject
     private GroupService groupService;
-    
-//    @Property
-//    private SelectModel groupsModel;
-//    
-//    @Inject
-//    private SelectModelFactory selectModelFactory;
 
     @Inject
     private Messages messages;
@@ -67,16 +59,16 @@ public class ManageGroups {
     
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of groups which are going to be in the app at a time
-        groups = groupService.findAllOrderedByGroupName();
+        groups = groupService.findAllOrderedByGroupNameIC();
     }
     
-    public String getGroupCreationDateTimeFormatted() {
+    public String getGroupCreationDateFormatted() {
     	
-    	return (group.getCreationTime() != null) ? Utils.getFormattedDate(group.getCreationTime().getTime(), locale) : "";
+    	return (group.getCreationDate() != null) ? Utils.getFormattedDate(group.getCreationDate().getTime(), locale) : "";
     }
     
-    public String getGroupExpirationDateTimeFormatted() {
-    	return (group.getExpirationTime() != null) ? Utils.getFormattedDate(group.getExpirationTime().getTime(), locale) : "";
+    public String getGroupExpirationDateFormatted() {
+    	return (group.getExpirationDate() != null) ? Utils.getFormattedDate(group.getExpirationDate().getTime(), locale) : "";
     }
     
 }
