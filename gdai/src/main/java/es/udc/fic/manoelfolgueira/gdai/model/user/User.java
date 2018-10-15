@@ -35,7 +35,7 @@ public class User {
 	private String avatarUrl;
 	private Calendar hireDate;	
 	private Calendar dateOfBirth;
-	private Calendar expirationTime;
+	private Calendar expirationDate;
 	private String gender;
 	
 	@ManyToOne
@@ -47,7 +47,7 @@ public class User {
 
 	public User(String loginName, String encryptedPassword,
 			String firstName, String lastName, String gender, String email, String phoneNumber, String avatarUrl,
-			Calendar hireDate, Calendar dateOfBirth, Calendar expirationTime, Group group) {
+			Calendar hireDate, Calendar dateOfBirth, Calendar expirationDate, Group group) {
 
 		/**
 		 * NOTE: "userId" *must* be left as "null" since its value is
@@ -64,7 +64,7 @@ public class User {
 		this.avatarUrl = avatarUrl;
 		this.hireDate = hireDate;
 		this.dateOfBirth = dateOfBirth;
-		this.expirationTime = expirationTime;
+		this.expirationDate = expirationDate;
 		this.group = group;
 	}
 
@@ -148,12 +148,12 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	public Calendar getExpirationTime() {
-		return expirationTime;
+	public Calendar getExpirationDate() {
+		return expirationDate;
 	}
 
-	public void setExpirationTime(Calendar expirationTime) {
-		this.expirationTime = expirationTime;
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	public String getGender() {

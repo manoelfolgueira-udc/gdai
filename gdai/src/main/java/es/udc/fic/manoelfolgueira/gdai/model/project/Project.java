@@ -30,7 +30,7 @@ public class Project {
 	private Long projectId;
 	private String projectName;
 	private String projectDescription;
-	private Calendar creationTime = Calendar.getInstance();
+	private Calendar creationDate = Calendar.getInstance();
 	private Calendar targetDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -85,8 +85,8 @@ public class Project {
 	}
 
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 	
 	

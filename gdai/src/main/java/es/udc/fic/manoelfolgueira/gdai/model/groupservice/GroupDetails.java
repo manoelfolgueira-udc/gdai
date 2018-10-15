@@ -5,13 +5,13 @@ import java.util.Calendar;
 public class GroupDetails {
 
 	private String groupName;
-	private Calendar creationTime;
-	private Calendar expirationTime;
+	private Calendar creationDate;
+	private Calendar expirationDate;
 	
-	public GroupDetails(String groupName, Calendar creationTime, Calendar expirationTime) {
+	public GroupDetails(String groupName, Calendar creationDate, Calendar expirationDate) {
 		this.groupName = groupName;
-		this.creationTime = creationTime;
-		this.expirationTime = expirationTime;
+		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
 	}
 	
 	public String getGroupName() {
@@ -22,16 +22,16 @@ public class GroupDetails {
 		this.groupName = groupName;
 	}
 	
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 
-	public Calendar getExpirationTime() {
-		return expirationTime;
+	public Calendar getExpirationDate() {
+		return expirationDate;
 	}
 
-	public void setExpirationTime(Calendar expirationTime) {
-		this.expirationTime = expirationTime;
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 	
 }

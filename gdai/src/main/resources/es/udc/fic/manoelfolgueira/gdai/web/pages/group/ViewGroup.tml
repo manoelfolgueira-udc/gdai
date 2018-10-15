@@ -17,7 +17,7 @@
 									</tr>
 									<tr>
 										<td>${message:ViewProfileLabel-HireDate}</td>
-										<td>${getExpirationDateTimeFormatted()}</td>
+										<td>${getExpirationDateFormatted()}</td>
 									</tr>
 								</tbody>
 							</table>

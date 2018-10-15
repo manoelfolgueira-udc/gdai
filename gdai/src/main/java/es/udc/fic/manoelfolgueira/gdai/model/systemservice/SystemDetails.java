@@ -6,12 +6,12 @@ public class SystemDetails {
 
 	private String systemName;
 	private String systemDescription;
-	private Calendar creationTime;
+	private Calendar creationDate;
 	
-	public SystemDetails(String systemName, String systemDescription, Calendar creationTime) {
+	public SystemDetails(String systemName, String systemDescription, Calendar creationDate) {
 		this.systemName = systemName;
 		this.systemDescription = systemDescription;
-		this.creationTime = creationTime;
+		this.creationDate = creationDate;
 	}
 	
 	public String getSystemName() {
@@ -30,8 +30,8 @@ public class SystemDetails {
 		this.systemDescription = systemDescription;
 	}
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 	
 }

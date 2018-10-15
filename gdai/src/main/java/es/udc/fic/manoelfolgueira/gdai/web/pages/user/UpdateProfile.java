@@ -69,7 +69,7 @@ public class UpdateProfile {
     private String dateOfBirth;
 
     @Property
-    private String expirationTime;
+    private String expirationDate;
     
     @Inject
     private GroupService groupService;
@@ -99,7 +99,7 @@ public class UpdateProfile {
         
         hireDate = getHireDateDBValue();
         dateOfBirth = getDateOfBirthDBValue();
-        expirationTime = getExpirationTimeDBValue();
+        expirationDate = getExpirationDateDBValue();
         
         avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
         
@@ -130,7 +130,7 @@ public class UpdateProfile {
     	
         userService.updateUserDetails(
                 userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationTime(), group));
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), group));
         userSession.setLoginName(loginName);
         
         return Index.class;
@@ -145,8 +145,8 @@ public class UpdateProfile {
     	return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
     }
     
-    public String getExpirationTimeDBValue() {
-    	return Utils.getFormattedDate(user.getExpirationTime().getTime(), locale);
+    public String getExpirationDateDBValue() {
+    	return Utils.getFormattedDate(user.getExpirationDate().getTime(), locale);
     }
     
     public boolean getTestMale() {

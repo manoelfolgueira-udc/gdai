@@ -7,18 +7,18 @@ public class LanguageDetails {
 	private String languageName;
 	private String languageCountry;
 	private String options;
-	private Calendar creationTime = Calendar.getInstance();
+	private Calendar creationDate = Calendar.getInstance();
 
 	public LanguageDetails() {
 	}
 	
 	public LanguageDetails(String languageName, String languageCountry, String options,
-			Calendar creationTime) {
+			Calendar creationDate) {
 
 		this.languageName = languageName;
 		this.languageCountry = languageCountry;
 		this.options = options;
-		this.creationTime = creationTime;
+		this.creationDate = creationDate;
 	}
 
 	public String getLanguageName() {
@@ -45,12 +45,12 @@ public class LanguageDetails {
 		this.options = options;
 	}
 
-	public Calendar getCreationTime() {
-		return creationTime;
+	public Calendar getCreationDate() {
+		return creationDate;
 	}
 
-	public void setCreationTime(Calendar creationTime) {
-		this.creationTime = creationTime;
+	public void setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
 	}
 	
 }

@@ -29,7 +29,7 @@ public class ViewGroup {
     private Group group;
     
     @Property
-    private String expirationDateTime = null;
+    private String expirationDate = null;
     
     @Inject
     private Locale locale;
@@ -38,17 +38,17 @@ public class ViewGroup {
 
         group = groupService.findGroup(groupId);
         
-        if (group.getExpirationTime()== null) expirationDateTime = "";
+        if (group.getExpirationDate()== null) expirationDate = "";
         else {
-        	Calendar cal = group.getExpirationTime();
+        	Calendar cal = group.getExpirationDate();
             cal.add(Calendar.DATE, 1);
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            expirationDateTime = f.format(cal.getTime());
+            expirationDate = f.format(cal.getTime());
         }
 
     }
-    public String getExpirationDateTimeFormatted() {
-    	return group.getExpirationTime() == null ? "" : Utils.getFormattedDate(group.getExpirationTime().getTime(), locale);
+    public String getExpirationDateFormatted() {
+    	return group.getExpirationDate() == null ? "" : Utils.getFormattedDate(group.getExpirationDate().getTime(), locale);
     }
 
 }

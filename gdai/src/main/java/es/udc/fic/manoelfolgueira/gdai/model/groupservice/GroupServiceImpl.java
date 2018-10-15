@@ -28,7 +28,7 @@ public class GroupServiceImpl implements GroupService {
                     Group.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            Group group = new Group(groupDetails.getGroupName(), null, groupDetails.getExpirationTime(), null);
+            Group group = new Group(groupDetails.getGroupName(), null, groupDetails.getExpirationDate(), null);
 
             groupDao.save(group);
             return group;
@@ -50,7 +50,7 @@ public class GroupServiceImpl implements GroupService {
         Group group = groupDao.find(groupId);
         
         group.setGroupName(groupDetails.getGroupName());
-        group.setExpirationTime(groupDetails.getExpirationTime());
+        group.setExpirationDate(groupDetails.getExpirationDate());
     }
     
     public List<Group> findAllOrderedByGroupNameIC() {

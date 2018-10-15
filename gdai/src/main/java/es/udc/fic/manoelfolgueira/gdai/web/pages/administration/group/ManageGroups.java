@@ -62,13 +62,13 @@ public class ManageGroups {
         groups = groupService.findAllOrderedByGroupNameIC();
     }
     
-    public String getGroupCreationDateTimeFormatted() {
+    public String getGroupCreationDateFormatted() {
     	
-    	return (group.getCreationTime() != null) ? Utils.getFormattedDate(group.getCreationTime().getTime(), locale) : "";
+    	return (group.getCreationDate() != null) ? Utils.getFormattedDate(group.getCreationDate().getTime(), locale) : "";
     }
     
-    public String getGroupExpirationDateTimeFormatted() {
-    	return (group.getExpirationTime() != null) ? Utils.getFormattedDate(group.getExpirationTime().getTime(), locale) : "";
+    public String getGroupExpirationDateFormatted() {
+    	return (group.getExpirationDate() != null) ? Utils.getFormattedDate(group.getExpirationDate().getTime(), locale) : "";
     }
     
 }

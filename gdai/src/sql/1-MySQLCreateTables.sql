@@ -15,7 +15,7 @@ CREATE TABLE gdai_language
      languageName    VARCHAR(10) NOT NULL,
      languageCountry VARCHAR(10) NOT NULL,
      options         TEXT NOT NULL,
-     creationTime    TIMESTAMP, 
+     creationDate    TIMESTAMP, 
      CONSTRAINT LanguagePK PRIMARY KEY (languageId, languageName)
   ) 
 engine = innodb; 
@@ -28,8 +28,8 @@ CREATE TABLE gdai_group
   ( 
      groupId        BIGINT NOT NULL auto_increment,
      groupName      VARCHAR(30) NOT NULL,
-     creationTime   TIMESTAMP, 
-     expirationTime TIMESTAMP,
+     creationDate   TIMESTAMP, 
+     expirationDate TIMESTAMP,
      systemId       BIGINT,
      CONSTRAINT GroupPK PRIMARY KEY (groupId),
      CONSTRAINT GroupUniqueKeyGroupName UNIQUE (groupName)
@@ -53,7 +53,7 @@ CREATE TABLE gdai_user
      gender            VARCHAR(20),
      hireDate          DATE, 
      dateOfBirth       DATE,
-     expirationTime    TIMESTAMP,
+     expirationDate    TIMESTAMP,
      groupId           BIGINT,
      CONSTRAINT UserPK PRIMARY KEY (userId), 
      CONSTRAINT UserUniqueKeyLoginName UNIQUE (loginName),
@@ -70,7 +70,7 @@ CREATE TABLE gdai_system
      systemId    	   BIGINT NOT NULL auto_increment,
      systemName        VARCHAR(255) NOT NULL,
      systemDescription VARCHAR(10000) NOT NULL,
-     creationTime      TIMESTAMP NOT NULL,
+     creationDate      TIMESTAMP NOT NULL,
      CONSTRAINT SystemPK PRIMARY KEY (systemId),
      CONSTRAINT SystemUniqueKeySystemName UNIQUE (systemName)
   ) 
@@ -86,7 +86,7 @@ CREATE TABLE gdai_project
      projectId    	    BIGINT NOT NULL auto_increment,
      projectName        VARCHAR(255) NOT NULL,
      projectDescription VARCHAR(10000) NOT NULL,
-     creationTime       TIMESTAMP NOT NULL,
+     creationDate       TIMESTAMP NOT NULL,
      createdById        BIGINT NOT NULL,
      targetDate         TIMESTAMP,
      systemId           BIGINT NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE gdai_application
      applicationId    	    BIGINT NOT NULL auto_increment,
      applicationName        VARCHAR(255) NOT NULL,
      applicationDescription VARCHAR(10000) NOT NULL,
-     creationTime           TIMESTAMP NOT NULL,
+     creationDate           TIMESTAMP NOT NULL,
      systemId               BIGINT NOT NULL,
      CONSTRAINT ApplicationPK PRIMARY KEY (applicationId),
      CONSTRAINT ApplicationUniqueKeyApplicationName UNIQUE (applicationName),
