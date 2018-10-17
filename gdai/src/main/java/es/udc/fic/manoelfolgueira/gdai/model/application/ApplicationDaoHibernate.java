@@ -13,7 +13,7 @@ public class ApplicationDaoHibernate extends GenericDaoHibernate<Application, Lo
 	public Application findByName(String applicationName) throws InstanceNotFoundException {
 
     	Application application = (Application) getSession().createQuery(
-    			"SELECT p FROM Application p WHERE g.applicationName = :applicationName")
+    			"SELECT a FROM Application a WHERE a.applicationName = :applicationName")
     			.setParameter("applicationName", applicationName)
     			.uniqueResult();
     	if (application == null) {
@@ -27,7 +27,7 @@ public class ApplicationDaoHibernate extends GenericDaoHibernate<Application, Lo
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> findAllOrderedByApplicationName() {
-		List<Application> applications = getSession().createQuery("SELECT p FROM Application p ORDER BY lower(p.applicationName)").list();
+		List<Application> applications = getSession().createQuery("SELECT a FROM Application a ORDER BY lower(a.applicationName)").list();
 		return applications;
 	}
 

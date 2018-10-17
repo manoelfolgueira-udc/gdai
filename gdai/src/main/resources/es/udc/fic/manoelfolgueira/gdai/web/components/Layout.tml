@@ -53,6 +53,10 @@
 								<li><a href="#" t:type="PageLink"
 									t:page="administration/group/managegroups">${message:manageGroups}</a></li>
 									<li class="divider"></li>
+								<li class="dropdown-header">${message:administrationdropdown-header-projects}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/system/systemmanagement">${message:manageSystems}</a></li>
+									<li class="divider"></li>
 							</ul></li>
 					</t:if>
 

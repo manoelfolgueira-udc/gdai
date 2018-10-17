@@ -1,0 +1,34 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title"
+	xmlns:p="tapestry:parameter">
+
+	<div class="form-group">
+    	<div class="col-md-offset-5 col-md-6 col-md-6">
+       		<button type="submit" class="btn btn-default" t:type="PageLink"
+								t:page="administration/system/systemregister">${message:createANewSystem}</button>
+       	</div>
+    </div>
+    
+    <br /><br />
+    
+    <!-- Grid de System con elementos para modificar y eliminar -->
+    
+    <div class="eg">
+        <t:grid source="systems" row="system" add="systemManagement" rowsPerPage="6" pagerPosition="top">
+        <p:systemNameCell>
+                <t:pagelink page="system/systemview" context="system.systemId"><span class="devsystem">${system.systemName}</span></t:pagelink>
+            </p:systemNameCell>
+        <p:systemManagementCell>
+        <button type="submit" class="btn btn-danger" t:type="PageLink"
+						t:page="administration/system/systemdelete" t:context="system.systemId">${message:delete}</button>
+			<span style="display:inline-block; width: 10px;"></span>
+			<button type="submit" class="btn btn-primary" t:type="PageLink"
+						t:page="administration/system/systemmodify" t:context="system.systemId">${message:modify}</button>
+        </p:systemManagementCell>
+        <p:empty>
+        	${message:noSystem}
+        </p:empty>
+        </t:grid>
+    </div>
+    
+</html>

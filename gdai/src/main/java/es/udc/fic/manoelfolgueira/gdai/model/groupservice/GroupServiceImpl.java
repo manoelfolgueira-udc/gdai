@@ -51,6 +51,8 @@ public class GroupServiceImpl implements GroupService {
         
         group.setGroupName(groupDetails.getGroupName());
         group.setExpirationDate(groupDetails.getExpirationDate());
+        
+        groupDao.save(group);
     }
     
     public List<Group> findAllOrderedByGroupNameIC() {

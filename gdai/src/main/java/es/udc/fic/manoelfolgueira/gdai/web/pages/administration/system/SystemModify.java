@@ -1,6 +1,5 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.system;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -13,25 +12,31 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ModifyGroup {
+public class SystemModify {
 	
 	@Inject
 	private PageRenderLinkSource pageRenderLS;	
 	
     @Property
-    private String groupName;
+    private String systemName;
     
-    @Component(id = "groupName")
-    private TextField groupNameField;
+    @Component(id = "systemName")
+    private TextField systemNameField;
+    
+    @Property
+    private String systemDescription;
+    
+    @Component(id = "systemDescription")
+    private TextField systemDescriptionField;
 
     @Property
     private Date expirationDate;
@@ -40,7 +45,7 @@ public class ModifyGroup {
     private UserSession userSession;
     
     @Inject
-    private GroupService groupService;
+    private SystemService systemService;
 
     @Component
     private Form registrationForm;
@@ -54,23 +59,24 @@ public class ModifyGroup {
     @Property
     private String result = null;
     
-    private Long groupId;
+    private Long systemId;
     
     @Property
-    private Group group;
+    private System system;
     
-    void onActivate(Long groupId) {
-		this.groupId = groupId;
+    void onActivate(Long systemId) {
+		this.systemId = systemId;
 	}
 	
 	Long onPassivate() {
-        return groupId;
+        return systemId;
     }
     
     void setupRender() throws InstanceNotFoundException {
-    	group = groupService.findGroup(groupId);
-    	groupName = group.getGroupName();
-    	expirationDate = (group.getExpirationDate() == null) ? null : group.getExpirationDate().getTime();
+    	system = systemService.findSystem(systemId);
+
+    	systemName = system.getSystemName();
+    	systemDescription = system.getSystemDescription();
     }
 
     void onValidateFromRegistrationForm() {
@@ -81,16 +87,14 @@ public class ModifyGroup {
 
         try {
         	
-        	group = groupService.findGroup(groupId);
-
-        	Calendar calExpirationDate = Calendar.getInstance();
-        	if (expirationDate != null) calExpirationDate.setTime(expirationDate); else calExpirationDate = null;
+        	system = systemService.findSystem(systemId);
         	
-         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, group.getCreationDate(), calExpirationDate));
+         	systemService.updateSystemDetails(systemId, new SystemDetails(systemName, systemDescription, system.getCreationDate()));
         	
-        	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
+        	result = messages.getFormatter("result-SystemRegister-ok").format(systemName);
         	        	
         } catch (Exception e) {
+        	e.printStackTrace();
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
@@ -98,7 +102,7 @@ public class ModifyGroup {
     }
 
     Object onSuccess() {
-        return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupModified", groupId);
+        return pageRenderLS.createPageRenderLinkWithContext("administration/system/SystemModified", systemId);
     }
 	
 }

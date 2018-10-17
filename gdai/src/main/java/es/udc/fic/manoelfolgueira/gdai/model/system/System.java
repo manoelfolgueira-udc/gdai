@@ -95,4 +95,10 @@ public class System {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "System [systemId=" + systemId + ", systemName=" + systemName + ", systemDescription="
+				+ systemDescription + ", creationDate=" + creationDate + "]";
+	}
+
 }

@@ -20,5 +20,7 @@ public interface SystemService {
             throws InstanceNotFoundException;
     
     public List<System> findAllOrderedBySystemName();
+    
+    public void remove(Long systemId) throws InstanceNotFoundException;
 
 }

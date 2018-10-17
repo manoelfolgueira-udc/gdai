@@ -51,10 +51,17 @@ public class SystemServiceImpl implements SystemService {
         
         system.setSystemName(systemDetails.getSystemName());
         system.setSystemDescription(systemDetails.getSystemDescription());
+        
+        systemDao.save(system);
     }
     
     public List<System> findAllOrderedBySystemName() {
     	return systemDao.findAllOrderedBySystemName();
     }
+
+	@Override
+	public void remove(Long systemId) throws InstanceNotFoundException {
+		systemDao.remove(systemId);
+	}
     
 }

@@ -10,11 +10,12 @@ import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
 
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
-import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
-import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
+import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
+import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
+import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 public class SessionFilter implements RequestFilter {
 
@@ -51,6 +52,8 @@ public class SessionFilter implements RequestFilter {
 						userSession.setUserId(user
 								.getUserId());
 						userSession.setLoginName(user.getLoginName());
+						userSession.setAdministrator(user.getGroup().getGroupName().equals(
+								Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
 						applicationStateManager.set(UserSession.class,
 								userSession);
 

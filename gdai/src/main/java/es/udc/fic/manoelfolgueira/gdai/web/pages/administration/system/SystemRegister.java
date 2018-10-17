@@ -1,6 +1,5 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.system;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -12,30 +11,33 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class GroupRegister {
+public class SystemRegister {
 	
     @Property
-    private String groupName;
+    private String systemName;
     
-    @Component(id = "groupName")
-    private TextField groupNameField;
-
+    @Component(id = "systemName")
+    private TextField systemNameField;
+    
     @Property
-    private String expirationDate;
+    private String systemDescription;
+    
+    @Component(id = "systemDescription")
+    private TextField systemDescriptionField;
     
     @SessionState(create=false)
     private UserSession userSession;
     
     @Inject
-    private GroupService groupService;
+    private SystemService systemService;
 
     @Component
     private Form registrationForm;
@@ -56,19 +58,14 @@ public class GroupRegister {
         }
 
         try {
-
         	Calendar calCreationDate = Calendar.getInstance();
-        	Calendar calExpirationDate = Calendar.getInstance();
-        	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        	if (expirationDate != null) calExpirationDate.setTime(sdf.parse(expirationDate)); else calExpirationDate = null;
-        	
-        	groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationDate, calExpirationDate));
-        	
-        	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
+        	systemService.registerSystem(systemName, new SystemDetails(systemName, systemDescription, calCreationDate));
+        	result = messages.getFormatter("result-SystemRegister-ok").format(systemName);
         } catch (DuplicateInstanceException e) {
-            registrationForm.recordError(groupNameField, messages
-                    .get("error-groupNameAlreadyExists"));
+            registrationForm.recordError(systemNameField, messages
+                    .get("error-systemNameAlreadyExists"));
         } catch (Exception e) {
+        	e.printStackTrace();
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
@@ -76,7 +73,7 @@ public class GroupRegister {
     }
 
     Object onSuccess() {
-        return ManageGroups.class;
+        return SystemManagement.class;
     }
     
     

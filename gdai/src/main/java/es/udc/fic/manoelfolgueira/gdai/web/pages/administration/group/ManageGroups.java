@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
-import java.awt.Desktop.Action;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,18 +44,6 @@ public class ManageGroups {
     
     @Property
     List<Group> groups;
-    
-    @Property
-    private Action action;
-    
-    void onActivate (Action action) {
-    	this.action = action;
-    }
-    
-    Action onPassivate() {
-    	return this.action;
-    }
-    
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of groups which are going to be in the app at a time
         groups = groupService.findAllOrderedByGroupNameIC();

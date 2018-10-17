@@ -13,7 +13,7 @@ public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implem
 	public System findByName(String systemName) throws InstanceNotFoundException {
 
     	System system = (System) getSession().createQuery(
-    			"SELECT p FROM System p WHERE g.systemName = :systemName")
+    			"SELECT s FROM System s WHERE s.systemName = :systemName")
     			.setParameter("systemName", systemName)
     			.uniqueResult();
     	if (system == null) {
@@ -27,7 +27,7 @@ public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<System> findAllOrderedBySystemName() {
-		List<System> systems = getSession().createQuery("SELECT p FROM System p ORDER BY lower(p.systemName)").list();
+		List<System> systems = getSession().createQuery("SELECT s FROM System s ORDER BY lower(s.systemName)").list();
 		return systems;
 	}
 
