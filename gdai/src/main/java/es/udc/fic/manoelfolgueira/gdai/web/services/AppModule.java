@@ -32,6 +32,8 @@ public class AppModule {
         // Initialize Properties Configuration
         Config.getInstance();
         
+        configuration.add(SymbolConstants.HMAC_PASSPHRASE, Config.getInstance().getProperties().getProperty("HMAC_PASSPHRASE"));
+        
     }
     
     

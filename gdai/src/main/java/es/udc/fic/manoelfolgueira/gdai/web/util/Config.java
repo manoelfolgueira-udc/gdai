@@ -8,6 +8,7 @@ import java.util.Properties;
 public class Config {
 	
 	public static final String ADMINISTRATORS_GROUP_NAME = "ADMINISTRATORS_GROUP_NAME";
+	private static final String configFilePath = "src/main/resources/es/udc/fic/manoelfolgueira/gdai/model/config.properties";
 
 	private static Config instance = null;
 	
@@ -25,7 +26,7 @@ public class Config {
 
 			try {
 
-				input = new FileInputStream("src/main/resources/es/udc/fic/manoelfolgueira/gdai/model/config.properties");
+				input = new FileInputStream(Config.configFilePath);
 				instance.properties.load(input);
 			} catch (IOException ex) {
 				ex.printStackTrace();
