@@ -5,11 +5,6 @@ values
 	('es', 'ES', 'es=Español, gl=Gallego, en=Inglés', NOW()),
 	('gl', 'ES', 'es=Español, gl=Galego, en=Inglés', NOW());
 
--- Systems
-insert into gdai_system(systemName, systemDescription, creationDate)
-values
-	('Billing', 'Description here.', NOW());
-
 -- Groups
 insert into gdai_group(groupName, creationDate, expirationDate, systemId)
 values
@@ -46,6 +41,11 @@ values
 	('a5', 'AZ0OZU/oardxM', 'b', 'b', 'b@b.com',
 		'1456', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e2/Smiley-300x300.png/revision/latest?cb=20090401005140',
 		'M', NOW(), NOW(), NOW(), 2);
+		
+-- Systems
+insert into gdai_system(systemName, systemDescription, creationDate, groupId)
+values
+	('Billing', 'Description here.', NOW(), 1);
 		
 insert into gdai_project(projectName, projectDescription, creationDate, targetDate, createdById, systemId)
 values

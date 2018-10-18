@@ -71,8 +71,10 @@ CREATE TABLE gdai_system
      systemName        VARCHAR(255) NOT NULL,
      systemDescription VARCHAR(10000) NOT NULL,
      creationDate      TIMESTAMP NOT NULL,
+     groupId           BIGINT,
      CONSTRAINT SystemPK PRIMARY KEY (systemId),
-     CONSTRAINT SystemUniqueKeySystemName UNIQUE (systemName)
+     CONSTRAINT SystemUniqueKeySystemName UNIQUE (systemName),
+     FOREIGN KEY (groupId) REFERENCES gdai_group(groupId) ON DELETE CASCADE
   ) 
 engine = innodb;
 

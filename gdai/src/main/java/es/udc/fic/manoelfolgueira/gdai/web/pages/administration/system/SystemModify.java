@@ -1,8 +1,10 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.system;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -11,17 +13,24 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
+import org.apache.tapestry5.services.SelectModelFactory;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
+import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class SystemModify {
+	
+	// The activation context
+    private Long groupId;
 	
 	@Inject
 	private PageRenderLinkSource pageRenderLS;	
@@ -56,8 +65,21 @@ public class SystemModify {
     @Inject
     private Locale locale;
     
+    @Inject
+    private GroupService groupService;
+    
     @Property
     private String result = null;
+    
+    @Property
+    private Group group;
+    
+    @Property
+	private SelectModel groupsModel;
+
+	@Inject
+	private SelectModelFactory selectModelFactory;
+
     
     private Long systemId;
     
@@ -77,6 +99,7 @@ public class SystemModify {
 
     	systemName = system.getSystemName();
     	systemDescription = system.getSystemDescription();
+    	group = system.getGroup();
     }
 
     void onValidateFromRegistrationForm() {
@@ -89,7 +112,7 @@ public class SystemModify {
         	
         	system = systemService.findSystem(systemId);
         	
-         	systemService.updateSystemDetails(systemId, new SystemDetails(systemName, systemDescription, system.getCreationDate()));
+         	systemService.updateSystemDetails(systemId, new SystemDetails(systemName, systemDescription, system.getCreationDate(), group));
         	
         	result = messages.getFormatter("result-SystemRegister-ok").format(systemName);
         	        	
@@ -104,5 +127,29 @@ public class SystemModify {
     Object onSuccess() {
         return pageRenderLS.createPageRenderLinkWithContext("administration/system/SystemModified", systemId);
     }
+    
+    public GroupEncoder getGroupEncoder() {
+		return new GroupEncoder(groupService);
+	}
+    
+    void onPrepare() {
+
+		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
+
+		if (groupId != null) {
+			group = findGroupInList(groupId, groups);
+		}
+
+		groupsModel = selectModelFactory.create(groups, "groupName");
+	}
+
+	private Group findGroupInList(Long groupId, List<Group> groups) {
+		for (Group g : groups) {
+			if (g.getGroupId().equals(groupId)) {
+				return g;
+			}
+		}
+		return null;
+	}
 	
 }

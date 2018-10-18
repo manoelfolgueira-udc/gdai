@@ -4,11 +4,16 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 
 @Entity
 @Table(name="gdai_system")
@@ -24,7 +29,11 @@ public class System {
 	private Long systemId;
 	private String systemName;
 	private String systemDescription;
-	private Calendar creationDate = Calendar.getInstance();	
+	private Calendar creationDate = Calendar.getInstance();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groupId")
+	private Group group;
 
 	public System() {
 	}
@@ -69,6 +78,14 @@ public class System {
 		return creationDate;
 	}
 		
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

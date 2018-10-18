@@ -51,6 +51,7 @@ public class SystemServiceImpl implements SystemService {
         
         system.setSystemName(systemDetails.getSystemName());
         system.setSystemDescription(systemDetails.getSystemDescription());
+        system.setGroup(systemDetails.getGroup());
         
         systemDao.save(system);
     }

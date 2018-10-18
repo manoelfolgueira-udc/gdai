@@ -14,10 +14,13 @@
     <!-- Grid de System con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <t:grid source="systems" row="system" add="systemManagement" rowsPerPage="6" pagerPosition="top">
+        <t:grid source="systems" value="system" row="system" add="group,systemManagement" rowsPerPage="6" pagerPosition="top">
         <p:systemNameCell>
-                <t:pagelink page="system/systemview" context="system.systemId"><span class="devsystem">${system.systemName}</span></t:pagelink>
+                <t:pagelink page="system/systemview" context="system.systemId">${system.systemName}</t:pagelink>
             </p:systemNameCell>
+        <p:groupCell>
+        	<t:pagelink page="group/viewgroup" context="system.group.groupId">${system.group.groupName}</t:pagelink>
+            </p:groupCell>
         <p:systemManagementCell>
         <button type="submit" class="btn btn-danger" t:type="PageLink"
 						t:page="administration/system/systemdelete" t:context="system.systemId">${message:delete}</button>
