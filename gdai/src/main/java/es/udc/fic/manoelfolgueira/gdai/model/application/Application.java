@@ -40,10 +40,12 @@ public class Application {
 	public Application() {
 	}
 	
-	public Application(String applicationName, String applicationDescription) {
+	public Application(String applicationName, String applicationDescription, Calendar creationDate, System system) {
 		super();
 		this.applicationName = applicationName;
 		this.applicationDescription = applicationDescription;
+		this.creationDate = creationDate;
+		this.system = system;
 	}
 
 	public Long getApplicationId() {
@@ -80,6 +82,10 @@ public class Application {
 		return creationDate;
 	}
 		
+	public System getSystem() {
+		return system;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

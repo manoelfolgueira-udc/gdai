@@ -2,6 +2,8 @@ package es.udc.fic.manoelfolgueira.gdai.model.applicationservice;
 
 import java.util.Calendar;
 
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+
 public class ApplicationDetails {
 
 	private String applicationName;

@@ -56,6 +56,8 @@
 								<li class="dropdown-header">${message:administrationdropdown-header-projects}</li>
 								<li><a href="#" t:type="PageLink"
 									t:page="administration/system/systemmanagement">${message:manageSystems}</a></li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/application/applicationmanagement">${message:manageApplications}</a></li>
 									<li class="divider"></li>
 							</ul></li>
 					</t:if>

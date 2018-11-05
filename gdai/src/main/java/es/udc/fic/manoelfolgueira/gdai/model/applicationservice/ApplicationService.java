@@ -20,5 +20,7 @@ public interface ApplicationService {
             throws InstanceNotFoundException;
     
     public List<Application> findAllOrderedByApplicationName();
+    
+    public void remove(Long applicationId) throws InstanceNotFoundException;
 
 }

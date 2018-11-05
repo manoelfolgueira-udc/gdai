@@ -28,7 +28,10 @@ public class ApplicationServiceImpl implements ApplicationService {
                     Application.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            Application application = new Application(applicationDetails.getApplicationName(), applicationDetails.getApplicationDescription());
+            Application application = new Application(applicationDetails.getApplicationName(),
+            		applicationDetails.getApplicationDescription(),
+            		applicationDetails.getCreationDate(),
+            		applicationDetails.getSystem());
 
             applicationDao.save(application);
             return application;
@@ -56,5 +59,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<Application> findAllOrderedByApplicationName() {
     	return applicationDao.findAllOrderedByApplicationName();
     }
+
+	@Override
+	public void remove(Long applicationId) throws InstanceNotFoundException {
+		applicationDao.remove(applicationId);		
+	}
     
 }
