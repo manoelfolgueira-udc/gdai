@@ -74,7 +74,7 @@
 								<!-- Links here -->
 								<li class="dropdown-header">${message:ToolsDropdown-header-projectmanagement}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="tools/projectview">${message:ToolsDropdown-link-projectsview}</a></li>
+									t:page="tools/project/viewprojects">${message:ToolsDropdown-link-viewprojects}</a></li>
 							</ul></li>
 						<p:else>
 							<li><a href="#" t:type="PageLink" t:page="configuration/languageselection"><span
