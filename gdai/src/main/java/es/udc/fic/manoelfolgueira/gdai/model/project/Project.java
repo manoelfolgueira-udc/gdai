@@ -1,7 +1,10 @@
 package es.udc.fic.manoelfolgueira.gdai.model.project;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 
@@ -41,18 +47,28 @@ public class Project {
     @JoinColumn(name = "systemId")
 	private System system;
 	
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "project_sprint_jt", 
+        joinColumns = { @JoinColumn(name = "projectId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "sprintId") }
+    )
+    List<Sprint> sprints;
+	
 
 	public Project() {
 	}
-	
-	public Project(String projectName, String projectDescription, Calendar targetDate,
-			User createdBy, System system) {
-		super();
+		
+	public Project(String projectName, String projectDescription, Calendar creationDate,
+			Calendar targetDate, User createdBy, System system, List<Sprint> sprints) {
+
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
+		this.creationDate = creationDate;
 		this.targetDate = targetDate;
 		this.createdBy = createdBy;
 		this.system = system;
+		this.sprints = sprints;
 	}
 
 	public Long getProjectId() {
@@ -115,6 +131,22 @@ public class Project {
 
 	public void setSystem(System system) {
 		this.system = system;
+	}
+
+	public List<Sprint> getSprints() {
+		return sprints;
+	}
+
+	public void setSprints(LinkedList<Sprint> sprints) {
+		this.sprints = sprints;
+	}
+	
+	public void addSprint(Sprint sprint) {
+		this.sprints.add(sprint);
+	}
+	
+	public void removeSprint(Sprint sprint) {
+		this.sprints.remove(sprint);
 	}
 
 	@Override

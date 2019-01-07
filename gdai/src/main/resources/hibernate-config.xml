@@ -19,6 +19,8 @@
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.system.System" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.project.Project" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.application.Application" />
-
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint" />
+<!--         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.usersotry.UserStory" /> -->
+        
     </session-factory>
 </hibernate-configuration>

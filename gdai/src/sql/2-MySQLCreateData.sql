@@ -46,11 +46,29 @@ values
 insert into gdai_system(systemName, systemDescription, creationDate, groupId)
 values
 	('Billing', 'Description here.', NOW(), 1);
-		
-insert into gdai_project(projectName, projectDescription, creationDate, targetDate, createdById, systemId)
+	
+-- User Stories
+insert into gdai_userstory(userStoryName, userStoryDescription, creationDate, createdById)
 values
-	('Billing Entities', 'Project Desc.', NOW(), null, 2, 1);
+	('usN', 'usD', NOW(), 1);
+	
+-- Sprints
+insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate, createdById)
+values
+	('SP1', NOW(), NOW(), NOW(), 1);
+	
+-- Projects
+insert into gdai_project(projectName, projectDescription, creationDate, targetDate,
+	createdById, systemId, sprintId, userStoryId)
+values
+	('Billing Entities', 'Project Desc.', NOW(), null, 2, 1, 1, 1);
+	
+-- project_sprint_jt
+insert into gdai_project_sprint_jt(projectId, sprintId)
+values
+	(1, 1);
 
+-- Applications
 insert into gdai_application(applicationName, applicationDescription, creationDate, systemId)
 values
 	('GDAIBillingEntities', 'GDAIBillingEntities Desc.', NOW(), 1);

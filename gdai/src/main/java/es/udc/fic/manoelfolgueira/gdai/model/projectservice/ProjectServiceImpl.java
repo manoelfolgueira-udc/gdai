@@ -29,9 +29,11 @@ public class ProjectServiceImpl implements ProjectService {
             Project project = new Project(
 	            		projectDetails.getProjectName(),
 	            		projectDetails.getProjectDescription(),
+	            		projectDetails.getCreationDate(),
 	            		projectDetails.getTargetDate(),
 	            		projectDetails.getCreatedBy(),
-	            		projectDetails.getSystem()
+	            		projectDetails.getSystem(),
+	            		projectDetails.getSprints()
             		);
 
             projectDao.save(project);
