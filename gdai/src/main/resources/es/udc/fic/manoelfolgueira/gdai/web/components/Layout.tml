@@ -49,9 +49,9 @@
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:administrationdropdown-header-usersandgroups}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/user/manageusers">${message:manageUsers}</a></li>
+									t:page="administration/user/management">${message:manageUsers}</a></li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/group/managegroups">${message:manageGroups}</a></li>
+									t:page="administration/group/management">${message:manageGroups}</a></li>
 									<li class="divider"></li>
 								<li class="dropdown-header">${message:administrationdropdown-header-projects}</li>
 								<li><a href="#" t:type="PageLink"

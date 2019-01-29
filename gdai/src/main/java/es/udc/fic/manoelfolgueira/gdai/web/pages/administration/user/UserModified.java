@@ -25,7 +25,7 @@ public class UserModified {
 
 		String backLink = !userSession.isAdministrator()
 				? "user/controlpanel"
-						: "administration/user/manageusers";
+						: "administration/user/management";
 
 		return backLink;
 	}

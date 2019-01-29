@@ -76,7 +76,7 @@ public class GroupRegister {
     }
 
     Object onSuccess() {
-        return ManageGroups.class;
+        return GroupManagement.class;
     }
     
     

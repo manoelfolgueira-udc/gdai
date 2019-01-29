@@ -144,7 +144,7 @@ public class UserRegister {
 	}
 
 	Object onSuccess() {
-		return ManageUsers.class;
+		return UserManagement.class;
 	}
 
 	public GroupEncoder getGroupEncoder() {

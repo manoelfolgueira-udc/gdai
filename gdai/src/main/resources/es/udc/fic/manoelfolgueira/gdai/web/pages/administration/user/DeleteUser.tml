@@ -17,7 +17,7 @@
         		<button type="submit" class="btn btn-danger">${message:delete}</button>
 				<span style="display:inline-block; width: 10px;"></span>
         		<button type="submit" class="btn btn-default" t:type="PageLink"
-									t:page="administration/user/manageusers">${message:back}</button>
+									t:page="administration/user/management">${message:back}</button>
         	</div>
        </div>
        

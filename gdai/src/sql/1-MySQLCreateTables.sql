@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS gdai_userstory;
 DROP TABLE IF EXISTS gdai_project;
 DROP TABLE IF EXISTS gdai_sprint;
 DROP TABLE IF EXISTS gdai_project_sprint_jt;
+DROP TABLE IF EXISTS gdai_user_userstory_jt;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ------------------------------ Language --------------------------------
