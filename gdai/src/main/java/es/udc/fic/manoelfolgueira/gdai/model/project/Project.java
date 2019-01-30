@@ -25,7 +25,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 @Entity
 @Table(name="gdai_project")
 public class Project {
-
+	
 	@Column(name = "projectId")
 	@SequenceGenerator( // It only takes effect for
 		name = "projectIdGenerator", // databases providing identifier
@@ -148,7 +148,7 @@ public class Project {
 	public void removeSprint(Sprint sprint) {
 		this.sprints.remove(sprint);
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

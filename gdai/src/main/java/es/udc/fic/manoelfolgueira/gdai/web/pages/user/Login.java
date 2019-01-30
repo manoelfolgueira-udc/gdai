@@ -13,11 +13,11 @@ import org.apache.tapestry5.services.Cookies;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.UserExpiratedException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
-import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 

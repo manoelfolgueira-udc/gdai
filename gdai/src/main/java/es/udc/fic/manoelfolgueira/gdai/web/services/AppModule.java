@@ -5,9 +5,9 @@ import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.fic.manoelfolgueira.gdai.model.languageservice.LanguageService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
-import es.udc.fic.manoelfolgueira.gdai.web.util.Config;
 
 
 /**

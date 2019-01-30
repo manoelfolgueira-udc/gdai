@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.util;
+package es.udc.fic.manoelfolgueira.gdai.model.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
