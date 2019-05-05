@@ -16,7 +16,6 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -130,10 +129,10 @@ public class UpdateProfile {
     	
         userService.updateUserDetails(
                 userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), group));
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), user.getGroup()));
         userSession.setLoginName(loginName);
         
-        return Index.class;
+        return ViewProfile.class;
 
     }
     

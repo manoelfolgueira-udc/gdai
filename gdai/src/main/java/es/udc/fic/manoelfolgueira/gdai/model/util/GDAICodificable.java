@@ -3,7 +3,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Codificable {
+public class GDAICodificable {
 	
 	public String getGDAICode() {
 				

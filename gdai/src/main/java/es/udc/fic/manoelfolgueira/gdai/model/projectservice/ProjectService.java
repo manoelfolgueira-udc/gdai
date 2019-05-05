@@ -18,5 +18,7 @@ public interface ProjectService {
             throws InstanceNotFoundException;
     
     public List<Project> findAllOrderedByProjectName();
+    
+    public void removeProject(Long projectId) throws InstanceNotFoundException;
 
 }

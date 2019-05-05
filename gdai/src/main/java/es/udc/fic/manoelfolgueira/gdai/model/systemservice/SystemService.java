@@ -19,7 +19,7 @@ public interface SystemService {
             SystemDetails systemDetails)
             throws InstanceNotFoundException;
     
-    public List<System> findAllOrderedBySystemName();
+    public List<System> findAllOrderedBySystemNameIC();
     
     public void remove(Long systemId) throws InstanceNotFoundException;
 

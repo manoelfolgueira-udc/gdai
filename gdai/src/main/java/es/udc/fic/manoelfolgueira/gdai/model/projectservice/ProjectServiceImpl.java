@@ -63,5 +63,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> findAllOrderedByProjectName() {
 		return projectDao.findAllOrderedByProjectName();
 	}
+
+	@Override
+	public void removeProject(Long projectId) throws InstanceNotFoundException {
+		projectDao.remove(projectId);
+		
+	}
     
 }

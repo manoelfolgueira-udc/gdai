@@ -134,7 +134,7 @@ public class ApplicationModify {
     
     void onPrepare() {
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<System> systems = systemService.findAllOrderedBySystemNameIC();
 
 		if (systemId != null) {
 			system = findSystemInList(systemId, systems);

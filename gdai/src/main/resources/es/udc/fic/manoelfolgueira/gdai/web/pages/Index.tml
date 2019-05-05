@@ -32,7 +32,7 @@
                 <div class="checkbox">
                 	<label for="rememberMyPassword">
                 		<input t:type="Checkbox" t:id="rememberMyPassword"/> ${message:rememberMyPassword-label}
-                    	<p class="help-block">${message:rememberMyPassword-help}</p>
+                    	<span class="help-block">${message:rememberMyPassword-help}</span>
                     </label>
 	            </div>
 	        </div>

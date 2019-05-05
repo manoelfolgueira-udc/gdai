@@ -28,8 +28,8 @@ public class Sprint {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sprintIdGenerator")
 	private Long sprintId;
 	private String sprintName;
-	private Calendar startDate = null;
-	private Calendar endDate = null;
+	private Calendar sprintStart = null;
+	private Calendar sprintEnd = null;
 	private Calendar creationDate = Calendar.getInstance();
 	
 	@ManyToMany(mappedBy = "sprints")
@@ -38,12 +38,12 @@ public class Sprint {
 	public Sprint() {
 	}
 
-	public Sprint(String sprintName, Calendar startDate, Calendar endDate, Calendar creationDate,
+	public Sprint(String sprintName, Calendar sprintStart, Calendar sprintEnd, Calendar creationDate,
 			List<Project> projects) {
 		super();
 		this.sprintName = sprintName;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.sprintStart = sprintStart;
+		this.sprintEnd = sprintEnd;
 		this.creationDate = creationDate;
 		this.projects = projects;
 	}
@@ -65,19 +65,19 @@ public class Sprint {
 	}
 
 	public Calendar getStartDate() {
-		return startDate;
+		return sprintStart;
 	}
 
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
+	public void setStartDate(Calendar sprintStart) {
+		this.sprintStart = sprintStart;
 	}
 
 	public Calendar getEndDate() {
-		return endDate;
+		return sprintEnd;
 	}
 
-	public void setEndDate(Calendar endDate) {
-		this.endDate = endDate;
+	public void setEndDate(Calendar sprintEnd) {
+		this.sprintEnd = sprintEnd;
 	}
 
 	public List<Project> getProjects() {

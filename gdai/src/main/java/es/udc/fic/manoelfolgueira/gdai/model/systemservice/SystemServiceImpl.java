@@ -56,8 +56,8 @@ public class SystemServiceImpl implements SystemService {
         systemDao.save(system);
     }
     
-    public List<System> findAllOrderedBySystemName() {
-    	return systemDao.findAllOrderedBySystemName();
+    public List<System> findAllOrderedBySystemNameIC() {
+    	return systemDao.findAllOrderedBySystemNameIC();
     }
 
 	@Override

@@ -20,5 +20,5 @@ public interface SystemDao extends GenericDao<System, Long> {
      *
      * @return all System
      */
-    public List<System> findAllOrderedBySystemName();
+    public List<System> findAllOrderedBySystemNameIC();
 }

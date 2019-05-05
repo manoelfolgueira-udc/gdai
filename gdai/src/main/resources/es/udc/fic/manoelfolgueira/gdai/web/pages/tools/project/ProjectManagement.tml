@@ -1,0 +1,81 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+
+<div class="form-group">
+	<div class="col-md-offset-5 col-md-6 col-md-6">
+		<button type="submit" class="btn btn-default" t:type="PageLink"
+			t:page="tools/project/projectregister">${message:createANewProject}</button>
+	</div>
+</div>
+
+<br/>
+
+<form t:type="Form" class="form-horizontal" t:id="registrationForm">
+
+	<t:errors />
+
+	<div class="eg">
+
+		<div class="form-row">
+			<div class="col">
+				<label class="control-label">Identificador Proyecto</label>
+				<div class="form-group">
+					<div class="col-md-2">
+						<input type="text" class="form-control" placeholder="P-XYZ" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">Descripción Proyecto</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input type="text" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">Identificador Historia de
+					Usuario</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="HU-XYZ" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			
+			<!-- Sprint -->
+			<t:label for="sprintSelect" class="col-md-1"/>    
+	        <div class="col-md-3">
+	            <t:select t:id="sprintSelect" value="sprint" model="sprintsModel" encoder="sprintEncoder" />
+	        </div>
+	        
+	        <!-- Group -->
+	   		<t:label for="groupSelect" class="col-md-1"/>    
+	        <div class="col-md-2">
+	            <t:select t:id="groupSelect" value="group" model="groupsModel" encoder="groupEncoder" />
+	        </div>
+	        
+	        <!-- System -->
+	        <t:label for="systemSelect" class="col-md-1"/>    
+	        <div class="col-md-3">
+	            <t:select t:id="systemSelect" value="system" model="systemsModel" encoder="systemEncoder" />
+	        </div>
+		</div>
+
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-5 col-md-9">
+			<button type="submit" class="btn btn-default">Buscar
+				Proyectos</button>
+		</div>
+	</div>
+
+	<div class="eg">No se ha seleccionado ningún proyecto con la
+		búsqueda actual.</div>
+
+</form>
+</html>

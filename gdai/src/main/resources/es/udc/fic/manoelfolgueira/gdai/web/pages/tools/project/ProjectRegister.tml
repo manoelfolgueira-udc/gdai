@@ -1,0 +1,109 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+	
+	<div class="form-group">
+    	<div class="col-md-offset-5 col-md-6 col-md-6">
+       		<button type="submit" class="btn btn-default" t:type="PageLink"
+								t:page="tools/project/projectregister">${message:createANewProject}</button>
+       	</div>
+    </div>
+
+
+<form t:type="Form" class="form-horizontal" t:id="registrationForm">
+
+	<t:errors />
+
+	<div class="eg">
+
+		<div class="form-row">
+			<div class="col">
+				<label class="control-label">Identificador Proyecto</label>
+				<div class="form-group">
+					<div class="col-md-2">
+						<input type="text" class="form-control" placeholder="P-XYZ" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">Descripción Proyecto</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input type="text" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">Identificador Historia de Usuario</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="HU-XYZ" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Sprint</label>
+			<div class="col-md-1">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="jobExperienceDropDown" data-toggle="dropdown">
+						Dropdown <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="jobExperienceDropDown">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">years</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">months</a></li>
+					</ul>
+				</div>
+			</div>
+			<label class="col-md-2 control-label">Sistema</label>
+			<div class="col-md-2">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="jobExperienceDropDown" data-toggle="dropdown">
+						Dropdown <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="jobExperienceDropDown">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">years</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">months</a></li>
+					</ul>
+				</div>
+			</div>
+			<label class="col-md-2 control-label">Grupo de Desarrollo</label>
+			<div class="col-md-1">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="jobExperienceDropDown" data-toggle="dropdown">
+						Dropdown <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="jobExperienceDropDown">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">years</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">months</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-5 col-md-9">
+			<button type="submit" class="btn btn-default">Buscar Proyectos</button>
+		</div>
+	</div>
+
+	<div class="eg">
+		No se ha seleccionado ningún proyecto con la búsqueda actual.
+	</div>
+
+</form>
+</html>

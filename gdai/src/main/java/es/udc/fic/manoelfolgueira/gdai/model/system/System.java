@@ -14,10 +14,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
 @Table(name="gdai_system")
-public class System {
+public class System extends GDAICodificable {
 
 	@Column(name = "systemId")
 	@SequenceGenerator( // It only takes effect for

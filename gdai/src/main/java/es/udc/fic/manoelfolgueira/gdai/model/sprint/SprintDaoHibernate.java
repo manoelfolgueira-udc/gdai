@@ -13,7 +13,7 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 	public Sprint findByName(String sprintName) throws InstanceNotFoundException {
 
     	Sprint sprint = (Sprint) getSession().createQuery(
-    			"SELECT g FROM Sprint g WHERE g.sprintName = :sprintName")
+    			"SELECT s FROM Sprint s WHERE s.sprintName = :sprintName")
     			.setParameter("sprintName", sprintName)
     			.uniqueResult();
     	if (sprint == null) {
@@ -27,7 +27,7 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sprint> findAllOrderedBySprintNameIC() {
-		List<Sprint> sprints = getSession().createQuery("SELECT g FROM Sprint g ORDER BY lower(g.sprintName)").list();
+		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintName)").list();
 		return sprints;
 	}
 

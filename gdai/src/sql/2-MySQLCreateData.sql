@@ -28,7 +28,7 @@ values
 		'M', NOW(), NOW(), '2020-08-05 18:19:03', 1),
 	('a1', 'AZ0OZU/oardxM', 'b', 'b', 'b@b.com',
 		'1456', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e2/Smiley-300x300.png/revision/latest?cb=20090401005140',
-		'M', NOW(), NOW(), NOW(), 2),
+		'M', NOW(), NOW(), '2020-08-05 18:19:03', 2),
 	('a2', 'AZ0OZU/oardxM', 'b', 'b', 'b@b.com',
 		'1456', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e2/Smiley-300x300.png/revision/latest?cb=20090401005140',
 		'M', NOW(), NOW(), NOW(), 2),
