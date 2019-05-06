@@ -15,10 +15,7 @@ import javax.persistence.Table;
 public class Language {
 
 	@Column(name = "languageId")
-	@SequenceGenerator( // It only takes effect for
-		name = "languageIdGenerator", // databases providing identifier
-		sequenceName = "languageSeq")
-	// generators.
+	@SequenceGenerator(name = "languageIdGenerator", sequenceName = "languageSeq")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "languageIdGenerator")
 	private Long languageId;
@@ -32,7 +29,6 @@ public class Language {
 	
 	public Language(String languageName, String languageCountry, String options,
 			Calendar creationDate) {
-
 		this.languageName = languageName;
 		this.languageCountry = languageCountry;
 		this.options = options;

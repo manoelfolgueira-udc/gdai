@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,8 +39,8 @@ public class User {
 	private Calendar expirationDate;
 	private String gender;
 	
-	@ManyToOne
-	@JoinColumn(name = "groupId")
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groupId")
 	private Group group;
 
 	public User() {

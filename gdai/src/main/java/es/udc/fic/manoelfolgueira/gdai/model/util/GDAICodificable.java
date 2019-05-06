@@ -3,6 +3,10 @@ package es.udc.fic.manoelfolgueira.gdai.model.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * All entities (which inherite the structure and behaviour from this class) don't need to set an Id at creation time.
+ * It will be automatically generated and set thanks to the database sequences.
+ */
 public class GDAICodificable {
 	
 	public String getGDAICode() {

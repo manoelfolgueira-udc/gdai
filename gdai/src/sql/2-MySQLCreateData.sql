@@ -6,19 +6,19 @@ values
 	('gl', 'ES', 'es=Español, gl=Galego, en=Inglés', NOW());
 
 -- Groups
-insert into gdai_group(groupName, creationDate, expirationDate, systemId)
+insert into gdai_group(groupName, creationDate, expirationDate)
 values
-	('GDAI_ADM', NOW(), NULL, NULL),
-	('GP1', NOW(), NULL, 1),
-	('GP2', NOW(), NULL, NULL),
-	('GP3', NOW(), NULL, NULL),
-	('GP4', NOW(), NULL, NULL),
-	('GP5', NOW(), NULL, NULL),
-	('GP6', NOW(), NULL, NULL),
-	('GP7', NOW(), NULL, NULL),
-	('GP8', NOW(), NULL, NULL),
-	('GP9', NOW(), NULL, NULL),
-	('GP10', NOW(), NULL, NULL);
+	('GDAI_ADM', NOW(), NULL),
+	('GP1', 	 NOW(), NULL),
+	('GP2', 	 NOW(), NULL),
+	('GP3', 	 NOW(), NULL),
+	('GP4', 	 NOW(), NULL),
+	('GP5', 	 NOW(), NULL),
+	('GP6', 	 NOW(), NULL),
+	('GP7', 	 NOW(), NULL),
+	('GP8', 	 NOW(), NULL),
+	('GP9', 	 NOW(), NULL),
+	('GP10', 	 NOW(), NULL);
     
 -- Users
 insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationDate, groupId)

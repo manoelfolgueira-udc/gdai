@@ -28,7 +28,7 @@ public class SystemServiceImpl implements SystemService {
                     System.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            System system = new System(systemDetails.getSystemName(), systemDetails.getSystemDescription());
+            System system = new System(systemDetails.getSystemName(), systemDetails.getSystemDescription(), systemDetails.getGroup());
 
             systemDao.save(system);
             return system;

@@ -39,10 +39,11 @@ public class System extends GDAICodificable {
 	public System() {
 	}
 	
-	public System(String systemName, String systemDescription) {
+	public System(String systemName, String systemDescription, Group group) {
 		super();
 		this.systemName = systemName;
 		this.systemDescription = systemDescription;
+		this.group = group;
 	}
 
 	public Long getSystemId() {
