@@ -1,7 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.model.sprint;
 
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,10 +19,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 public class Sprint {
 
 	@Column(name = "sprintId")
-	@SequenceGenerator( // It only takes effect for
-		name = "sprintIdGenerator", // databases providing identifier
-		sequenceName = "sprintSeq")
-	// generators.
+	@SequenceGenerator(name = "sprintIdGenerator",sequenceName = "sprintSeq")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sprintIdGenerator")
 	private Long sprintId;
@@ -35,9 +31,19 @@ public class Sprint {
 	@ManyToMany(mappedBy = "sprints")
     private List<Project> projects;
 
-	public Sprint() {
-	}
+	/**^
+	 * Empty constructor
+	 */
+	public Sprint() {}
 
+	/**
+	 * Main constructor
+	 * @param sprintName sprint name
+	 * @param sprintStart when the sprint starts
+	 * @param sprintEnd when the sprint finishes
+	 * @param creationDate when the sprint is registered in GDAI
+	 * @param projects a list of projects being taken into account in this sprint
+	 */
 	public Sprint(String sprintName, Calendar sprintStart, Calendar sprintEnd, Calendar creationDate,
 			List<Project> projects) {
 		super();
@@ -48,57 +54,149 @@ public class Sprint {
 		this.projects = projects;
 	}
 
+	/**
+	 * @return the sprintId
+	 */
 	public Long getSprintId() {
 		return sprintId;
 	}
 
+	/**
+	 * @param sprintId the sprintId to set
+	 */
 	public void setSprintId(Long sprintId) {
 		this.sprintId = sprintId;
 	}
 
+	/**
+	 * @return the sprintName
+	 */
 	public String getSprintName() {
 		return sprintName;
 	}
 
+	/**
+	 * @param sprintName the sprintName to set
+	 */
 	public void setSprintName(String sprintName) {
 		this.sprintName = sprintName;
 	}
 
-	public Calendar getStartDate() {
+	/**
+	 * @return the sprintStart
+	 */
+	public Calendar getSprintStart() {
 		return sprintStart;
 	}
 
-	public void setStartDate(Calendar sprintStart) {
+	/**
+	 * @param sprintStart the sprintStart to set
+	 */
+	public void setSprintStart(Calendar sprintStart) {
 		this.sprintStart = sprintStart;
 	}
 
-	public Calendar getEndDate() {
+	/**
+	 * @return the sprintEnd
+	 */
+	public Calendar getSprintEnd() {
 		return sprintEnd;
 	}
 
-	public void setEndDate(Calendar sprintEnd) {
+	/**
+	 * @param sprintEnd the sprintEnd to set
+	 */
+	public void setSprintEnd(Calendar sprintEnd) {
 		this.sprintEnd = sprintEnd;
 	}
 
+	/**
+	 * @return the creationDate
+	 */
+	public Calendar getCreationDate() {
+		return creationDate;
+	}
+
+	/**
+	 * @param creationDate the creationDate to set
+	 */
+	public void setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	/**
+	 * @return the projects
+	 */
 	public List<Project> getProjects() {
 		return projects;
 	}
 
-	public void setProjects(LinkedList<Project> projects) {
+	/**
+	 * @param projects the projects to set
+	 */
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
-	
-	public void addProject(Project project) {
-		this.projects.add(project);
-	}
-	
-	public void removeProject(Project project) {
-		this.projects.remove(project);
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
+		result = prime * result + ((sprintEnd == null) ? 0 : sprintEnd.hashCode());
+		result = prime * result + ((sprintId == null) ? 0 : sprintId.hashCode());
+		result = prime * result + ((sprintName == null) ? 0 : sprintName.hashCode());
+		result = prime * result + ((sprintStart == null) ? 0 : sprintStart.hashCode());
+		return result;
 	}
 
-	public Calendar getCreationDate() {
-		return creationDate;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sprint other = (Sprint) obj;
+		if (creationDate == null) {
+			if (other.creationDate != null)
+				return false;
+		} else if (!creationDate.equals(other.creationDate))
+			return false;
+		if (projects == null) {
+			if (other.projects != null)
+				return false;
+		} else if (!projects.equals(other.projects))
+			return false;
+		if (sprintEnd == null) {
+			if (other.sprintEnd != null)
+				return false;
+		} else if (!sprintEnd.equals(other.sprintEnd))
+			return false;
+		if (sprintId == null) {
+			if (other.sprintId != null)
+				return false;
+		} else if (!sprintId.equals(other.sprintId))
+			return false;
+		if (sprintName == null) {
+			if (other.sprintName != null)
+				return false;
+		} else if (!sprintName.equals(other.sprintName))
+			return false;
+		if (sprintStart == null) {
+			if (other.sprintStart != null)
+				return false;
+		} else if (!sprintStart.equals(other.sprintStart))
+			return false;
+		return true;
 	}
 	
-
 }

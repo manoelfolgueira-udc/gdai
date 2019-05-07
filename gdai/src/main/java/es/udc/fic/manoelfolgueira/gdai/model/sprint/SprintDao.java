@@ -28,5 +28,5 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
      *
      * @return all Sprint
      */
-    public List<Sprint> findAllOrderedBySprintNameIC();
+    public List<Sprint> findAllOrderedBySprintName();
 }

@@ -8,19 +8,47 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 public interface SprintService {
 
+	/**
+	 * Saves a new sprint
+	 * @param sprintName sprint name
+	 * @param sprintDetails its DTO being transformed and saved
+	 * @return the real sprint being registered
+	 * @throws DuplicateInstanceException
+	 */
     public Sprint registerSprint(String sprintName,
             SprintDetails sprintDetails)
             throws DuplicateInstanceException;
 
+    /**
+     * Find a sprint by its identifier
+     * @param sprintId the id
+     * @return the actual Sprint
+     * @throws InstanceNotFoundException
+     */
     public Sprint findSprint(Long sprintId)
             throws InstanceNotFoundException;
 
+    /**
+     * Put a sprint up-to-date using a dto instnace and its identifier
+     * @param sprintId the id
+     * @param sprintDetails the dto instance
+     * @throws InstanceNotFoundException
+     */
     public void updateSprintDetails(Long sprintId,
             SprintDetails sprintDetails)
             throws InstanceNotFoundException;
     
-    public List<Sprint> findAllOrderedBySprintNameIC();
+    /**
+     * Finds all sprints and returns them ordered by name
+     * @return the list of sprints
+     */
+    public List<Sprint> findAllOrderedBySprintName();
     
+    /**
+     * Erases a sprint by its id
+     * @param sprintId the id
+     * @throws InstanceNotFoundException
+     */
     public void removeSprint(Long sprintId) throws InstanceNotFoundException;
 
 }

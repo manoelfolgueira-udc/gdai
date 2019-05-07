@@ -10,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("sprintDao")
 public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implements SprintDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Sprint findByName(String sprintName) throws InstanceNotFoundException {
 
     	Sprint sprint = (Sprint) getSession().createQuery(
@@ -24,9 +27,12 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sprint> findAllOrderedBySprintNameIC() {
+	public List<Sprint> findAllOrderedBySprintName() {
 		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintName)").list();
 		return sprints;
 	}

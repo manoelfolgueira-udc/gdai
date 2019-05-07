@@ -25,4 +25,6 @@ public interface LanguageService {
 	 * @throws InstanceNotFoundException
 	 */
 	public void reload() throws InstanceNotFoundException;
+	
+	// TODO implement a RESTfull Web Service to reload the language configuration
 }
