@@ -108,7 +108,7 @@ public class ApplicationRegister {
     
     void onPrepare() {
 
-		List<System> systems = systemService.findAllOrderedBySystemNameIC();
+		List<System> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
 			system = findSystemInList(systemId, systems);

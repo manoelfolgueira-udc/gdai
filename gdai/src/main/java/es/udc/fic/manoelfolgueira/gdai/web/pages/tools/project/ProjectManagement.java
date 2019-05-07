@@ -104,7 +104,7 @@ public class ProjectManagement {
 
 	void onPrepare() {
 		
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintNameIC();
+		List<Sprint> sprints = sprintService.findAllOrderedBySprintName();
 
 		if (sprintId != null) {
 			sprint = findSprintInList(sprintId, sprints);
@@ -120,7 +120,7 @@ public class ProjectManagement {
 
 		groupsModel = selectModelFactory.create(groups, "groupName");
 		
-		List<System> systems = systemService.findAllOrderedBySystemNameIC();
+		List<System> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
 			system = findSystemInList(groupId, systems);

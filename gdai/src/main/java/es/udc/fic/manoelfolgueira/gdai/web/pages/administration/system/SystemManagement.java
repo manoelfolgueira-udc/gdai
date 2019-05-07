@@ -47,7 +47,7 @@ public class SystemManagement {
     
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of systems which are going to be in the app at a time
-        systems = systemService.findAllOrderedBySystemNameIC();
+        systems = systemService.findAllOrderedBySystemName();
     }
     
     public String getSystemCreationDateFormatted() {
