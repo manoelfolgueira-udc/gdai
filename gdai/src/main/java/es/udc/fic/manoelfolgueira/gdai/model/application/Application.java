@@ -35,12 +35,12 @@ public class Application extends GDAICodificable {
 	
 
 	/**
-	 * Empty Constructor for an application
+	 * Empty constructor
 	 */
 	public Application() {}
 	
 	/**
-	 * Main Application Constructor
+	 * Main constructor
 	 * @param applicationName an application name
 	 * @param applicationDescription an application description
 	 * @param creationDate when the application is created

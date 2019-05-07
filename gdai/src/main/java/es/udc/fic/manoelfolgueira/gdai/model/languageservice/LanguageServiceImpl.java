@@ -22,6 +22,9 @@ public class LanguageServiceImpl implements LanguageService {
     @Autowired
     private LanguageDao languageDao;
     
+    /**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<String, String> getOptionsOrdered() throws InstanceNotFoundException {
 		List<Language> languages = languageDao.findAll();
@@ -34,9 +37,7 @@ public class LanguageServiceImpl implements LanguageService {
 			
 			dbOptions = dbOptions.replaceAll("\\s+","");
 			String[] currentOptions = dbOptions.split(",");
-			
-			System.out.println(dbOptions);
-			
+						
 			Arrays.sort(currentOptions, new Comparator<String>() {
 			    public int compare(String str1, String str2) {
 			        String substr1 = str1.split("=")[1];
@@ -61,6 +62,9 @@ public class LanguageServiceImpl implements LanguageService {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Transactional(readOnly = true)
 	@Override
 	public String getNames() throws InstanceNotFoundException {
@@ -80,6 +84,9 @@ public class LanguageServiceImpl implements LanguageService {
 			
 	}
 
+    /**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void reload() throws InstanceNotFoundException {
 		AvailableLanguages.reload();		

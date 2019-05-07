@@ -38,12 +38,12 @@ public class Group {
 
 	
 	/**
-	 * Empty Group Constructor
+	 * Empty constructor
 	 */
 	public Group() {}
 
 	/**
-	 * Main Constructor
+	 * Main constructor
 	 * @param groupName the group name
 	 * @param users a collection (list) of users which belong to a the group that is being created
 	 * @param expirationDate when the group expires

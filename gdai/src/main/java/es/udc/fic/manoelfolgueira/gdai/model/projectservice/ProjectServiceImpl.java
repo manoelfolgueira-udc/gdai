@@ -18,6 +18,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectDao projectDao;
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Project createProject(ProjectDetails projectDetails) throws DuplicateInstanceException {
 		try {
@@ -41,6 +44,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	@Transactional(readOnly = true)
 	public Project findProject(Long projectId) throws InstanceNotFoundException {
@@ -58,16 +64,21 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setCreatedBy(projectDetails.getCreatedBy()); // should not be modified, consider getting rid of it
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	@Transactional(readOnly = true)
 	public List<Project> findAllOrderedByProjectName() {
 		return projectDao.findAllOrderedByProjectName();
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeProject(Long projectId) throws InstanceNotFoundException {
 		projectDao.remove(projectId);
-		
 	}
     
 }
