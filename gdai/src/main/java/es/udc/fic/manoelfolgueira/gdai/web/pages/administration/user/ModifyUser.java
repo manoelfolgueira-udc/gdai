@@ -118,7 +118,7 @@ public class ModifyUser {
 
 	void onPrepare() throws InstanceNotFoundException {
 
-		user = userService.findUserProfile(userId);
+		user = userService.findUser(userId);
 
 		loginName = user.getLoginName();
 		firstName = user.getFirstName();

@@ -57,7 +57,7 @@ public class DeleteUser {
 	void setupRender() {
 		infoDeleteUser = messages.format("surePerformAction", messages.get("info-delete-user"));
 		try {
-			user = userService.findUserProfile(userId);
+			user = userService.findUser(userId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

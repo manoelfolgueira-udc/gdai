@@ -17,7 +17,6 @@ public interface GroupDao extends GenericDao<Group, Long> {
 
     /**
      * Returns a Group by name
-     *
      * @param name the group identifier
      * @return the Group
      */
@@ -25,7 +24,6 @@ public interface GroupDao extends GenericDao<Group, Long> {
     
     /**
      * Returns all groups
-     *
      * @return all Group
      */
     public List<Group> findAllOrderedByGroupNameIC();

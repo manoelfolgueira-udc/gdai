@@ -44,7 +44,7 @@ public class ControlPanel {
 
         User user;
 
-        user = userService.findUserProfile(userSession
+        user = userService.findUser(userSession
                 .getUserId());
         firstName = user.getFirstName();
         lastName = user.getLastName();

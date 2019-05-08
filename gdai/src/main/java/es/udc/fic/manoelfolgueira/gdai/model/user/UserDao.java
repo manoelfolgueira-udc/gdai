@@ -9,11 +9,14 @@ public interface UserDao extends GenericDao<User, Long> {
 
     /**
      * Returns an User by login name
-     *
      * @param loginName the user identifier
      * @return the User
      */
     public User findByLoginName(String loginName) throws InstanceNotFoundException;
 
+    /**
+     * All users returned in a list ordered by their name
+     * @return the users ordered
+     */
 	public List<User> findAllSortedByName();
 }

@@ -87,7 +87,7 @@ public class UpdateProfile {
     
     void onPrepareForRender() throws InstanceNotFoundException {
 
-        user = userService.findUserProfile(userSession
+        user = userService.findUser(userSession
                 .getUserId());
 
         loginName = user.getLoginName();
@@ -124,7 +124,7 @@ public class UpdateProfile {
 
     Object onSuccess() throws InstanceNotFoundException {
     	
-    	user = userService.findUserProfile(userSession
+    	user = userService.findUser(userSession
                 .getUserId());
     	
         userService.updateUserDetails(

@@ -17,7 +17,6 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
 
     /**
      * Returns a Sprint by name
-     *
      * @param name the sprint identifier
      * @return the Sprint
      */
@@ -25,7 +24,6 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
     
     /**
      * Returns all sprints
-     *
      * @return all Sprint
      */
     public List<Sprint> findAllOrderedBySprintName();

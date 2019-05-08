@@ -10,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("userDao")
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User findByLoginName(String loginName) throws InstanceNotFoundException {
 
@@ -25,6 +28,9 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllSortedByName() {

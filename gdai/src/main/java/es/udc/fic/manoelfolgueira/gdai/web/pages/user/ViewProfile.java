@@ -43,7 +43,7 @@ public class ViewProfile {
     	
     	if (userSession != null) {
 
-	        user = userService.findUserProfile(userSession
+	        user = userService.findUser(userSession
 	                .getUserId());
 	        
 	        if (user.getHireDate() == null) hireDateParsed = "";

@@ -39,7 +39,7 @@ public class ViewUser {
 
     void onActivate(Long userId) throws InstanceNotFoundException {
     	
-    	user = userService.findUserProfile(userId);
+    	user = userService.findUser(userId);
         
         if (user.getHireDate() == null) hireDateParsed = "";
         else {
