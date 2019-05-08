@@ -13,6 +13,13 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+
+/**
+ * Defines the behaviour of the layout of the application
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @since  2019-05-08
+ * @file   Layout.java
+ */
 @Import(library = {"tapestry5/bootstrap/js/collapse.js", "tapestry5/bootstrap/js/dropdown.js"},
         stylesheet= {"tapestry5/bootstrap/css/bootstrap-theme.css", "context:css/gdai_layout.css"})
 public class Layout {
@@ -30,17 +37,21 @@ public class Layout {
     
     @Inject
     private Cookies cookies;
-    
-    public boolean getShowTitleInBody() {
-    	
-    	if (showTitleInBody == null) {
-    		return true;
-    	} else {
-    		return showTitleInBody;
-    	}
+
+    /**
+     * Title configuration
+     * @return whether the title will be displayed
+     */
+	public boolean getShowTitleInBody() {
+		
+		return (showTitleInBody == null) ? true : showTitleInBody;
     	
     }
     
+	/**
+	 * Logs out the user
+	 * @return the Index view
+	 */
     @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
     Object onActionFromLogout() {
         userSession = null;
@@ -48,6 +59,10 @@ public class Layout {
         return Index.class;
     }
     
+    /**
+     * Utily method to know if an user has the role of Administrator
+     * @return a boolean to tell if the logged user is an Administrator
+     */
     public boolean getIsUserAdministrator() {
     	if (userSession == null) return false;
     	return userSession.isAdministrator();
