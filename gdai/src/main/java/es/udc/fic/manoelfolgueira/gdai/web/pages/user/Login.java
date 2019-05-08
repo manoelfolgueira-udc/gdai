@@ -14,6 +14,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.UserExpiratedException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -81,7 +82,7 @@ public class Login {
         
         String userGroupName = userProfile.getGroup() == null ? "" : userProfile.getGroup().getGroupName();
 
-        userSession.setAdministrator(userGroupName.equals(Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+        userSession.setAdministrator(userGroupName.equals(Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 
         if (rememberMyPassword) {
             CookiesManager.leaveCookies(cookies, loginName, userProfile

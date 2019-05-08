@@ -22,6 +22,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -159,7 +160,7 @@ public class ModifyUser {
 			// Modifying myself
 			if (userId.equals(userSession.getUserId())) {
 				userSession.setAdministrator(group.getGroupName().equals(
-						Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+						Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 			}
 
 			userService.updateUserDetails(
