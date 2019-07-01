@@ -5,7 +5,7 @@
 	<div class="form-group">
     	<div class="col-md-offset-5 col-md-6 col-md-6">
        		<button type="submit" class="btn btn-default" t:type="PageLink"
-								t:page="administration/application/applicationregister">${message:createANewApplication}</button>
+								t:page="administration/application/register">${message:createANewApplication}</button>
        	</div>
     </div>
     
@@ -16,17 +16,17 @@
     <div class="eg">
         <t:grid source="applications" value="application" row="application" add="system,applicationManagement" rowsPerPage="6" pagerPosition="top">
         <p:applicationNameCell>
-                <t:pagelink page="application/applicationview" context="application.applicationId">${application.applicationName}</t:pagelink>
+                <t:pagelink page="application/view" context="application.applicationId">${application.applicationName}</t:pagelink>
             </p:applicationNameCell>
         <p:systemCell>
-        	<t:pagelink page="system/systemview" context="application.system.systemId">${application.system.systemName}</t:pagelink>
+        	<t:pagelink page="system/view" context="application.system.systemId">${application.system.systemName}</t:pagelink>
             </p:systemCell>
         <p:applicationManagementCell>
         <button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="administration/application/applicationdelete" t:context="application.applicationId">${message:delete}</button>
+						t:page="administration/application/delete" t:context="application.applicationId">${message:delete}</button>
 			<span style="display:inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="administration/application/applicationmodify" t:context="application.applicationId">${message:modify}</button>
+						t:page="administration/application/modify" t:context="application.applicationId">${message:modify}</button>
         </p:applicationManagementCell>
         <p:empty>
         	${message:noApplication}

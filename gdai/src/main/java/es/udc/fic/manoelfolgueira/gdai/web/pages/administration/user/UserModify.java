@@ -22,6 +22,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -29,8 +30,13 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that allows an Administrator modify a User
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   UserModify.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ModifyUser {
+public class UserModify {
 
 	@Inject
 	private PageRenderLinkSource pageRenderLS;	
@@ -118,7 +124,7 @@ public class ModifyUser {
 
 	void onPrepare() throws InstanceNotFoundException {
 
-		user = userService.findUserProfile(userId);
+		user = userService.findUser(userId);
 
 		loginName = user.getLoginName();
 		firstName = user.getFirstName();
@@ -159,7 +165,7 @@ public class ModifyUser {
 			// Modifying myself
 			if (userId.equals(userSession.getUserId())) {
 				userSession.setAdministrator(group.getGroupName().equals(
-						Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+						Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 			}
 
 			userService.updateUserDetails(

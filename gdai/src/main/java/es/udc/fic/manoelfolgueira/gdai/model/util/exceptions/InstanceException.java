@@ -6,6 +6,9 @@ public abstract class InstanceException extends Exception {
     private Object key;
     private String className;
     
+    /**
+	 * @see es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException.java
+	 */
     protected InstanceException(String specificMessage, Object key, 
         String className) {
         
@@ -15,13 +18,20 @@ public abstract class InstanceException extends Exception {
         this.className = className;
         
     }
+
+	/**
+	 * @return the key
+	 */
+	public Object getKey() {
+		return key;
+	}
+
+	/**
+	 * @return the className
+	 */
+	public String getClassName() {
+		return className;
+	}  
     
-    public Object getKey() {
-        return key;
-    }
-    
-    public String getClassName() {
-        return className;
-    }
 
 }

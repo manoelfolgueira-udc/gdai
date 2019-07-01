@@ -20,6 +20,9 @@ public class PasswordEncrypter {
 	 * among the 26 capital letters (from 'A' to 'Z') to guarantee that the
 	 * characters returned in encrypted passwords are valid characters for a
 	 * cookie (see javax.servlet.http.Cookie).
+	 * 
+	 * @see es.udc.fic.manoelfolgueira.gdai.model.userservice.util.JCrypt.java
+	 * @see https://github.com/marioizquierdo/wonsters/blob/master/src/main/java/es/engade/thearsmonsters/model/facades/userfacade/util/PasswordEncrypter.java
 	 */
 
 	private final static int A_ASCII_CODE = 65;

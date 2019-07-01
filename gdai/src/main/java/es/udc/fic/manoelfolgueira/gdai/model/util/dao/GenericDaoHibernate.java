@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
+/**
+ * The generic DAO implementation that implements the generic DAO interface
+ * @param <E> any Entity
+ * @param <PK> its primary key
+ */
 public class GenericDaoHibernate<E, PK extends Serializable> implements
 GenericDao<E, PK> {
 

@@ -18,6 +18,9 @@ public class UserStoryServiceImpl implements UserStoryService {
     @Autowired
     private UserStoryDao userStoryDao;
 
+    /**
+     * {@inheritDoc}
+     */
     public UserStory registerUserStory(String name,
             UserStoryDetails userStoryDetails)
             throws DuplicateInstanceException {
@@ -44,6 +47,9 @@ public class UserStoryServiceImpl implements UserStoryService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public UserStory findUserStory(Long userStoryId)
             throws InstanceNotFoundException {
@@ -51,6 +57,9 @@ public class UserStoryServiceImpl implements UserStoryService {
         return userStoryDao.find(userStoryId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateUserStoryDetails(Long userStoryId,
             UserStoryDetails userStoryDetails)
             throws InstanceNotFoundException {
@@ -64,10 +73,16 @@ public class UserStoryServiceImpl implements UserStoryService {
         userStoryDao.save(userStory);
     }
     
-    public List<UserStory> findAllOrderedByUserStoryNameIC() {
-    	return userStoryDao.findAllOrderedByUserStoryNameIC();
+    /**
+     * {@inheritDoc}
+     */
+    public List<UserStory> findAllOrderedByUserStoryName() {
+    	return userStoryDao.findAllOrderedByUserStoryName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeUserStory(Long userStoryId) throws InstanceNotFoundException {
 		userStoryDao.remove(userStoryId);

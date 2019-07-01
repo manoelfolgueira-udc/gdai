@@ -16,8 +16,13 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that lets User see any Group
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupView.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ViewGroup {
+public class GroupView {
 
     @SessionState(create=false)
     private UserSession userSession;

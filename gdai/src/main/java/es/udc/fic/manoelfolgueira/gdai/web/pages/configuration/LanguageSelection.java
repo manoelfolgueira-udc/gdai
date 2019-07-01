@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.configuration;
 
-
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Property;
@@ -10,6 +9,11 @@ import org.apache.tapestry5.services.PersistentLocale;
 import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
 
+/**
+ * Provides language selection to any User
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   LanguageSelection.java
+ */
 public class LanguageSelection {
 
     @Property

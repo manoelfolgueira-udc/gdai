@@ -15,6 +15,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that allows Group Management
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupManagement.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GroupManagement {
     

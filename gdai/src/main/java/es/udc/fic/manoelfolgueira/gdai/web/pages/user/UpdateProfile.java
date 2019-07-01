@@ -21,6 +21,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that allows users to change some of their profile information and settings
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   UpdateProfile.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UpdateProfile {
 
@@ -87,7 +92,7 @@ public class UpdateProfile {
     
     void onPrepareForRender() throws InstanceNotFoundException {
 
-        user = userService.findUserProfile(userSession
+        user = userService.findUser(userSession
                 .getUserId());
 
         loginName = user.getLoginName();
@@ -124,7 +129,7 @@ public class UpdateProfile {
 
     Object onSuccess() throws InstanceNotFoundException {
     	
-    	user = userService.findUserProfile(userSession
+    	user = userService.findUser(userSession
                 .getUserId());
     	
         userService.updateUserDetails(

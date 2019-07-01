@@ -18,6 +18,9 @@ public class SprintServiceImpl implements SprintService {
     @Autowired
     private SprintDao sprintDao;
 
+    /**
+     * {@inheritDoc}
+     */
     public Sprint registerSprint(String name,
             SprintDetails sprintDetails)
             throws DuplicateInstanceException {
@@ -44,6 +47,9 @@ public class SprintServiceImpl implements SprintService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public Sprint findSprint(Long sprintId)
             throws InstanceNotFoundException {
@@ -51,6 +57,9 @@ public class SprintServiceImpl implements SprintService {
         return sprintDao.find(sprintId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateSprintDetails(Long sprintId,
             SprintDetails sprintDetails)
             throws InstanceNotFoundException {
@@ -58,16 +67,22 @@ public class SprintServiceImpl implements SprintService {
         Sprint sprint = sprintDao.find(sprintId);
         
         sprint.setSprintName(sprintDetails.getSprintName());
-        sprint.setStartDate(sprintDetails.getStartDate());
-        sprint.setEndDate(sprintDetails.getEndDate());
+        sprint.setSprintStart(sprintDetails.getStartDate());
+        sprint.setSprintEnd(sprintDetails.getEndDate());
         
         sprintDao.save(sprint);
     }
     
-    public List<Sprint> findAllOrderedBySprintNameIC() {
-    	return sprintDao.findAllOrderedBySprintNameIC();
+    /**
+     * {@inheritDoc}
+     */
+    public List<Sprint> findAllOrderedBySprintName() {
+    	return sprintDao.findAllOrderedBySprintName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeSprint(Long sprintId) throws InstanceNotFoundException {
 		sprintDao.remove(sprintId);

@@ -9,7 +9,6 @@ public interface ProjectDao extends GenericDao<Project, Long> {
 
     /**
      * Returns a Project by name
-     *
      * @param name the project identifier
      * @return the Project
      */
@@ -17,7 +16,6 @@ public interface ProjectDao extends GenericDao<Project, Long> {
     
     /**
      * Returns all projects
-     *
      * @return all Project
      */
     public List<Project> findAllOrderedByProjectName();

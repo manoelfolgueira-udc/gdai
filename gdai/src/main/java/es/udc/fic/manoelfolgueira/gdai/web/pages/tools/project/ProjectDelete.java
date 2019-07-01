@@ -17,6 +17,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Delete a project web page
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   ProjectDelete.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ProjectDelete {
 	

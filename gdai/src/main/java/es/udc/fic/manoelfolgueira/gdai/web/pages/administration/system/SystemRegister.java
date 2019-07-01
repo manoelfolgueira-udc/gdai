@@ -24,6 +24,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that lets Administrator add new Systems
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   SystemRegister.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class SystemRegister {
 	

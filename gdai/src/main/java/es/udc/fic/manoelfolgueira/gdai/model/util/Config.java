@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * A bare class which handles some app general configuration via a properties file
+ */
 public class Config {
-	
-	public static final String ADMINISTRATORS_GROUP_NAME = "ADMINISTRATORS_GROUP_NAME";
-	private static final String configFilePath = "src/main/resources/es/udc/fic/manoelfolgueira/gdai/model/config.properties";
 
 	private static Config instance = null;
 	
@@ -26,7 +26,7 @@ public class Config {
 
 			try {
 
-				input = new FileInputStream(Config.configFilePath);
+				input = new FileInputStream(ConfigPropertyKeys.CONFIG_FILE_PATH);
 				instance.properties.load(input);
 			} catch (IOException ex) {
 				ex.printStackTrace();

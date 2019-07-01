@@ -17,7 +17,6 @@ public interface UserStoryDao extends GenericDao<UserStory, Long> {
 
     /**
      * Returns a UserStory by name
-     *
      * @param name the userStory identifier
      * @return the UserStory
      */
@@ -25,8 +24,7 @@ public interface UserStoryDao extends GenericDao<UserStory, Long> {
     
     /**
      * Returns all userStorys
-     *
      * @return all UserStory
      */
-    public List<UserStory> findAllOrderedByUserStoryNameIC();
+    public List<UserStory> findAllOrderedByUserStoryName();
 }

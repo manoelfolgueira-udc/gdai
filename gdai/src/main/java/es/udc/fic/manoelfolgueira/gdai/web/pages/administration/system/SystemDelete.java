@@ -17,6 +17,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Delete a System web page
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   SystemDelete.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class SystemDelete {
 	

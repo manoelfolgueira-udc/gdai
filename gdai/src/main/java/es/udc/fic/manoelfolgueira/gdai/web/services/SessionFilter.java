@@ -13,6 +13,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -53,7 +54,7 @@ public class SessionFilter implements RequestFilter {
 								.getUserId());
 						userSession.setLoginName(user.getLoginName());
 						userSession.setAdministrator(user.getGroup().getGroupName().equals(
-								Config.getInstance().getProperties().getProperty(Config.ADMINISTRATORS_GROUP_NAME)));
+								Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 						applicationStateManager.set(UserSession.class,
 								userSession);
 

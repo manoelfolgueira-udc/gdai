@@ -18,6 +18,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     private ApplicationDao applicationDao;
 
+    /**
+	 * {@inheritDoc}
+	 */
     public Application registerApplication(String name,
             ApplicationDetails applicationDetails)
             throws DuplicateInstanceException {
@@ -39,6 +42,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     }
 
+    /**
+	 * {@inheritDoc}
+	 */
     @Transactional(readOnly = true)
     public Application findApplication(Long applicationId)
             throws InstanceNotFoundException {
@@ -46,6 +52,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationDao.find(applicationId);
     }
 
+    /**
+	 * {@inheritDoc}
+	 */
     public void updateApplicationDetails(Long applicationId,
             ApplicationDetails applicationDetails)
             throws InstanceNotFoundException {
@@ -56,10 +65,16 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setApplicationDescription(applicationDetails.getApplicationDescription());
     }
     
+    /**
+	 * {@inheritDoc}
+	 */
     public List<Application> findAllOrderedByApplicationName() {
     	return applicationDao.findAllOrderedByApplicationName();
     }
 
+    /**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(Long applicationId) throws InstanceNotFoundException {
 		applicationDao.remove(applicationId);		

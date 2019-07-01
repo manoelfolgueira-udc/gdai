@@ -34,7 +34,6 @@ CREATE TABLE gdai_group
      groupName      VARCHAR(30) NOT NULL,
      creationDate   TIMESTAMP, 
      expirationDate TIMESTAMP,
-     systemId       BIGINT,
      CONSTRAINT GroupPK PRIMARY KEY (groupId),
      CONSTRAINT GroupUniqueKeyGroupName UNIQUE (groupName)
   ) 

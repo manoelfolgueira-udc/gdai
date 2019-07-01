@@ -6,6 +6,11 @@ import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
+/**
+ * An encoder for the System Entity
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   SystemEncoder.java
+ */
 public class SystemEncoder implements ValueEncoder<System> {
 	
 	private SystemService ss;

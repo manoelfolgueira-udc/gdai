@@ -1,4 +1,4 @@
-package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.project;
+package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -21,8 +21,13 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that allows an Administrator modify a Group
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupModify.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
-public class ModifyProject {
+public class GroupModify {
 	
 	@Inject
 	private PageRenderLinkSource pageRenderLS;	

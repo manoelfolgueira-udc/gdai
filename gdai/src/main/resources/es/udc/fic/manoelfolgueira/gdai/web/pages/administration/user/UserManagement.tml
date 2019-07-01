@@ -22,7 +22,7 @@
 	        		<img style="float: left;" src="${user.getAvatarUrl()}" class="avatar"/>
 
 					<header class="w3-container w3-light-grey">
-					  <h3><t:pagelink page="administration/user/viewuser" context="user.userId">${user.loginName}</t:pagelink></h3>
+					  <h3><t:pagelink page="administration/user/view" context="user.userId">${user.loginName}</t:pagelink></h3>
 					</header>
 					
 					<div class="w3-container">
@@ -34,10 +34,10 @@
 	        </p:userCell>       
 	        <p:manageUserCell>
 	        <button type="submit" class="btn btn-danger" t:type="PageLink"
-							t:page="administration/user/deleteuser" t:context="user.userId">${message:delete}</button>
+							t:page="administration/user/delete" t:context="user.userId">${message:delete}</button>
 				<span style="display:inline-block; width: 10px;"></span>
 				<button type="submit" class="btn btn-primary" t:type="PageLink"
-							t:page="administration/user/modifyuser" t:context="user.userId">${message:modify}</button>
+							t:page="administration/user/modify" t:context="user.userId">${message:modify}</button>
 	        </p:manageUserCell>
 	        <p:empty>
 	        	${message:noUser}

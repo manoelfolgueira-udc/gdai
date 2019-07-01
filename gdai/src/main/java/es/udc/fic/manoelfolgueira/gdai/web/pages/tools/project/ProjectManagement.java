@@ -27,6 +27,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that allows Project Management
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   ProjectManagement.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ProjectManagement {
 
@@ -104,7 +109,7 @@ public class ProjectManagement {
 
 	void onPrepare() {
 		
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintNameIC();
+		List<Sprint> sprints = sprintService.findAllOrderedBySprintName();
 
 		if (sprintId != null) {
 			sprint = findSprintInList(sprintId, sprints);
@@ -120,7 +125,7 @@ public class ProjectManagement {
 
 		groupsModel = selectModelFactory.create(groups, "groupName");
 		
-		List<System> systems = systemService.findAllOrderedBySystemNameIC();
+		List<System> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
 			system = findSystemInList(groupId, systems);

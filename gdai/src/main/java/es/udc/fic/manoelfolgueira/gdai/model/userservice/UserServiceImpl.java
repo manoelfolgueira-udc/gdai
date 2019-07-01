@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     
+    /**
+     * {@inheritDoc}
+     */
     public User registerUser(String loginName, String clearPassword,
             UserDetails userDetails)
             throws DuplicateInstanceException {
@@ -42,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public User login(String loginName, String password,
             boolean passwordIsEncrypted) throws InstanceNotFoundException,
@@ -64,13 +70,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
-    public User findUserProfile(Long userProfileId)
+    public User findUser(Long userId)
             throws InstanceNotFoundException {
 
-        return userDao.find(userProfileId);
+        return userDao.find(userId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateUserDetails(Long userProfileId,
             UserDetails userDetails)
             throws InstanceNotFoundException {
@@ -93,6 +105,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void changePassword(Long userProfileId, String oldClearPassword,
             String newClearPassword) throws IncorrectPasswordException,
             InstanceNotFoundException {
@@ -112,11 +127,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<User> findAllSortedByName() {
 		return userDao.findAllSortedByName();
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public void remove(Long userId) throws InstanceNotFoundException {
 		userDao.remove(userId);		

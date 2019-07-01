@@ -10,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("projectDao")
 public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> implements ProjectDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Project findByName(String projectName) throws InstanceNotFoundException {
 
     	Project project = (Project) getSession().createQuery(
@@ -24,6 +27,9 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> findAllOrderedByProjectName() {

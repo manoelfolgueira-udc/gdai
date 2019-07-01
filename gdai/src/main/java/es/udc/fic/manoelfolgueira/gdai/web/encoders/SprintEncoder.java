@@ -6,6 +6,11 @@ import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
+/**
+ * An encoder for the Group Entity
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   SprintEncoder.java
+ */
 public class SprintEncoder implements ValueEncoder<Sprint> {
 	
 	private SprintService ss;
