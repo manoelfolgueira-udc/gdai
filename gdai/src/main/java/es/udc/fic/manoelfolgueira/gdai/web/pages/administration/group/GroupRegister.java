@@ -19,6 +19,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that lets Administrator add new Groups
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupRegister.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GroupRegister {
 	

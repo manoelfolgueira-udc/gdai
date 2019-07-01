@@ -5,12 +5,14 @@ import java.lang.reflect.Method;
 
 /**
  * All entities (which inherite the structure and behaviour from this class) will get an special ID called GDAICode based on their class name.
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GDAICodificable.java
  */
 public class GDAICodificable {
 	
 	/**
 	 * Generates a GDAI Entity Code based on the child entity calling.
-	 * PLEASE, REMEMBER TO CONFIGURE properties file located via the path es.udc.fic.manoelfolgueira.gdai.model.util.Config.CONFIG_FILE_PATH
+	 * PLEASE, REMEMBER TO CONFIGURE properties file located via the macro es.udc.fic.manoelfolgueira.gdai.model.util.Config.CONFIG_FILE_PATH
 	 * 	- adding the GDAICode length as GDAICODIFICABLECHILD_CODE_LENGTH, example: PROJECT_CODE_LENGTH=6 (PROJECT = ENTITY, 6 = GDAICode length)
 	 *  - adding the GDAICode initial as GDAICODIFICABLECHILD_CODE_INITIAL, example: PROJECT_CODE_INITIAL=D (PROJECT = ENTITY, D = GDAICode initial)
 	 * @return the current GDAICode for the calling entity instance.
@@ -19,13 +21,13 @@ public class GDAICodificable {
 				
 		return this.getGDAICode(
 				Integer.parseInt((String)Config.getInstance().getProperties().get(
-						this.getClass().getSimpleName().toUpperCase() + "_CODE_LENGTH"))
+						this.getClass().getSimpleName().toUpperCase() + ConfigPropertyKeys.GDAICODE_ENTITY_LENGTH_KEY))
 				);
 	}
 	
 	/**
 	 * Method which actually calculates the GDAICode. We leave this method hidden so it's always called with the configured length and not with
-	 * arbitrary calls with different lengths
+	 * any arbitrary calls with different lengths
 	 * @param length the GDAICode length to generate the code
 	 * @return the actual GDAICode
 	 */
@@ -52,7 +54,7 @@ public class GDAICodificable {
 		}
 		
 		String initial =
-				(String)Config.getInstance().getProperties().get(this.getClass().getSimpleName().toUpperCase() + "_CODE_INITIAL");
+				(String)Config.getInstance().getProperties().get(this.getClass().getSimpleName().toUpperCase() + ConfigPropertyKeys.GDAICODE_ENTITY_INITIAL_KEY);
 		
 		// TODO test high db id and low GDAICode length
 		String currentCode = id.toString();

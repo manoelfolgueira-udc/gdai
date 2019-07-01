@@ -17,6 +17,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.CookiesManager;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that allows any user to change their password
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   ChangePassword.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ChangePassword {
 

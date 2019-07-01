@@ -13,6 +13,11 @@ import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 
+/**
+ * Web page that allows User Management
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   UserManagement.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserManagement {
 	@Property

@@ -4,7 +4,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.util.exceptions;
 public class UserExpiratedException extends InstanceException {
 
 	/**
-	 * Appears when a user tries to log in and it's account is expired
+	 * Appears when a user tries to log in and its account is expired
 	 * @param key instance id
 	 * @param className entity class name
 	 */

@@ -26,6 +26,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that allows an Administrator modify an Application
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   ApplicationModify.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ApplicationModify {
 	

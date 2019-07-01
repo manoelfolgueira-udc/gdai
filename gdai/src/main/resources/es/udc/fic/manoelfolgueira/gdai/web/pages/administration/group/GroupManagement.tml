@@ -5,7 +5,7 @@
 	<div class="form-group">
     	<div class="col-md-offset-5 col-md-6 col-md-6">
        		<button type="submit" class="btn btn-default" t:type="PageLink"
-								t:page="administration/group/groupregister">${message:createANewGroup}</button>
+								t:page="administration/group/register">${message:createANewGroup}</button>
        	</div>
     </div>
     
@@ -16,14 +16,14 @@
     <div class="eg">
         <t:grid source="groups" row="group" add="manageGroup" rowsPerPage="6" pagerPosition="top">
         <p:groupNameCell>
-                <t:pagelink page="group/viewgroup" context="group.groupId"><span class="devgroup">${group.groupName}</span></t:pagelink>
+                <t:pagelink page="group/view" context="group.groupId"><span class="devgroup">${group.groupName}</span></t:pagelink>
             </p:groupNameCell>
         <p:manageGroupCell>
         <button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="administration/group/deletegroup" t:context="group.groupId">${message:delete}</button>
+						t:page="administration/group/delete" t:context="group.groupId">${message:delete}</button>
 			<span style="display:inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="administration/group/modifygroup" t:context="group.groupId">${message:modify}</button>
+						t:page="administration/group/modify" t:context="group.groupId">${message:modify}</button>
         </p:manageGroupCell>
         <p:empty>
         	${message:noGroup}

@@ -12,12 +12,12 @@
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>${message:systemName}</td>
-										<td>${application.systemName}</td>
+										<td>${message:applicationname}</td>
+										<td>${application.applicationname}</td>
 									</tr>
 									<tr>
-										<td>${message:systemDescription}</td>
-										<td>${application.systemDescription}</td>
+										<td>${message:applicationDescription}</td>
+										<td>${application.applicationDescription}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -32,7 +32,7 @@
 	<div class="form-application">
 	    	<div class="col-md-offset-4 col-md-6 col-md-6">
         		<button type="submit" class="btn btn-default" t:type="PageLink"
-									t:page="administration/application/systemmanagement">${message:return}</button>
+									t:page="administration/application/management">${message:return}</button>
         </div>
 	
 </div>
