@@ -5,9 +5,9 @@ package es.udc.fic.manoelfolgueira.gdai.model.userservice.util;
  * Eric Young (eay@psych.uq.oz.au) of the UNIX crypt command.
  * <p>
  */
-public final class jcrypt
+public final class JCrypt
 {
-   private jcrypt() {}
+   private JCrypt() {}
 
    private static final int ITERATIONS = 16;
 
@@ -619,7 +619,7 @@ public final class jcrypt
          System.out.println
          (
             "[" + args[0] + "] [" + args[1] + "] => [" +
-            jcrypt.crypt(args[0], args[1]) + "]"
+            JCrypt.crypt(args[0], args[1]) + "]"
          );
       }
    }

@@ -48,7 +48,7 @@ public class PasswordEncrypter {
 
 		String salt = generateRandomSalt();
 
-		return jcrypt.crypt(salt, clearPassword);
+		return JCrypt.crypt(salt, clearPassword);
 
 	}
 
@@ -56,7 +56,7 @@ public class PasswordEncrypter {
 			String encryptedPassword) {
 
 		String salt = encryptedPassword.substring(0, 2);
-		String encryptedClearPassword = jcrypt.crypt(salt, clearPassword);
+		String encryptedClearPassword = JCrypt.crypt(salt, clearPassword);
 
 		return encryptedClearPassword.equals(encryptedPassword);
 
