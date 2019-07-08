@@ -1,5 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.user;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -121,9 +122,8 @@ public class UserModify {
 	Long onPassivate() {
 		return userId;
 	}
-
-	void onPrepare() throws InstanceNotFoundException {
-
+	
+	void setupRender() throws InstanceNotFoundException {
 		user = userService.findUser(userId);
 
 		loginName = user.getLoginName();
@@ -139,14 +139,19 @@ public class UserModify {
 		avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
 
 		groupName = user.getGroup().getGroupName();
+		
+		group = user.getGroup();
+    }
 
+	void onPrepare() throws InstanceNotFoundException {
+		
 		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
-
-		Long groupId = user.getGroup().getGroupId();
+		
+		Long groupId = userService.findUser(userId).getGroup().getGroupId();
 		if (groupId != null) {
 			group = findGroupInList(groupId, groups);
 		}
-
+		
 		groupsModel = selectModelFactory.create(groups, "groupName");
 	}
 
@@ -205,6 +210,7 @@ public class UserModify {
 	}
 
 	private Group findGroupInList(Long groupId, List<Group> groups) {
+		
 		for (Group g : groups) {
 			if (g.getGroupId().equals(groupId)) {
 				return g;

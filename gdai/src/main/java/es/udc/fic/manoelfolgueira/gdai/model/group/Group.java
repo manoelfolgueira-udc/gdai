@@ -200,5 +200,15 @@ public class Group {
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Group [groupId=" + groupId + ", groupName=" + groupName + "]";
+	}
+	
+	
 	
 }
