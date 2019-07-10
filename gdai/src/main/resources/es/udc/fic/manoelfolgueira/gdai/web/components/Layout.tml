@@ -55,9 +55,9 @@
 									<li class="divider"></li>
 								<li class="dropdown-header">${message:administrationdropdown-header-projects}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/system/systemmanagement">${message:manageSystems}</a></li>
+									t:page="administration/system/management">${message:manageSystems}</a></li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/application/applicationmanagement">${message:manageApplications}</a></li>
+									t:page="administration/application/management">${message:manageApplications}</a></li>
 									<li class="divider"></li>
 							</ul></li>
 					</t:if>
@@ -74,7 +74,7 @@
 								<!-- Links here -->
 								<li class="dropdown-header">${message:ToolsDropdown-header-projectmanagement}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="tools/project/projectmanagement">${message:ToolsDropdown-link-manageProjects}</a></li>
+									t:page="tools/project/management">${message:ToolsDropdown-link-manageProjects}</a></li>
 								
 							</ul></li>
 						<p:else>

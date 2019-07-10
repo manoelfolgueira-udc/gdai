@@ -14,21 +14,17 @@
     <!-- Grid de Group con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <t:grid source="users" row="user" add="user,manageUser" rowsPerPage="3" pagerPosition="top"
+        <t:grid source="users" row="user" add="user,manageUser" rowsPerPage="5" pagerPosition="top"
         		include="userId" exclude="userId">
 	        <p:userCell>
 	        	<div class="w3-card-4">
 	        	
-	        		<img style="float: left;" src="${user.getAvatarUrl()}" class="avatar"/>
+	        		<!-- <img style="float: left;" src="${user.getAvatarUrl()}" class="avatar"/> -->
 
 					<header class="w3-container w3-light-grey">
-					  <h3><t:pagelink page="administration/user/view" context="user.userId">${user.loginName}</t:pagelink></h3>
+					  <p><h4>${message:User}: <t:pagelink page="administration/user/view" context="user.userId">${user.loginName}</t:pagelink>
+					  | ${message:Group}: <t:pagelink page="group/view" context="user.group.groupId">${user.getGroup().getGroupName()}</t:pagelink></h4></p>
 					</header>
-					
-					<div class="w3-container">
-					  <p>${user.getFirstName()} ${user.getLastName()}</p>
-					  <p>${user.getGroup().getGroupName()}</p>
-					</div>
 										
 			    </div>	        
 	        </p:userCell>       

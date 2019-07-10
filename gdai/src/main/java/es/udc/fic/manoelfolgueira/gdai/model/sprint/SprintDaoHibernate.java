@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDaoHibernate;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -32,9 +33,10 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sprint> findAllOrderedBySprintName() {
-		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintName)").list();
+	public List<Sprint> findAllOrderedBySprintName(SortingType sortingType) {
+		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintName)" + sortingType.toString()).list();
 		return sprints;
 	}
+
 
 }

@@ -163,7 +163,7 @@ public class UserRegister {
 
 	void onPrepare() {
 
-		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
+		List<Group> groups = groupService.findAllOrderedByGroupName();
 
 		if (groupId != null) {
 			group = findGroupInList(groupId, groups);

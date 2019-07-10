@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.SprintDao;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -76,9 +77,10 @@ public class SprintServiceImpl implements SprintService {
     /**
      * {@inheritDoc}
      */
-    public List<Sprint> findAllOrderedBySprintName() {
-    	return sprintDao.findAllOrderedBySprintName();
-    }
+	@Override
+	public List<Sprint> findAllOrderedBySprintName(SortingType sortingType) {
+		return sprintDao.findAllOrderedBySprintName(sortingType);
+	}
 
     /**
      * {@inheritDoc}
@@ -87,5 +89,7 @@ public class SprintServiceImpl implements SprintService {
 	public void removeSprint(Long sprintId) throws InstanceNotFoundException {
 		sprintDao.remove(sprintId);
 	}
+
+	
     
 }

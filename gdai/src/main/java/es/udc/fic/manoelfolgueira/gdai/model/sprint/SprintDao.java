@@ -2,6 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.sprint;
 
 import java.util.List;
 
+import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDao;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -23,8 +24,9 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
     public Sprint findByName(String name) throws InstanceNotFoundException;
     
     /**
-     * Returns all sprints
+     * Returns all sprints sorted
      * @return all Sprint
      */
-    public List<Sprint> findAllOrderedBySprintName();
+    public List<Sprint> findAllOrderedBySprintName(SortingType sortingType);
+
 }
