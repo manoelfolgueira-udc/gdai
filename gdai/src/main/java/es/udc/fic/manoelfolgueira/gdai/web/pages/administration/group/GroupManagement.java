@@ -51,7 +51,7 @@ public class GroupManagement {
     List<Group> groups;
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of groups which are going to be in the app at a time
-        groups = groupService.findAllOrderedByGroupNameIC();
+        groups = groupService.findAllOrderedByGroupName();
     }
     
     public String getGroupCreationDateFormatted() {

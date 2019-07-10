@@ -67,8 +67,8 @@ public class GroupServiceImpl implements GroupService {
     /**
      * {@inheritDoc}
      */
-    public List<Group> findAllOrderedByGroupNameIC() {
-    	return groupDao.findAllOrderedByGroupNameIC();
+    public List<Group> findAllOrderedByGroupName() {
+    	return groupDao.findAllOrderedByGroupName();
     }
 
     /**

@@ -145,7 +145,7 @@ public class UserModify {
 
 	void onPrepare() throws InstanceNotFoundException {
 		
-		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
+		List<Group> groups = groupService.findAllOrderedByGroupName();
 		
 		Long groupId = userService.findUser(userId).getGroup().getGroupId();
 		if (groupId != null) {

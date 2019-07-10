@@ -42,7 +42,7 @@ public interface GroupService {
      * Returns an ordered list by name (case insensitive) of all the groups in GDAI
      * @return the list
      */
-    public List<Group> findAllOrderedByGroupNameIC();
+    public List<Group> findAllOrderedByGroupName();
     
     /**
      * Deletes a group

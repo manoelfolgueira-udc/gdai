@@ -15,10 +15,11 @@ import org.apache.tapestry5.services.SelectModelFactory;
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.SprintEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.SystemEncoder;
@@ -109,15 +110,17 @@ public class ProjectManagement {
 
 	void onPrepare() {
 		
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintName();
+		List<Sprint> sprints = sprintService.findAllOrderedBySprintName(SortingType.DESC);
 
 		if (sprintId != null) {
 			sprint = findSprintInList(sprintId, sprints);
+		} else {
+			sprint = sprints.get(0); // we get the current sprint by default
 		}
 
 		sprintsModel = selectModelFactory.create(sprints, "sprintName");
 
-		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
+		List<Group> groups = groupService.findAllOrderedByGroupName();
 
 		if (groupId != null) {
 			group = findGroupInList(groupId, groups);
@@ -128,7 +131,7 @@ public class ProjectManagement {
 		List<System> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(groupId, systems);
+			system = findSystemInList(systemId, systems);
 		}
 
 		systemsModel = selectModelFactory.create(systems, "systemName");

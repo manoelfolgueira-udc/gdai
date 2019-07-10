@@ -55,7 +55,8 @@ values
 -- Sprints
 insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate, createdById)
 values
-	('SP1', NOW(), NOW(), NOW(), 1);
+	('SP1', NOW(), NOW(), NOW(), 1),
+	('SP2', NOW(), NOW(), NOW(), 1);
 	
 -- Projects
 insert into gdai_project(projectName, projectDescription, creationDate, targetDate,

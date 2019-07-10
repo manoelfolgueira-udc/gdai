@@ -3,6 +3,7 @@ package es.udc.fic.manoelfolgueira.gdai.model.sprintservice;
 import java.util.List;
 
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -38,11 +39,12 @@ public interface SprintService {
             SprintDetails sprintDetails)
             throws InstanceNotFoundException;
     
+    
     /**
-     * Finds all sprints and returns them ordered by name
+     * Finds all sprints and returns them ordered by name in the sorting type specified
      * @return the list of sprints
      */
-    public List<Sprint> findAllOrderedBySprintName();
+    public List<Sprint> findAllOrderedBySprintName(SortingType sortingType);
     
     /**
      * Erases a sprint by its id

@@ -32,7 +32,7 @@ public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implemen
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Group> findAllOrderedByGroupNameIC() {
+	public List<Group> findAllOrderedByGroupName() {
 		List<Group> groups = getSession().createQuery("SELECT g FROM Group g ORDER BY lower(g.groupName)").list();
 		return groups;
 	}
