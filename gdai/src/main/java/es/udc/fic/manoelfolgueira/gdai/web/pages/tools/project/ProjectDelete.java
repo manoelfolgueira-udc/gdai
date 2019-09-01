@@ -10,8 +10,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -32,15 +32,15 @@ public class ProjectDelete {
     private Messages messages;
 	
 	@Inject
-	private GroupService groupService;
+	private ProjectService projectService;
 	
 	@Property
-	private String infoDeleteGroup;
+	private String infoDeleteProject;
 	
-	private Long groupId;
+	private Long projectId;
 	
 	@Property
-	private Group group;
+	private Project project;
 	
 	@Component
 	private Form deleteForm;
@@ -52,34 +52,34 @@ public class ProjectDelete {
     private Locale locale;
 	
 	void setupRender() {
-		infoDeleteGroup = messages.format("surePerformAction", messages.get("info-delete-group"));
+		infoDeleteProject = messages.format("surePerformAction", messages.get("info-delete-project"));
 		try {
-			group = groupService.findGroup(groupId);
+			project = projectService.findProject(projectId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	void onActivate(Long groupId) {
-		this.groupId = groupId;
+	void onActivate(Long projectId) {
+		this.projectId = projectId;
 	}
 	
 	Long onPassivate() {
-        return groupId;
+        return projectId;
     }
 	
-	public String getDeleteGroupInfo() {
-		return this.infoDeleteGroup;
+	public String getDeleteProjectInfo() {
+		return this.infoDeleteProject;
 	}
 	
 	Object onValidateFromDeleteForm() {
 		try {
-			groupService.removeGroup(groupId);
-			return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupDeleted", groupId);
+			projectService.removeProject(projectId);
+			return pageRenderLS.createPageRenderLinkWithContext("tools/project/ProjectDeleted", projectId);
 		} catch (InstanceNotFoundException e) {
 			deleteForm.recordError(messages
-                    .get("error-groupDoesNotExist") + group.getGroupName());
+                    .get("error-projectDoesNotExist") + project.getProjectName());
 			return null;
 		}
 	}

@@ -28,14 +28,12 @@ public class Group {
 	private Long groupId;
 	private String groupName;
 	private Calendar creationDate = Calendar.getInstance();
-	private Calendar expirationDate = null;
 	
 	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<User> users;
 	
 	@OneToMany(targetEntity=System.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<System> systems;
-
 	
 	/**
 	 * Empty constructor
@@ -49,10 +47,9 @@ public class Group {
 	 * @param expirationDate when the group expires
 	 * @param system
 	 */
-	public Group(String groupName, List<User> users, Calendar expirationDate, List<System> systems) {
+	public Group(String groupName, List<User> users, List<System> systems) {
 		this.groupName = groupName;
 		this.users = users;
-		this.expirationDate = expirationDate;
 		this.systems = systems;
 	}
 
@@ -99,20 +96,6 @@ public class Group {
 	}
 
 	/**
-	 * @return the expirationDate
-	 */
-	public Calendar getExpirationDate() {
-		return expirationDate;
-	}
-
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(Calendar expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-
-	/**
 	 * @return the users
 	 */
 	public List<User> getUsers() {
@@ -148,7 +131,6 @@ public class Group {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
 		result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
 		result = prime * result + ((groupName == null) ? 0 : groupName.hashCode());
 		result = prime * result + ((systems == null) ? 0 : systems.hashCode());
@@ -172,11 +154,6 @@ public class Group {
 			if (other.creationDate != null)
 				return false;
 		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (expirationDate == null) {
-			if (other.expirationDate != null)
-				return false;
-		} else if (!expirationDate.equals(other.expirationDate))
 			return false;
 		if (groupId == null) {
 			if (other.groupId != null)
@@ -208,7 +185,4 @@ public class Group {
 	public String toString() {
 		return "Group [groupId=" + groupId + ", groupName=" + groupName + "]";
 	}
-	
-	
-	
 }

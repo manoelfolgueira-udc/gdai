@@ -34,13 +34,11 @@ public class UserStoryServiceImpl implements UserStoryService {
             UserStory userStory = new UserStory(
             		
             		userStoryDetails.getUserStoryName(),
-            		userStoryDetails.getStartDate(),
-            		userStoryDetails.getEndDate(),
+            		userStoryDetails.getUserStoryDescription(),
             		userStoryDetails.getCreationDate(),
-            		userStoryDetails.getProjects()
-            		
+            		userStoryDetails.getCreatedBy()
             		);
-
+            
             userStoryDao.save(userStory);
             return userStory;
         }
@@ -67,8 +65,7 @@ public class UserStoryServiceImpl implements UserStoryService {
         UserStory userStory = userStoryDao.find(userStoryId);
         
         userStory.setUserStoryName(userStoryDetails.getUserStoryName());
-        userStory.setStartDate(userStoryDetails.getStartDate());
-        userStory.setEndDate(userStoryDetails.getEndDate());
+        userStory.setUserStoryDescription(userStoryDetails.getUserStoryDescription());
         
         userStoryDao.save(userStory);
     }

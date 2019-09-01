@@ -87,5 +87,9 @@ public class ViewProfile {
     public String getDateOfBirthDBValue() {
     	return user.getDateOfBirth() == null ? "" : Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
     }
+    
+    public String getIsManagerUI() {
+    	return user.getIsManager() ? "Y" : "N";
+    }
 
 }

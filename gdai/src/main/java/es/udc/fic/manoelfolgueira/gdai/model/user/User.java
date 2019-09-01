@@ -1,7 +1,9 @@
 package es.udc.fic.manoelfolgueira.gdai.model.user;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,14 +12,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
 @Table(name="gdai_user")
-public class User {
+public class User extends GDAICodificable {
 
 	@Column(name = "userId")
 	@SequenceGenerator(name = "UserIdGenerator",sequenceName = "UserSeq")
@@ -35,10 +40,14 @@ public class User {
 	private Calendar dateOfBirth;
 	private Calendar expirationDate;
 	private String gender;
+	private Boolean isManager;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
 	private Group group;
+	
+	@OneToMany(targetEntity=Project.class, mappedBy="createdBy", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Project> projects;
 
 	/**
 	 * Empty constructor
@@ -62,7 +71,7 @@ public class User {
 	 */
 	public User(String loginName, String encryptedPassword,
 			String firstName, String lastName, String gender, String email, String phoneNumber, String avatarUrl,
-			Calendar hireDate, Calendar dateOfBirth, Calendar expirationDate, Group group) {
+			Calendar hireDate, Calendar dateOfBirth, Calendar expirationDate, Boolean isManager, Group group) {
 		
 		this.loginName = loginName;
 		this.encryptedPassword = encryptedPassword;
@@ -76,6 +85,7 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.expirationDate = expirationDate;
 		this.group = group;
+		this.isManager = isManager;
 		
 	}
 
@@ -259,6 +269,34 @@ public class User {
 	 */
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	/**
+	 * @return the projects
+	 */
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	/**
+	 * @param projects the projects to set
+	 */
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
+	/**
+	 * @return the isManager
+	 */
+	public Boolean getIsManager() {
+		return isManager;
+	}
+
+	/**
+	 * @param isManager the isManager to set
+	 */
+	public void setIsManager(Boolean isManager) {
+		this.isManager = isManager;
 	}
 
 	/* (non-Javadoc)

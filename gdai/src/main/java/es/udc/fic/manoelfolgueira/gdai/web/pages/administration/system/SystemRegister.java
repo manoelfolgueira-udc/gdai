@@ -12,10 +12,12 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -76,17 +78,23 @@ public class SystemRegister {
 
 	@Inject
 	private SelectModelFactory selectModelFactory;
+	
+	@Inject
+	private PageRenderLinkSource pageRenderLS;
 
-    void onValidateFromRegistrationForm() {
+    Object onValidateFromRegistrationForm() {
+    	
+    	System system;
 
         if (!registrationForm.isValid()) {
-            return;
+            return null;
         }
 
         try {
         	Calendar calCreationDate = Calendar.getInstance();
-        	systemService.registerSystem(systemName, new SystemDetails(systemName, systemDescription, calCreationDate, group));
+        	system = systemService.registerSystem(systemName, new SystemDetails(systemName, systemDescription, calCreationDate, group));
         	result = messages.getFormatter("result-SystemRegister-ok").format(systemName);
+        	return pageRenderLS.createPageRenderLinkWithContext("administration/system/SystemCreated", system.getSystemId());
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(systemNameField, messages
                     .get("error-systemNameAlreadyExists"));
@@ -95,6 +103,7 @@ public class SystemRegister {
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
+		return null;
 
     }
 

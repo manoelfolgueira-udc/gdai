@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
+
 @Entity
 @Table(name="gdai_language")
 public class Language {

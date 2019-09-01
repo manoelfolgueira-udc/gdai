@@ -38,5 +38,15 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 		return sprints;
 	}
 
+	/* (non-Javadoc)
+	 * @see es.udc.fic.manoelfolgueira.gdai.model.sprint.SprintDao#findBySprintStart(es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Sprint> findBySprintStart(SortingType sortingType) {
+		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintStart)" + sortingType.toString()).list();
+		return sprints;
+	}
+
 
 }

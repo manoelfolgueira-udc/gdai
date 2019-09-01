@@ -1,109 +1,71 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	t:type="Layout" t:title="title">
-	
-	<div class="form-group">
-    	<div class="col-md-offset-5 col-md-6 col-md-6">
-       		<button type="submit" class="btn btn-default" t:type="PageLink"
-								t:page="tools/project/projectregister">${message:createANewProject}</button>
-       	</div>
-    </div>
-
 
 <form t:type="Form" class="form-horizontal" t:id="registrationForm">
 
 	<t:errors />
 
-	<div class="eg">
-
-		<div class="form-row">
-			<div class="col">
-				<label class="control-label">Identificador Proyecto</label>
-				<div class="form-group">
-					<div class="col-md-2">
-						<input type="text" class="form-control" placeholder="P-XYZ" />
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<label class="control-label">Descripción Proyecto</label>
-				<div class="form-group">
-					<div class="col-md-4">
-						<input type="text" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<label class="control-label">Identificador Historia de Usuario</label>
-				<div class="form-group">
-					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="HU-XYZ" />
-					</div>
-				</div>
-			</div>
+	<div class="form-group">
+		<t:label for="projectName" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:id="projectName" t:type="TextField" t:validate="required"
+				maxlength="30" />
 		</div>
-
-		<div class="form-group">
-			<label class="col-md-2 control-label">Sprint</label>
-			<div class="col-md-1">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="jobExperienceDropDown" data-toggle="dropdown">
-						Dropdown <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="jobExperienceDropDown">
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">years</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">months</a></li>
-					</ul>
-				</div>
-			</div>
-			<label class="col-md-2 control-label">Sistema</label>
-			<div class="col-md-2">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="jobExperienceDropDown" data-toggle="dropdown">
-						Dropdown <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="jobExperienceDropDown">
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">years</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">months</a></li>
-					</ul>
-				</div>
-			</div>
-			<label class="col-md-2 control-label">Grupo de Desarrollo</label>
-			<div class="col-md-1">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="jobExperienceDropDown" data-toggle="dropdown">
-						Dropdown <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="jobExperienceDropDown">
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">years</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1"
-							href="#">months</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-offset-5 col-md-9">
-			<button type="submit" class="btn btn-default">Buscar Proyectos</button>
+		<t:label for="projectDescription" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:id="projectDescription" t:type="TextField"
+				t:validate="required" />
 		</div>
 	</div>
 
-	<div class="eg">
-		No se ha seleccionado ningún proyecto con la búsqueda actual.
+	<!-- 	<div class="form-group"> -->
+	<!-- 		<t:label for="sprintSelect" class="col-md-offset-3 col-md-2" /> -->
+	<!-- 		<div class="col-md-3"> -->
+	<!-- 			<t:select t:id="sprintSelect" value="sprint" model="sprintsModel" -->
+	<!-- 				encoder="sprintEncoder" /> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+
+	<div class="form-group">
+		<t:label for="sprintsSelected" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<t:checklist t:id="sprintsSelected" encoder="sprintEncoder" model="sprintsModel"/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="userStorySelect" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<t:select t:id="userStorySelect" value="userStory"
+				model="userStoriesModel" encoder="userStoryEncoder" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="systemSelect" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<t:select t:id="systemSelect" value="system" model="systemsModel"
+				encoder="systemEncoder" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="projectReqs" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="upload" t:id="projectReqs" t:value="projectReqs"
+				t:validate="required" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-5 col-md-1">
+			<button type="submit" class="btn btn-primary">${message:submit}</button>
+		</div>
 	</div>
 
 </form>
+
 </html>

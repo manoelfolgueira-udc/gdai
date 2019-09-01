@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -75,7 +74,6 @@ public class GroupModify {
     void setupRender() throws InstanceNotFoundException {
     	group = groupService.findGroup(groupId);
     	groupName = group.getGroupName();
-    	expirationDate = (group.getExpirationDate() == null) ? null : group.getExpirationDate().getTime();
     }
 
     void onValidateFromRegistrationForm() {
@@ -87,11 +85,7 @@ public class GroupModify {
         try {
         	
         	group = groupService.findGroup(groupId);
-
-        	Calendar calExpirationDate = Calendar.getInstance();
-        	if (expirationDate != null) calExpirationDate.setTime(expirationDate); else calExpirationDate = null;
-        	
-         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, group.getCreationDate(), calExpirationDate));
+         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, group.getCreationDate()));
         	
         	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
         	        	

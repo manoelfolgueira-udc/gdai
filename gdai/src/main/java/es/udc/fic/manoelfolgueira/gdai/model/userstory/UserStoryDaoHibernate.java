@@ -16,7 +16,7 @@ public class UserStoryDaoHibernate extends GenericDaoHibernate<UserStory, Long> 
 	public UserStory findByName(String userStoryName) throws InstanceNotFoundException {
 
     	UserStory userStory = (UserStory) getSession().createQuery(
-    			"SELECT g FROM UserStory g WHERE g.userStoryName = :userStoryName")
+    			"SELECT us FROM UserStory us WHERE us.userStoryName = :userStoryName")
     			.setParameter("userStoryName", userStoryName)
     			.uniqueResult();
     	if (userStory == null) {
@@ -33,7 +33,7 @@ public class UserStoryDaoHibernate extends GenericDaoHibernate<UserStory, Long> 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserStory> findAllOrderedByUserStoryName() {
-		List<UserStory> userStorys = getSession().createQuery("SELECT g FROM UserStory g ORDER BY lower(g.userStoryName)").list();
+		List<UserStory> userStorys = getSession().createQuery("SELECT us FROM UserStory us ORDER BY lower(us.userStoryName)").list();
 		return userStorys;
 	}
 

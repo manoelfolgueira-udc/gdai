@@ -58,7 +58,7 @@ public class ControlPanel {
 				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)))) {
     		return ProjectManagement.class;
     	} else {
-    		return ControlPanel.class;
+    		return ProjectManagement.class;
     	}
     }
 

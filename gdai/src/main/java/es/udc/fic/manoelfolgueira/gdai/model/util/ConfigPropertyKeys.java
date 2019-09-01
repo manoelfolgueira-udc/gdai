@@ -17,4 +17,6 @@ public abstract class ConfigPropertyKeys {
 	// Macro to define the key the initial attribute for a GDAICode Entity
 	public static final String GDAICODE_ENTITY_INITIAL_KEY = "_CODE_INITIAL";
 	
+	public static final String FOLDER_PROJECT_REQUIREMENTS = "FOLDER_PROJECT_REQUIREMENTS";
+	
 }

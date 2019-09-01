@@ -3,21 +3,21 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.project;
 import org.apache.tapestry5.annotations.Property;
 
 /**
- * Web page that shows the result of deleting a Project
+ * Web page that shows the result of deleting a project
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
  * @file   ProjectDeleted.java
  */
 public class ProjectDeleted {
 	
 	@Property
-	private Long groupId;
+	private Long projectId;
 	
 	Long onPassivate() {
-		return groupId;
+		return projectId;
 	}
 	
-	void onActivate(Long groupId) {
-		this.groupId = groupId;
+	void onActivate(Long projectId) {
+		this.projectId = projectId;
 	}
 
 }

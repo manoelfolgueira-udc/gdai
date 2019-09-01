@@ -26,7 +26,7 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 public class SystemDelete {
 	
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
+	private PageRenderLinkSource pageRenderLS;
 	
 	@Inject
     private Messages messages;

@@ -12,10 +12,12 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.application.Application;
 import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -76,17 +78,23 @@ public class ApplicationRegister {
 
 	@Inject
 	private SelectModelFactory selectModelFactory;
+	
+	@Inject
+	private PageRenderLinkSource pageRenderLS;
 
-    void onValidateFromRegistrationForm() {
+    Object onValidateFromRegistrationForm() {
+    	
+    	Application application;
 
         if (!registrationForm.isValid()) {
-            return;
+            return null;
         }
 
         try {
         	Calendar calCreationDate = Calendar.getInstance();
-        	applicationService.registerApplication(applicationName, new ApplicationDetails(applicationName, applicationDescription, calCreationDate, system));
+        	application = applicationService.registerApplication(applicationName, new ApplicationDetails(applicationName, applicationDescription, calCreationDate, system));
         	result = messages.getFormatter("result-ApplicationRegister-ok").format(applicationName);
+        	return pageRenderLS.createPageRenderLinkWithContext("administration/application/ApplicationCreated", application.getApplicationId());
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(applicationNameField, messages
                     .get("error-applicationNameAlreadyExists"));
@@ -95,6 +103,7 @@ public class ApplicationRegister {
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
+		return null;
 
     }
 

@@ -14,7 +14,7 @@
     <!-- Grid de System con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <t:grid source="systems" value="system" row="system" add="group,systemManagement" rowsPerPage="6" pagerPosition="top">
+        <t:grid source="systems" value="system" row="system" add="group,systemManagement" rowsPerPage="6" pagerPosition="top" exclude="systemId">
         <p:systemNameCell>
                 <t:pagelink page="system/view" context="system.systemId">${system.systemName}</t:pagelink>
             </p:systemNameCell>

@@ -1,7 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.group;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Property;
@@ -14,7 +12,6 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
-import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 /**
  * Web page that lets User see any Group
@@ -42,18 +39,7 @@ public class GroupView {
     void onActivate(Long groupId) throws InstanceNotFoundException {
 
         group = groupService.findGroup(groupId);
-        
-        if (group.getExpirationDate()== null) expirationDate = "";
-        else {
-        	Calendar cal = group.getExpirationDate();
-            cal.add(Calendar.DATE, 1);
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            expirationDate = f.format(cal.getTime());
-        }
 
-    }
-    public String getExpirationDateFormatted() {
-    	return group.getExpirationDate() == null ? "" : Utils.getFormattedDate(group.getExpirationDate().getTime(), locale);
     }
 
 }

@@ -16,6 +16,7 @@ public class UserDetails {
 	private Calendar hiredate;	
 	private Calendar dateOfBirth;
 	private Calendar expirationDate;
+	private Boolean isManager;
 	private Group group;
 	
 	/**
@@ -31,7 +32,7 @@ public class UserDetails {
 	 * @param expirationDate when the user account will expire
 	 */
 	public UserDetails(String loginName, String firstName, String lastName, String gender, String email, String phoneNumber,
-			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate, Group group) {
+			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate, Boolean isManager, Group group) {
 		super();
 		this.loginName = loginName;
 		this.firstName = firstName;
@@ -43,6 +44,7 @@ public class UserDetails {
 		this.hiredate = hiredate;
 		this.dateOfBirth = dateOfBirth;
 		this.expirationDate = expirationDate;
+		this.isManager = isManager;
 		this.group = group;
 	}
 
@@ -198,6 +200,22 @@ public class UserDetails {
 	 */
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+	
+	
+
+	/**
+	 * @return the isManager
+	 */
+	public Boolean getIsManager() {
+		return isManager;
+	}
+
+	/**
+	 * @param isManager the isManager to set
+	 */
+	public void setIsManager(Boolean isManager) {
+		this.isManager = isManager;
 	}
 
 	/* (non-Javadoc)

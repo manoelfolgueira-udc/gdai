@@ -53,4 +53,10 @@ public interface SprintService {
      */
     public void removeSprint(Long sprintId) throws InstanceNotFoundException;
 
+	/**
+	 * @param desc
+	 * @return
+	 */
+	public List<Sprint> findAllOrderedBySprintStart(SortingType sortingType);
+
 }

@@ -3,7 +3,6 @@ package es.udc.fic.manoelfolgueira.gdai.model.project;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,10 +19,12 @@ import javax.persistence.Table;
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
 @Table(name="gdai_project")
-public class Project {
+public class Project extends GDAICodificable {
 	
 	@Column(name = "projectId")
 	@SequenceGenerator(name = "projectIdGenerator", sequenceName = "projectSeq")
@@ -33,7 +34,7 @@ public class Project {
 	private String projectName;
 	private String projectDescription;
 	private Calendar creationDate = Calendar.getInstance();
-	private Calendar targetDate;
+	private String requirementsPath;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdById")
@@ -43,13 +44,17 @@ public class Project {
     @JoinColumn(name = "systemId")
 	private System system;
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        name = "project_sprint_jt", 
+        name = "gdai_project_sprint_jt", 
         joinColumns = { @JoinColumn(name = "projectId") }, 
         inverseJoinColumns = { @JoinColumn(name = "sprintId") }
     )
     List<Sprint> sprints;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userStoryId")
+	private UserStory userStory;
 	
 	/**
 	 * Empty constructor
@@ -65,17 +70,19 @@ public class Project {
 	 * @param createdBy user that has registered this project
 	 * @param system system related to this project
 	 * @param sprints a list of sprints when this project will take place
+	 * @param userStory the us which this project belongs to
 	 */
 	public Project(String projectName, String projectDescription, Calendar creationDate,
-			Calendar targetDate, User createdBy, System system, List<Sprint> sprints) {
+			String requirementsPath, User createdBy, System system, List<Sprint> sprints, UserStory userStory) {
 
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
 		this.creationDate = creationDate;
-		this.targetDate = targetDate;
+		this.requirementsPath = requirementsPath;
 		this.createdBy = createdBy;
 		this.system = system;
 		this.sprints = sprints;
+		this.userStory = userStory;
 	}
 
 	/**
@@ -135,17 +142,17 @@ public class Project {
 	}
 
 	/**
-	 * @return the targetDate
+	 * @return the requirementsPath
 	 */
-	public Calendar getTargetDate() {
-		return targetDate;
+	public String getRequirementsPath() {
+		return requirementsPath;
 	}
 
 	/**
-	 * @param targetDate the targetDate to set
+	 * @param requirementsPath the requirementsPath to set
 	 */
-	public void setTargetDate(Calendar targetDate) {
-		this.targetDate = targetDate;
+	public void setRequirementsPath(String requirementsPath) {
+		this.requirementsPath = requirementsPath;
 	}
 
 	/**
@@ -189,6 +196,20 @@ public class Project {
 	public void setSprints(List<Sprint> sprints) {
 		this.sprints = sprints;
 	}
+	
+	/**
+	 * @return the userStory
+	 */
+	public UserStory getUserStory() {
+		return userStory;
+	}
+
+	/**
+	 * @param userStory the userStory to set
+	 */
+	public void setUserStory(UserStory userStory) {
+		this.userStory = userStory;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -197,14 +218,8 @@ public class Project {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((projectDescription == null) ? 0 : projectDescription.hashCode());
 		result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
 		result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
-		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
-		result = prime * result + ((system == null) ? 0 : system.hashCode());
-		result = prime * result + ((targetDate == null) ? 0 : targetDate.hashCode());
 		return result;
 	}
 
@@ -220,21 +235,6 @@ public class Project {
 		if (getClass() != obj.getClass())
 			return false;
 		Project other = (Project) obj;
-		if (createdBy == null) {
-			if (other.createdBy != null)
-				return false;
-		} else if (!createdBy.equals(other.createdBy))
-			return false;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (projectDescription == null) {
-			if (other.projectDescription != null)
-				return false;
-		} else if (!projectDescription.equals(other.projectDescription))
-			return false;
 		if (projectId == null) {
 			if (other.projectId != null)
 				return false;
@@ -245,22 +245,9 @@ public class Project {
 				return false;
 		} else if (!projectName.equals(other.projectName))
 			return false;
-		if (sprints == null) {
-			if (other.sprints != null)
-				return false;
-		} else if (!sprints.equals(other.sprints))
-			return false;
-		if (system == null) {
-			if (other.system != null)
-				return false;
-		} else if (!system.equals(other.system))
-			return false;
-		if (targetDate == null) {
-			if (other.targetDate != null)
-				return false;
-		} else if (!targetDate.equals(other.targetDate))
-			return false;
 		return true;
 	}
 
+	
+	
 }

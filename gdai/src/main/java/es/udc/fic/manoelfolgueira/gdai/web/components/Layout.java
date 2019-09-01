@@ -7,6 +7,8 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
 
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -35,6 +37,9 @@ public class Layout {
     
     @Inject
     private Cookies cookies;
+    
+    @Inject
+    private UserService userService;
 
     /**
      * Title configuration
@@ -61,6 +66,14 @@ public class Layout {
      */
     public boolean getIsUserAdministrator() {
     	return (userSession == null) ? false : userSession.isAdministrator();
+    }
+    
+    public boolean getIsManager() {
+    	try {
+			return userService.findUser(userSession.getUserId()).getIsManager();
+		} catch (InstanceNotFoundException e) {
+			return false;
+		}
     }
 
 }

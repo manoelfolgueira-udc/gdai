@@ -1,3 +1,7 @@
+-- ------------------ GLOBALS --------------------------------------
+SET GLOBAL event_scheduler = ON;
+
+
 -- ------------------ Drop Tables --------------------------------------
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS gdai_user;
@@ -7,6 +11,7 @@ DROP TABLE IF EXISTS gdai_system;
 DROP TABLE IF EXISTS gdai_application;
 DROP TABLE IF EXISTS gdai_userstory;
 DROP TABLE IF EXISTS gdai_project;
+DROP EVENT IF EXISTS gdai_event_insert_sprint;
 DROP TABLE IF EXISTS gdai_sprint;
 DROP TABLE IF EXISTS gdai_project_sprint_jt;
 DROP TABLE IF EXISTS gdai_user_userstory_jt;
@@ -33,7 +38,6 @@ CREATE TABLE gdai_group
      groupId        BIGINT NOT NULL auto_increment,
      groupName      VARCHAR(30) NOT NULL,
      creationDate   TIMESTAMP, 
-     expirationDate TIMESTAMP,
      CONSTRAINT GroupPK PRIMARY KEY (groupId),
      CONSTRAINT GroupUniqueKeyGroupName UNIQUE (groupName)
   ) 
@@ -57,6 +61,7 @@ CREATE TABLE gdai_user
      hireDate          DATE, 
      dateOfBirth       DATE,
      expirationDate    TIMESTAMP,
+     isManager         boolean,
      groupId           BIGINT NOT NULL,
      CONSTRAINT UserPK PRIMARY KEY (userId), 
      CONSTRAINT UserUniqueKeyLoginName UNIQUE (loginName),
@@ -101,20 +106,6 @@ engine = innodb;
 CREATE INDEX UserStoryIndexByUserStoryName ON gdai_userstory(userStoryName); 
 ------------------------------------------------------------------------
 
--- ---------------------------- user_userstory_jt -----------------------------
-CREATE TABLE gdai_user_userstory_jt
-  ( 
-  	 createdById          BIGINT NOT NULL,
-     userStoryId  	      BIGINT NOT NULL,
-     CONSTRAINT UserUserStoryJTPK PRIMARY KEY (createdById, userStoryId),
-     FOREIGN KEY (createdById) REFERENCES gdai_user(userId),
-     FOREIGN KEY (userStoryId) REFERENCES gdai_userstory(userStoryId)
-  ) 
-engine = innodb; 
-
-CREATE INDEX UserUserStoryJTIND ON gdai_user_userstory_jt(createdById, userStoryId); 
-------------------------------------------------------------------------
-
 -- ------------------------------ Sprint -------------------------------
 CREATE TABLE gdai_sprint
   ( 
@@ -130,7 +121,7 @@ CREATE TABLE gdai_sprint
   ) 
 engine = innodb; 
 
-CREATE INDEX SprintIndexBySprintName ON gdai_sprint(sprintName); 
+CREATE INDEX SprintIndexBySprintName ON gdai_sprint(sprintName);
 ------------------------------------------------------------------------
 
 -- ------------------------------ Project --------------------------------
@@ -141,15 +132,13 @@ CREATE TABLE gdai_project
      projectDescription VARCHAR(10000) NOT NULL,
      creationDate       TIMESTAMP NOT NULL,
      createdById        BIGINT NOT NULL,
-     targetDate         TIMESTAMP,
+     requirementsPath   VARCHAR(500),
      systemId           BIGINT NOT NULL,
-     sprintId           BIGINT NOT NULL,
      userStoryId		BIGINT NOT NULL,
      CONSTRAINT ProjectPK PRIMARY KEY (projectId),
      CONSTRAINT ProjectUniqueKeyProjectName UNIQUE (projectName),
      FOREIGN KEY (createdById) REFERENCES gdai_user(userId),
      FOREIGN KEY (systemId) REFERENCES gdai_system(systemId),
-     FOREIGN KEY (sprintId) REFERENCES gdai_sprint(sprintId),
      FOREIGN KEY (userStoryId) REFERENCES gdai_userstory(userStoryId)
   ) 
 engine = innodb; 

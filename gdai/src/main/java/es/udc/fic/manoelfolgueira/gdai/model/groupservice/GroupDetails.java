@@ -9,7 +9,6 @@ public class GroupDetails {
 
 	private String groupName;
 	private Calendar creationDate;
-	private Calendar expirationDate;
 	
 	/**
 	 * Main Constructor
@@ -17,10 +16,9 @@ public class GroupDetails {
 	 * @param creationDate when it's created
 	 * @param expirationDate when the Group Entity will expire
 	 */
-	public GroupDetails(String groupName, Calendar creationDate, Calendar expirationDate) {
+	public GroupDetails(String groupName, Calendar creationDate) {
 		this.groupName = groupName;
 		this.creationDate = creationDate;
-		this.expirationDate = expirationDate;
 	}
 
 	/**
@@ -44,20 +42,4 @@ public class GroupDetails {
 		return creationDate;
 	}
 
-	/**
-	 * @return the expirationDate
-	 */
-	public Calendar getExpirationDate() {
-		return expirationDate;
-	}
-
-	/**
-	 * @param expirationDate the expirationDate to set
-	 */
-	public void setExpirationDate(Calendar expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-	
-	
-	
 }

@@ -14,7 +14,7 @@
     <!-- Grid de Group con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <t:grid source="groups" row="group" add="manageGroup" rowsPerPage="6" pagerPosition="top">
+        <t:grid source="groups" row="group" add="manageGroup" rowsPerPage="6" pagerPosition="top" exclude="groupId">
         <p:groupNameCell>
                 <t:pagelink page="group/view" context="group.groupId"><span class="devgroup">${group.groupName}</span></t:pagelink>
             </p:groupNameCell>

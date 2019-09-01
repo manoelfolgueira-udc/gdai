@@ -59,8 +59,4 @@ public class GroupManagement {
     	return (group.getCreationDate() != null) ? Utils.getFormattedDate(group.getCreationDate().getTime(), locale) : "";
     }
     
-    public String getGroupExpirationDateFormatted() {
-    	return (group.getExpirationDate() != null) ? Utils.getFormattedDate(group.getExpirationDate().getTime(), locale) : "";
-    }
-    
 }

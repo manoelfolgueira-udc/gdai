@@ -90,6 +90,14 @@ public class SprintServiceImpl implements SprintService {
 		sprintDao.remove(sprintId);
 	}
 
+	/* (non-Javadoc)
+	 * @see es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService#findAllOrderedBySprintStart(es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType)
+	 */
+	@Override
+	public List<Sprint> findAllOrderedBySprintStart(SortingType sortingType) {
+		return sprintDao.findBySprintStart(sortingType);
+	}
+
 	
     
 }

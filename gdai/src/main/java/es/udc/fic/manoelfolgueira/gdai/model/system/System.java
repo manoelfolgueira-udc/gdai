@@ -1,7 +1,9 @@
 package es.udc.fic.manoelfolgueira.gdai.model.system;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.application.Application;
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
@@ -32,6 +37,12 @@ public class System extends GDAICodificable {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
 	private Group group;
+	
+	@OneToMany(targetEntity=Application.class, mappedBy="system", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Application> applications;
+	
+	@OneToMany(targetEntity=Project.class, mappedBy="system", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Project> projects;
 
 	/**
 	 * Empty constructor
@@ -119,6 +130,36 @@ public class System extends GDAICodificable {
 	 */
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+	
+	
+
+	/**
+	 * @return the applications
+	 */
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	/**
+	 * @param applications the applications to set
+	 */
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	/**
+	 * @return the projects
+	 */
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	/**
+	 * @param projects the projects to set
+	 */
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	/* (non-Javadoc)

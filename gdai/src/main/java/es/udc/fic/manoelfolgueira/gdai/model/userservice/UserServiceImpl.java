@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
                     encryptedPassword, userDetails.getFirstName(),
                     userDetails.getLastName(), userDetails.getGender(), userDetails
                         .getEmail(), userDetails.getPhoneNumber(), userDetails.getAvatarUrl(),
-                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getGroup());
+                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getIsManager(), userDetails.getGroup());
 
             userDao.save(userProfile);
             return userProfile;
@@ -98,6 +98,8 @@ public class UserServiceImpl implements UserService {
         user.setHireDate(userDetails.getHiredate());
         user.setDateOfBirth(userDetails.getDateOfBirth());
         user.setExpirationDate(userDetails.getExpirationDate());
+        
+        user.setIsManager(userDetails.getIsManager());
         
         user.setGroup(userDetails.getGroup());
         

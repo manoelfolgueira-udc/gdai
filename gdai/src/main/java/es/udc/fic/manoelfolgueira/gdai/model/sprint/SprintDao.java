@@ -29,4 +29,10 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
      */
     public List<Sprint> findAllOrderedBySprintName(SortingType sortingType);
 
+	/**
+	 * @param sortingType
+	 * @return
+	 */
+	public List<Sprint> findBySprintStart(SortingType sortingType);
+
 }

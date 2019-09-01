@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.user;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -110,6 +109,9 @@ public class UserModify {
 
 	@Property
 	private Long userId;
+	
+	@Property
+	private Boolean isManager = false;;
 
 	private Calendar calHireDate = Calendar.getInstance();
 	private Calendar calDateOfBirth = Calendar.getInstance();
@@ -139,6 +141,8 @@ public class UserModify {
 		avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
 
 		groupName = user.getGroup().getGroupName();
+		
+		isManager = user.getIsManager();
 		
 		group = user.getGroup();
     }
@@ -175,7 +179,7 @@ public class UserModify {
 
 			userService.updateUserDetails(
 					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-							avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, group));
+							avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, isManager, group));
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,22 +1,24 @@
 package es.udc.fic.manoelfolgueira.gdai.model.userstory;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
 @Table(name="gdai_userStory")
-public class UserStory {
+public class UserStory extends GDAICodificable {
 
 	@Column(name = "userStoryId")
 	@SequenceGenerator(name = "userStoryIdGenerator", sequenceName = "userStorySeq")
@@ -24,12 +26,12 @@ public class UserStory {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "userStoryIdGenerator")
 	private Long userStoryId;
 	private String userStoryName;
-	private Calendar startDate = null;
-	private Calendar endDate = null;
+	private String userStoryDescription;
 	private Calendar creationDate = Calendar.getInstance();
 	
-	@ManyToMany(mappedBy = "userStorys")
-    private List<Project> projects;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "createdById")
+	private User createdBy;
 
 	/**
 	 * Empty constructor
@@ -39,20 +41,16 @@ public class UserStory {
 	/**
 	 * Main constructor
 	 * @param userStoryName user story short name
-	 * // TODO @param userStoryDescription a description for a userStory
-	 * @param startDate when the userStory starts
-	 * @param endDate when the userStory ends, in 1 or more sprints
+	 * @param userStoryDescription a description for a userStory
 	 * @param creationDate when it's created
 	 * @param projects projects related to a userStory
+	 * @param createdBy who creates the US
 	 */
-	public UserStory(String userStoryName, Calendar startDate, Calendar endDate, Calendar creationDate,
-			List<Project> projects) {
-		super();
+	public UserStory(String userStoryName, String userStoryDescription, Calendar creationDate, User createdBy) {
 		this.userStoryName = userStoryName;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.userStoryDescription = userStoryDescription;
 		this.creationDate = creationDate;
-		this.projects = projects;
+		this.createdBy = createdBy;
 	}
 
 	/**
@@ -84,31 +82,17 @@ public class UserStory {
 	}
 
 	/**
-	 * @return the startDate
+	 * @return the userStoryDescription
 	 */
-	public Calendar getStartDate() {
-		return startDate;
+	public String getUserStoryDescription() {
+		return userStoryDescription;
 	}
 
 	/**
-	 * @param startDate the startDate to set
+	 * @param userStoryDescription the userStoryDescription to set
 	 */
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
-	}
-
-	/**
-	 * @return the endDate
-	 */
-	public Calendar getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Calendar endDate) {
-		this.endDate = endDate;
+	public void setUserStoryDescription(String userStoryDescription) {
+		this.userStoryDescription = userStoryDescription;
 	}
 
 	/**
@@ -126,17 +110,17 @@ public class UserStory {
 	}
 
 	/**
-	 * @return the projects
+	 * @return the createdBy
 	 */
-	public List<Project> getProjects() {
-		return projects;
+	public User getCreatedBy() {
+		return createdBy;
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param createdBy the createdBy to set
 	 */
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	/* (non-Javadoc)
@@ -146,10 +130,6 @@ public class UserStory {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((userStoryId == null) ? 0 : userStoryId.hashCode());
 		result = prime * result + ((userStoryName == null) ? 0 : userStoryName.hashCode());
 		return result;
@@ -167,26 +147,6 @@ public class UserStory {
 		if (getClass() != obj.getClass())
 			return false;
 		UserStory other = (UserStory) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (projects == null) {
-			if (other.projects != null)
-				return false;
-		} else if (!projects.equals(other.projects))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
 		if (userStoryId == null) {
 			if (other.userStoryId != null)
 				return false;
@@ -198,6 +158,7 @@ public class UserStory {
 		} else if (!userStoryName.equals(other.userStoryName))
 			return false;
 		return true;
-	}	
+	}
+
 
 }

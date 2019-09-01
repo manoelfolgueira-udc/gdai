@@ -9,14 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
+import es.udc.fic.manoelfolgueira.gdai.model.util.Utils;
 
 @Entity
 @Table(name="gdai_sprint")
-public class Sprint {
+public class Sprint extends GDAICodificable {
 
 	@Column(name = "sprintId")
 	@SequenceGenerator(name = "sprintIdGenerator",sequenceName = "sprintSeq")
@@ -137,6 +140,10 @@ public class Sprint {
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
+	
+	public String getBSprintName() {
+		return "[" + this.sprintName + "] " + Utils.getFormattedDate(this.sprintStart.getTime()) + " - " + Utils.getFormattedDate(this.sprintEnd.getTime());
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -197,6 +204,13 @@ public class Sprint {
 		} else if (!sprintStart.equals(other.sprintStart))
 			return false;
 		return true;
+	}
+	
+	@PreRemove
+	private void removeProjectsFromSprint() {
+	    for (Project p: projects) {
+	        p.getSprints().remove(this);
+	    }
 	}
 	
 }

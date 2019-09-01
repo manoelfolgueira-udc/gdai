@@ -90,6 +90,9 @@ public class UpdateProfile {
     @Inject
     private Locale locale;
     
+    @Property
+    private String isManager;
+    
     void onPrepareForRender() throws InstanceNotFoundException {
 
         user = userService.findUser(userSession
@@ -106,6 +109,8 @@ public class UpdateProfile {
         expirationDate = getExpirationDateDBValue();
         
         avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
+        
+        isManager = user.getIsManager() ? "Y" : "N";
         
         groupName = user.getGroup().getGroupName();
 
@@ -134,7 +139,7 @@ public class UpdateProfile {
     	
         userService.updateUserDetails(
                 userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), user.getGroup()));
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), user.getIsManager(), user.getGroup()));
         userSession.setLoginName(loginName);
         
         return ViewProfile.class;
