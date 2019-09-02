@@ -114,10 +114,8 @@ CREATE TABLE gdai_sprint
      sprintStart        TIMESTAMP NOT NULL,
      sprintEnd    		TIMESTAMP NOT NULL,
      creationDate       TIMESTAMP NOT NULL,
-     createdById        BIGINT NOT NULL,
      CONSTRAINT SprintPK PRIMARY KEY (sprintId),
-     CONSTRAINT SprintUniqueKeySprintName UNIQUE (sprintName),
-     FOREIGN KEY (createdById) REFERENCES gdai_user(userId)
+     CONSTRAINT SprintUniqueKeySprintName UNIQUE (sprintName)
   ) 
 engine = innodb; 
 

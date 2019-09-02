@@ -73,13 +73,13 @@ values
 -- Sprints
 -- Scheduler
 
-insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate, createdById)
+insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate)
 SELECT
    CONCAT(
         'SP_',
         CAST(COUNT(sp.sprintId) + 1 AS CHAR(50))
     ),
-    CURRENT_DATE, CURRENT_DATE + INTERVAL cfg.cfgVal * 7 DAY, NOW(), 1
+    CURRENT_DATE, CURRENT_DATE + INTERVAL cfg.cfgVal * 7 DAY, NOW()
 FROM
     gdai_sprint sp right outer join gdai_cfg cfg
 on cfg.cfgAttr = 'CFG_SP_WEEKS';

@@ -86,7 +86,7 @@
 										${message:ToolsDropdown-link-manageProjects}</a></li>
 								<t:if test="isManager">
 									<li><a href="#" t:type="PageLink"
-										t:page="tools/project/management"><span
+										t:page="tools/userStory/management"><span
 											class="glyphicon glyphicon-comment"></span>
 											${message:ToolsDropdown-link-manageUserStories}</a></li>
 									<li><a href="#" t:type="PageLink"

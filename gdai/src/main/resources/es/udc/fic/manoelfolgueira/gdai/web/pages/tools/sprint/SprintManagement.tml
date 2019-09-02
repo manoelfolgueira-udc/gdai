@@ -4,37 +4,34 @@
 <div class="form-group">
 	<div class="col-md-offset-5 col-md-6 col-md-6">
 		<button type="submit" class="btn btn-default" t:type="PageLink"
-			t:page="administration/application/register">${message:createANewApplication}</button>
+			t:page="tools/sprint/register">${message:createANewSprint}</button>
 	</div>
 </div>
 
 <br />
 <br />
 
-<!-- Grid de Application con elementos para modificar y eliminar -->
+<!-- Grid de Sprint con elementos para modificar y eliminar -->
 
 <div class="eg">
-	<t:grid source="applications" value="application" row="application"
-		add="system,applicationManagement" rowsPerPage="6" pagerPosition="top"
-		exclude="applicationId">
-		<p:applicationNameCell>
-			<t:pagelink page="application/view"
-				context="application.applicationId">${application.applicationName}</t:pagelink>
-		</p:applicationNameCell>
-		<p:systemCell>
-			<t:pagelink page="system/view" context="application.system.systemId">${application.system.systemName}</t:pagelink>
-		</p:systemCell>
-		<p:applicationManagementCell>
+	<t:grid source="sprints" value="sprint" row="sprint"
+		add="sprintManagement" rowsPerPage="6" pagerPosition="top"
+		exclude="sprintId, BSprintName">
+		<p:sprintNameCell>
+			<t:pagelink page="tools/sprint/sprintview"
+				context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
+		</p:sprintNameCell>
+		<p:sprintManagementCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"
-				t:page="administration/application/delete"
-				t:context="application.applicationId">${message:delete}</button>
+				t:page="tools/sprint/delete"
+				t:context="sprint.sprintId">${message:delete}</button>
 			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-				t:page="administration/application/modify"
-				t:context="application.applicationId">${message:modify}</button>
-		</p:applicationManagementCell>
+				t:page="tools/sprint/modify"
+				t:context="sprint.sprintId">${message:modify}</button>
+		</p:sprintManagementCell>
 		<p:empty>
-        	${message:noApplication}
+        	${message:noSprint}
         </p:empty>
 	</t:grid>
 </div>

@@ -16,10 +16,11 @@ import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
 @Table(name="gdai_group")
-public class Group {
+public class Group extends GDAICodificable {
 
 	@Column(name = "groupId")
 	@SequenceGenerator(name = "groupIdGenerator", sequenceName = "groupSeq")

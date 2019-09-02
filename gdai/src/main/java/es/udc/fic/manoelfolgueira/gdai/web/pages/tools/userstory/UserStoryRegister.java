@@ -10,13 +10,14 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.tools.project.ProjectManagement;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -62,19 +63,24 @@ public class UserStoryRegister {
     @Property
     private String result = null;
     
-    void onValidateFromRegistrationForm() {
+    @Inject
+	private PageRenderLinkSource pageRenderLS;
+    
+    Object onValidateFromRegistrationForm() {
 
         if (!registrationForm.isValid()) {
-            return;
+            return null;
         }
+        
+        UserStory userStory;
 
         try {
         	
         	User user = userService.findUser(userSession.getUserId());
         	Calendar calCreationDate = Calendar.getInstance();
-        	userStoryService.registerUserStory(userStoryName, new UserStoryDetails(userStoryName, userStoryDescription, calCreationDate, user));
+        	userStory = userStoryService.registerUserStory(userStoryName, new UserStoryDetails(userStoryName, userStoryDescription, calCreationDate, user));
         	result = messages.getFormatter("result-UserStoryRegister-ok").format(userStoryName);
-        	
+        	return pageRenderLS.createPageRenderLinkWithContext("tools/userstory/userstorycreated", userStory.getUserStoryId());
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(userStoryNameField, messages
                     .get("error-userStoryNameAlreadyExists"));
@@ -83,16 +89,8 @@ public class UserStoryRegister {
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
+        
+        return null;
 
     }
-
-    Object onSuccess() {
-        return ProjectManagement.class;
-    }
-    
-    
-    String onPassivate() {
-    	return result;
-    }
-    
 }

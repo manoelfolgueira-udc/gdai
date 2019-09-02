@@ -5,7 +5,7 @@
 
 	<t:errors/>
 	   
-	   <div class="form-userStory">        
+	   <div class="form-group">        
 	        <t:label for="userStoryName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="userStoryName" t:type="TextField"
@@ -13,7 +13,7 @@
 	        </div>
 	   </div>
 	   
-	   <div class="form-userStory">        
+	   <div class="form-group">        
 	        <t:label for="userStoryDescription" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="userStoryDescription" t:type="TextField"
@@ -21,7 +21,7 @@
 	        </div>
 	   </div>
 
-	   <div class="form-userStory">
+	   <div class="form-group">
 	    	<div class="col-md-offset-5 col-md-1">
         		<button type="submit" class="btn btn-primary">${message:submit}</button>
         	</div>

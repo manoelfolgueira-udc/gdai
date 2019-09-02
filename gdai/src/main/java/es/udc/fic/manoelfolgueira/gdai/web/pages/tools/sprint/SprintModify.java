@@ -2,6 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.sprint;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Component;
@@ -40,10 +41,10 @@ public class SprintModify {
     private TextField sprintNameField;
     
     @Property
-	private String sprintStart;
+	private Date sprintStart;
     
     @Property
-	private String sprintEnd;
+	private Date sprintEnd;
     
     @SessionState(create=false)
     private UserSession userSession;
@@ -71,6 +72,10 @@ public class SprintModify {
 
     Object onValidateFromRegistrationForm() {
     	
+    	if(sprintStart.after(sprintEnd)) {
+    		registrationForm.recordError(messages.get("SprintStartLEQSprintEnd"));
+    	}
+    	
         if (!registrationForm.isValid()) {
             return null;
         }
@@ -78,22 +83,21 @@ public class SprintModify {
         try {
         	
         	Calendar calSprintStart = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 			if (sprintStart != null)
-				calSprintStart.setTime(sdf.parse(sprintStart));
+				calSprintStart.setTime(sprintStart);
 			else
 				calSprintStart = null;
 			
 			Calendar calSprintEnd = Calendar.getInstance();
 			if (sprintEnd != null)
-				calSprintEnd.setTime(sdf.parse(sprintEnd));
+				calSprintEnd.setTime(sprintEnd);
 			else
 				calSprintEnd = null;
         	
         	Calendar calCreationDate = Calendar.getInstance();
         	sprintService.updateSprintDetails(sprintId, new SprintDetails(sprintName, calSprintStart, calSprintEnd, calCreationDate, null));
         	result = messages.getFormatter("result-SprintRegister-ok").format(sprintName);
-        	return pageRenderLS.createPageRenderLinkWithContext("administration/sprint/SprintCreated", sprintId);
+        	return pageRenderLS.createPageRenderLinkWithContext("tools/sprint/SprintCreated", sprintId);
         } catch (Exception e) {
         	e.printStackTrace();
         	registrationForm.recordError(messages
@@ -114,9 +118,9 @@ public class SprintModify {
     void onPrepare() {
     	try {
 			sprint = sprintService.findSprint(sprintId);
-			sprintName = sprint.getBSprintName();
-			sprintStart = Utils.getFormattedDate(sprint.getSprintStart().getTime());
-			sprintEnd = Utils.getFormattedDate(sprint.getSprintStart().getTime());
+			sprintName = sprint.getSprintName();
+			sprintStart = sprint.getSprintStart().getTime();
+			sprintEnd = sprint.getSprintStart().getTime();
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

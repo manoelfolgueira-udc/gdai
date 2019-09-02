@@ -81,6 +81,7 @@ public class UserStoryModify {
     void setupRender() throws InstanceNotFoundException {
     	userStory = userStoryService.findUserStory(userStoryId);
     	userStoryName = userStory.getUserStoryName();
+    	userStoryDescription = userStory.getUserStoryDescription();
     }
 
     void onValidateFromRegistrationForm() {
@@ -105,7 +106,7 @@ public class UserStoryModify {
     }
 
     Object onSuccess() {
-        return pageRenderLS.createPageRenderLinkWithContext("administration/userStory/UserStoryModified", userStoryId);
+        return pageRenderLS.createPageRenderLinkWithContext("tools/userStory/UserStoryModified", userStoryId);
     }
 	
 }

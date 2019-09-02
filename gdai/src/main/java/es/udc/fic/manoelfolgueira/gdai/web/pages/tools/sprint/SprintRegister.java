@@ -2,6 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.sprint;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Component;
@@ -36,10 +37,10 @@ public class SprintRegister {
     private TextField sprintNameField;
     
     @Property
-	private String sprintStart;
+	private Date sprintStart;
     
     @Property
-	private String sprintEnd;
+	private Date sprintEnd;
     
     @SessionState(create=false)
     private UserSession userSession;
@@ -65,6 +66,10 @@ public class SprintRegister {
     Object onValidateFromRegistrationForm() {
     	
     	Sprint sprint;
+    	
+    	if(sprintStart.after(sprintEnd)) {
+    		registrationForm.recordError(messages.get("SprintStartLEQSprintEnd"));
+    	}
 
         if (!registrationForm.isValid()) {
             return null;
@@ -73,22 +78,21 @@ public class SprintRegister {
         try {
         	
         	Calendar calSprintStart = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 			if (sprintStart != null)
-				calSprintStart.setTime(sdf.parse(sprintStart));
+				calSprintStart.setTime(sprintStart);
 			else
 				calSprintStart = null;
 			
 			Calendar calSprintEnd = Calendar.getInstance();
 			if (sprintEnd != null)
-				calSprintEnd.setTime(sdf.parse(sprintEnd));
+				calSprintEnd.setTime(sprintEnd);
 			else
 				calSprintEnd = null;
         	
         	Calendar calCreationDate = Calendar.getInstance();
         	sprint = sprintService.registerSprint(sprintName, new SprintDetails(sprintName, calSprintStart, calSprintEnd, calCreationDate, null));
         	result = messages.getFormatter("result-SprintRegister-ok").format(sprintName);
-        	return pageRenderLS.createPageRenderLinkWithContext("administration/sprint/SprintCreated", sprint.getSprintId());
+        	return pageRenderLS.createPageRenderLinkWithContext("tools/sprint/SprintCreated", sprint.getSprintId());
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(sprintNameField, messages
                     .get("error-sprintNameAlreadyExists"));

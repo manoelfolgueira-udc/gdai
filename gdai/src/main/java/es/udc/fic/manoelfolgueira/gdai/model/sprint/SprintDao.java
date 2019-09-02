@@ -33,6 +33,6 @@ public interface SprintDao extends GenericDao<Sprint, Long> {
 	 * @param sortingType
 	 * @return
 	 */
-	public List<Sprint> findBySprintStart(SortingType sortingType);
+	public List<Sprint> findBySprintStart(SortingType sortingType, int n);
 
 }

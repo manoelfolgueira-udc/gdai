@@ -76,7 +76,7 @@ public class UserStoryDelete {
 	Object onValidateFromDeleteForm() {
 		try {
 			UserStoryService.removeUserStory(UserStoryId);
-			return pageRenderLS.createPageRenderLinkWithContext("administration/userStory/UserStoryDeleted", UserStoryId);
+			return pageRenderLS.createPageRenderLinkWithContext("tools/userStory/UserStoryDeleted", UserStoryId);
 		} catch (InstanceNotFoundException e) {
 			deleteForm.recordError(messages
                     .get("error-UserStoryDoesNotExist") + userStory.getUserStoryName());

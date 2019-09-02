@@ -43,8 +43,14 @@ public class SprintDaoHibernate extends GenericDaoHibernate<Sprint, Long> implem
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sprint> findBySprintStart(SortingType sortingType) {
+	public List<Sprint> findBySprintStart(SortingType sortingType, int n) {
 		List<Sprint> sprints = getSession().createQuery("SELECT s FROM Sprint s ORDER BY lower(s.sprintStart)" + sortingType.toString()).list();
+		if (n>0) {
+			if (n < sprints.size()) {
+				return sprints.subList(0, n);
+			}
+		}
+		
 		return sprints;
 	}
 

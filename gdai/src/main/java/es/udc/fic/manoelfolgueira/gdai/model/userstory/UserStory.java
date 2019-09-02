@@ -1,7 +1,9 @@
 package es.udc.fic.manoelfolgueira.gdai.model.userstory;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
@@ -32,6 +37,9 @@ public class UserStory extends GDAICodificable {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdById")
 	private User createdBy;
+	
+	@OneToMany(targetEntity=Project.class, mappedBy="userStory", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Project> projects;
 
 	/**
 	 * Empty constructor
@@ -121,6 +129,20 @@ public class UserStory extends GDAICodificable {
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @return the projects
+	 */
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	/**
+	 * @param projects the projects to set
+	 */
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	/* (non-Javadoc)

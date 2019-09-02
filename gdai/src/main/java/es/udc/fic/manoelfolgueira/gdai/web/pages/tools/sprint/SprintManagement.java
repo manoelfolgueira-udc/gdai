@@ -53,7 +53,7 @@ public class SprintManagement {
     
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of sprints which are going to be in the app at a time
-        sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC);
+        sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC, 0);
     }
     
     public String getSprintCreationDateFormatted() {

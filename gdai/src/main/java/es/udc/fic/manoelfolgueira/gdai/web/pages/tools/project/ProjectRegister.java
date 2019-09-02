@@ -14,6 +14,7 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
@@ -131,6 +132,9 @@ public class ProjectRegister {
 
 	@Property
 	private LinkedList<Sprint> sprintsSelected = new LinkedList<>();
+	
+	@Inject
+	private PageRenderLinkSource pageRenderLS;
 
 	void onValidateFromRegistrationForm() {
 
@@ -175,6 +179,7 @@ public class ProjectRegister {
 					new ProjectDetails(project.getProjectName(), project.getProjectDescription(), project.getCreationDate(),
 							requirementsPath, project.getCreatedBy(), project.getSystem(), project.getSprints(),
 							project.getUserStory()));
+			return pageRenderLS.createPageRenderLinkWithContext("tools/project/projectcreated", project.getProjectId());
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -203,7 +208,7 @@ public class ProjectRegister {
 
 	void onPrepare() {
 
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintName(SortingType.DESC);
+		List<Sprint> sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC, 10);
 
 		if (sprintId != null) {
 			sprint = findSprintInList(sprintId, sprints);

@@ -57,6 +57,6 @@ public interface SprintService {
 	 * @param desc
 	 * @return
 	 */
-	public List<Sprint> findAllOrderedBySprintStart(SortingType sortingType);
+	public List<Sprint> findAllOrderedBySprintStart(SortingType sortingType, int n);
 
 }

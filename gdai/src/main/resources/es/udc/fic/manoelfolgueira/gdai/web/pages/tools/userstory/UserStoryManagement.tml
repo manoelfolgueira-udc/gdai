@@ -1,34 +1,38 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	t:type="Layout" t:title="title"
-	xmlns:p="tapestry:parameter">
+	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
-	<div class="form-userStory">
-    	<div class="col-md-offset-5 col-md-6 col-md-6">
-       		<button type="submit" class="btn btn-default" t:type="PageLink"
-								t:page="administration/userStory/register">${message:createANewGroup}</button>
-       	</div>
-    </div>
-    
-    <br /><br />
-    
-    <!-- Grid de UserStory con elementos para modificar y eliminar -->
-    
-    <div class="eg">
-        <t:grid source="UserStorys" row="userStory" add="manageGroup" rowsPerPage="6" pagerPosition="top">
-        <p:UserStoryNameCell>
-                <t:pagelink page="userStory/view" context="userStory.userStoryId"><span class="devUserStory">${userStory.userStoryName}</span></t:pagelink>
-            </p:UserStoryNameCell>
-        <p:manageGroupCell>
-        <button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="administration/userStory/delete" t:context="userStory.userStoryId">${message:delete}</button>
-			<span style="display:inline-block; width: 10px;"></span>
+<div class="form-group">
+	<div class="col-md-offset-5 col-md-6 col-md-6">
+		<button type="submit" class="btn btn-default" t:type="PageLink"
+			t:page="tools/userStory/register">${message:createANewGroup}</button>
+	</div>
+</div>
+
+<br />
+<br />
+
+<!-- Grid de UserStory con elementos para modificar y eliminar -->
+
+<div class="eg">
+	<t:grid source="UserStorys" row="userStory" add="manageGroup"
+		rowsPerPage="6" pagerPosition="top" exclude="userStoryId">
+		<p:UserStoryNameCell>
+			<t:pagelink page="tools/userstory/userstoryview"
+				context="userStory.userStoryId">
+				<span class="devUserStory">${userStory.userStoryName}</span>
+			</t:pagelink>
+		</p:UserStoryNameCell>
+		<p:manageGroupCell>
+			<button type="submit" class="btn btn-danger" t:type="PageLink"
+				t:page="tools/userStory/delete" t:context="userStory.userStoryId">${message:delete}</button>
+			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="administration/userStory/modify" t:context="userStory.userStoryId">${message:modify}</button>
-        </p:manageGroupCell>
-        <p:empty>
+				t:page="tools/userStory/modify" t:context="userStory.userStoryId">${message:modify}</button>
+		</p:manageGroupCell>
+		<p:empty>
         	${message:noUserStory}
         </p:empty>
-        </t:grid>
-    </div>
-    
+	</t:grid>
+</div>
+
 </html>

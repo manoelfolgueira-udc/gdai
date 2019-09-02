@@ -6,13 +6,13 @@
 
 		<div class="alert alert-success text-center" role="alert">
 		
-			<p>${message:Application} <code>${applicationId}</code> ${message:success}</p>
+			<p>${message:Sprint} <code>${sprintId}</code> ${message:success}</p>
 		
 		</div>
 	
 		<div align="center">
 	   		<button type="submit" class="btn btn-default" t:type="PageLink"
-					t:page="administration/application/applicationmanagement">${message:back}</button>
+					t:page="administration/sprint/sprintmanagement">${message:back}</button>
 	   	</div>
 	
 	</div>

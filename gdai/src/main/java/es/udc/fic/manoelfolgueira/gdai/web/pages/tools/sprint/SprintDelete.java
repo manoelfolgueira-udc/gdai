@@ -76,7 +76,7 @@ public class SprintDelete {
 	Object onValidateFromDeleteForm() {
 		try {
 			sprintService.removeSprint(sprintId);
-			return pageRenderLS.createPageRenderLinkWithContext("administration/sprint/SprintDeleted", sprintId);
+			return pageRenderLS.createPageRenderLinkWithContext("tools/sprint/SprintDeleted", sprintId);
 		} catch (InstanceNotFoundException e) {
 			deleteForm.recordError(messages
                     .get("error-sprintDoesNotExist") + sprint.getSprintName());
