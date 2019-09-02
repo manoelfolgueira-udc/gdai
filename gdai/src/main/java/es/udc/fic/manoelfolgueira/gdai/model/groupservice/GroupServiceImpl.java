@@ -18,6 +18,9 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupDao groupDao;
 
+    /**
+     * {@inheritDoc}
+     */
     public Group registerGroup(String name,
             GroupDetails groupDetails)
             throws DuplicateInstanceException {
@@ -28,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
                     Group.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            Group group = new Group(groupDetails.getGroupName(), null, groupDetails.getExpirationDate(), null);
+            Group group = new Group(groupDetails.getGroupName(), null, null);
 
             groupDao.save(group);
             return group;
@@ -36,6 +39,9 @@ public class GroupServiceImpl implements GroupService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public Group findGroup(Long groupId)
             throws InstanceNotFoundException {
@@ -43,6 +49,9 @@ public class GroupServiceImpl implements GroupService {
         return groupDao.find(groupId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateGroupDetails(Long groupId,
             GroupDetails groupDetails)
             throws InstanceNotFoundException {
@@ -50,13 +59,20 @@ public class GroupServiceImpl implements GroupService {
         Group group = groupDao.find(groupId);
         
         group.setGroupName(groupDetails.getGroupName());
-        group.setExpirationDate(groupDetails.getExpirationDate());
+        
+        groupDao.save(group);
     }
     
-    public List<Group> findAllOrderedByGroupNameIC() {
-    	return groupDao.findAllOrderedByGroupNameIC();
+    /**
+     * {@inheritDoc}
+     */
+    public List<Group> findAllOrderedByGroupName() {
+    	return groupDao.findAllOrderedByGroupName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeGroup(Long groupId) throws InstanceNotFoundException {
 		groupDao.remove(groupId);

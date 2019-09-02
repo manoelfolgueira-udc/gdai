@@ -5,6 +5,11 @@ import org.apache.tapestry5.annotations.SessionState;
 
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that shows the result of a User modification
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   UserModified.java
+ */
 public class UserModified {
 
 	@Property
@@ -25,7 +30,7 @@ public class UserModified {
 
 		String backLink = !userSession.isAdministrator()
 				? "user/controlpanel"
-						: "administration/user/manageusers";
+						: "administration/user/management";
 
 		return backLink;
 	}

@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
+/**
+ * The generic DAO interface
+ * @param <E> any Entity
+ * @param <PK> its primary key
+ */
 public interface GenericDao <E, PK extends Serializable> {
 
 	void save(E entity);

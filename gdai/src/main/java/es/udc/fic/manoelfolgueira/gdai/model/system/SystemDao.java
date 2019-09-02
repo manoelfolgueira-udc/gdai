@@ -9,7 +9,6 @@ public interface SystemDao extends GenericDao<System, Long> {
 
     /**
      * Returns a System by name
-     *
      * @param name the system identifier
      * @return the System
      */
@@ -17,7 +16,6 @@ public interface SystemDao extends GenericDao<System, Long> {
     
     /**
      * Returns all systems
-     *
      * @return all System
      */
     public List<System> findAllOrderedBySystemName();

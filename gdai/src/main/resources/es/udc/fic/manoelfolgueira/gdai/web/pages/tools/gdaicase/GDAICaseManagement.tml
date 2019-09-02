@@ -1,0 +1,39 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
+
+
+<div class="form-group">
+	<div class="col-md-offset-5 col-md-6 col-md-6">
+		<button type="submit" class="btn btn-default" t:type="PageLink"
+			t:page="tools/gdaicase/register">${message:createANewGDAICase}</button>
+	</div>
+</div>
+
+<br />
+<br />
+
+<!-- Grid de Group con elementos para modificar y eliminar -->
+
+<div class="eg">
+	<t:grid source="gdaiCasesSearch" row="gdaiCase"
+		add="system, gdaiCaseManagement" rowsPerPage="15" pagerPosition="top"
+		exclude="gdaiCaseId">
+		<p:GDAICodeCell>
+			<t:pagelink page="tools/gdaicase/view" context="gdaiCase.gdaiCaseId">${gdaiCase.GDAICode}</t:pagelink>
+		</p:GDAICodeCell>
+		<p:systemCell>
+			${gdaiCase.system.systemName}
+		</p:systemCell>
+		<p:gdaiCaseManagementCell>
+			<button type="submit" class="btn btn-danger" t:type="PageLink"
+				t:page="tools/gdaicase/delete" t:context="gdaiCase.gdaiCaseId">${message:delete}</button>
+			<span style="display: inline-block; width: 10px;"></span>
+			<button type="submit" class="btn btn-primary" t:type="PageLink"
+				t:page="tools/gdaicase/modify" t:context="gdaiCase.gdaiCaseId">${message:modify}</button>
+		</p:gdaiCaseManagementCell>
+		<p:empty>
+        	${message:noGDAICase}
+        </p:empty>
+	</t:grid>
+</div>
+</html>

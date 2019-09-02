@@ -1,0 +1,190 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
+
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-collapse collapse">
+		<t:if test="user.isManager">
+			<ul class="nav navbar-nav navbar-left">
+				<li><a href="#" t:type="PageLink"
+					t:page="tools/project/register">${message:createANewProject}</a></li>
+			</ul>
+		</t:if>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#advsearch" class="btn btn-link"
+				data-toggle="collapse">${message:search}</a></li>
+		</ul>
+	</div>
+</nav>
+
+<form t:type="Form" class="form-horizontal" t:id="registrationForm">
+
+	<t:errors />
+
+	<div id="advsearch" class="eg collapse">
+
+		<div class="alert alert-default">
+			<strong>${message:help}</strong>
+			<p class="help-font">${message:help-advancedSearch}</p>
+		</div>
+
+		<div class="form-row">
+			<div class="col">
+				<label class="control-label">${message:projectId}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="projectId" t:type="TextField" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">${message:projectDescription}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="projectDescription" t:type="TextField" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<label class="control-label">${message:userStoryId}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="userStoryId" t:type="TextField" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<label class="control-label">${message:userStoryDescription}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="userStoryDescription" t:type="TextField" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<label class="control-label">${message:creationDateStart}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="creationDateStart" t:type="DateField" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<label class="control-label">${message:creationDateEnd}</label>
+				<div class="form-group">
+					<div class="col-md-4">
+						<input t:id="creationDateEnd" t:type="DateField" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="form-group">
+
+			<!-- Sprint -->
+			<t:label for="sprintSelect" class="col-md-1" />
+			<div class="col-md-3">
+				<t:select t:id="sprintSelect" value="sprint" model="sprintsModel"
+					encoder="sprintEncoder" />
+			</div>
+
+			<!-- Group -->
+			<t:label for="groupSelect" class="col-md-1" />
+			<div class="col-md-2">
+				<t:select t:id="groupSelect" value="group" model="groupsModel"
+					encoder="groupEncoder" />
+			</div>
+
+			<!-- System -->
+			<t:label for="systemSelect" class="col-md-1" />
+			<div class="col-md-3">
+				<t:select t:id="systemSelect" value="system" model="systemsModel"
+					encoder="systemEncoder" />
+			</div>
+		</div>
+
+		<div id="advsearch" class="form-group all-padding">
+			<button type="submit" class="btn btn-default btn-block text-center">Buscar
+				Proyectos</button>
+		</div>
+
+	</div>
+
+	<h1 class="page-header">${message:projects}</h1>
+
+	<!-- Grid de System con elementos para modificar y eliminar -->
+
+	<t:if test="user.isManager">
+		<div class="eg">
+			<t:grid source="projectsSearch" value="project" row="project"
+				add="userStory, system, group, projectManagement" rowsPerPage="6"
+				pagerPosition="top"
+				include="GDAICode, projectName, projectDescription, creationDate">
+				<p:projectNameCell>
+					<t:pagelink page="tools/project/view" t:context="project.projectId">${project.projectName}</t:pagelink>
+				</p:projectNameCell>
+				<p:userStoryCell>
+                ${project.userStory.userStoryName}
+            </p:userStoryCell>
+				<p:systemCell>
+					<t:pagelink page="system/view" context="project.system.systemId">${project.system.systemName}</t:pagelink>
+				</p:systemCell>
+				<p:groupCell>
+					<t:pagelink page="group/view"
+						context="project.system.group.groupId">${project.system.group.groupName}</t:pagelink>
+				</p:groupCell>
+				<!-- 			<p:createdByCell> -->
+				<!-- 				<t:pagelink page="user/viewprofile" context="project.createdBy.userId">${project.createdBy.loginName}</t:pagelink> -->
+				<!-- 			</p:createdByCell> -->
+				<p:projectManagementCell>
+					<button type="submit" class="btn btn-danger" t:type="PageLink"
+						t:page="tools/project/delete" t:context="project.projectId">${message:delete}</button>
+					<span style="display: inline-block; width: 10px;"></span>
+					<button type="submit" class="btn btn-primary" t:type="PageLink"
+						t:page="tools/project/modify" t:context="project.projectId">${message:modify}</button>
+				</p:projectManagementCell>
+				<p:empty>
+        	${message:noProject}
+        </p:empty>
+			</t:grid>
+		</div>
+
+		<p:else>
+
+			<div class="eg">
+				<t:grid source="projectsSearch" value="project" row="project"
+					add="userStory, system, group" rowsPerPage="6" pagerPosition="top"
+					include="GDAICode, projectName, projectDescription, creationDate">
+					<p:projectNameCell>
+						<t:pagelink page="tools/project/view"
+							t:context="project.projectId">${project.projectName}</t:pagelink>
+					</p:projectNameCell>
+					<p:userStoryCell>
+                ${project.userStory.userStoryName}
+            </p:userStoryCell>
+					<p:systemCell>
+						<t:pagelink page="system/view" context="project.system.systemId">${project.system.systemName}</t:pagelink>
+					</p:systemCell>
+					<p:groupCell>
+						<t:pagelink page="group/view"
+							context="project.system.group.groupId">${project.system.group.groupName}</t:pagelink>
+					</p:groupCell>
+					<!-- 			<p:createdByCell> -->
+					<!-- 				<t:pagelink page="user/viewprofile" context="project.createdBy.userId">${project.createdBy.loginName}</t:pagelink> -->
+					<!-- 			</p:createdByCell> -->
+					<p:empty>
+        	${message:noProject}
+        </p:empty>
+				</t:grid>
+			</div>
+		</p:else>
+	</t:if>
+
+
+
+</form>
+</html>

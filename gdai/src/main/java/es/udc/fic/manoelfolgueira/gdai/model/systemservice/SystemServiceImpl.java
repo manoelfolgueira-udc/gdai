@@ -18,6 +18,9 @@ public class SystemServiceImpl implements SystemService {
     @Autowired
     private SystemDao systemDao;
 
+    /**
+     * {@inheritDoc}
+     */
     public System registerSystem(String name,
             SystemDetails systemDetails)
             throws DuplicateInstanceException {
@@ -28,7 +31,7 @@ public class SystemServiceImpl implements SystemService {
                     System.class.getName());
         } catch (InstanceNotFoundException e) {
         	
-            System system = new System(systemDetails.getSystemName(), systemDetails.getSystemDescription());
+            System system = new System(systemDetails.getSystemName(), systemDetails.getSystemDescription(), systemDetails.getGroup());
 
             systemDao.save(system);
             return system;
@@ -36,6 +39,9 @@ public class SystemServiceImpl implements SystemService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public System findSystem(Long systemId)
             throws InstanceNotFoundException {
@@ -43,6 +49,9 @@ public class SystemServiceImpl implements SystemService {
         return systemDao.find(systemId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateSystemDetails(Long systemId,
             SystemDetails systemDetails)
             throws InstanceNotFoundException {
@@ -51,10 +60,24 @@ public class SystemServiceImpl implements SystemService {
         
         system.setSystemName(systemDetails.getSystemName());
         system.setSystemDescription(systemDetails.getSystemDescription());
+        system.setGroup(systemDetails.getGroup());
+        
+        systemDao.save(system);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public List<System> findAllOrderedBySystemName() {
     	return systemDao.findAllOrderedBySystemName();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public void remove(Long systemId) throws InstanceNotFoundException {
+		systemDao.remove(systemId);
+	}
     
 }

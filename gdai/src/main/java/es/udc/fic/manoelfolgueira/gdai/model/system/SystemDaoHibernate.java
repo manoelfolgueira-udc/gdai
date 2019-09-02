@@ -10,10 +10,13 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("systemDao")
 public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implements SystemDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public System findByName(String systemName) throws InstanceNotFoundException {
 
     	System system = (System) getSession().createQuery(
-    			"SELECT p FROM System p WHERE g.systemName = :systemName")
+    			"SELECT s FROM System s WHERE s.systemName = :systemName")
     			.setParameter("systemName", systemName)
     			.uniqueResult();
     	if (system == null) {
@@ -24,10 +27,13 @@ public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implem
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<System> findAllOrderedBySystemName() {
-		List<System> systems = getSession().createQuery("SELECT p FROM System p ORDER BY p.systemName").list();
+		List<System> systems = getSession().createQuery("SELECT s FROM System s ORDER BY lower(s.systemName)").list();
 		return systems;
 	}
 

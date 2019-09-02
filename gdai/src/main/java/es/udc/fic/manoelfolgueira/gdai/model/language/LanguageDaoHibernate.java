@@ -10,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("languageDao")
 public class LanguageDaoHibernate extends GenericDaoHibernate<Language, Long> implements LanguageDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Language findByName(String languageName) throws InstanceNotFoundException {
 
     	Language group = (Language) getSession().createQuery(
@@ -24,6 +27,9 @@ public class LanguageDaoHibernate extends GenericDaoHibernate<Language, Long> im
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Language> findAll() {
@@ -31,6 +37,9 @@ public class LanguageDaoHibernate extends GenericDaoHibernate<Language, Long> im
 		return languages;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> findAllNames() {

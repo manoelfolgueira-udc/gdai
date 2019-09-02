@@ -16,6 +16,11 @@ import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that allow users to see their own profile
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   ViewProfile.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ViewProfile {
 
@@ -41,7 +46,7 @@ public class ViewProfile {
     	
     	if (userSession != null) {
 
-	        user = userService.findUserProfile(userSession
+	        user = userService.findUser(userSession
 	                .getUserId());
 	        
 	        if (user.getHireDate() == null) hireDateParsed = "";
@@ -59,6 +64,8 @@ public class ViewProfile {
 	            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 	            dateOfBirthParsed = f.format(cal.getTime());
 	        }
+
+	        
     	}
 
     }
@@ -79,6 +86,10 @@ public class ViewProfile {
     
     public String getDateOfBirthDBValue() {
     	return user.getDateOfBirth() == null ? "" : Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
+    }
+    
+    public String getIsManagerUI() {
+    	return user.getIsManager() ? "Y" : "N";
     }
 
 }

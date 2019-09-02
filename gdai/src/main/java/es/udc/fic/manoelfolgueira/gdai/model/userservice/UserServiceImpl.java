@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.user.UserDao;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.util.PasswordEncrypter;
@@ -20,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     
+    /**
+     * {@inheritDoc}
+     */
     public User registerUser(String loginName, String clearPassword,
             UserDetails userDetails)
             throws DuplicateInstanceException {
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService {
                     encryptedPassword, userDetails.getFirstName(),
                     userDetails.getLastName(), userDetails.getGender(), userDetails
                         .getEmail(), userDetails.getPhoneNumber(), userDetails.getAvatarUrl(),
-                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getGroup());
+                        userDetails.getHiredate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getIsManager(), userDetails.getGroup());
 
             userDao.save(userProfile);
             return userProfile;
@@ -43,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public User login(String loginName, String password,
             boolean passwordIsEncrypted) throws InstanceNotFoundException,
@@ -65,13 +70,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
-    public User findUserProfile(Long userProfileId)
+    public User findUser(Long userId)
             throws InstanceNotFoundException {
 
-        return userDao.find(userProfileId);
+        return userDao.find(userId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void updateUserDetails(Long userProfileId,
             UserDetails userDetails)
             throws InstanceNotFoundException {
@@ -88,12 +99,17 @@ public class UserServiceImpl implements UserService {
         user.setDateOfBirth(userDetails.getDateOfBirth());
         user.setExpirationDate(userDetails.getExpirationDate());
         
+        user.setIsManager(userDetails.getIsManager());
+        
         user.setGroup(userDetails.getGroup());
         
         userDao.save(user);
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void changePassword(Long userProfileId, String oldClearPassword,
             String newClearPassword) throws IncorrectPasswordException,
             InstanceNotFoundException {
@@ -113,11 +129,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<User> findAllSortedByName() {
 		return userDao.findAllSortedByName();
 	}
 
+	/**
+     * {@inheritDoc}
+     */
 	@Override
 	public void remove(Long userId) throws InstanceNotFoundException {
 		userDao.remove(userId);		

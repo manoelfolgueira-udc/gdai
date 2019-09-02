@@ -15,6 +15,7 @@ import org.apache.tapestry5.corelib.components.RadioGroup;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
@@ -24,11 +25,16 @@ import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that lets Administrator add new Users
+ * 
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file UserRegister.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserRegister {
 
@@ -74,7 +80,7 @@ public class UserRegister {
 	@Property
 	private String expirationDate;
 
-	@SessionState(create=false)
+	@SessionState(create = false)
 	private UserSession userSession;
 
 	@Inject
@@ -101,23 +107,30 @@ public class UserRegister {
 	@Component(id = "password")
 	private PasswordField passwordField;
 
+	@Property
+	private Boolean isManager = false;
+
 	@Inject
 	private Messages messages;
 
 	@Inject
 	private Locale locale;
 
-	void onValidateFromRegistrationForm() {
+	@Inject
+	private PageRenderLinkSource pageRenderLS;
+
+	Object onValidateFromRegistrationForm() {
 
 		groupId = group == null ? null : group.getGroupId();
 
+		User user;
+
 		if (!registrationForm.isValid()) {
-			return;
+			return null;
 		}
 
 		if (!password.equals(retypePassword)) {
-			registrationForm.recordError(passwordField, messages
-					.get("error-passwordsDontMatch"));
+			registrationForm.recordError(passwordField, messages.get("error-passwordsDontMatch"));
 		} else {
 
 			try {
@@ -125,34 +138,44 @@ public class UserRegister {
 				Calendar calHireDate = Calendar.getInstance();
 				Calendar calDateOfBirth = Calendar.getInstance();
 				Calendar calExpirationDate = Calendar.getInstance();
-				SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-				if (hireDate != null) calHireDate.setTime(sdf.parse(hireDate)); else calHireDate = null;
-				if (dateOfBirth != null) calDateOfBirth.setTime(sdf.parse(dateOfBirth)); else calDateOfBirth = null;
-				if (expirationDate != null) calExpirationDate.setTime(sdf.parse(expirationDate)); else calExpirationDate = null;
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+				if (hireDate != null)
+					calHireDate.setTime(sdf.parse(hireDate));
+				else
+					calHireDate = null;
+				if (dateOfBirth != null)
+					calDateOfBirth.setTime(sdf.parse(dateOfBirth));
+				else
+					calDateOfBirth = null;
+				if (expirationDate != null)
+					calExpirationDate.setTime(sdf.parse(expirationDate));
+				else
+					calExpirationDate = null;
 
-				userService.registerUser(loginName, password,
-						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, group));
+				user = userService.registerUser(loginName, password,
+						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
+								calHireDate, calDateOfBirth, calExpirationDate, isManager, group));
 
+				return pageRenderLS.createPageRenderLinkWithContext("administration/user/UserCreated",
+						user.getUserId());
 			} catch (DuplicateInstanceException e) {
-				registrationForm.recordError(loginNameField, messages
-						.get("error-loginNameAlreadyExists"));
+				registrationForm.recordError(loginNameField, messages.get("error-loginNameAlreadyExists"));
 			} catch (Exception e) {
-				registrationForm.recordError(messages
-						.get("error-unexpectedError"));
+				registrationForm.recordError(messages.get("error-unexpectedError"));
 			}
 
 		}
+		return null;
 
 	}
 
 	Object onSuccess() {
-		return Index.class;
+		return UserManagement.class;
 	}
 
 	public GroupEncoder getGroupEncoder() {
 		return new GroupEncoder(groupService);
 	}
-
 
 	Long onPassivate() {
 		return groupId;
@@ -160,7 +183,7 @@ public class UserRegister {
 
 	void onPrepare() {
 
-		List<Group> groups = groupService.findAllOrderedByGroupNameIC();
+		List<Group> groups = groupService.findAllOrderedByGroupName();
 
 		if (groupId != null) {
 			group = findGroupInList(groupId, groups);

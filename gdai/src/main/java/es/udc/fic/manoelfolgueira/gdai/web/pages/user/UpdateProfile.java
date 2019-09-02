@@ -16,12 +16,16 @@ import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
+/**
+ * Web page that allows users to change some of their profile information and settings
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   UpdateProfile.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UpdateProfile {
 
@@ -86,9 +90,12 @@ public class UpdateProfile {
     @Inject
     private Locale locale;
     
+    @Property
+    private String isManager;
+    
     void onPrepareForRender() throws InstanceNotFoundException {
 
-        user = userService.findUserProfile(userSession
+        user = userService.findUser(userSession
                 .getUserId());
 
         loginName = user.getLoginName();
@@ -102,6 +109,8 @@ public class UpdateProfile {
         expirationDate = getExpirationDateDBValue();
         
         avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
+        
+        isManager = user.getIsManager() ? "Y" : "N";
         
         groupName = user.getGroup().getGroupName();
 
@@ -125,15 +134,15 @@ public class UpdateProfile {
 
     Object onSuccess() throws InstanceNotFoundException {
     	
-    	user = userService.findUserProfile(userSession
+    	user = userService.findUser(userSession
                 .getUserId());
     	
         userService.updateUserDetails(
                 userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), group));
+            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), user.getIsManager(), user.getGroup()));
         userSession.setLoginName(loginName);
         
-        return Index.class;
+        return ViewProfile.class;
 
     }
     

@@ -6,6 +6,11 @@ import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
+/**
+ * An encoder for the Group Entity
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupEncoder.java
+ */
 public class GroupEncoder implements ValueEncoder<Group> {
 	
 	private GroupService gs;

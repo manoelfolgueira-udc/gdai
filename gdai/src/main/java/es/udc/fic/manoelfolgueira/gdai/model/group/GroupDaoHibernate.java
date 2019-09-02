@@ -2,7 +2,6 @@ package es.udc.fic.manoelfolgueira.gdai.model.group;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDaoHibernate;
@@ -11,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("groupDao")
 public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implements GroupDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Group findByName(String groupName) throws InstanceNotFoundException {
 
     	Group group = (Group) getSession().createQuery(
@@ -25,9 +27,12 @@ public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implemen
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Group> findAllOrderedByGroupNameIC() {
+	public List<Group> findAllOrderedByGroupName() {
 		List<Group> groups = getSession().createQuery("SELECT g FROM Group g ORDER BY lower(g.groupName)").list();
 		return groups;
 	}

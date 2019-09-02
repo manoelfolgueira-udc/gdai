@@ -10,6 +10,9 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Repository("userDao")
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User findByLoginName(String loginName) throws InstanceNotFoundException {
 
@@ -25,24 +28,15 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllSortedByName() {
 		return getSession().createQuery(
     			"SELECT u FROM User u order by u.loginName")
 				.list();
-	}
-	
-	@Override
-	public void remove(Long userId) throws InstanceNotFoundException {
-		int numRows = getSession().createQuery(
-				"DELETE FROM User u WHERE u.userId = :userId")
-			.setParameter("userId", userId).executeUpdate();
-		
-		if (numRows == 0) {
-			throw new InstanceNotFoundException(userId, User.class.getName());
-		}
-				
 	}
 	
 	

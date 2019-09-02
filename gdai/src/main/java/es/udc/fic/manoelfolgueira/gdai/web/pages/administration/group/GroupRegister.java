@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -11,15 +10,21 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
-import es.udc.fic.manoelfolgueira.gdai.web.pages.Index;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
+/**
+ * Web page that lets Administrator add new Groups
+ * @author Manoel Folgueira <manoel.folgueira@udc.es>
+ * @file   GroupRegister.java
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GroupRegister {
 	
@@ -49,23 +54,27 @@ public class GroupRegister {
     
     @Property
     private String result = null;
+    
+    @Inject
+	private PageRenderLinkSource pageRenderLS;
 
-    void onValidateFromRegistrationForm() {
+    Object onValidateFromRegistrationForm() {
+    	
+    	Group group;
 
         if (!registrationForm.isValid()) {
-            return;
+            return null;
         }
 
         try {
 
         	Calendar calCreationDate = Calendar.getInstance();
-        	Calendar calExpirationDate = Calendar.getInstance();
-        	SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        	if (expirationDate != null) calExpirationDate.setTime(sdf.parse(expirationDate)); else calExpirationDate = null;
         	
-        	groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationDate, calExpirationDate));
+        	group = groupService.registerGroup(groupName, new GroupDetails(groupName, calCreationDate));
         	
         	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
+        	
+        	return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupCreated", group.getGroupId());
         } catch (DuplicateInstanceException e) {
             registrationForm.recordError(groupNameField, messages
                     .get("error-groupNameAlreadyExists"));
@@ -73,11 +82,12 @@ public class GroupRegister {
         	registrationForm.recordError(messages
                     .get("error-unexpectedError"));
         }
+		return null;
 
     }
 
     Object onSuccess() {
-        return Index.class;
+        return GroupManagement.class;
     }
     
     

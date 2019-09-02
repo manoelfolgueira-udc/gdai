@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <title>${title} - GDAI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="${context:favicon.ico}" rel="shortcut icon" /> 
+<link href="${context:favicon.ico}" rel="shortcut icon" />
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <script
@@ -23,7 +23,7 @@
 				<t:if test="userSession">
 					<a class="navbar-brand" href="#" t:type="PageLink"
 						t:page="user/controlpanel"><span
-						class="glyphicon glyphicon-tasks"> <span
+						class="glyphicon glyphicon-home"> <span
 							class="header-menu-brand-text"> GDAI</span>
 					</span></a>
 					<p:else>
@@ -37,22 +37,35 @@
 
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-				
+
 					<!-- Administration Dropdown Menu -->
 
 					<t:if test="isUserAdministrator">
 						<li class="dropdown"><a data-target="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <span
-								class="glyphicon glyphicon-record"> <span
+								class="glyphicon glyphicon-eye-open"> <span
 									class="header-menu-text"> ${message:AdminText}</span></span> <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:administrationdropdown-header-usersandgroups}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/user/manageusers">${message:manageUsers}</a></li>
+									t:page="administration/user/management"><span
+										class="glyphicon glyphicon-user"></span>
+										${message:manageUsers}</a></li>
 								<li><a href="#" t:type="PageLink"
-									t:page="administration/group/managegroups">${message:manageGroups}</a></li>
-									<li class="divider"></li>
+									t:page="administration/group/management"><span
+										class="glyphicon glyphicon-th"></span> ${message:manageGroups}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:administrationdropdown-header-projects}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/system/management"><span
+										class="glyphicon glyphicon-certificate"></span>
+										${message:manageSystems}</a></li>
+								<li><a href="#" t:type="PageLink"
+									t:page="administration/application/management"><span
+										class="glyphicon glyphicon-floppy-disk"></span>
+										${message:manageApplications}</a></li>
+								<li class="divider"></li>
 							</ul></li>
 					</t:if>
 
@@ -62,18 +75,40 @@
 						<li class="dropdown"><a data-target="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <span
 								class="glyphicon glyphicon-align-justify"> <span
-									class="header-menu-text"> ${message:ToolsDropdown-header}</span></span> <span
-								class="caret"></span></a>
+									class="header-menu-text">
+										${message:ToolsDropdown-header}</span></span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<!-- Links here -->
 								<li class="dropdown-header">${message:ToolsDropdown-header-projectmanagement}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="tools/projectview">${message:ToolsDropdown-link-projectsview}</a></li>
+									t:page="tools/project/management"><span
+										class="glyphicon glyphicon-folder-open"></span>
+										${message:ToolsDropdown-link-manageProjects}</a></li>
+									<li><a href="#" t:type="PageLink"
+										t:page="tools/userStory/management"><span
+											class="glyphicon glyphicon-comment"></span>
+											${message:ToolsDropdown-link-manageUserStories}</a></li>
+									<li><a href="#" t:type="PageLink"
+										t:page="tools/sprint/management"><span
+											class="glyphicon glyphicon-comment"></span>
+											${message:ToolsDropdown-link-manageSprints}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:ToolsDropdown-header-maintenance}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="tools/gdaicase/management"><span
+										class="glyphicon glyphicon-th-list"></span> ${message:ToolsDropdown-link-manageCases}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:ToolsDropdown-header-production}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="tools/productionpass/management"><span
+										class="glyphicon glyphicon-th-list"></span> ${message:ToolsDropdown-link-productionPass}</a></li>
 							</ul></li>
 						<p:else>
-							<li><a href="#" t:type="PageLink" t:page="configuration/languageselection"><span
+							<li><a href="#" t:type="PageLink"
+								t:page="configuration/languageselection"><span
 									class="glyphicon glyphicon-comment"> <span
-										class="header-menu-text"> ${message:config-language-selection}</span></span></a></li>
+										class="header-menu-text">
+											${message:config-language-selection}</span></span></a></li>
 						</p:else>
 					</t:if>
 
@@ -86,17 +121,27 @@
 							</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:userdropdown-header-user}</li>
+								<li><a href="#" t:type="PageLink" t:page="user/viewprofile"><span
+										class="glyphicon glyphicon-camera"></span>
+										${message:viewProfile}</a></li>
 								<li><a href="#" t:type="PageLink"
-									t:page="user/viewprofile">${message:viewProfile}</a></li>
+									t:page="user/updateprofile"><span
+										class="glyphicon glyphicon-cog"></span>
+										${message:updateProfile}</a></li>
 								<li><a href="#" t:type="PageLink"
-									t:page="user/updateprofile">${message:updateProfile}</a></li>
+									t:page="user/changepassword"><span
+										class="glyphicon glyphicon-asterisk"></span>
+										${message:changePassword}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:userdropdown-header-config}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="user/changepassword">${message:changePassword}</a></li>
-								<li class="divider"></li><li class="dropdown-header">${message:userdropdown-header-config}</li>
-								<li><a href="#" t:type="PageLink"
-								t:page="configuration/languageselection">${message:config-language-selection}</a></li>
-							    <li class="divider"></li><li class="dropdown-header">${message:userdropdown-header-more}</li>
-								<li><a href="#" t:type="ActionLink" t:id="logout">${message:logout}</a></li>
+									t:page="configuration/languageselection"><span
+										class="glyphicon glyphicon-globe"></span>
+										${message:config-language-selection}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:userdropdown-header-more}</li>
+								<li><a href="#" t:type="ActionLink" t:id="logout"><span
+										class="glyphicon glyphicon-log-out"></span> ${message:logout}</a></li>
 							</ul></li>
 					</t:if>
 
@@ -106,7 +151,7 @@
 	</div>
 	<div class="container">
 		<t:if test="showTitleInBody">
-			<h1 class="text-center">${title}</h1>
+			<h1 class="page-header">${title}</h1>
 		</t:if>
 		<t:body />
 		<hr />

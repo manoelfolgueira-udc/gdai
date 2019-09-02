@@ -1,0 +1,56 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
+
+<div class="form-group">
+	<t:if test="isManager">
+		<div class="col-md-offset-5 col-md-6 col-md-6">
+			<button type="submit" class="btn btn-default" t:type="PageLink"
+				t:page="tools/userStory/register">${message:createANewGroup}</button>
+		</div>
+	</t:if>
+</div>
+
+<br />
+<br />
+
+<!-- Grid de UserStory con elementos para modificar y eliminar -->
+
+<div class="eg">
+	<t:if test="isManager">
+		<t:grid source="UserStorys" row="userStory" add="manageUserStory"
+			rowsPerPage="6" pagerPosition="top" exclude="userStoryId">
+			<p:UserStoryNameCell>
+				<t:pagelink page="tools/userstory/userstoryview"
+					context="userStory.userStoryId">
+					<span class="devUserStory">${userStory.userStoryName}</span>
+				</t:pagelink>
+			</p:UserStoryNameCell>
+			<p:manageUserStoryCell>
+				<button type="submit" class="btn btn-danger" t:type="PageLink"
+					t:page="tools/userStory/delete" t:context="userStory.userStoryId">${message:delete}</button>
+				<span style="display: inline-block; width: 10px;"></span>
+				<button type="submit" class="btn btn-primary" t:type="PageLink"
+					t:page="tools/userStory/modify" t:context="userStory.userStoryId">${message:modify}</button>
+			</p:manageUserStoryCell>
+			<p:empty>
+        	${message:noUserStory}
+        </p:empty>
+		</t:grid>
+		<p:else>
+			<t:grid source="UserStorys" row="userStory" rowsPerPage="6"
+				pagerPosition="top" exclude="userStoryId">
+				<p:UserStoryNameCell>
+					<t:pagelink page="tools/userstory/userstoryview"
+						context="userStory.userStoryId">
+						<span class="devUserStory">${userStory.userStoryName}</span>
+					</t:pagelink>
+				</p:UserStoryNameCell>
+				<p:empty>
+        	${message:noUserStory}
+        </p:empty>
+			</t:grid>
+		</p:else>
+	</t:if>
+</div>
+
+</html>

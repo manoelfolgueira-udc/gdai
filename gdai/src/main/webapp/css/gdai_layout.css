@@ -2,7 +2,6 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
-
 .header-menu-text {
 	font-family: Sans-Serif;
 }
@@ -66,4 +65,25 @@ h1 { color: #777; font-family: 'Helvetica Neue', sans-serif; font-size: 35px; fo
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.help-font { 
+	font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+	font-size: 0.8em
+}
+
+.page-header { color: #f0f0f0; font-family: 'Raleway',sans-serif; font-size: 32px; font-weight: 800; line-height: 72px; margin: 0 0 24px; text-align: center; text-transform: uppercase;}
+
+.all-padding {
+	padding: 0 50px 0
+}
+
+.margin-top-bottom {
+	margin: 10px 0 10px
 }
