@@ -155,8 +155,6 @@ public class ProjectManagement {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-		java.lang.System.out.println("H058 # " + creationDateStart);
-
 		return pageRenderLS.createPageRenderLinkWithContext("tools/project/management", projectId, projectDescription,
 				userStoryId, userStoryDescription, (creationDateStart != null ? sdf.format(creationDateStart) : null),
 				(creationDateEnd != null ? sdf.format(creationDateEnd) : null),

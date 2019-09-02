@@ -15,6 +15,8 @@ DROP EVENT IF EXISTS gdai_event_insert_sprint;
 DROP TABLE IF EXISTS gdai_sprint;
 DROP TABLE IF EXISTS gdai_project_sprint_jt;
 DROP TABLE IF EXISTS gdai_user_userstory_jt;
+DROP TABLE IF EXISTS gdai_production_pass;
+DROP TABLE IF EXISTS gdai_gdai_case;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ------------------------------ Language --------------------------------
@@ -173,4 +175,46 @@ CREATE TABLE gdai_application
 engine = innodb; 
 
 CREATE INDEX ApplicationIndexByApplicationName ON gdai_application(applicationName); 
+------------------------------------------------------------------------
+
+-- ------------------------------ Case --------------------------------
+CREATE TABLE gdai_gdai_case
+  ( 
+     gdaiCaseId    	     BIGINT NOT NULL auto_increment,
+     gdaiCaseDescription VARCHAR(10000) NOT NULL,
+     gdaiCaseResolution  VARCHAR(10000) NOT NULL,
+     creationDate    TIMESTAMP NOT NULL,
+     createdById     BIGINT NOT NULL,
+     systemId        BIGINT NOT NULL,
+     CONSTRAINT CasePK PRIMARY KEY (gdaiCaseId),
+     FOREIGN KEY (createdById) REFERENCES gdai_user(userId),
+     FOREIGN KEY (systemId) REFERENCES gdai_system(systemId)
+  ) 
+engine = innodb; 
+
+CREATE INDEX CaseIndexByCaseDesc ON gdai_gdai_case(gdaiCaseId);
+------------------------------------------------------------------------
+
+-- ------------------------------ ProductionPass --------------------------------
+CREATE TABLE gdai_production_pass
+  ( 
+     productionPassId    	   BIGINT NOT NULL auto_increment,
+     productionPassName        VARCHAR(255) NOT NULL,
+     productionPassResolution VARCHAR(10000),
+     creationDate       	   TIMESTAMP NOT NULL,
+     passPath		           VARCHAR(500),
+     createdById        	   BIGINT NOT NULL,
+     systemId                  BIGINT NOT NULL,
+     projectId  		       BIGINT,
+     gdaiCaseId				   BIGINT,
+     CONSTRAINT ProductionPassPK PRIMARY KEY (productionPassId),
+     CONSTRAINT ProductionPassUniqueKeyProductionPassName UNIQUE (productionPassName),
+     FOREIGN KEY (createdById) REFERENCES gdai_user(userId),
+     FOREIGN KEY (systemId) REFERENCES gdai_system(systemId),
+     FOREIGN KEY (projectId) REFERENCES gdai_project(projectId),
+     FOREIGN KEY (gdaiCaseId) REFERENCES gdai_gdai_case(gdaiCaseId)
+  ) 
+engine = innodb; 
+
+CREATE INDEX ProductionPassIndexByProductionPassId ON gdai_production_pass(productionPassId); 
 ------------------------------------------------------------------------

@@ -10,7 +10,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -51,9 +53,21 @@ public class SprintManagement {
     @Property
     List<Sprint> sprints;
     
+    @Inject
+    private UserService userService;
+    
+    @Property
+    private boolean isManager;
+    
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of sprints which are going to be in the app at a time
         sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC, 0);
+        
+        try {
+			isManager = userService.findUser(userSession.getUserId()).getIsManager();
+		} catch (InstanceNotFoundException e) {
+			isManager = false;
+		}
     }
     
     public String getSprintCreationDateFormatted() {

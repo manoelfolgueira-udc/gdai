@@ -84,7 +84,6 @@
 									t:page="tools/project/management"><span
 										class="glyphicon glyphicon-folder-open"></span>
 										${message:ToolsDropdown-link-manageProjects}</a></li>
-								<t:if test="isManager">
 									<li><a href="#" t:type="PageLink"
 										t:page="tools/userStory/management"><span
 											class="glyphicon glyphicon-comment"></span>
@@ -93,12 +92,16 @@
 										t:page="tools/sprint/management"><span
 											class="glyphicon glyphicon-comment"></span>
 											${message:ToolsDropdown-link-manageSprints}</a></li>
-								</t:if>
 								<li class="divider"></li>
 								<li class="dropdown-header">${message:ToolsDropdown-header-maintenance}</li>
 								<li><a href="#" t:type="PageLink"
-									t:page="tools/project/management"><span
+									t:page="tools/gdaicase/management"><span
 										class="glyphicon glyphicon-th-list"></span> ${message:ToolsDropdown-link-manageCases}</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">${message:ToolsDropdown-header-production}</li>
+								<li><a href="#" t:type="PageLink"
+									t:page="tools/productionpass/management"><span
+										class="glyphicon glyphicon-th-list"></span> ${message:ToolsDropdown-link-productionPass}</a></li>
 							</ul></li>
 						<p:else>
 							<li><a href="#" t:type="PageLink"

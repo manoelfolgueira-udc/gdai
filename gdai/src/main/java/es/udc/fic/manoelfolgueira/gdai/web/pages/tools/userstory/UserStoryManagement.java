@@ -8,8 +8,10 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -49,9 +51,22 @@ public class UserStoryManagement {
     
     @Property
     List<UserStory> UserStorys;
+    
+    @Inject
+    private UserService userService;
+    
+    @Property
+    private boolean isManager;
+    
     void setupRender() {
     	// A GridDataSource is not provided due to the little ammount of UserStorys which are going to be in the app at a time
         UserStorys = UserStoryService.findAllOrderedByUserStoryName();
+        
+        try {
+			isManager = userService.findUser(userSession.getUserId()).getIsManager();
+		} catch (InstanceNotFoundException e) {
+			isManager = false;
+		}
     }
     
     public String getUserStoryCreationDateFormatted() {

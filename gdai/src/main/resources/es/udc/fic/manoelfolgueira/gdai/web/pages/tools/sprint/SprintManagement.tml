@@ -2,10 +2,12 @@
 	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
 <div class="form-group">
-	<div class="col-md-offset-5 col-md-6 col-md-6">
-		<button type="submit" class="btn btn-default" t:type="PageLink"
-			t:page="tools/sprint/register">${message:createANewSprint}</button>
-	</div>
+	<t:if test="isManager">
+		<div class="col-md-offset-5 col-md-6 col-md-6">
+			<button type="submit" class="btn btn-default" t:type="PageLink"
+				t:page="tools/sprint/register">${message:createANewSprint}</button>
+		</div>
+	</t:if>
 </div>
 
 <br />
@@ -14,26 +16,37 @@
 <!-- Grid de Sprint con elementos para modificar y eliminar -->
 
 <div class="eg">
-	<t:grid source="sprints" value="sprint" row="sprint"
-		add="sprintManagement" rowsPerPage="6" pagerPosition="top"
-		exclude="sprintId, BSprintName">
-		<p:sprintNameCell>
-			<t:pagelink page="tools/sprint/sprintview"
-				context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
-		</p:sprintNameCell>
-		<p:sprintManagementCell>
-			<button type="submit" class="btn btn-danger" t:type="PageLink"
-				t:page="tools/sprint/delete"
-				t:context="sprint.sprintId">${message:delete}</button>
-			<span style="display: inline-block; width: 10px;"></span>
-			<button type="submit" class="btn btn-primary" t:type="PageLink"
-				t:page="tools/sprint/modify"
-				t:context="sprint.sprintId">${message:modify}</button>
-		</p:sprintManagementCell>
-		<p:empty>
+	<t:if test="isManager">
+		<t:grid source="sprints" value="sprint" row="sprint"
+			add="sprintManagement" rowsPerPage="6" pagerPosition="top"
+			exclude="sprintId, BSprintName">
+			<p:sprintNameCell>
+				<t:pagelink page="tools/sprint/sprintview" context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
+			</p:sprintNameCell>
+			<p:sprintManagementCell>
+				<button type="submit" class="btn btn-danger" t:type="PageLink"
+					t:page="tools/sprint/delete" t:context="sprint.sprintId">${message:delete}</button>
+				<span style="display: inline-block; width: 10px;"></span>
+				<button type="submit" class="btn btn-primary" t:type="PageLink"
+					t:page="tools/sprint/modify" t:context="sprint.sprintId">${message:modify}</button>
+			</p:sprintManagementCell>
+			<p:empty>
         	${message:noSprint}
         </p:empty>
-	</t:grid>
+		</t:grid>
+		<p:else>
+			<t:grid source="sprints" value="sprint" row="sprint" rowsPerPage="6"
+				pagerPosition="top" exclude="sprintId, BSprintName">
+				<p:sprintNameCell>
+					<t:pagelink page="tools/sprint/sprintview"
+						context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
+				</p:sprintNameCell>
+				<p:empty>
+        	${message:noSprint}
+        </p:empty>
+			</t:grid>
+		</p:else>
+	</t:if>
 </div>
 
 </html>

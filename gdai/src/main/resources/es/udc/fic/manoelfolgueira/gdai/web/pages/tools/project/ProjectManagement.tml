@@ -159,6 +159,10 @@
 				<t:grid source="projectsSearch" value="project" row="project"
 					add="userStory, system, group" rowsPerPage="6" pagerPosition="top"
 					include="GDAICode, projectName, projectDescription, creationDate">
+					<p:projectNameCell>
+						<t:pagelink page="tools/project/view"
+							t:context="project.projectId">${project.projectName}</t:pagelink>
+					</p:projectNameCell>
 					<p:userStoryCell>
                 ${project.userStory.userStoryName}
             </p:userStoryCell>
