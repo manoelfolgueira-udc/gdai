@@ -2,10 +2,13 @@ package es.udc.fic.manoelfolgueira.gdai.model.userservice;
 
 import java.util.Calendar;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
-public class UserDetails {
+public class UserDetails extends GDAIDetailsCodificable {
 
+	private Long userId;
 	private String loginName;
 	private String firstName;
 	private String lastName;
@@ -13,26 +16,29 @@ public class UserDetails {
 	private String email;
 	private String phoneNumber;
 	private String avatarUrl;
-	private Calendar hiredate;	
+	private Calendar hiredate;
 	private Calendar dateOfBirth;
 	private Calendar expirationDate;
 	private Boolean isManager;
-	private Group group;
-	
+	private GroupDetails groupDetails;
 	/**
-	 * Main constructor
-	 * @param loginName a login name that does not exist already
-	 * @param firstName the real user's name
-	 * @param lastName the real user's name
-	 * @param email their electronic email
-	 * @param phoneNumber their phone number
-	 * @param avatarUrl their avatar url
-	 * @param hiredate when the user was hired
-	 * @param dateOfBirth when the user was born
-	 * @param expirationDate when the user account will expire
+	 * @param userId
+	 * @param loginName
+	 * @param firstName
+	 * @param lastName
+	 * @param gender
+	 * @param email
+	 * @param phoneNumber
+	 * @param avatarUrl
+	 * @param hiredate
+	 * @param dateOfBirth
+	 * @param expirationDate
+	 * @param isManager
+	 * @param groupDetails
 	 */
-	public UserDetails(String loginName, String firstName, String lastName, String gender, String email, String phoneNumber,
-			String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate, Boolean isManager, Group group) {
+	public UserDetails(Long userId, String loginName, String firstName, String lastName, String gender, String email,
+			String phoneNumber, String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate,
+			Boolean isManager, GroupDetails groupDetails) {
 		super();
 		this.loginName = loginName;
 		this.firstName = firstName;
@@ -45,7 +51,39 @@ public class UserDetails {
 		this.dateOfBirth = dateOfBirth;
 		this.expirationDate = expirationDate;
 		this.isManager = isManager;
-		this.group = group;
+		this.groupDetails = groupDetails;
+	}
+	
+	public UserDetails(User user) {
+		this.userId = user.getUserId();
+		this.loginName = user.getLoginName();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.gender = user.getGender();
+		this.email = user.getEmail();
+		this.phoneNumber = user.getPhoneNumber();
+		this.avatarUrl = user.getAvatarUrl();
+		this.hiredate = user.getHireDate();
+		this.dateOfBirth = user.getDateOfBirth();
+		this.expirationDate = user.getExpirationDate();
+		this.isManager = user.getIsManager();
+		this.groupDetails = new GroupDetails(user.getGroup());
+		
+	}
+	
+	/**
+	 * @return the userId
+	 */
+	public Long getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId
+	 *            the userId to set
+	 */
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	/**
@@ -56,10 +94,25 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param loginName the loginName to set
+	 * @param loginName
+	 *            the loginName to set
 	 */
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
+	}
+
+	/**
+	 * @return the groupDetails
+	 */
+	public GroupDetails getGroup() {
+		return groupDetails;
+	}
+
+	/**
+	 * @param groupDetails the groupDetails to set
+	 */
+	public void setGroup(GroupDetails groupDetails) {
+		this.groupDetails = groupDetails;
 	}
 
 	/**
@@ -70,7 +123,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -84,7 +138,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -98,7 +153,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param gender the gender to set
+	 * @param gender
+	 *            the gender to set
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -112,7 +168,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -126,7 +183,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phoneNumber
+	 *            the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
@@ -140,7 +198,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param avatarUrl the avatarUrl to set
+	 * @param avatarUrl
+	 *            the avatarUrl to set
 	 */
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
@@ -149,14 +208,15 @@ public class UserDetails {
 	/**
 	 * @return the hiredate
 	 */
-	public Calendar getHiredate() {
+	public Calendar getHireDate() {
 		return hiredate;
 	}
 
 	/**
-	 * @param hiredate the hiredate to set
+	 * @param hiredate
+	 *            the hiredate to set
 	 */
-	public void setHiredate(Calendar hiredate) {
+	public void setHireDate(Calendar hiredate) {
 		this.hiredate = hiredate;
 	}
 
@@ -168,7 +228,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param dateOfBirth the dateOfBirth to set
+	 * @param dateOfBirth
+	 *            the dateOfBirth to set
 	 */
 	public void setDateOfBirth(Calendar dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -182,27 +243,12 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param expirationDate the expirationDate to set
+	 * @param expirationDate
+	 *            the expirationDate to set
 	 */
 	public void setExpirationDate(Calendar expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-
-	/**
-	 * @return the group
-	 */
-	public Group getGroup() {
-		return group;
-	}
-
-	/**
-	 * @param group the group to set
-	 */
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-	
-	
 
 	/**
 	 * @return the isManager
@@ -212,7 +258,8 @@ public class UserDetails {
 	}
 
 	/**
-	 * @param isManager the isManager to set
+	 * @param isManager
+	 *            the isManager to set
 	 */
 	public void setIsManager(Boolean isManager) {
 		this.isManager = isManager;
@@ -231,11 +278,13 @@ public class UserDetails {
 		result = prime * result + ((expirationDate == null) ? 0 : expirationDate.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result + ((groupDetails == null) ? 0 : groupDetails.hashCode());
 		result = prime * result + ((hiredate == null) ? 0 : hiredate.hashCode());
+		result = prime * result + ((isManager == null) ? 0 : isManager.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((loginName == null) ? 0 : loginName.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -281,15 +330,20 @@ public class UserDetails {
 				return false;
 		} else if (!gender.equals(other.gender))
 			return false;
-		if (group == null) {
-			if (other.group != null)
+		if (groupDetails == null) {
+			if (other.groupDetails != null)
 				return false;
-		} else if (!group.equals(other.group))
+		} else if (!groupDetails.equals(other.groupDetails))
 			return false;
 		if (hiredate == null) {
 			if (other.hiredate != null)
 				return false;
 		} else if (!hiredate.equals(other.hiredate))
+			return false;
+		if (isManager == null) {
+			if (other.isManager != null)
+				return false;
+		} else if (!isManager.equals(other.isManager))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
@@ -306,7 +360,14 @@ public class UserDetails {
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
 		return true;
 	}
 	
+	
+
 }

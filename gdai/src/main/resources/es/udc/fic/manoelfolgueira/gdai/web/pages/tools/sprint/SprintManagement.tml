@@ -17,18 +17,18 @@
 
 <div class="eg">
 	<t:if test="isManager">
-		<t:grid source="sprints" value="sprint" row="sprint"
+		<t:grid source="sprints" value="sprint" row="sprintDetails"
 			add="sprintManagement" rowsPerPage="6" pagerPosition="top"
 			exclude="sprintId, BSprintName">
 			<p:sprintNameCell>
-				<t:pagelink page="tools/sprint/sprintview" context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
+				<t:pagelink page="tools/sprint/sprintview" context="sprintDetails.sprintId">${sprintDetails.sprintName}</t:pagelink>
 			</p:sprintNameCell>
 			<p:sprintManagementCell>
 				<button type="submit" class="btn btn-danger" t:type="PageLink"
-					t:page="tools/sprint/delete" t:context="sprint.sprintId">${message:delete}</button>
+					t:page="tools/sprint/delete" t:context="sprintDetails.sprintId">${message:delete}</button>
 				<span style="display: inline-block; width: 10px;"></span>
 				<button type="submit" class="btn btn-primary" t:type="PageLink"
-					t:page="tools/sprint/modify" t:context="sprint.sprintId">${message:modify}</button>
+					t:page="tools/sprint/modify" t:context="sprintDetails.sprintId">${message:modify}</button>
 			</p:sprintManagementCell>
 			<p:empty>
         	${message:noSprint}
@@ -39,7 +39,7 @@
 				pagerPosition="top" exclude="sprintId, BSprintName">
 				<p:sprintNameCell>
 					<t:pagelink page="tools/sprint/sprintview"
-						context="sprint.sprintId">${sprint.sprintName}</t:pagelink>
+						context="sprintDetails.sprintId">${sprintDetails.sprintName}</t:pagelink>
 				</p:sprintNameCell>
 				<p:empty>
         	${message:noSprint}

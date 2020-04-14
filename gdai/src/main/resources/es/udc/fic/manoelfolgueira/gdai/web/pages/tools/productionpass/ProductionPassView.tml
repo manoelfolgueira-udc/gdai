@@ -2,7 +2,7 @@
 	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
 <div class="eg">
-	<t:beandisplay object="productionPass">
+	<t:beandisplay object="productionPassDetails">
 		<p:passPath>
 			<a t:id="downloadLink">${message:download} ${getPRFileName()}</a>
 		</p:passPath>

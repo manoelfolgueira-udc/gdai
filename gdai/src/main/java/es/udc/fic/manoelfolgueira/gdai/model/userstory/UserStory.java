@@ -17,13 +17,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
+import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
 @Entity
-@Table(name="gdai_userStory")
-public class UserStory extends GDAICodificable {
+@Table(name = "gdai_userStory")
+public class UserStory extends GDAIDetailsCodificable {
 
 	@Column(name = "userStoryId")
 	@SequenceGenerator(name = "userStoryIdGenerator", sequenceName = "userStorySeq")
@@ -33,32 +33,50 @@ public class UserStory extends GDAICodificable {
 	private String userStoryName;
 	private String userStoryDescription;
 	private Calendar creationDate = Calendar.getInstance();
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "createdById")
+	@JoinColumn(name = "createdById")
 	private User createdBy;
-	
-	@OneToMany(targetEntity=Project.class, mappedBy="userStory", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(targetEntity = Project.class, mappedBy = "userStory", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Project> projects;
 
 	/**
 	 * Empty constructor
 	 */
-	public UserStory() {}
+	public UserStory() {
+	}
 
 	/**
 	 * Main constructor
-	 * @param userStoryName user story short name
-	 * @param userStoryDescription a description for a userStory
-	 * @param creationDate when it's created
-	 * @param projects projects related to a userStory
-	 * @param createdBy who creates the US
+	 * 
+	 * @param userStoryName
+	 *            user story short name
+	 * @param userStoryDescription
+	 *            a description for a userStory
+	 * @param creationDate
+	 *            when it's created
+	 * @param projects
+	 *            projects related to a userStory
+	 * @param createdBy
+	 *            who creates the US
 	 */
 	public UserStory(String userStoryName, String userStoryDescription, Calendar creationDate, User createdBy) {
 		this.userStoryName = userStoryName;
 		this.userStoryDescription = userStoryDescription;
 		this.creationDate = creationDate;
 		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @param userStoryDetails
+	 */
+	public UserStory(UserStoryDetails userStoryDetails) {
+		this.userStoryId = userStoryDetails.getUserStoryId();
+		this.userStoryName = userStoryDetails.getUserStoryName();
+		this.userStoryDescription = userStoryDetails.getUserStoryDescription();
+		this.creationDate = userStoryDetails.getCreationDate();
+		this.createdBy = new User(userStoryDetails.getCreatedBy());
 	}
 
 	/**
@@ -69,7 +87,8 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param userStoryId the userStoryId to set
+	 * @param userStoryId
+	 *            the userStoryId to set
 	 */
 	public void setUserStoryId(Long userStoryId) {
 		this.userStoryId = userStoryId;
@@ -83,7 +102,8 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param userStoryName the userStoryName to set
+	 * @param userStoryName
+	 *            the userStoryName to set
 	 */
 	public void setUserStoryName(String userStoryName) {
 		this.userStoryName = userStoryName;
@@ -97,7 +117,8 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param userStoryDescription the userStoryDescription to set
+	 * @param userStoryDescription
+	 *            the userStoryDescription to set
 	 */
 	public void setUserStoryDescription(String userStoryDescription) {
 		this.userStoryDescription = userStoryDescription;
@@ -111,7 +132,8 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
@@ -125,7 +147,8 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
@@ -139,13 +162,16 @@ public class UserStory extends GDAICodificable {
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param projects
+	 *            the projects to set
 	 */
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -157,7 +183,9 @@ public class UserStory extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -181,6 +209,5 @@ public class UserStory extends GDAICodificable {
 			return false;
 		return true;
 	}
-
 
 }

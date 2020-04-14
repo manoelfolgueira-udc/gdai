@@ -1,6 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.model.sprint;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,15 +15,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
+import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Utils;
 
 @Entity
-@Table(name="gdai_sprint")
-public class Sprint extends GDAICodificable {
+@Table(name = "gdai_sprint")
+public class Sprint {
 
 	@Column(name = "sprintId")
-	@SequenceGenerator(name = "sprintIdGenerator",sequenceName = "sprintSeq")
+	@SequenceGenerator(name = "sprintIdGenerator", sequenceName = "sprintSeq")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sprintIdGenerator")
 	private Long sprintId;
@@ -30,22 +31,29 @@ public class Sprint extends GDAICodificable {
 	private Calendar sprintStart = null;
 	private Calendar sprintEnd = null;
 	private Calendar creationDate = Calendar.getInstance();
-	
-	@ManyToMany(mappedBy = "sprints")
-    private List<Project> projects;
 
-	/**^
-	 * Empty constructor
+	@ManyToMany(mappedBy = "sprints")
+	private List<Project> projects;
+
+	/**
+	 * ^ Empty constructor
 	 */
-	public Sprint() {}
+	public Sprint() {
+	}
 
 	/**
 	 * Main constructor
-	 * @param sprintName sprint name
-	 * @param sprintStart when the sprint starts
-	 * @param sprintEnd when the sprint finishes
-	 * @param creationDate when the sprint is registered in GDAI
-	 * @param projects a list of projects being taken into account in this sprint
+	 * 
+	 * @param sprintName
+	 *            sprint name
+	 * @param sprintStart
+	 *            when the sprint starts
+	 * @param sprintEnd
+	 *            when the sprint finishes
+	 * @param creationDate
+	 *            when the sprint is registered in GDAI
+	 * @param projects
+	 *            a list of projects being taken into account in this sprint
 	 */
 	public Sprint(String sprintName, Calendar sprintStart, Calendar sprintEnd, Calendar creationDate,
 			List<Project> projects) {
@@ -58,6 +66,21 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
+	 * @param s
+	 */
+	public Sprint(SprintDetails sprintDetails) {
+		this.sprintId = sprintDetails.getSprintId();
+		this.sprintName = sprintDetails.getSprintName();
+		this.sprintStart = sprintDetails.getStartDate();
+		this.sprintEnd = sprintDetails.getEndDate();
+		this.creationDate = sprintDetails.getCreationDate();
+		this.projects = new LinkedList<>();
+		sprintDetails.getProjectsDetails().forEach(p -> {
+			projects.add(new Project(p));
+		});
+	}
+
+	/**
 	 * @return the sprintId
 	 */
 	public Long getSprintId() {
@@ -65,7 +88,8 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param sprintId the sprintId to set
+	 * @param sprintId
+	 *            the sprintId to set
 	 */
 	public void setSprintId(Long sprintId) {
 		this.sprintId = sprintId;
@@ -79,7 +103,8 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param sprintName the sprintName to set
+	 * @param sprintName
+	 *            the sprintName to set
 	 */
 	public void setSprintName(String sprintName) {
 		this.sprintName = sprintName;
@@ -93,7 +118,8 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param sprintStart the sprintStart to set
+	 * @param sprintStart
+	 *            the sprintStart to set
 	 */
 	public void setSprintStart(Calendar sprintStart) {
 		this.sprintStart = sprintStart;
@@ -107,7 +133,8 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param sprintEnd the sprintEnd to set
+	 * @param sprintEnd
+	 *            the sprintEnd to set
 	 */
 	public void setSprintEnd(Calendar sprintEnd) {
 		this.sprintEnd = sprintEnd;
@@ -121,7 +148,8 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
@@ -135,17 +163,21 @@ public class Sprint extends GDAICodificable {
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param projects
+	 *            the projects to set
 	 */
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
-	
+
 	public String getBSprintName() {
-		return "[" + this.sprintName + "] " + Utils.getFormattedDate(this.sprintStart.getTime()) + " - " + Utils.getFormattedDate(this.sprintEnd.getTime());
+		return "[" + this.sprintName + "] " + Utils.getFormattedDate(this.sprintStart.getTime()) + " - "
+				+ Utils.getFormattedDate(this.sprintEnd.getTime());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -161,7 +193,9 @@ public class Sprint extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -205,12 +239,12 @@ public class Sprint extends GDAICodificable {
 			return false;
 		return true;
 	}
-	
+
 	@PreRemove
 	private void removeProjectsFromSprint() {
-	    for (Project p: projects) {
-	        p.getSprints().remove(this);
-	    }
+		for (Project p : projects) {
+			p.getSprints().remove(this);
+		}
 	}
-	
+
 }

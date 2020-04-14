@@ -17,20 +17,20 @@
 
 <div class="eg">
 	<t:if test="isManager">
-		<t:grid source="UserStorys" row="userStory" add="manageUserStory"
+		<t:grid source="UserStorys" row="userStoryDetails" add="manageUserStory"
 			rowsPerPage="6" pagerPosition="top" exclude="userStoryId">
 			<p:UserStoryNameCell>
 				<t:pagelink page="tools/userstory/userstoryview"
-					context="userStory.userStoryId">
-					<span class="devUserStory">${userStory.userStoryName}</span>
+					context="userStoryDetails.userStoryId">
+					<span class="devUserStory">${userStoryDetails.userStoryName}</span>
 				</t:pagelink>
 			</p:UserStoryNameCell>
 			<p:manageUserStoryCell>
 				<button type="submit" class="btn btn-danger" t:type="PageLink"
-					t:page="tools/userStory/delete" t:context="userStory.userStoryId">${message:delete}</button>
+					t:page="tools/userStory/delete" t:context="userStoryDetails.userStoryId">${message:delete}</button>
 				<span style="display: inline-block; width: 10px;"></span>
 				<button type="submit" class="btn btn-primary" t:type="PageLink"
-					t:page="tools/userStory/modify" t:context="userStory.userStoryId">${message:modify}</button>
+					t:page="tools/userStory/modify" t:context="userStoryDetails.userStoryId">${message:modify}</button>
 			</p:manageUserStoryCell>
 			<p:empty>
         	${message:noUserStory}
@@ -41,8 +41,8 @@
 				pagerPosition="top" exclude="userStoryId">
 				<p:UserStoryNameCell>
 					<t:pagelink page="tools/userstory/userstoryview"
-						context="userStory.userStoryId">
-						<span class="devUserStory">${userStory.userStoryName}</span>
+						context="userStoryDetails.userStoryId">
+						<span class="devUserStory">${userStoryDetails.userStoryName}</span>
 					</t:pagelink>
 				</p:UserStoryNameCell>
 				<p:empty>

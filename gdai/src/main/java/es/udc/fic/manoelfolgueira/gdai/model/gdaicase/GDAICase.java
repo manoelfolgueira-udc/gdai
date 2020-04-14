@@ -13,14 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
-@Table(name="gdai_gdai_case")
-public class GDAICase extends GDAICodificable {
-	
+@Table(name = "gdai_gdai_case")
+public class GDAICase {
+
 	@Column(name = "gdaiCaseId")
 	@SequenceGenerator(name = "gdaiCaseIdGenerator", sequenceName = "gdaiCaseSeq")
 	@Id
@@ -29,30 +29,37 @@ public class GDAICase extends GDAICodificable {
 	private String gdaiCaseDescription;
 	private String gdaiCaseResolution;
 	private Calendar creationDate = Calendar.getInstance();
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "createdById")
+	@JoinColumn(name = "createdById")
 	private User createdBy;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "systemId")
+	@JoinColumn(name = "systemId")
 	private System system;
-	
+
 	/**
 	 * Empty constructor
 	 */
-	public GDAICase() {}
-	
+	public GDAICase() {
+	}
+
 	/**
 	 * Main constructor
-	 * @param gdaiCaseDescription a description for this gdaiCase
-	 * @param gdaiCaseResolution a resolution for this gdaiCase
-	 * @param creationDate when it's created
-	 * @param createdBy user that has registered this gdaiCase
-	 * @param system system related to this gdaiCase
+	 * 
+	 * @param gdaiCaseDescription
+	 *            a description for this gdaiCase
+	 * @param gdaiCaseResolution
+	 *            a resolution for this gdaiCase
+	 * @param creationDate
+	 *            when it's created
+	 * @param createdBy
+	 *            user that has registered this gdaiCase
+	 * @param system
+	 *            system related to this gdaiCase
 	 */
-	public GDAICase(String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate,
-			User createdBy, System system) {
+	public GDAICase(String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate, User createdBy,
+			System system) {
 
 		this.gdaiCaseDescription = gdaiCaseDescription;
 		this.gdaiCaseResolution = gdaiCaseResolution;
@@ -60,7 +67,20 @@ public class GDAICase extends GDAICodificable {
 		this.createdBy = createdBy;
 		this.system = system;
 	}
+	
+	
 
+	/**
+	 * @param gDAICaseDetails
+	 */
+	public GDAICase(GDAICaseDetails gDAICaseDetails) {
+		this.gdaiCaseId = gDAICaseDetails.getGDAICaseId();
+		this.gdaiCaseDescription = gDAICaseDetails.getGDAICaseDescription();
+		this.gdaiCaseResolution = gDAICaseDetails.getGDAICaseResolution();
+		this.creationDate = gDAICaseDetails.getCreationDate();
+		this.createdBy = new User(gDAICaseDetails.getCreatedBy());
+		this.system = new System(gDAICaseDetails.getSystemDetails());
+	}
 
 	/**
 	 * @return the gdaiCaseId
@@ -70,7 +90,8 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param gdaiCaseId the gdaiCaseId to set
+	 * @param gdaiCaseId
+	 *            the gdaiCaseId to set
 	 */
 	public void setGDAICaseId(Long gdaiCaseId) {
 		this.gdaiCaseId = gdaiCaseId;
@@ -84,7 +105,8 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param gdaiCaseDescription the gdaiCaseDescription to set
+	 * @param gdaiCaseDescription
+	 *            the gdaiCaseDescription to set
 	 */
 	public void setGDAICaseDescription(String gdaiCaseDescription) {
 		this.gdaiCaseDescription = gdaiCaseDescription;
@@ -98,7 +120,8 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param gdaiCaseResolution the gdaiCaseResolution to set
+	 * @param gdaiCaseResolution
+	 *            the gdaiCaseResolution to set
 	 */
 	public void setGDAICaseResolution(String gdaiCaseResolution) {
 		this.gdaiCaseResolution = gdaiCaseResolution;
@@ -112,7 +135,8 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
@@ -126,7 +150,8 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
@@ -140,13 +165,16 @@ public class GDAICase extends GDAICodificable {
 	}
 
 	/**
-	 * @param system the system to set
+	 * @param system
+	 *            the system to set
 	 */
 	public void setSystem(System system) {
 		this.system = system;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -157,7 +185,9 @@ public class GDAICase extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -176,5 +206,5 @@ public class GDAICase extends GDAICodificable {
 			return false;
 		return true;
 	}
-	
+
 }

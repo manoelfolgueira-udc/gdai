@@ -1,5 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase;
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICaseDao;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -22,13 +24,10 @@ public class GDAICaseServiceImpl implements GDAICaseService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GDAICase createGDAICase(GDAICaseDetails gDAICaseDetails) {
-		GDAICase gdaiCase = new GDAICase(gDAICaseDetails.getGDAICaseDescription(), gDAICaseDetails.getGDAICaseResolution(),
-				gDAICaseDetails.getCreationDate(), gDAICaseDetails.getCreatedBy(),
-				gDAICaseDetails.getSystem());
-
+	public GDAICaseDetails createGDAICase(GDAICaseDetails gDAICaseDetails) {
+		GDAICase gdaiCase = new GDAICase(gDAICaseDetails);
 		gdaiCaseDao.save(gdaiCase);
-		return gdaiCase;
+		return new GDAICaseDetails(gdaiCase);
 	}
 
 	/**
@@ -36,17 +35,20 @@ public class GDAICaseServiceImpl implements GDAICaseService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public GDAICase findGDAICase(Long gdaiCaseId) throws InstanceNotFoundException {
-		return gdaiCaseDao.find(gdaiCaseId);
+	public GDAICaseDetails findGDAICase(Long gdaiCaseId) throws InstanceNotFoundException {
+		return new GDAICaseDetails(gdaiCaseDao.find(gdaiCaseId));
 	}
 
 	@Override
-	public void updateGDAICaseDetails(Long gdaiCaseId, GDAICaseDetails gDAICaseDetails) throws InstanceNotFoundException {
+	public void updateGDAICaseDetails(Long gdaiCaseId, GDAICaseDetails gDAICaseDetails)
+			throws InstanceNotFoundException {
 		GDAICase gdaiCase = gdaiCaseDao.find(gdaiCaseId);
 
 		gdaiCase.setGDAICaseResolution(gDAICaseDetails.getGDAICaseResolution());
 		gdaiCase.setGDAICaseDescription(gDAICaseDetails.getGDAICaseDescription());
-		gdaiCase.setCreatedBy(gDAICaseDetails.getCreatedBy()); // should not be modified, consider getting rid of it
+		gdaiCase.setCreatedBy(new User(gDAICaseDetails.getCreatedBy())); // should not be modified, consider getting rid of it
+
+		gdaiCaseDao.save(gdaiCase);
 	}
 
 	/**
@@ -57,20 +59,37 @@ public class GDAICaseServiceImpl implements GDAICaseService {
 		gdaiCaseDao.remove(gdaiCaseId);
 	}
 
-	/* (non-Javadoc)
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseService#findAllOrderedByGDAICaseId(es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public List<GDAICase> findAllOrderedByGDAICaseId(SortingType sortingType) {
-		return gdaiCaseDao.findAllOrderedByGDAICaseId(sortingType);
+	public List<GDAICaseDetails> findAllOrderedByGDAICaseId(SortingType sortingType) {		
+		
+		LinkedList<GDAICaseDetails> gdaiCaseesDetails = new LinkedList<>();
+		List<GDAICase> gdaiCases = gdaiCaseDao.findAllOrderedByGDAICaseId(sortingType);
+
+		for (GDAICase gc : gdaiCases) {
+			gdaiCaseesDetails.add(new GDAICaseDetails(gc));
+		}
+
+		return gdaiCaseesDetails;
+		
 	}
 
-	/* (non-Javadoc)
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseService#findByGroup(java.lang.Long)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public List<GDAICase> findByGroup(Long groupId) {
-		return gdaiCaseDao.findByGroup(groupId);
+	public List<GDAICaseDetails> findByGroup(Long groupId) {
+		
+		LinkedList<GDAICaseDetails> gdaiCaseesDetails = new LinkedList<>();
+		List<GDAICase> gdaiCases = gdaiCaseDao.findByGroup(groupId);
+
+		for (GDAICase gc : gdaiCases) {
+			gdaiCaseesDetails.add(new GDAICaseDetails(gc));
+		}
+
+		return gdaiCaseesDetails;
 	}
 
 }

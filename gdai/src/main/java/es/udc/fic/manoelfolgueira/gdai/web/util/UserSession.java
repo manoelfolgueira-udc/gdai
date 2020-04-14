@@ -1,6 +1,5 @@
 package es.udc.fic.manoelfolgueira.gdai.web.util;
 
-
 public class UserSession {
 
 	private Long userId;
@@ -30,6 +29,5 @@ public class UserSession {
 	public void setAdministrator(boolean isAdministrator) {
 		this.isAdministrator = isAdministrator;
 	}
-
 
 }

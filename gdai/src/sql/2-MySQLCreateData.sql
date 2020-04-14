@@ -1,8 +1,3 @@
--- CFG
-insert into gdai_cfg(cfgAttr, cfgVal, creationDate)
-values
-	('CFG_SP_WEEKS', '2', NOW());
-
 -- AvailableLanguages
 insert into gdai_language(languageName, languageCountry, options, creationDate)
 values
@@ -11,24 +6,14 @@ values
 	('gl', 'ES', 'es=Español, gl=Galego, en=Inglés', NOW());
 
 --Groups
-insert into gdai_group(groupName, creationDate)
-values
-	('GDAI_ADM', NOW()),
-	('GP1', 	 NOW()),
-	('GP2', 	 NOW()),
-	('GP3', 	 NOW()),
-	('GP4', 	 NOW()),
-	('GP5', 	 NOW()),
-	('GP6', 	 NOW()),
-	('GP7', 	 NOW()),
-	('GP8', 	 NOW()),
-	('GP9', 	 NOW()),
-	('GP10', 	 NOW());
-	
---INSERT INTO gdai_group (groupName,creationDate,expirationDate) VALUES ("Poole","2019-08-19 20:12:59","2020-12-27 10:14:58"),("Shrewsbury","2019-08-19 14:24:41","2020-08-19 21:20:25"),("Meix-Devant-Virton","2019-08-19 07:34:32","2020-12-06 18:43:15"),("Casacalenda","2019-08-19 16:01:06","2021-02-13 15:12:36"),("Auckland","2019-08-19 16:25:45","2020-12-24 13:07:20"),("Baulers","2019-08-19 18:41:57","2020-11-05 14:09:34"),("Aschersleben","2019-08-19 00:10:00","2021-04-13 16:54:25"),("Leersum","2019-08-19 17:56:05","2021-04-05 20:19:24"),("Lithgow","2019-08-19 15:43:24","2021-03-02 12:00:39"),("Bischofshofen","2019-08-19 19:33:42","2021-07-05 16:53:12");
---INSERT INTO gdai_group (groupName,creationDate,expirationDate) VALUES ("Freiburg","2019-08-19 09:02:16","2020-10-17 23:28:41"),("Pulle","2019-08-19 10:14:27","2020-11-06 16:33:19"),("Ipatinga","2019-08-19 11:32:12","2021-02-09 02:01:30"),("Donk","2019-08-19 06:07:28","2020-10-25 09:01:02"),("Sadiqabad","2019-08-19 17:43:53","2020-10-30 00:23:16"),("Argenteuil","2019-08-19 21:49:13","2020-12-27 23:07:27"),("María Pinto","2019-08-19 06:20:15","2021-01-31 10:22:29"),("Relegem","2019-08-19 09:28:57","2021-02-22 23:11:09");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("GDAI_ADM","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-11 03:16:05","2020-04-07 20:23:17");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_CLIENTES","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-15 22:35:17","2024-08-30 03:08:14");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_FACTURACION","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-18 00:14:17","2025-08-31 05:35:29");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_LOGISTICA","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-17 02:12:49","2023-10-05 17:48:27");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_POSTVENTA","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-18 21:45:48","2020-08-07 22:57:54");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_WEB","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-11 12:12:19","2026-11-27 21:51:40");
+INSERT INTO gdai_group (groupName,groupDescription,creationDate,expirationDate) VALUES ("D_INTEGRACION","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet ultricies ipsum. Nam imperdiet euismod neque, id accumsan dolor mattis in. Praesent lectus nisi, gravida quis blandit sit amet, auctor quis elit. Nunc fermentum dolor metus, id scelerisque quam mollis ac. Sed ultricies sem nec tristique eleifend. Sed finibus ipsum nec dui lobortis sodales. Etiam quis nisi elementum nibh vestibulum sodales vitae vitae nisl. Quisque congue nulla mauris, malesuada efficitur libero posuere eu.","2019-09-19 01:57:30","2024-07-07 21:30:28");
 
-    
 -- Users
 insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, phoneNumber, avatarUrl, gender, hireDate, dateOfBirth, expirationDate, isManager, groupId)
 values
@@ -52,10 +37,10 @@ values
 		'M', NOW(), NOW(), NOW(), false, 2);
 		
 -- Systems
-insert into gdai_system(systemName, systemDescription, creationDate, groupId)
+insert into gdai_system(systemName, systemDescription, creationDate, expirationDate, groupId)
 values
-	('Billing', 'Description here.', NOW(), 1),
-	('CRM', 'Description here.', NOW(), 2);
+	('Billing', 'Description here.', NOW(), NOW() + 90, 1),
+	('CRM', 'Description here.', NOW(), NOW() + 90, 2);
 	
 -- User Stories
 insert into gdai_userstory(userStoryName, userStoryDescription, creationDate, createdById)
@@ -79,27 +64,9 @@ SELECT
         'SP_',
         CAST(COUNT(sp.sprintId) + 1 AS CHAR(50))
     ),
-    CURRENT_DATE, CURRENT_DATE + INTERVAL cfg.cfgVal * 7 DAY, NOW()
+    CURRENT_DATE, CURRENT_DATE + INTERVAL 2 * 7 DAY, NOW()
 FROM
-    gdai_sprint sp right outer join gdai_cfg cfg
-on cfg.cfgAttr = 'CFG_SP_WEEKS';
-
---CREATE EVENT gdai_event_insert_sprint
---    ON SCHEDULE
---      EVERY 10 MINUTE
---      STARTS NOW() + INTERVAL 10 MINUTE
---    COMMENT 'Inserts the current sprint'
---    DO
---insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate, createdById)
---SELECT
---   CONCAT(
---        'SP_',
---        CAST(COUNT(sp.sprintId) + 1 AS CHAR(50))
---    ),
---    CURRENT_DATE + INTERVAL cfg.cfgVal * 7 DAY, CURRENT_DATE + INTERVAL cfg.cfgVal*cfg.cfgVal * 7 DAY, NOW(), 1
---FROM
---    gdai_sprint sp right outer join gdai_cfg cfg
---on cfg.cfgAttr = 'CFG_SP_WEEKS';
+    gdai_sprint sp;
 
 -- project_sprint_jt
 insert into gdai_project_sprint_jt(projectId, sprintId)
@@ -107,11 +74,11 @@ values
 	(1, 1), (2,1), (3,1);
 
 -- Applications
-insert into gdai_application(applicationName, applicationDescription, creationDate, systemId)
+insert into gdai_application(applicationName, applicationDescription, creationDate, expirationDate, systemId)
 values
-	('GDAIBillingEntities', 'GDAIBillingEntities Desc.', NOW(), 1),
-	('GDAIBilling', 'GDAIBilling Desc.', NOW(), 1),
-	('CRM', 'CRM Desc.', NOW(), 2);
+	('GDAIBillingEntities', 'GDAIBillingEntities Desc.', NOW(), CURRENT_DATE + INTERVAL 2 * 7 DAY, 1),
+	('GDAIBilling', 'GDAIBilling Desc.', NOW(), CURRENT_DATE + INTERVAL 2 * 7 DAY, 1),
+	('CRM', 'CRM Desc.', NOW(), CURRENT_DATE + INTERVAL 2 * 7 DAY, 2);
 --INSERT INTO gdai_application (applicationName,applicationDescription,creationDate,systemId) VALUES ("Galicia","Ethiopia","2020-04-02 18:02:22",1),("Illes Balears","Bahamas","2020-06-25 07:46:24",1),("CN","Costa Rica","2020-02-25 09:29:38",1),("Aragón","Angola","2019-08-30 21:13:15",1),("CV","Romania","2019-02-22 08:59:00",1),("PV","Croatia","2019-06-17 07:06:30",1),("Castilla - La Mancha","South Africa","2020-01-29 07:09:56",1),("CV","Yemen","2018-12-27 17:05:52",1),("Illes Balears","Albania","2018-12-26 20:35:34",1),("Ceuta","South Africa","2019-10-21 20:04:51",1);
 --INSERT INTO gdai_application (applicationName,applicationDescription,creationDate,systemId) VALUES ("Madrid","Tonga","2018-12-03 07:28:44",1),("Canarias","Tajikistan","2018-09-16 00:54:24",1),("Principado de Asturias","Korea, North","2019-01-16 22:57:57",1),("La Rioja","Slovakia","2019-11-08 17:09:31",1),("Catalunya","Guernsey","2019-08-18 16:10:03",1),("PV","Guatemala","2019-02-26 22:19:41",1),("CN","Wallis and Futuna","2019-10-12 22:39:46",1),("Cantabria","Dominica","2019-03-17 04:24:12",1),("MA","Palestine, State of","2020-05-06 15:28:16",1),("Galicia","South Africa","2018-10-05 09:11:41",1);
 --INSERT INTO gdai_application (applicationName,applicationDescription,creationDate,systemId) VALUES ("AN","Tuvalu","2019-09-15 02:34:38",1),("Madrid","Norfolk Island","2020-01-19 03:08:33",1),("Comunitat Valenciana","Peru","2020-06-22 06:52:21",1),("CA","New Zealand","2018-09-14 16:41:51",1),("Comunitat Valenciana","Syria","2020-02-15 01:45:11",1),("BA","Tonga","2018-10-26 18:08:11",1),("CM","Bouvet Island","2020-01-26 15:52:37",1),("MA","Lithuania","2020-07-02 23:58:17",1),("Castilla - La Mancha","Mauritania","2019-02-27 14:26:51",1),("CV","Antarctica","2019-07-25 03:02:08",1);

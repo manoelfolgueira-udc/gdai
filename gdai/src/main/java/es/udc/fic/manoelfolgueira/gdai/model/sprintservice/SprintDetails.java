@@ -3,31 +3,77 @@ package es.udc.fic.manoelfolgueira.gdai.model.sprintservice;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
-public class SprintDetails {
+public class SprintDetails extends GDAIDetailsCodificable {
 
+	private Long sprintId;
 	private String sprintName;
 	private Calendar startDate = null;
 	private Calendar endDate = null;
 	private Calendar creationDate = Calendar.getInstance();
-    private LinkedList<Project> projects;
+	private LinkedList<ProjectDetails> projectsDetails;
 
-    /**
-     * Main constructor
-     * @param sprintName the name of the sprint
-     * @param startDate when it starts
-     * @param endDate when it ends
-     * @param creationDate when it's created in GDAI
-     * @param projects a list of projects the are performed with this sprint
-     */
-	public SprintDetails(String sprintName, Calendar startDate, Calendar endDate, Calendar creationDate,
-			LinkedList<Project> projects) {
+	/**
+	 * Main constructor
+	 * 
+	 * @param sprintName
+	 *            the name of the sprint
+	 * @param startDate
+	 *            when it starts
+	 * @param endDate
+	 *            when it ends
+	 * @param creationDate
+	 *            when it's created in GDAI
+	 * @param projectsDetails
+	 *            a list of projects the are performed with this sprint
+	 */
+	public SprintDetails(Long sprintId, String sprintName, Calendar startDate, Calendar endDate, Calendar creationDate,
+			LinkedList<ProjectDetails> projectsDetails) {
+		this.sprintId = sprintId;
 		this.sprintName = sprintName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.creationDate = creationDate;
-		this.projects = projects;
+		this.projectsDetails = projectsDetails;
+	}
+
+	/**
+	 * @param find
+	 */
+	public SprintDetails(Sprint sprint) {
+		this.sprintId = sprint.getSprintId();
+		this.sprintName = sprint.getSprintName();
+		this.startDate = sprint.getSprintStart();
+		this.endDate = sprint.getSprintEnd();
+		this.creationDate = sprint.getCreationDate();
+		this.projectsDetails = new LinkedList<>();
+		sprint.getProjects().forEach(p -> {
+			this.projectsDetails.add(new ProjectDetails(p));
+		});
+	}
+
+	/**
+	 * @param findSprint
+	 */
+	public SprintDetails(SprintDetails sprint) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @return the sprintId
+	 */
+	public Long getSprintId() {
+		return sprintId;
+	}
+
+	/**
+	 * @param sprintId the sprintId to set
+	 */
+	public void setSprintId(Long sprintId) {
+		this.sprintId = sprintId;
 	}
 
 	/**
@@ -87,17 +133,17 @@ public class SprintDetails {
 	}
 
 	/**
-	 * @return the projects
+	 * @return the projectsDetails
 	 */
-	public LinkedList<Project> getProjects() {
-		return projects;
+	public LinkedList<ProjectDetails> getProjectsDetails() {
+		return projectsDetails;
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param projectsDetails the projectsDetails to set
 	 */
-	public void setProjects(LinkedList<Project> projects) {
-		this.projects = projects;
+	public void setProjectsDetails(LinkedList<ProjectDetails> projectsDetails) {
+		this.projectsDetails = projectsDetails;
 	}
 
 	/* (non-Javadoc)
@@ -109,7 +155,8 @@ public class SprintDetails {
 		int result = 1;
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
+		result = prime * result + ((projectsDetails == null) ? 0 : projectsDetails.hashCode());
+		result = prime * result + ((sprintId == null) ? 0 : sprintId.hashCode());
 		result = prime * result + ((sprintName == null) ? 0 : sprintName.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
@@ -137,10 +184,15 @@ public class SprintDetails {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
-		if (projects == null) {
-			if (other.projects != null)
+		if (projectsDetails == null) {
+			if (other.projectsDetails != null)
 				return false;
-		} else if (!projects.equals(other.projects))
+		} else if (!projectsDetails.equals(other.projectsDetails))
+			return false;
+		if (sprintId == null) {
+			if (other.sprintId != null)
+				return false;
+		} else if (!sprintId.equals(other.sprintId))
 			return false;
 		if (sprintName == null) {
 			if (other.sprintName != null)
@@ -154,5 +206,5 @@ public class SprintDetails {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -10,7 +10,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -19,69 +19,69 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Delete an sprint web page
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   SprintDelete.java
+ * @file SprintDelete.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class SprintDelete {
-	
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
+	private PageRenderLinkSource pageRenderLS;
+
 	@Inject
-    private Messages messages;
-	
+	private Messages messages;
+
 	@Inject
 	private SprintService sprintService;
-	
+
 	@Property
 	private String infoSprintDelete;
-	
+
 	private Long sprintId;
-	
+
 	@Property
-	private Sprint sprint;
-	
+	private SprintDetails sprintDetails;
+
 	@Component
 	private Form deleteForm;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
 
-    @Inject
-    private Locale locale;
-	
+	@SessionState(create = false)
+	private UserSession userSession;
+
+	@Inject
+	private Locale locale;
+
 	void setupRender() {
 		infoSprintDelete = messages.format("surePerformAction", messages.get("info-delete-sprint"));
 		try {
-			sprint = sprintService.findSprint(sprintId);
+			sprintDetails = sprintService.findSprint(sprintId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	void onActivate(Long sprintId) {
 		this.sprintId = sprintId;
 	}
-	
+
 	Long onPassivate() {
-        return sprintId;
-    }
-	
+		return sprintId;
+	}
+
 	public String getSprintDeleteInfo() {
 		return this.infoSprintDelete;
 	}
-	
+
 	Object onValidateFromDeleteForm() {
 		try {
 			sprintService.removeSprint(sprintId);
 			return pageRenderLS.createPageRenderLinkWithContext("tools/sprint/SprintDeleted", sprintId);
 		} catch (InstanceNotFoundException e) {
-			deleteForm.recordError(messages
-                    .get("error-sprintDoesNotExist") + sprint.getSprintName());
+			deleteForm.recordError(messages.get("error-sprintDoesNotExist") + sprintDetails.getSprintName());
 			return null;
 		}
 	}
-	
+
 }

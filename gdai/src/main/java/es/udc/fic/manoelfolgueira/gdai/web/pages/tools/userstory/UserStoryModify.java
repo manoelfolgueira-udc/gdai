@@ -11,9 +11,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -23,90 +22,91 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Web page that allows an Administrator modify a user story
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UserStoryModify.java
+ * @file UserStoryModify.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserStoryModify {
-	
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
-    @Property
-    private String userStoryName;
-    
-    @Component(id = "userStoryName")
-    private TextField userStoryNameField;
+	private PageRenderLinkSource pageRenderLS;
 
-    @Property
-    private String userStoryDescription;
-    
-    @Component(id = "userStoryDescription")
-    private TextField userStoryDescriptionField;
+	@Property
+	private String userStoryName;
 
-    @SessionState(create=false)
-    private UserSession userSession;
-    
-    @Inject
-    private UserStoryService userStoryService;
+	@Component(id = "userStoryName")
+	private TextField userStoryNameField;
 
-    @Inject
-    private UserService userService;
+	@Property
+	private String userStoryDescription;
 
-    @Component
-    private Form registrationForm;
+	@Component(id = "userStoryDescription")
+	private TextField userStoryDescriptionField;
 
-    @Inject
-    private Messages messages;
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Inject
-    private Locale locale;
-    
-    @Property
-    private String result = null;
-    
-    private Long userStoryId;
-    
-    @Property
-    private UserStory userStory;
-    
-    void onActivate(Long userStoryId) {
+	@Inject
+	private UserStoryService userStoryService;
+
+	@Inject
+	private UserService userService;
+
+	@Component
+	private Form registrationForm;
+
+	@Inject
+	private Messages messages;
+
+	@Inject
+	private Locale locale;
+
+	@Property
+	private String result = null;
+
+	private Long userStoryId;
+
+	@Property
+	private UserStoryDetails userStoryDetails;
+
+	void onActivate(Long userStoryId) {
 		this.userStoryId = userStoryId;
 	}
-	
+
 	Long onPassivate() {
-        return userStoryId;
-    }
-    
-    void setupRender() throws InstanceNotFoundException {
-    	userStory = userStoryService.findUserStory(userStoryId);
-    	userStoryName = userStory.getUserStoryName();
-    	userStoryDescription = userStory.getUserStoryDescription();
-    }
+		return userStoryId;
+	}
 
-    void onValidateFromRegistrationForm() {
+	void setupRender() throws InstanceNotFoundException {
+		userStoryDetails = userStoryService.findUserStory(userStoryId);
+		userStoryName = userStoryDetails.getUserStoryName();
+		userStoryDescription = userStoryDetails.getUserStoryDescription();
+	}
 
-        if (!registrationForm.isValid()) {
-            return;
-        }
+	void onValidateFromRegistrationForm() {
 
-        try {
-        	
-        	userStory = userStoryService.findUserStory(userStoryId);
-        	User user = userService.findUser(userSession.getUserId());        	
-         	userStoryService.updateUserStoryDetails(userStoryId, new UserStoryDetails(userStoryName, userStoryDescription, userStory.getCreationDate(), user));
-        	
-        	result = messages.getFormatter("result-UserStoryRegister-ok").format(userStoryName);
-        	        	
-        } catch (Exception e) {
-        	registrationForm.recordError(messages
-                    .get("error-unexpectedError"));
-        }
+		if (!registrationForm.isValid()) {
+			return;
+		}
 
-    }
+		try {
 
-    Object onSuccess() {
-        return pageRenderLS.createPageRenderLinkWithContext("tools/userStory/UserStoryModified", userStoryId);
-    }
-	
+			userStoryDetails = userStoryService.findUserStory(userStoryId);
+			UserDetails userDetails = userService.findUser(userSession.getUserId());
+			userStoryService.updateUserStoryDetails(userStoryId,
+					new UserStoryDetails(userStoryDetails.getUserStoryId(), userStoryName, userStoryDescription, userStoryDetails.getCreationDate(), userDetails));
+
+			result = messages.getFormatter("result-UserStoryRegister-ok").format(userStoryName);
+
+		} catch (Exception e) {
+			registrationForm.recordError(messages.get("error-unexpectedError"));
+		}
+
+	}
+
+	Object onSuccess() {
+		return pageRenderLS.createPageRenderLinkWithContext("tools/userStory/UserStoryModified", userStoryId);
+	}
+
 }

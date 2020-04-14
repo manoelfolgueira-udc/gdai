@@ -15,16 +15,19 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
  */
 public interface UserStoryDao extends GenericDao<UserStory, Long> {
 
-    /**
-     * Returns a UserStory by name
-     * @param name the userStory identifier
-     * @return the UserStory
-     */
-    public UserStory findByName(String name) throws InstanceNotFoundException;
-    
-    /**
-     * Returns all userStorys
-     * @return all UserStory
-     */
-    public List<UserStory> findAllOrderedByUserStoryName();
+	/**
+	 * Returns a UserStory by name
+	 * 
+	 * @param name
+	 *            the userStory identifier
+	 * @return the UserStory
+	 */
+	public UserStory findByName(String name) throws InstanceNotFoundException;
+
+	/**
+	 * Returns all userStorys
+	 * 
+	 * @return all UserStory
+	 */
+	public List<UserStory> findAllOrderedByUserStoryName();
 }

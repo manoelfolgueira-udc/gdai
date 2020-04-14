@@ -2,20 +2,58 @@ package es.udc.fic.manoelfolgueira.gdai.model.systemservice;
 
 import java.util.Calendar;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
-public class SystemDetails {
+public class SystemDetails extends GDAIDetailsCodificable {
 
+	private Long systemId;
 	private String systemName;
 	private String systemDescription;
 	private Calendar creationDate;
-	private Group group;
-	
-	public SystemDetails(String systemName, String systemDescription, Calendar creationDate, Group group) {
+	private Calendar expirationDate;
+	private GroupDetails groupDetails;
+
+	/**
+	 * @param systemId
+	 * @param systemName
+	 * @param systemDescription
+	 * @param creationDate
+	 * @param expirationDate
+	 * @param groupDetails
+	 */
+	public SystemDetails(Long systemId, String systemName, String systemDescription, Calendar creationDate,
+			Calendar expirationDate, GroupDetails groupDetails) {
 		this.systemName = systemName;
 		this.systemDescription = systemDescription;
 		this.creationDate = creationDate;
-		this.group = group;
+		this.expirationDate = expirationDate;
+		this.groupDetails = groupDetails;
+	}
+
+	public SystemDetails(System system) {
+		this.systemId = system.getSystemId();
+		this.systemName = system.getSystemName();
+		this.systemDescription = system.getSystemDescription();
+		this.creationDate = system.getCreationDate();
+		this.expirationDate = system.getExpirationDate();
+		this.groupDetails = new GroupDetails(system.getGroup());
+	}
+
+	/**
+	 * @return the systemId
+	 */
+	public Long getSystemId() {
+		return systemId;
+	}
+
+	/**
+	 * @param systemId
+	 *            the systemId to set
+	 */
+	public void setSystemId(Long systemId) {
+		this.systemId = systemId;
 	}
 
 	/**
@@ -26,7 +64,8 @@ public class SystemDetails {
 	}
 
 	/**
-	 * @param systemName the systemName to set
+	 * @param systemName
+	 *            the systemName to set
 	 */
 	public void setSystemName(String systemName) {
 		this.systemName = systemName;
@@ -40,7 +79,8 @@ public class SystemDetails {
 	}
 
 	/**
-	 * @param systemDescription the systemDescription to set
+	 * @param systemDescription
+	 *            the systemDescription to set
 	 */
 	public void setSystemDescription(String systemDescription) {
 		this.systemDescription = systemDescription;
@@ -54,41 +94,60 @@ public class SystemDetails {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
 	}
 
 	/**
-	 * @return the group
+	 * @return the expirationDate
 	 */
-	public Group getGroup() {
-		return group;
+	public Calendar getExpirationDate() {
+		return expirationDate;
 	}
 
 	/**
-	 * @param group the group to set
+	 * @param expirationDate
+	 *            the expirationDate to set
 	 */
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the group
+	 */
+	public GroupDetails getGroup() {
+		return groupDetails;
+	}
+
+	/**
+	 * @param group
+	 *            the group to set
+	 */
+	public void setGroup(GroupDetails groupDetails) {
+		this.groupDetails = groupDetails;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
-		result = prime * result + ((systemDescription == null) ? 0 : systemDescription.hashCode());
+		result = prime * result + ((systemId == null) ? 0 : systemId.hashCode());
 		result = prime * result + ((systemName == null) ? 0 : systemName.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -100,20 +159,10 @@ public class SystemDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		SystemDetails other = (SystemDetails) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
+		if (systemId == null) {
+			if (other.systemId != null)
 				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (group == null) {
-			if (other.group != null)
-				return false;
-		} else if (!group.equals(other.group))
-			return false;
-		if (systemDescription == null) {
-			if (other.systemDescription != null)
-				return false;
-		} else if (!systemDescription.equals(other.systemDescription))
+		} else if (!systemId.equals(other.systemId))
 			return false;
 		if (systemName == null) {
 			if (other.systemName != null)
@@ -122,5 +171,5 @@ public class SystemDetails {
 			return false;
 		return true;
 	}
-	
+
 }

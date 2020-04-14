@@ -2,7 +2,7 @@
 	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
 <div class="eg">
-	<t:beandisplay object="gdaiCase">
+	<t:beandisplay object="gdaiCaseDetails">
 	</t:beandisplay>
 </div>
 

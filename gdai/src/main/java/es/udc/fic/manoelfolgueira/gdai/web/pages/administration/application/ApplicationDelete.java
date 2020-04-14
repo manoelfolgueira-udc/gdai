@@ -10,7 +10,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.application.Application;
+import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -19,69 +19,71 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Delete an application web page
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   ApplicationDelete.java
+ * @file ApplicationDelete.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ApplicationDelete {
-	
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
+	private PageRenderLinkSource pageRenderLS;
+
 	@Inject
-    private Messages messages;
-	
+	private Messages messages;
+
 	@Inject
 	private ApplicationService applicationService;
-	
+
 	@Property
 	private String infoApplicationDelete;
-	
+
 	private Long applicationId;
-	
+
 	@Property
-	private Application application;
-	
+	private ApplicationDetails applicationDetails;
+
 	@Component
 	private Form deleteForm;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
 
-    @Inject
-    private Locale locale;
-	
+	@SessionState(create = false)
+	private UserSession userSession;
+
+	@Inject
+	private Locale locale;
+
 	void setupRender() {
 		infoApplicationDelete = messages.format("surePerformAction", messages.get("info-delete-application"));
 		try {
-			application = applicationService.findApplication(applicationId);
+			applicationDetails = applicationService.findApplication(applicationId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	void onActivate(Long applicationId) {
 		this.applicationId = applicationId;
 	}
-	
+
 	Long onPassivate() {
-        return applicationId;
-    }
-	
+		return applicationId;
+	}
+
 	public String getApplicationDeleteInfo() {
 		return this.infoApplicationDelete;
 	}
-	
+
 	Object onValidateFromDeleteForm() {
 		try {
 			applicationService.remove(applicationId);
-			return pageRenderLS.createPageRenderLinkWithContext("administration/application/ApplicationDeleted", applicationId);
+			return pageRenderLS.createPageRenderLinkWithContext("administration/application/ApplicationDeleted",
+					applicationId);
 		} catch (InstanceNotFoundException e) {
-			deleteForm.recordError(messages
-                    .get("error-applicationDoesNotExist") + application.getApplicationName());
+			deleteForm.recordError(
+					messages.get("error-applicationDoesNotExist") + applicationDetails.getApplicationName());
 			return null;
 		}
 	}
-	
+
 }

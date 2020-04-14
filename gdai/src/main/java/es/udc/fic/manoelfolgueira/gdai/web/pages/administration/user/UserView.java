@@ -8,7 +8,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -18,70 +18,75 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 /**
  * Web page that lets Administrator see any user profile
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UserView.java
+ * @file UserView.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserView {
 
-    @SessionState(create=false)
-    private UserSession userSession;
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Inject
-    private UserService userService;
-    
-    @Property
-    private User user;
-    
-    @Property
-    private String hireDateParsed = null;
-    
-    @Property
-    private String dateOfBirthParsed = null;
-    
-    @Inject
-    private Locale locale;
+	@Inject
+	private UserService userService;
 
-    void onActivate(Long userId) throws InstanceNotFoundException {
-    	
-    	user = userService.findUser(userId);
-        
-        if (user.getHireDate() == null) hireDateParsed = "";
-        else {
-        	Calendar cal = user.getHireDate();
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            hireDateParsed = f.format(cal.getTime());
-        }
-        
-        if (user.getDateOfBirth() == null) dateOfBirthParsed = "";
-        else {
-        	Calendar cal = user.getDateOfBirth();
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            dateOfBirthParsed = f.format(cal.getTime());
-        }
+	@Property
+	private UserDetails userDetails;
 
-    }
-    
-    public boolean getIsUserMale() {
-    	if (user.getGender() == null) return true;
-    	else return user.getGender().equals("M");
-    }
-    
-    public String getGroupName() {
-    	return user.getGroup() == null ? "" : user.getGroup().getGroupName();
-    }
-    
-    public String getHireDateDBValue() {
-    	
-    	return user.getHireDate().getTime() == null ? "" : Utils.getFormattedDate(user.getHireDate().getTime(), locale);
-    }
-    
-    public String getDateOfBirthDBValue() {
-    	return user.getDateOfBirth() == null ? "" : Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
-    }
-    
-    public String getIsManagerUI() {
-    	return user.getIsManager() ? "Y" : "N";
-    }
+	@Property
+	private String hireDateParsed = null;
+
+	@Property
+	private String dateOfBirthParsed = null;
+
+	@Inject
+	private Locale locale;
+
+	void onActivate(Long userId) throws InstanceNotFoundException {
+
+		userDetails = userService.findUser(userId);
+
+		if (userDetails.getHireDate() == null)
+			hireDateParsed = "";
+		else {
+			Calendar cal = userDetails.getHireDate();
+			SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+			hireDateParsed = f.format(cal.getTime());
+		}
+
+		if (userDetails.getDateOfBirth() == null)
+			dateOfBirthParsed = "";
+		else {
+			Calendar cal = userDetails.getDateOfBirth();
+			SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+			dateOfBirthParsed = f.format(cal.getTime());
+		}
+
+	}
+
+	public boolean getIsUserMale() {
+		if (userDetails.getGender() == null)
+			return true;
+		else
+			return userDetails.getGender().equals("M");
+	}
+
+	public String getGroupName() {
+		return userDetails.getGroup() == null ? "" : userDetails.getGroup().getGroupName();
+	}
+
+	public String getHireDateDBValue() {
+
+		return userDetails.getHireDate().getTime() == null ? "" : Utils.getFormattedDate(userDetails.getHireDate().getTime(), locale);
+	}
+
+	public String getDateOfBirthDBValue() {
+		return userDetails.getDateOfBirth() == null ? "" : Utils.getFormattedDate(userDetails.getDateOfBirth().getTime(), locale);
+	}
+
+	public String getIsManagerUI() {
+		return userDetails.getIsManager() ? "Y" : "N";
+	}
 
 }

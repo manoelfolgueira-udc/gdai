@@ -12,7 +12,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -22,144 +21,143 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 /**
- * Web page that allows users to change some of their profile information and settings
+ * Web page that allows users to change some of their profile information and
+ * settings
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UpdateProfile.java
+ * @file UpdateProfile.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UpdateProfile {
 
-    @Property
-    private String firstName;
+	@Property
+	private String firstName;
 
-    @Property
-    private String lastName;
+	@Property
+	private String lastName;
 
-    @Property
-    private String email;
-    
-    @Property
-    private String phoneNumber;
-    
-    @Property
-    private String avatarUrl;
-    
-    @Property
-    private String groupName;
+	@Property
+	private String email;
 
-    @SessionState(create=false)
-    private UserSession userSession;
+	@Property
+	private String phoneNumber;
 
-    @Inject
-    private UserService userService;
-    
-    @Property
-    private User user;
+	@Property
+	private String avatarUrl;
 
-    @Property
-    private String loginName;
+	@Property
+	private String groupName;
 
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Property
-    private String genderValue;
-    
-    @Component
-    private RadioGroup gender;
-    
-    @Property
-    private String hireDate;
-    
-    @Property
-    private String dateOfBirth;
+	@Inject
+	private UserService userService;
 
-    @Property
-    private String expirationDate;
-    
-    @Inject
-    private GroupService groupService;
-    
-    @Property
-    private Group group;
+	@Property
+	private UserDetails userDetails;
 
-    @Component
-    private Form updateProfileForm;
+	@Property
+	private String loginName;
 
-    @Inject
-    private Messages messages;
+	@Property
+	private String genderValue;
 
-    @Inject
-    private Locale locale;
-    
-    @Property
-    private String isManager;
-    
-    void onPrepareForRender() throws InstanceNotFoundException {
+	@Component
+	private RadioGroup gender;
 
-        user = userService.findUser(userSession
-                .getUserId());
+	@Property
+	private String hireDate;
 
-        loginName = user.getLoginName();
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        email = user.getEmail();
-        phoneNumber = user.getPhoneNumber();
-        
-        hireDate = getHireDateDBValue();
-        dateOfBirth = getDateOfBirthDBValue();
-        expirationDate = getExpirationDateDBValue();
-        
-        avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
-        
-        isManager = user.getIsManager() ? "Y" : "N";
-        
-        groupName = user.getGroup().getGroupName();
+	@Property
+	private String dateOfBirth;
 
-    }
-    
-    void onValidateFromUpdateProfileForm() {
+	@Property
+	private String expirationDate;
 
-        if (!updateProfileForm.isValid()) {
-            return;
-        }
+	@Inject
+	private GroupService groupService;
 
-        try {
-        	
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	updateProfileForm.recordError(messages
-                    .get("error-unexpectedError"));
-        }
+	@Property
+	private Group group;
 
-    }
+	@Component
+	private Form updateProfileForm;
 
-    Object onSuccess() throws InstanceNotFoundException {
-    	
-    	user = userService.findUser(userSession
-                .getUserId());
-    	
-        userService.updateUserDetails(
-                userSession.getUserId(), new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-            			avatarUrl, user.getHireDate(), user.getDateOfBirth(), user.getExpirationDate(), user.getIsManager(), user.getGroup()));
-        userSession.setLoginName(loginName);
-        
-        return ViewProfile.class;
+	@Inject
+	private Messages messages;
 
-    }
-    
-    public String getHireDateDBValue() {
-    	return Utils.getFormattedDate(user.getHireDate().getTime(), locale);
-    }
-    
-    public String getDateOfBirthDBValue() {
-    	return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
-    }
-    
-    public String getExpirationDateDBValue() {
-    	return Utils.getFormattedDate(user.getExpirationDate().getTime(), locale);
-    }
-    
-    public boolean getTestMale() {
-    	return user.getGender().equals("M");
-    }
+	@Inject
+	private Locale locale;
+
+	@Property
+	private String isManager;
+
+	void onPrepareForRender() throws InstanceNotFoundException {
+
+		userDetails = userService.findUser(userSession.getUserId());
+
+		loginName = userDetails.getLoginName();
+		firstName = userDetails.getFirstName();
+		lastName = userDetails.getLastName();
+		email = userDetails.getEmail();
+		phoneNumber = userDetails.getPhoneNumber();
+
+		hireDate = getHireDateDBValue();
+		dateOfBirth = getDateOfBirthDBValue();
+		expirationDate = getExpirationDateDBValue();
+
+		avatarUrl = userDetails.getAvatarUrl() == null ? "" : userDetails.getAvatarUrl();
+
+		isManager = userDetails.getIsManager() ? "Y" : "N";
+
+		groupName = userDetails.getGroup().getGroupName();
+
+	}
+
+	void onValidateFromUpdateProfileForm() {
+
+		if (!updateProfileForm.isValid()) {
+			return;
+		}
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			updateProfileForm.recordError(messages.get("error-unexpectedError"));
+		}
+
+	}
+
+	Object onSuccess() throws InstanceNotFoundException {
+
+		userDetails = userService.findUser(userSession.getUserId());
+
+		userService.updateUserDetails(userSession.getUserId(),
+				new UserDetails(userDetails.getUserId(), loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
+						userDetails.getHireDate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getIsManager(),
+						userDetails.getGroup()));
+		userSession.setLoginName(loginName);
+
+		return ViewProfile.class;
+
+	}
+
+	public String getHireDateDBValue() {
+		return Utils.getFormattedDate(userDetails.getHireDate().getTime(), locale);
+	}
+
+	public String getDateOfBirthDBValue() {
+		return Utils.getFormattedDate(userDetails.getDateOfBirth().getTime(), locale);
+	}
+
+	public String getExpirationDateDBValue() {
+		return Utils.getFormattedDate(userDetails.getExpirationDate().getTime(), locale);
+	}
+
+	public boolean getTestMale() {
+		return userDetails.getGender().equals("M");
+	}
 
 }

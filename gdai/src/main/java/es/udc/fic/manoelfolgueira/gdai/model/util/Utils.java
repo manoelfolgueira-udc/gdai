@@ -24,9 +24,10 @@ public class Utils {
 
 		return formattedDate;
 	}
-	
+
 	public static String getSQLWildcardedParam(String param) {
-		if (param == null) return null;
+		if (param == null)
+			return null;
 		return param.replace("*", "%").replace("?", "_");
 	}
 

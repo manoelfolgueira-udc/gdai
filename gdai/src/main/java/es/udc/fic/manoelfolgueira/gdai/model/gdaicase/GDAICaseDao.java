@@ -7,7 +7,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.dao.GenericDao;
 
 /**
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   GDAICaseDao.java
+ * @file GDAICaseDao.java
  */
 public interface GDAICaseDao extends GenericDao<GDAICase, Long> {
 
@@ -20,6 +20,7 @@ public interface GDAICaseDao extends GenericDao<GDAICase, Long> {
 
 	/**
 	 * Find GDAICases by group
+	 * 
 	 * @param groupId
 	 * @return the GDAICases found
 	 */

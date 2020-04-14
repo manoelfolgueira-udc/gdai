@@ -9,8 +9,8 @@ import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
@@ -24,8 +24,7 @@ public class SessionFilter implements RequestFilter {
 	private Cookies cookies;
 	private UserService userService;
 
-	public SessionFilter(ApplicationStateManager applicationStateManager,
-			Cookies cookies, UserService userService) {
+	public SessionFilter(ApplicationStateManager applicationStateManager, Cookies cookies, UserService userService) {
 
 		this.applicationStateManager = applicationStateManager;
 		this.cookies = cookies;
@@ -33,30 +32,25 @@ public class SessionFilter implements RequestFilter {
 
 	}
 
-	public boolean service(Request request, Response response,
-			RequestHandler handler) throws IOException {
+	public boolean service(Request request, Response response, RequestHandler handler) throws IOException {
 
 		if (!applicationStateManager.exists(UserSession.class)) {
 
 			String loginName = CookiesManager.getLoginName(cookies);
 			if (loginName != null) {
 
-				String encryptedPassword = CookiesManager
-						.getEncryptedPassword(cookies);
+				String encryptedPassword = CookiesManager.getEncryptedPassword(cookies);
 				if (encryptedPassword != null) {
 
 					try {
 
-						User user = userService.login(loginName,
-								encryptedPassword, true);
+						UserDetails userDetails = userService.login(loginName, encryptedPassword, true);
 						UserSession userSession = new UserSession();
-						userSession.setUserId(user
-								.getUserId());
-						userSession.setLoginName(user.getLoginName());
-						userSession.setAdministrator(user.getGroup().getGroupName().equals(
-								Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
-						applicationStateManager.set(UserSession.class,
-								userSession);
+						userSession.setUserId(userDetails.getUserId());
+						userSession.setLoginName(userDetails.getLoginName());
+						userSession.setAdministrator(userDetails.getGroup().getGroupName().equals(Config.getInstance()
+								.getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
+						applicationStateManager.set(UserSession.class, userSession);
 
 					} catch (InstanceNotFoundException e) {
 						CookiesManager.removeCookies(cookies);

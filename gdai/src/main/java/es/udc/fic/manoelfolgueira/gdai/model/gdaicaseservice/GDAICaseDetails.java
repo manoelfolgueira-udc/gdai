@@ -2,37 +2,72 @@ package es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice;
 
 import java.util.Calendar;
 
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
-public class GDAICaseDetails {
+public class GDAICaseDetails extends GDAIDetailsCodificable {
 
+	private Long gdaiCaseId;
 	private String gdaiCaseDescription;
 	private String gdaiCaseResolution;
 	private Calendar creationDate = Calendar.getInstance();
-	private User createdBy;
-	private System system;
-	
+	private UserDetails createdBy;
+	private SystemDetails systemDetails;
+
 	/**
 	 * Empty constructor
 	 */
-	public GDAICaseDetails() {}
-	
+	public GDAICaseDetails() {
+	}
+
 	/**
 	 * Main constructor
-	 * @param gdaiCaseDescription a description for this gdaiCase
-	 * @param creationDate when it's created
-	 * @param createdBy user that has registered this gdaiCase
-	 * @param system system related to this gdaiCase
+	 * 
+	 * @param gdaiCaseDescription
+	 *            a description for this gdaiCase
+	 * @param creationDate
+	 *            when it's created
+	 * @param createdBy
+	 *            user that has registered this gdaiCase
+	 * @param system
+	 *            system related to this gdaiCase
 	 */
-	public GDAICaseDetails(String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate,
-			User createdBy, System system) {
+	public GDAICaseDetails(String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate, UserDetails createdBy,
+			SystemDetails systemDetails) {
 
 		this.gdaiCaseDescription = gdaiCaseDescription;
 		this.gdaiCaseResolution = gdaiCaseResolution;
 		this.creationDate = creationDate;
 		this.createdBy = createdBy;
-		this.system = system;
+		this.systemDetails = systemDetails;
+	}
+
+	/**
+	 * @param gdaiCase
+	 */
+	public GDAICaseDetails(GDAICase gdaiCase) {
+		this.gdaiCaseId = gdaiCase.getGDAICaseId();
+		this.gdaiCaseDescription = gdaiCase.getGDAICaseDescription();
+		this.gdaiCaseResolution = gdaiCase.getGDAICaseResolution();
+		this.creationDate = gdaiCase.getCreationDate();
+		this.createdBy = new UserDetails(gdaiCase.getCreatedBy());
+		this.systemDetails = new SystemDetails(gdaiCase.getSystem());
+	}
+
+	/**
+	 * @return the gdaiCaseId
+	 */
+	public Long getGDAICaseId() {
+		return gdaiCaseId;
+	}
+
+	/**
+	 * @param gdaiCaseId the gdaiCaseId to set
+	 */
+	public void setGDAICaseId(Long gdaiCaseId) {
+		this.gdaiCaseId = gdaiCaseId;
 	}
 
 	/**
@@ -80,29 +115,29 @@ public class GDAICaseDetails {
 	/**
 	 * @return the createdBy
 	 */
-	public User getCreatedBy() {
+	public UserDetails getCreatedBy() {
 		return createdBy;
 	}
 
 	/**
 	 * @param createdBy the createdBy to set
 	 */
-	public void setCreatedBy(User createdBy) {
+	public void setCreatedBy(UserDetails createdBy) {
 		this.createdBy = createdBy;
 	}
 
 	/**
-	 * @return the system
+	 * @return the systemDetails
 	 */
-	public System getSystem() {
-		return system;
+	public SystemDetails getSystemDetails() {
+		return systemDetails;
 	}
 
 	/**
-	 * @param system the system to set
+	 * @param systemDetails the systemDetails to set
 	 */
-	public void setSystem(System system) {
-		this.system = system;
+	public void setSystemDetails(SystemDetails systemDetails) {
+		this.systemDetails = systemDetails;
 	}
 
 	/* (non-Javadoc)
@@ -112,7 +147,12 @@ public class GDAICaseDetails {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((gdaiCaseDescription == null) ? 0 : gdaiCaseDescription.hashCode());
+		result = prime * result + ((gdaiCaseId == null) ? 0 : gdaiCaseId.hashCode());
+		result = prime * result + ((gdaiCaseResolution == null) ? 0 : gdaiCaseResolution.hashCode());
+		result = prime * result + ((systemDetails == null) ? 0 : systemDetails.hashCode());
 		return result;
 	}
 
@@ -128,11 +168,38 @@ public class GDAICaseDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		GDAICaseDetails other = (GDAICaseDetails) obj;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (creationDate == null) {
+			if (other.creationDate != null)
+				return false;
+		} else if (!creationDate.equals(other.creationDate))
+			return false;
 		if (gdaiCaseDescription == null) {
 			if (other.gdaiCaseDescription != null)
 				return false;
 		} else if (!gdaiCaseDescription.equals(other.gdaiCaseDescription))
 			return false;
+		if (gdaiCaseId == null) {
+			if (other.gdaiCaseId != null)
+				return false;
+		} else if (!gdaiCaseId.equals(other.gdaiCaseId))
+			return false;
+		if (gdaiCaseResolution == null) {
+			if (other.gdaiCaseResolution != null)
+				return false;
+		} else if (!gdaiCaseResolution.equals(other.gdaiCaseResolution))
+			return false;
+		if (systemDetails == null) {
+			if (other.systemDetails != null)
+				return false;
+		} else if (!systemDetails.equals(other.systemDetails))
+			return false;
 		return true;
 	}
+
+	
 }

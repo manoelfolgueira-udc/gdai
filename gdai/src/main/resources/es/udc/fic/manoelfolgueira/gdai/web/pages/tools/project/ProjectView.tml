@@ -2,7 +2,7 @@
 	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
 <div class="eg">
-	<t:beandisplay object="project">
+	<t:beandisplay object="projectDetails">
 		<p:requirementsPath>
 			<a t:id="downloadLink">${message:download} ${getPRFileName()}</a>
 		</p:requirementsPath>

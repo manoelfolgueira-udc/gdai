@@ -20,25 +20,25 @@
 
 	<div class="eg">
 		<t:grid source="productionPassesSearch" value="productionPass"
-			row="productionPass" add="system, productionPassManagement"
+			row="productionPassDetails" add="system, productionPassManagement"
 			rowsPerPage="6" pagerPosition="top"
 			include="GDAICode, productionPassName, productionPassResolution, creationDate">
 			<p:productionPassNameCell>
 				<t:pagelink page="tools/productionPass/view"
-					t:context="productionPass.productionPassId">${productionPass.productionPassName}</t:pagelink>
+					t:context="productionPassDetails.productionPassId">${productionPassDetails.productionPassName}</t:pagelink>
 			</p:productionPassNameCell>
 			<p:systemCell>
 				<t:pagelink page="system/view"
-					context="productionPass.system.systemId">${productionPass.system.systemName}</t:pagelink>
+					context="productionPassDetails.system.systemId">${productionPassDetails.system.systemName}</t:pagelink>
 			</p:systemCell>
 			<p:productionPassManagementCell>
 				<button type="submit" class="btn btn-danger" t:type="PageLink"
 					t:page="tools/productionPass/delete"
-					t:context="productionPass.productionPassId">${message:delete}</button>
+					t:context="productionPassDetails.productionPassId">${message:delete}</button>
 				<span style="display: inline-block; width: 10px;"></span>
 				<button type="submit" class="btn btn-primary" t:type="PageLink"
 					t:page="tools/productionPass/modify"
-					t:context="productionPass.productionPassId">${message:modify}</button>
+					t:context="productionPassDetails.productionPassId">${message:modify}</button>
 			</p:productionPassManagementCell>
 			<p:empty>
         	${message:noProductionPass}

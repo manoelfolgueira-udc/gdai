@@ -16,18 +16,21 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
  */
 public interface SprintDao extends GenericDao<Sprint, Long> {
 
-    /**
-     * Returns a Sprint by name
-     * @param name the sprint identifier
-     * @return the Sprint
-     */
-    public Sprint findByName(String name) throws InstanceNotFoundException;
-    
-    /**
-     * Returns all sprints sorted
-     * @return all Sprint
-     */
-    public List<Sprint> findAllOrderedBySprintName(SortingType sortingType);
+	/**
+	 * Returns a Sprint by name
+	 * 
+	 * @param name
+	 *            the sprint identifier
+	 * @return the Sprint
+	 */
+	public Sprint findByName(String name) throws InstanceNotFoundException;
+
+	/**
+	 * Returns all sprints sorted
+	 * 
+	 * @return all Sprint
+	 */
+	public List<Sprint> findAllOrderedBySprintName(SortingType sortingType);
 
 	/**
 	 * @param sortingType

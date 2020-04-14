@@ -10,10 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
-
 @Entity
-@Table(name="gdai_language")
+@Table(name = "gdai_language")
 public class Language {
 
 	@Column(name = "languageId")
@@ -31,18 +29,24 @@ public class Language {
 	 */
 	public Language() {
 	}
-	
+
 	/**
 	 * Main constructor
-	 * @param languageName language name
-	 * @param languageCountry language country
-	 * @param options a language options string
-	 *  @see es.udc.fic.manoelfolgueira.gdai.model.languageservice for further information
-	 *  @see es.udc.fic.manoelfolgueira.gdai.web.pages.configuration for further information
-	 * @param creationDate when the language is registered in GDAI
+	 * 
+	 * @param languageName
+	 *            language name
+	 * @param languageCountry
+	 *            language country
+	 * @param options
+	 *            a language options string
+	 * @see es.udc.fic.manoelfolgueira.gdai.model.languageservice for further
+	 *      information
+	 * @see es.udc.fic.manoelfolgueira.gdai.web.pages.configuration for further
+	 *      information
+	 * @param creationDate
+	 *            when the language is registered in GDAI
 	 */
-	public Language(String languageName, String languageCountry, String options,
-			Calendar creationDate) {
+	public Language(String languageName, String languageCountry, String options, Calendar creationDate) {
 		this.languageName = languageName;
 		this.languageCountry = languageCountry;
 		this.options = options;
@@ -57,7 +61,8 @@ public class Language {
 	}
 
 	/**
-	 * @param languageId the languageId to set
+	 * @param languageId
+	 *            the languageId to set
 	 */
 	public void setLanguageId(Long languageId) {
 		this.languageId = languageId;
@@ -71,7 +76,8 @@ public class Language {
 	}
 
 	/**
-	 * @param languageName the languageName to set
+	 * @param languageName
+	 *            the languageName to set
 	 */
 	public void setLanguageName(String languageName) {
 		this.languageName = languageName;
@@ -85,7 +91,8 @@ public class Language {
 	}
 
 	/**
-	 * @param languageCountry the languageCountry to set
+	 * @param languageCountry
+	 *            the languageCountry to set
 	 */
 	public void setLanguageCountry(String languageCountry) {
 		this.languageCountry = languageCountry;
@@ -99,7 +106,8 @@ public class Language {
 	}
 
 	/**
-	 * @param options the options to set
+	 * @param options
+	 *            the options to set
 	 */
 	public void setOptions(String options) {
 		this.options = options;
@@ -113,13 +121,16 @@ public class Language {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -134,7 +145,9 @@ public class Language {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

@@ -88,21 +88,21 @@
 			<!-- Sprint -->
 			<t:label for="sprintSelect" class="col-md-1" />
 			<div class="col-md-3">
-				<t:select t:id="sprintSelect" value="sprint" model="sprintsModel"
+				<t:select t:id="sprintSelect" value="sprintDetails" model="sprintsModel"
 					encoder="sprintEncoder" />
 			</div>
 
 			<!-- Group -->
 			<t:label for="groupSelect" class="col-md-1" />
 			<div class="col-md-2">
-				<t:select t:id="groupSelect" value="group" model="groupsModel"
+				<t:select t:id="groupSelect" value="groupDetails" model="groupsModel"
 					encoder="groupEncoder" />
 			</div>
 
 			<!-- System -->
 			<t:label for="systemSelect" class="col-md-1" />
 			<div class="col-md-3">
-				<t:select t:id="systemSelect" value="system" model="systemsModel"
+				<t:select t:id="systemSelect" value="systemDetails" model="systemsModel"
 					encoder="systemEncoder" />
 			</div>
 		</div>
@@ -120,32 +120,32 @@
 
 	<t:if test="user.isManager">
 		<div class="eg">
-			<t:grid source="projectsSearch" value="project" row="project"
+			<t:grid source="projectsSearch" value="project" row="projectDetails"
 				add="userStory, system, group, projectManagement" rowsPerPage="6"
 				pagerPosition="top"
 				include="GDAICode, projectName, projectDescription, creationDate">
 				<p:projectNameCell>
-					<t:pagelink page="tools/project/view" t:context="project.projectId">${project.projectName}</t:pagelink>
+					<t:pagelink page="tools/project/view" t:context="projectDetails.projectId">${projectDetails.projectName}</t:pagelink>
 				</p:projectNameCell>
 				<p:userStoryCell>
-                ${project.userStory.userStoryName}
+                ${projectDetails.userStory.userStoryName}
             </p:userStoryCell>
 				<p:systemCell>
-					<t:pagelink page="system/view" context="project.system.systemId">${project.system.systemName}</t:pagelink>
+					<t:pagelink page="system/view" context="projectDetails.system.systemId">${projectDetails.system.systemName}</t:pagelink>
 				</p:systemCell>
 				<p:groupCell>
 					<t:pagelink page="group/view"
-						context="project.system.group.groupId">${project.system.group.groupName}</t:pagelink>
+						context="projectDetails.system.group.groupId">${projectDetails.system.group.groupName}</t:pagelink>
 				</p:groupCell>
 				<!-- 			<p:createdByCell> -->
-				<!-- 				<t:pagelink page="user/viewprofile" context="project.createdBy.userId">${project.createdBy.loginName}</t:pagelink> -->
+				<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->
 				<!-- 			</p:createdByCell> -->
 				<p:projectManagementCell>
 					<button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="tools/project/delete" t:context="project.projectId">${message:delete}</button>
+						t:page="tools/project/delete" t:context="projectDetails.projectId">${message:delete}</button>
 					<span style="display: inline-block; width: 10px;"></span>
 					<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="tools/project/modify" t:context="project.projectId">${message:modify}</button>
+						t:page="tools/project/modify" t:context="projectDetails.projectId">${message:modify}</button>
 				</p:projectManagementCell>
 				<p:empty>
         	${message:noProject}
@@ -161,20 +161,20 @@
 					include="GDAICode, projectName, projectDescription, creationDate">
 					<p:projectNameCell>
 						<t:pagelink page="tools/project/view"
-							t:context="project.projectId">${project.projectName}</t:pagelink>
+							t:context="projectDetails.projectId">${projectDetails.projectName}</t:pagelink>
 					</p:projectNameCell>
 					<p:userStoryCell>
-                ${project.userStory.userStoryName}
+                ${projectDetails.userStory.userStoryName}
             </p:userStoryCell>
 					<p:systemCell>
-						<t:pagelink page="system/view" context="project.system.systemId">${project.system.systemName}</t:pagelink>
+						<t:pagelink page="system/view" context="projectDetails.system.systemId">${projectDetails.system.systemName}</t:pagelink>
 					</p:systemCell>
 					<p:groupCell>
 						<t:pagelink page="group/view"
-							context="project.system.group.groupId">${project.system.group.groupName}</t:pagelink>
+							context="projectDetails.system.group.groupId">${projectDetails.system.group.groupName}</t:pagelink>
 					</p:groupCell>
 					<!-- 			<p:createdByCell> -->
-					<!-- 				<t:pagelink page="user/viewprofile" context="project.createdBy.userId">${project.createdBy.loginName}</t:pagelink> -->
+					<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->
 					<!-- 			</p:createdByCell> -->
 					<p:empty>
         	${message:noProject}

@@ -10,7 +10,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase;
+import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -19,60 +19,61 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Delete a gdaiCase web page
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   GDAICaseDelete.java
+ * @file GDAICaseDelete.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GDAICaseDelete {
-	
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
+	private PageRenderLinkSource pageRenderLS;
+
 	@Inject
-    private Messages messages;
-	
+	private Messages messages;
+
 	@Inject
 	private GDAICaseService gdaiCaseService;
-	
+
 	@Property
 	private String infoDeleteGDAICase;
-	
+
 	private Long gdaiCaseId;
-	
+
 	@Property
-	private GDAICase gdaiCase;
-	
+	private GDAICaseDetails gdaiCaseDetails;
+
 	@Component
 	private Form deleteForm;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
 
-    @Inject
-    private Locale locale;
-	
+	@SessionState(create = false)
+	private UserSession userSession;
+
+	@Inject
+	private Locale locale;
+
 	void setupRender() {
 		infoDeleteGDAICase = messages.format("surePerformAction", messages.get("info-delete-gdaiCase"));
 		try {
-			gdaiCase = gdaiCaseService.findGDAICase(gdaiCaseId);
+			gdaiCaseDetails = gdaiCaseService.findGDAICase(gdaiCaseId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	void onActivate(Long gdaiCaseId) {
 		this.gdaiCaseId = gdaiCaseId;
 	}
-	
+
 	Long onPassivate() {
-        return gdaiCaseId;
-    }
-	
+		return gdaiCaseId;
+	}
+
 	public String getDeleteGDAICaseInfo() {
 		return this.infoDeleteGDAICase;
 	}
-	
+
 	Object onValidateFromDeleteForm() {
 		try {
 			gdaiCaseService.removeGDAICase(gdaiCaseId);
@@ -81,5 +82,5 @@ public class GDAICaseDelete {
 			return null;
 		}
 	}
-	
+
 }

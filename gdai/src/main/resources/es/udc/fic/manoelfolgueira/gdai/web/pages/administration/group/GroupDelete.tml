@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getDeleteGroupInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="group"/>
+       <t:beandisplay object="groupDetails"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

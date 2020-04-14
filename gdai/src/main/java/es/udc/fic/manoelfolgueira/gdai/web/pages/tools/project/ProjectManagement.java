@@ -18,15 +18,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService;
-import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -101,13 +101,13 @@ public class ProjectManagement {
 	private SelectModelFactory selectModelFactory;
 
 	@Property
-	private Sprint sprint = null;
+	private SprintDetails sprintDetails = null;
 
 	@Property
-	private Group group = null;
+	private GroupDetails groupDetails = null;
 
 	@Property
-	private System system = null;
+	private SystemDetails system = null;
 
 	@Component
 	private Form registrationForm;
@@ -131,20 +131,20 @@ public class ProjectManagement {
 	private String creationDateEndStr = null;
 
 	@Property
-	private List<Project> projectsSearch;
+	private List<ProjectDetails> projectsDetailsSearch;
 
 	@Property
-	private Project project = null;
+	private ProjectDetails projectDetails = null;
 
 	@Inject
 	private PageRenderLinkSource pageRenderLS;
-	
+
 	@Property
-	private User user;
-	
+	private UserDetails userDetails;
+
 	void setupRender() {
 		try {
-			user = userService.findUser(userSession.getUserId());
+			userDetails = userService.findUser(userSession.getUserId());
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,7 +158,8 @@ public class ProjectManagement {
 		return pageRenderLS.createPageRenderLinkWithContext("tools/project/management", projectId, projectDescription,
 				userStoryId, userStoryDescription, (creationDateStart != null ? sdf.format(creationDateStart) : null),
 				(creationDateEnd != null ? sdf.format(creationDateEnd) : null),
-				(sprint != null) ? sprint.getSprintId() : null, (group != null) ? group.getGroupId() : null,
+				(sprintDetails != null) ? sprintDetails.getSprintId() : null,
+				(groupDetails != null) ? groupDetails.getGroupId() : null,
 				(system != null) ? system.getSystemId() : null);
 	}
 
@@ -188,24 +189,24 @@ public class ProjectManagement {
 	}
 
 	void onPrepare() {
-		
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintName(SortingType.DESC);
+
+		List<SprintDetails> sprintsDetails = sprintService.findAllOrderedBySprintName(SortingType.DESC);
 
 		if (sprintId != null) {
-			sprint = findSprintInList(sprintId, sprints);
+			sprintDetails = findSprintInList(sprintId, sprintsDetails);
 		}
 
-		sprintsModel = selectModelFactory.create(sprints, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprintsDetails, "bSprintName");
 
-		List<Group> groups = groupService.findAllOrderedByGroupName();
+		List<GroupDetails> groupsDetails = groupService.findAllOrderedByGroupName();
 
 		if (groupId != null) {
-			group = findGroupInList(groupId, groups);
+			groupDetails = findGroupInList(groupId, groupsDetails);
 		}
 
-		groupsModel = selectModelFactory.create(groups, "groupName");
+		groupsModel = selectModelFactory.create(groupsDetails, "groupName");
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<SystemDetails> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
 			system = findSystemInList(systemId, systems);
@@ -238,13 +239,14 @@ public class ProjectManagement {
 		else
 			calCreationDateEnd = null;
 
-		projectsSearch = projectService.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
-				calCreationDateStart, calCreationDateEnd, (sprint != null) ? sprint.getSprintId() : null,
-				(group != null) ? group.getGroupId() : null, (system != null) ? system.getSystemId() : null);
+		projectsDetailsSearch = projectService.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
+				calCreationDateStart, calCreationDateEnd, (sprintDetails != null) ? sprintDetails.getSprintId() : null,
+				(groupDetails != null) ? groupDetails.getGroupId() : null,
+				(system != null) ? system.getSystemId() : null);
 	}
 
-	private Sprint findSprintInList(Long sprintId, List<Sprint> sprints) {
-		for (Sprint s : sprints) {
+	private SprintDetails findSprintInList(Long sprintId, List<SprintDetails> sprintsDetails) {
+		for (SprintDetails s : sprintsDetails) {
 			if (s.getSprintId().equals(sprintId)) {
 				return s;
 			}
@@ -252,8 +254,8 @@ public class ProjectManagement {
 		return null;
 	}
 
-	private Group findGroupInList(Long groupId, List<Group> groups) {
-		for (Group g : groups) {
+	private GroupDetails findGroupInList(Long groupId, List<GroupDetails> groupsDetails) {
+		for (GroupDetails g : groupsDetails) {
 			if (g.getGroupId().equals(groupId)) {
 				return g;
 			}
@@ -261,8 +263,8 @@ public class ProjectManagement {
 		return null;
 	}
 
-	private System findSystemInList(Long systemId, List<System> systems) {
-		for (System s : systems) {
+	private SystemDetails findSystemInList(Long systemId, List<SystemDetails> systems) {
+		for (SystemDetails s : systems) {
 			if (s.getSystemId().equals(systemId)) {
 				return s;
 			}

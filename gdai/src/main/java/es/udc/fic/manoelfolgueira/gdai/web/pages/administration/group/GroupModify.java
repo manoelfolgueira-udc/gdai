@@ -1,5 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -12,92 +13,145 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InvalidDateException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Web page that allows an Administrator modify a Group
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   GroupModify.java
+ * @file GroupModify.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GroupModify {
-	
+
+	private Long groupId;
+
+	// Properties
+
+	@Property
+	private String groupName;
+
+	@Component(id = "groupName")
+	private TextField groupNameField;
+
+	@Property
+	private String groupDescription;
+
+	@Component(id = "groupDescription")
+	private TextField groupDescriptionField;
+
+	@Property
+	private Date creationDate;
+
+	@Property
+	private Date expirationDate;
+
+	@Property
+	private String result = null;
+
+	@Property
+	private GroupDetails groupDetails;
+
+	// Services
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
-    @Property
-    private String groupName;
-    
-    @Component(id = "groupName")
-    private TextField groupNameField;
+	private GroupService groupService;
 
-    @Property
-    private Date expirationDate;
+	// Extra Components
 
-    @SessionState(create=false)
-    private UserSession userSession;
-    
-    @Inject
-    private GroupService groupService;
+	@Inject
+	private PageRenderLinkSource pageRenderLS;
 
-    @Component
-    private Form registrationForm;
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Inject
-    private Messages messages;
+	@Component
+	private Form modificationForm;
 
-    @Inject
-    private Locale locale;
-    
-    @Property
-    private String result = null;
-    
-    private Long groupId;
-    
-    @Property
-    private Group group;
-    
-    void onActivate(Long groupId) {
+	@Inject
+	private Messages messages;
+
+	@Inject
+	private Locale locale;
+
+	// Methods
+
+	/**
+	 * Activation Context
+	 * 
+	 * @param groupId
+	 */
+	void onActivate(Long groupId) {
 		this.groupId = groupId;
 	}
-	
+
+	/**
+	 * Activation Context
+	 * 
+	 * @param groupId
+	 */
 	Long onPassivate() {
-        return groupId;
-    }
-    
-    void setupRender() throws InstanceNotFoundException {
-    	group = groupService.findGroup(groupId);
-    	groupName = group.getGroupName();
-    }
+		return groupId;
+	}
 
-    void onValidateFromRegistrationForm() {
+	/**
+	 * Setup the render
+	 * 
+	 * @throws InstanceNotFoundException
+	 */
+	void setupRender() throws InstanceNotFoundException {
+		groupDetails = groupService.findGroup(groupId);
 
-        if (!registrationForm.isValid()) {
-            return;
-        }
+		groupName = groupDetails.getGroupName();
+		groupDescription = groupDetails.getGroupDescription();
+		creationDate = groupDetails.getCreationDate().getTime();
+		expirationDate = groupDetails.getExpirationDate().getTime();
 
-        try {
-        	
-        	group = groupService.findGroup(groupId);
-         	groupService.updateGroupDetails(groupId, new GroupDetails(groupName, group.getCreationDate()));
-        	
-        	result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
-        	        	
-        } catch (Exception e) {
-        	registrationForm.recordError(messages
-                    .get("error-unexpectedError"));
-        }
+	}
 
-    }
+	/**
+	 * We validate the form
+	 */
+	void onValidateFromModificationForm() {
 
-    Object onSuccess() {
-        return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupModified", groupId);
-    }
-	
+		if (!modificationForm.isValid()) {
+			return;
+		}
+
+		try {
+
+			groupDetails = groupService.findGroup(groupId);
+
+			Calendar calExpirationDate = Calendar.getInstance();
+			calExpirationDate.setTime(expirationDate);
+
+			groupService.updateGroupDetails(
+					new GroupDetails(groupId, groupName, groupDescription, groupDetails.getCreationDate(),
+							calExpirationDate, groupDetails.getUsers(), groupDetails.getSystems()));
+
+			result = messages.getFormatter("result-GroupRegister-ok").format(groupName);
+		} catch (InvalidDateException e) {
+			modificationForm.recordError(messages.get("error-expirationDateLEQToday"));
+		} catch (Exception e) {
+			modificationForm.recordError(messages.get("error-unexpectedError"));
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Once it all is done and it succeeded
+	 * 
+	 * @return
+	 */
+	Object onSuccess() {
+		return pageRenderLS.createPageRenderLinkWithContext("administration/group/GroupModified", groupId);
+	}
+
 }

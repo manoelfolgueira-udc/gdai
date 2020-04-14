@@ -16,15 +16,13 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 	@Override
 	public User findByLoginName(String loginName) throws InstanceNotFoundException {
 
-    	User user = (User) getSession().createQuery(
-    			"SELECT u FROM User u WHERE u.loginName = :loginName")
-    			.setParameter("loginName", loginName)
-    			.uniqueResult();
-    	if (user == null) {
-   			throw new InstanceNotFoundException(loginName, User.class.getName());
-    	} else {
-    		return user;
-    	}
+		User user = (User) getSession().createQuery("SELECT u FROM User u WHERE u.loginName = :loginName")
+				.setParameter("loginName", loginName).uniqueResult();
+		if (user == null) {
+			throw new InstanceNotFoundException(loginName, User.class.getName());
+		} else {
+			return user;
+		}
 
 	}
 
@@ -34,11 +32,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllSortedByName() {
-		return getSession().createQuery(
-    			"SELECT u FROM User u order by u.loginName")
-				.list();
+		return getSession().createQuery("SELECT u FROM User u order by u.loginName").list();
 	}
-	
-	
 
 }

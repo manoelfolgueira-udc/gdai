@@ -13,14 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
-@Table(name="gdai_production_pass")
-public class ProductionPass extends GDAICodificable {
-	
+@Table(name = "gdai_production_pass")
+public class ProductionPass {
+
 	@Column(name = "productionPassId")
 	@SequenceGenerator(name = "productionPassIdGenerator", sequenceName = "productionPassSeq")
 	@Id
@@ -30,29 +30,40 @@ public class ProductionPass extends GDAICodificable {
 	private String productionPassResolution;
 	private Calendar creationDate = Calendar.getInstance();
 	private String passPath;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "createdById")
+	@JoinColumn(name = "createdById")
 	private User createdBy;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "systemId")
+	@JoinColumn(name = "systemId")
 	private System system;
+
 	/**
 	 * Empty constructor
 	 */
-	public ProductionPass() {}
-	
+	public ProductionPass() {
+	}
+
 	/**
 	 * Main constructor
-	 * @param productionPassName a name for this productionPass
-	 * @param productionPassResolution a description for this productionPass
-	 * @param creationDate when it's created
-	 * @param targetDate when it should be finished
-	 * @param createdBy user that has registered this productionPass
-	 * @param system system related to this productionPass
-	 * @param sprints a list of sprints when this productionPass will take place
-	 * @param userStory the us which this productionPass belongs to
+	 * 
+	 * @param productionPassName
+	 *            a name for this productionPass
+	 * @param productionPassResolution
+	 *            a description for this productionPass
+	 * @param creationDate
+	 *            when it's created
+	 * @param targetDate
+	 *            when it should be finished
+	 * @param createdBy
+	 *            user that has registered this productionPass
+	 * @param system
+	 *            system related to this productionPass
+	 * @param sprints
+	 *            a list of sprints when this productionPass will take place
+	 * @param userStory
+	 *            the us which this productionPass belongs to
 	 */
 	public ProductionPass(String productionPassName, String productionPassResolution, Calendar creationDate,
 			String passPath, User createdBy, System system) {
@@ -64,6 +75,16 @@ public class ProductionPass extends GDAICodificable {
 		this.createdBy = createdBy;
 		this.system = system;
 	}
+	
+	public ProductionPass(ProductionPassDetails productionPassDetails) {
+
+		this.productionPassName = productionPassDetails.getProductionPassName();
+		this.productionPassResolution = productionPassDetails.getProductionPassResolution();
+		this.creationDate = productionPassDetails.getCreationDate();
+		this.passPath = productionPassDetails.getPassPath();
+		this.createdBy = new User(productionPassDetails.getCreatedBy());
+		this.system = new System(productionPassDetails.getSystem());
+	}
 
 	/**
 	 * @return the productionPassId
@@ -73,7 +94,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param productionPassId the productionPassId to set
+	 * @param productionPassId
+	 *            the productionPassId to set
 	 */
 	public void setProductionPassId(Long productionPassId) {
 		this.productionPassId = productionPassId;
@@ -87,7 +109,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param productionPassName the productionPassName to set
+	 * @param productionPassName
+	 *            the productionPassName to set
 	 */
 	public void setProductionPassName(String productionPassName) {
 		this.productionPassName = productionPassName;
@@ -101,7 +124,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param productionPassResolution the productionPassResolution to set
+	 * @param productionPassResolution
+	 *            the productionPassResolution to set
 	 */
 	public void setProductionPassResolution(String productionPassResolution) {
 		this.productionPassResolution = productionPassResolution;
@@ -115,7 +139,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
@@ -129,7 +154,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param passPath the passPath to set
+	 * @param passPath
+	 *            the passPath to set
 	 */
 	public void setPassPath(String passPath) {
 		this.passPath = passPath;
@@ -143,7 +169,8 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
@@ -157,13 +184,16 @@ public class ProductionPass extends GDAICodificable {
 	}
 
 	/**
-	 * @param system the system to set
+	 * @param system
+	 *            the system to set
 	 */
 	public void setSystem(System system) {
 		this.system = system;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -175,7 +205,9 @@ public class ProductionPass extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -200,6 +232,4 @@ public class ProductionPass extends GDAICodificable {
 		return true;
 	}
 
-	
-	
 }

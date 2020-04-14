@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getSprintDeleteInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="sprint"/>
+       <t:beandisplay object="sprintDetails"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

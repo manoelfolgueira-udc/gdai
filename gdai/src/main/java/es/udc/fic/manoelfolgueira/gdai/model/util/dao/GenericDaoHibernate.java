@@ -11,11 +11,13 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 /**
  * The generic DAO implementation that implements the generic DAO interface
- * @param <E> any Entity
- * @param <PK> its primary key
+ * 
+ * @param <E>
+ *            any Entity
+ * @param <PK>
+ *            its primary key
  */
-public class GenericDaoHibernate<E, PK extends Serializable> implements
-GenericDao<E, PK> {
+public class GenericDaoHibernate<E, PK extends Serializable> implements GenericDao<E, PK> {
 
 	private SessionFactory sessionFactory;
 
@@ -23,8 +25,8 @@ GenericDao<E, PK> {
 
 	@SuppressWarnings("unchecked")
 	public GenericDaoHibernate() {
-		this.entityClass = (Class<E>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+		this.entityClass = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
 	}
 
 	@Autowired

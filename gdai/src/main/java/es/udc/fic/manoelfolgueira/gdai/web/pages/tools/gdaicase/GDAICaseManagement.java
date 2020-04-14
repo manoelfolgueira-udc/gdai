@@ -8,9 +8,9 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase;
+import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -25,7 +25,7 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GDAICaseManagement {
-	
+
 	@SessionState(create = false)
 	private UserSession userSession;
 
@@ -42,15 +42,15 @@ public class GDAICaseManagement {
 	private Locale locale;
 
 	@Property
-	private List<GDAICase> gdaiCasesSearch;
+	private List<GDAICaseDetails> gdaiCasesSearch;
 
 	@Property
-	private GDAICase gdaiCase = null;
-	
+	private GDAICaseDetails gdaiCaseDetails = null;
+
 	void setupRender() {
 		try {
-			User user = userService.findUser(userSession.getUserId());
-			gdaiCasesSearch = gdaiCaseService.findByGroup(user.getGroup().getGroupId());
+			UserDetails userDetails = userService.findUser(userSession.getUserId());
+			gdaiCasesSearch = gdaiCaseService.findByGroup(userDetails.getGroup().getGroupId());
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
