@@ -46,7 +46,7 @@
 		<mavenResourcesPlugin.version>2.6</mavenResourcesPlugin.version>
 		<sqlMavenPlugin.version>1.5</sqlMavenPlugin.version>
 		<mavenAssemblyPlugin.version>2.4</mavenAssemblyPlugin.version>
-		<jettyMavenPlugin>8.1.15.v20140411</jettyMavenPlugin>
+		<jettyMavenPlugin>9.4.30.v20200611</jettyMavenPlugin>
 
 	</properties>
 
@@ -375,7 +375,7 @@
 			<!-- ========================================================== -->
 			<!-- Jetty configuration -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jettyMavenPlugin}</version>
 

@@ -39,8 +39,8 @@ values
 -- Systems
 insert into gdai_system(systemName, systemDescription, creationDate, expirationDate, groupId)
 values
-	('Billing', 'Description here.', NOW(), NOW() + 90, 1),
-	('CRM', 'Description here.', NOW(), NOW() + 90, 2);
+	('Billing', 'Description here.', NOW(), NOW() + INTERVAL 90 DAY, 1),
+	('CRM', 'Description here.', NOW(), NOW() + INTERVAL 90 DAY, 2);
 	
 -- User Stories
 insert into gdai_userstory(userStoryName, userStoryDescription, creationDate, createdById)
