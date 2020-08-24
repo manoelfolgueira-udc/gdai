@@ -19,7 +19,7 @@
 	<!-- Grid de System con elementos para modificar y eliminar -->
 
 	<div class="eg">
-		<t:grid source="productionPassesSearch" value="productionPass"
+		<t:grid source="productionPassesDetailsSearch" value="productionPass"
 			row="productionPassDetails" add="system, productionPassManagement"
 			rowsPerPage="6" pagerPosition="top"
 			include="GDAICode, productionPassName, productionPassResolution, creationDate">

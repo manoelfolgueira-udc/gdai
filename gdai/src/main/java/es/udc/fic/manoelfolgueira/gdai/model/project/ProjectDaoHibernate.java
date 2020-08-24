@@ -123,7 +123,7 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 		}
 
 		query += "order by p.projectId DESC";
-
+		
 		Query q = getSession().createQuery(query);
 
 		if (projectId != null) {

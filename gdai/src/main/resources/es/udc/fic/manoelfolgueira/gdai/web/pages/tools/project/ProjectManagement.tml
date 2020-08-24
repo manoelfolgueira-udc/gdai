@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="navbar-collapse collapse">
-		<t:if test="user.isManager">
+		<t:if test="userDetails.isManager">
 			<ul class="nav navbar-nav navbar-left">
 				<li><a href="#" t:type="PageLink"
 					t:page="tools/project/register">${message:createANewProject}</a></li>
@@ -118,9 +118,9 @@
 
 	<!-- Grid de System con elementos para modificar y eliminar -->
 
-	<t:if test="user.isManager">
+	<t:if test="userDetails.isManager">
 		<div class="eg">
-			<t:grid source="projectsSearch" value="project" row="projectDetails"
+			<t:grid source="projectsDetailsSearch" value="projectDetails" row="projectDetails"
 				add="userStory, system, group, projectManagement" rowsPerPage="6"
 				pagerPosition="top"
 				include="GDAICode, projectName, projectDescription, creationDate">
@@ -128,14 +128,14 @@
 					<t:pagelink page="tools/project/view" t:context="projectDetails.projectId">${projectDetails.projectName}</t:pagelink>
 				</p:projectNameCell>
 				<p:userStoryCell>
-                ${projectDetails.userStory.userStoryName}
+                ${projectDetails.userStoryDetails.userStoryName}
             </p:userStoryCell>
 				<p:systemCell>
-					<t:pagelink page="system/view" context="projectDetails.system.systemId">${projectDetails.system.systemName}</t:pagelink>
+					<t:pagelink page="system/view" context="projectDetails.systemDetails.systemId">${projectDetails.systemDetails.systemName}</t:pagelink>
 				</p:systemCell>
 				<p:groupCell>
 					<t:pagelink page="group/view"
-						context="projectDetails.system.group.groupId">${projectDetails.system.group.groupName}</t:pagelink>
+						context="projectDetails.systemDetails.group.groupId">${projectDetails.systemDetails.group.groupName}</t:pagelink>
 				</p:groupCell>
 				<!-- 			<p:createdByCell> -->
 				<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->
@@ -156,7 +156,7 @@
 		<p:else>
 
 			<div class="eg">
-				<t:grid source="projectsSearch" value="project" row="project"
+				<t:grid source="projectsDetailsSearch" value="projectDetails" row="projectDetails"
 					add="userStory, system, group" rowsPerPage="6" pagerPosition="top"
 					include="GDAICode, projectName, projectDescription, creationDate">
 					<p:projectNameCell>
@@ -164,14 +164,14 @@
 							t:context="projectDetails.projectId">${projectDetails.projectName}</t:pagelink>
 					</p:projectNameCell>
 					<p:userStoryCell>
-                ${projectDetails.userStory.userStoryName}
+                ${projectDetails.userStoryDetails.userStoryName}
             </p:userStoryCell>
 					<p:systemCell>
-						<t:pagelink page="system/view" context="projectDetails.system.systemId">${projectDetails.system.systemName}</t:pagelink>
+						<t:pagelink page="system/view" context="projectDetails.systemDetails.systemId">${projectDetails.systemDetails.systemName}</t:pagelink>
 					</p:systemCell>
 					<p:groupCell>
 						<t:pagelink page="group/view"
-							context="projectDetails.system.group.groupId">${projectDetails.system.group.groupName}</t:pagelink>
+							context="projectDetails.systemDetails.group.groupId">${projectDetails.systemDetails.group.groupName}</t:pagelink>
 					</p:groupCell>
 					<!-- 			<p:createdByCell> -->
 					<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->

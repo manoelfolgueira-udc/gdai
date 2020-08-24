@@ -17,7 +17,7 @@
 
 <div class="eg">
 	<t:if test="isManager">
-		<t:grid source="sprints" value="sprint" row="sprintDetails"
+		<t:grid source="sprintsDetails" value="sprintDetails" row="sprintDetails"
 			add="sprintManagement" rowsPerPage="6" pagerPosition="top"
 			exclude="sprintId, BSprintName">
 			<p:sprintNameCell>
@@ -35,7 +35,7 @@
         </p:empty>
 		</t:grid>
 		<p:else>
-			<t:grid source="sprints" value="sprint" row="sprint" rowsPerPage="6"
+			<t:grid source="sprintsDetails" value="sprintDetails" row="sprintDetails" rowsPerPage="6"
 				pagerPosition="top" exclude="sprintId, BSprintName">
 				<p:sprintNameCell>
 					<t:pagelink page="tools/sprint/sprintview"

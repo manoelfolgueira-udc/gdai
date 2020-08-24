@@ -40,6 +40,7 @@ public class UserDetails extends GDAIDetailsCodificable {
 			String phoneNumber, String avatarUrl, Calendar hiredate, Calendar dateOfBirth, Calendar expirationDate,
 			Boolean isManager, GroupDetails groupDetails) {
 		super();
+		this.userId = userId;
 		this.loginName = loginName;
 		this.firstName = firstName;
 		this.lastName = lastName;

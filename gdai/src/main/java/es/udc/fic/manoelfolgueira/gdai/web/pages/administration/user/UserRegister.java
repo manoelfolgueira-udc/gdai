@@ -137,7 +137,7 @@ public class UserRegister {
 				Calendar calHireDate = Calendar.getInstance();
 				Calendar calDateOfBirth = Calendar.getInstance();
 				Calendar calExpirationDate = Calendar.getInstance();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 				if (hireDate != null)
 					calHireDate.setTime(sdf.parse(hireDate));
 				else
@@ -160,6 +160,7 @@ public class UserRegister {
 			} catch (DuplicateInstanceException e) {
 				registrationForm.recordError(loginNameField, messages.get("error-loginNameAlreadyExists"));
 			} catch (Exception e) {
+				e.printStackTrace();
 				registrationForm.recordError(messages.get("error-unexpectedError"));
 			}
 

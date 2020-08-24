@@ -178,7 +178,7 @@ public class UserModify {
 			}
 
 			userService.updateUserDetails(userId,
-					new UserDetails(userDetails.getUserId(), loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
+					new UserDetails(userId, loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
 							calHireDate, calDateOfBirth, calExpirationDate, isManager, groupDetails));
 
 		} catch (Exception e) {

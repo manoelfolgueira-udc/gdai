@@ -24,7 +24,7 @@ public class GDAIDetailsCodificable {
 	 * @return the current GDAICode for the calling entity instance.
 	 */
 	public String getGDAICode() {
-
+		
 		return this.getGDAICode(Integer.parseInt((String) Config.getInstance().getProperties()
 				.get(this.getClass().getSimpleName().toUpperCase() + ConfigPropertyKeys.GDAICODE_ENTITY_LENGTH_KEY)));
 	}

@@ -56,6 +56,8 @@ public class ProjectDetails extends GDAIDetailsCodificable {
 	}
 	
 	public ProjectDetails(Project project) {
+		super();
+		this.projectId = project.getProjectId();
 		this.projectName = project.getProjectName();
 		this.projectDescription = project.getProjectDescription();
 		this.creationDate = project.getCreationDate();
@@ -64,8 +66,22 @@ public class ProjectDetails extends GDAIDetailsCodificable {
 		this.systemDetails = new SystemDetails(project.getSystem());
 		this.sprintsDetails = new LinkedList<>();
 		project.getSprints().forEach(s -> {
-			this.sprintsDetails.add(new SprintDetails(s));
+			this.sprintsDetails.add(new SprintDetails(s, this));
 		});
+		this.userStoryDetails = new UserStoryDetails(project.getUserStory());
+	}
+	
+	public ProjectDetails(Project project, SprintDetails sprintDetails) {
+		super();
+		this.projectId = project.getProjectId();
+		this.projectName = project.getProjectName();
+		this.projectDescription = project.getProjectDescription();
+		this.creationDate = project.getCreationDate();
+		this.requirementsPath = project.getRequirementsPath();
+		this.createdBy = new UserDetails(project.getCreatedBy());
+		this.systemDetails = new SystemDetails(project.getSystem());
+		this.sprintsDetails = new LinkedList<>();
+		this.sprintsDetails.add(sprintDetails);
 		this.userStoryDetails = new UserStoryDetails(project.getUserStory());
 	}
 
@@ -194,7 +210,13 @@ public class ProjectDetails extends GDAIDetailsCodificable {
 	public void setUserStoryDetails(UserStoryDetails userStoryDetails) {
 		this.userStoryDetails = userStoryDetails;
 	}
-	
-		
+
+	@Override
+	public String toString() {
+		return "ProjectDetails [projectId=" + projectId + ", projectName=" + projectName + ", projectDescription="
+				+ projectDescription + ", creationDate=" + creationDate + ", requirementsPath=" + requirementsPath
+				+ ", createdBy=" + createdBy + ", systemDetails=" + systemDetails + ", sprintsDetails=" + sprintsDetails
+				+ ", userStoryDetails=" + userStoryDetails + "]";
+	}
 
 }

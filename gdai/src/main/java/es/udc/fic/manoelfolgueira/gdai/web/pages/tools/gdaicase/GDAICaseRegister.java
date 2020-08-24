@@ -102,7 +102,7 @@ public class GDAICaseRegister {
 		UserDetails createdBy;
 		try {
 			createdBy = userService.findUser(userSession.getUserId());
-			gdaiCaseDetails = gdaiCaseService.createGDAICase(new GDAICaseDetails(gdaiCaseDescription,
+			gdaiCaseDetails = gdaiCaseService.createGDAICase(new GDAICaseDetails(null, gdaiCaseDescription,
 					gdaiCaseResolution == null ? "" : gdaiCaseResolution, calCreationDate, createdBy, systemDetails));
 		} catch (DuplicateInstanceException e) {
 			// TODO Auto-generated catch block

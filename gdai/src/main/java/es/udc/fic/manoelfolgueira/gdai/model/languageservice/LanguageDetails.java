@@ -6,6 +6,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
 public class LanguageDetails extends GDAIDetailsCodificable {
 
+	private Long languageId;
 	private String languageName;
 	private String languageCountry;
 	private String options;
@@ -33,12 +34,26 @@ public class LanguageDetails extends GDAIDetailsCodificable {
 	 * @param creationDate
 	 *            when the language is registered in GDAI
 	 */
-	public LanguageDetails(String languageName, String languageCountry, String options, Calendar creationDate) {
-
+	public LanguageDetails(Long languageId, String languageName, String languageCountry, String options, Calendar creationDate) {
+		this.languageId = languageId; 
 		this.languageName = languageName;
 		this.languageCountry = languageCountry;
 		this.options = options;
 		this.creationDate = creationDate;
+	}
+
+	/**
+	 * @return the languageId
+	 */
+	public Long getLanguageId() {
+		return languageId;
+	}
+
+	/**
+	 * @param languageId the languageId to set
+	 */
+	public void setLanguageId(Long languageId) {
+		this.languageId = languageId;
 	}
 
 	/**

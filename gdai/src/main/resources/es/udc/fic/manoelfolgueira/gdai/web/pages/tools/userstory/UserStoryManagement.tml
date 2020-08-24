@@ -17,7 +17,7 @@
 
 <div class="eg">
 	<t:if test="isManager">
-		<t:grid source="UserStorys" row="userStoryDetails" add="manageUserStory"
+		<t:grid source="userStoriesDetails" row="userStoryDetails" add="manageUserStory"
 			rowsPerPage="6" pagerPosition="top" exclude="userStoryId">
 			<p:UserStoryNameCell>
 				<t:pagelink page="tools/userstory/userstoryview"
@@ -37,7 +37,7 @@
         </p:empty>
 		</t:grid>
 		<p:else>
-			<t:grid source="UserStorys" row="userStory" rowsPerPage="6"
+			<t:grid source="userStoriesDetails" row="userStoryDetails" rowsPerPage="6"
 				pagerPosition="top" exclude="userStoryId">
 				<p:UserStoryNameCell>
 					<t:pagelink page="tools/userstory/userstoryview"

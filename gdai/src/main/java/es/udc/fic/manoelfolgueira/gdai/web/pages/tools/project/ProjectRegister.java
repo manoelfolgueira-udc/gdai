@@ -141,7 +141,7 @@ public class ProjectRegister {
 			return;
 		}
 
-		if (!projectReqs.getFileName().endsWith(".pdf")) {
+		if (!projectReqs.getFileName().toLowerCase().endsWith(".pdf")) {
 			registrationForm.recordError(messages.get("onlyPDF"));
 		}
 
@@ -153,6 +153,7 @@ public class ProjectRegister {
 		UserDetails createdBy;
 		try {
 			createdBy = userService.findUser(userSession.getUserId());
+			sprintsDetailsSelected.add(sprintDetails);
 			projectDetails = projectService.createProject(new ProjectDetails(null, projectName, projectDescription, calCreationDate,
 					null, createdBy, systemDetails, sprintsDetailsSelected, userStoryDetails));
 		} catch (DuplicateInstanceException e) {
@@ -162,6 +163,7 @@ public class ProjectRegister {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		File copied = new File(
 				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS),
@@ -213,7 +215,7 @@ public class ProjectRegister {
 			sprintDetails = findSprintInList(sprintId, sprints);
 		}
 
-		sprintsModel = selectModelFactory.create(sprints, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprints, "sprintName");
 
 		List<UserStoryDetails> userStories = userStoryService.findAllOrderedByUserStoryName();
 

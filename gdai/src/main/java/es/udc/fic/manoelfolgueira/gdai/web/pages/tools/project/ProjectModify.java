@@ -211,7 +211,7 @@ public class ProjectModify {
 		return new SprintEncoder(sprintService);
 	}
 
-	public SystemEncoder getSystemDetailsEncoder() {
+	public SystemEncoder getSystemEncoder() {
 		return new SystemEncoder(systemService);
 	}
 
@@ -229,7 +229,7 @@ public class ProjectModify {
 			sprintDetails = sprints.get(0); // we get the current sprintDetails by default
 		}
 
-		sprintsModel = selectModelFactory.create(sprints, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprints, "sprintName");
 
 		List<UserStoryDetails> userStories = userStoryService.findAllOrderedByUserStoryName();
 

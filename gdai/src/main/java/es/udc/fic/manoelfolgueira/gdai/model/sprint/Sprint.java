@@ -66,18 +66,33 @@ public class Sprint {
 	}
 
 	/**
-	 * @param s
+	 * @param sprint
 	 */
 	public Sprint(SprintDetails sprintDetails) {
+		super();
 		this.sprintId = sprintDetails.getSprintId();
 		this.sprintName = sprintDetails.getSprintName();
 		this.sprintStart = sprintDetails.getStartDate();
 		this.sprintEnd = sprintDetails.getEndDate();
 		this.creationDate = sprintDetails.getCreationDate();
-		this.projects = new LinkedList<>();
+		this.projects = new LinkedList<Project>();
 		sprintDetails.getProjectsDetails().forEach(p -> {
-			projects.add(new Project(p));
+			this.projects.add(new Project(p, this));
 		});
+	}
+	
+	/**
+	 * @param sprint
+	 */
+	public Sprint(SprintDetails sprintDetails, Project project) {
+		super();
+		this.sprintId = sprintDetails.getSprintId();
+		this.sprintName = sprintDetails.getSprintName();
+		this.sprintStart = sprintDetails.getStartDate();
+		this.sprintEnd = sprintDetails.getEndDate();
+		this.creationDate = sprintDetails.getCreationDate();
+		this.projects = new LinkedList<Project>();
+		this.projects.add(project);
 	}
 
 	/**

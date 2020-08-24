@@ -33,6 +33,7 @@ public class UserStoryDetails extends GDAIDetailsCodificable {
 	 * @param userStory
 	 */
 	public UserStoryDetails(UserStory userStory) {
+		super();
 		this.userStoryId = userStory.getUserStoryId();
 		this.userStoryName = userStory.getUserStoryName();
 		this.userStoryDescription = userStory.getUserStoryDescription();
@@ -48,8 +49,8 @@ public class UserStoryDetails extends GDAIDetailsCodificable {
 	/**
 	 * @param userStoryid the userStoryid to set
 	 */
-	public void setUserStoryid(Long userStoryid) {
-		this.userStoryId = userStoryid;
+	public void setUserStoryId(Long userStoryId) {
+		this.userStoryId = userStoryId;
 	}
 	/**
 	 * @return the userStoryName

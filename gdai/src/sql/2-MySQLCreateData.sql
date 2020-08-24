@@ -19,10 +19,10 @@ insert into gdai_user(loginName, encryptedPassword, firstName, lastName, email, 
 values
 	('Manoel', 'AZ0OZU/oardxM', 'Manoel', 'Folgueira', 'manoel.folgueira@gdai.com', '1456',
 		'https://image.flaticon.com/icons/svg/149/149452.svg',
-		'M', NOW(), NOW(), '2020-08-05 18:19:03', true, 1),
+		'M', NOW(), NOW(), '2020-11-05 18:19:03', true, 1),
 	('a1', 'AZ0OZU/oardxM', 'b', 'b', 'b@b.com',
 		'1456', 'https://image.flaticon.com/icons/svg/149/149452.svg',
-		'M', NOW(), NOW(), '2020-08-05 18:19:03', false, 2),
+		'M', NOW(), NOW(), '2020-11-05 18:19:03', false, 2),
 	('a2', 'AZ0OZU/oardxM', 'b', 'b', 'b@b.com',
 		'1456', 'https://image.flaticon.com/icons/svg/149/149452.svg',
 		'M', NOW(), NOW(), NOW(), false, 2),
@@ -64,10 +64,20 @@ SELECT
         'SP_',
         CAST(COUNT(sp.sprintId) + 1 AS CHAR(50))
     ),
-    CURRENT_DATE, CURRENT_DATE + INTERVAL 2 * 7 DAY, NOW()
+    CURRENT_DATE, CURRENT_DATE + INTERVAL 2 * 7 DAY - INTERVAL 1 SECOND, NOW()
 FROM
     gdai_sprint sp;
 
+insert into gdai_sprint(sprintName, sprintStart, sprintEnd, creationDate)
+SELECT
+   CONCAT(
+        'SP_',
+        CAST(COUNT(sp.sprintId) + 1 AS CHAR(50))
+    ),
+    (select max(sprintEnd) from gdai_sprint) + INTERVAL 1 SECOND, (select max(sprintEnd) from gdai_sprint) + INTERVAL 2 * 7 DAY, NOW()
+FROM
+    gdai_sprint sp;
+    
 -- project_sprint_jt
 insert into gdai_project_sprint_jt(projectId, sprintId)
 values

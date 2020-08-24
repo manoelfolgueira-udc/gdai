@@ -16,17 +16,17 @@
     <div class="eg">
         <t:grid source="systemsDetails" value="systemDetails" row="systemDetails" add="group,systemManagement" rowsPerPage="6" pagerPosition="top" exclude="systemId">
         <p:systemNameCell>
-                <t:pagelink page="system/view" context="systemDetails.systemId">${systemDetails.systemId.systemName}</t:pagelink>
+                <t:pagelink page="system/view" context="systemDetails.systemId">${systemDetails.systemName}</t:pagelink>
             </p:systemNameCell>
         <p:groupCell>
         	<t:pagelink page="group/view" context="systemDetails.group.groupId">${systemDetails.group.groupName}</t:pagelink>
             </p:groupCell>
         <p:systemManagementCell>
         <button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="administration/system/delete" t:context="system.systemId">${message:delete}</button>
+						t:page="administration/system/delete" t:context="systemDetails.systemId">${message:delete}</button>
 			<span style="display:inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="administration/system/modify" t:context="system.systemId">${message:modify}</button>
+						t:page="administration/system/modify" t:context="systemDetails.systemId">${message:modify}</button>
         </p:systemManagementCell>
         <p:empty>
         	${message:noSystem}

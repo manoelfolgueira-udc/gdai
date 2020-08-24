@@ -34,9 +34,10 @@ public class GDAICaseDetails extends GDAIDetailsCodificable {
 	 * @param system
 	 *            system related to this gdaiCase
 	 */
-	public GDAICaseDetails(String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate, UserDetails createdBy,
+	public GDAICaseDetails(Long gdaiCaseId, String gdaiCaseDescription, String gdaiCaseResolution, Calendar creationDate, UserDetails createdBy,
 			SystemDetails systemDetails) {
-
+		super();
+		this.gdaiCaseId = gdaiCaseId;
 		this.gdaiCaseDescription = gdaiCaseDescription;
 		this.gdaiCaseResolution = gdaiCaseResolution;
 		this.creationDate = creationDate;
@@ -48,6 +49,7 @@ public class GDAICaseDetails extends GDAIDetailsCodificable {
 	 * @param gdaiCase
 	 */
 	public GDAICaseDetails(GDAICase gdaiCase) {
+		super();
 		this.gdaiCaseId = gdaiCase.getGDAICaseId();
 		this.gdaiCaseDescription = gdaiCase.getGDAICaseDescription();
 		this.gdaiCaseResolution = gdaiCase.getGDAICaseResolution();

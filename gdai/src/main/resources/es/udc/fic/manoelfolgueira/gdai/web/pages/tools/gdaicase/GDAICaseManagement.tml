@@ -19,10 +19,10 @@
 		add="system, gdaiCaseManagement" rowsPerPage="15" pagerPosition="top"
 		exclude="gdaiCaseId">
 		<p:GDAICodeCell>
-			<t:pagelink page="tools/gdaicase/view" context="ggdaiCaseDetails.gdaiCaseId">${gdaiCaseDetails.GDAICode}</t:pagelink>
+			<t:pagelink page="tools/gdaicase/view" context="gdaiCaseDetails.gdaiCaseId">${gdaiCaseDetails.GDAICode}</t:pagelink>
 		</p:GDAICodeCell>
 		<p:systemCell>
-			${gdaiCaseDetails.system.systemName}
+			${gdaiCaseDetails.systemDetails.systemName}
 		</p:systemCell>
 		<p:gdaiCaseManagementCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"

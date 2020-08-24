@@ -25,6 +25,8 @@ public class SystemDetails extends GDAIDetailsCodificable {
 	 */
 	public SystemDetails(Long systemId, String systemName, String systemDescription, Calendar creationDate,
 			Calendar expirationDate, GroupDetails groupDetails) {
+		super();
+		this.systemId = systemId;
 		this.systemName = systemName;
 		this.systemDescription = systemDescription;
 		this.creationDate = creationDate;
@@ -33,6 +35,7 @@ public class SystemDetails extends GDAIDetailsCodificable {
 	}
 
 	public SystemDetails(System system) {
+		super();
 		this.systemId = system.getSystemId();
 		this.systemName = system.getSystemName();
 		this.systemDescription = system.getSystemDescription();

@@ -107,7 +107,7 @@ public class ProjectManagement {
 	private GroupDetails groupDetails = null;
 
 	@Property
-	private SystemDetails system = null;
+	private SystemDetails systemDetails = null;
 
 	@Component
 	private Form registrationForm;
@@ -160,7 +160,7 @@ public class ProjectManagement {
 				(creationDateEnd != null ? sdf.format(creationDateEnd) : null),
 				(sprintDetails != null) ? sprintDetails.getSprintId() : null,
 				(groupDetails != null) ? groupDetails.getGroupId() : null,
-				(system != null) ? system.getSystemId() : null);
+				(systemDetails != null) ? systemDetails.getSystemId() : null);
 	}
 
 	void onActivate(String projectId, String projectDescription, String userStoryId, String userStoryDescription,
@@ -196,7 +196,7 @@ public class ProjectManagement {
 			sprintDetails = findSprintInList(sprintId, sprintsDetails);
 		}
 
-		sprintsModel = selectModelFactory.create(sprintsDetails, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprintsDetails, "sprintName");
 
 		List<GroupDetails> groupsDetails = groupService.findAllOrderedByGroupName();
 
@@ -209,7 +209,7 @@ public class ProjectManagement {
 		List<SystemDetails> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(systemId, systems);
+			systemDetails = findSystemInList(systemId, systems);
 		}
 
 		systemsModel = selectModelFactory.create(systems, "systemName");
@@ -238,11 +238,11 @@ public class ProjectManagement {
 			calCreationDateEnd.setTime(creationDateEnd);
 		else
 			calCreationDateEnd = null;
-
+ 
 		projectsDetailsSearch = projectService.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
 				calCreationDateStart, calCreationDateEnd, (sprintDetails != null) ? sprintDetails.getSprintId() : null,
 				(groupDetails != null) ? groupDetails.getGroupId() : null,
-				(system != null) ? system.getSystemId() : null);
+				(systemDetails != null) ? systemDetails.getSystemId() : null);
 	}
 
 	private SprintDetails findSprintInList(Long sprintId, List<SprintDetails> sprintsDetails) {

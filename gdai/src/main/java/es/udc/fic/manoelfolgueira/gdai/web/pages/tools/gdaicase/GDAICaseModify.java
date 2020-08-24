@@ -121,7 +121,7 @@ public class GDAICaseModify {
 			UserDetails createdBy = userService.findUser(userSession.getUserId());
 			gdaiCaseDetails = gdaiCaseService.findGDAICase(gdaiCaseId);
 
-			gdaiCaseService.updateGDAICaseDetails(gdaiCaseId, new GDAICaseDetails(gdaiCaseDescription,
+			gdaiCaseService.updateGDAICaseDetails(gdaiCaseId, new GDAICaseDetails(gdaiCaseId, gdaiCaseDescription,
 					gdaiCaseResolution, gdaiCaseDetails.getCreationDate(), createdBy, systemDetails));
 		} catch (Exception e) {
 			e.printStackTrace();
