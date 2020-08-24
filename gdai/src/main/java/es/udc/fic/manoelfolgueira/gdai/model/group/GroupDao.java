@@ -15,16 +15,19 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
  */
 public interface GroupDao extends GenericDao<Group, Long> {
 
-    /**
-     * Returns a Group by name
-     * @param name the group identifier
-     * @return the Group
-     */
-    public Group findByName(String name) throws InstanceNotFoundException;
-    
-    /**
-     * Returns all groups
-     * @return all Group
-     */
-    public List<Group> findAllOrderedByGroupName();
+	/**
+	 * Returns a Group by name
+	 * 
+	 * @param name
+	 *            the group identifier
+	 * @return the Group
+	 */
+	public Group findByName(String groupName) throws InstanceNotFoundException;
+
+	/**
+	 * Returns all groups
+	 * 
+	 * @return all Group
+	 */
+	public List<Group> findAllOrderedByGroupName();
 }

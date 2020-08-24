@@ -18,16 +18,15 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService;
-import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
+import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
@@ -108,13 +107,13 @@ public class ProjectRegister {
 	private String result = null;
 
 	@Property
-	private Sprint sprint;
+	private SprintDetails sprintDetails;
 
 	@Property
-	private System system;
+	private SystemDetails systemDetails;
 
 	@Property
-	private UserStory userStory;
+	private UserStoryDetails userStoryDetails;
 
 	@Property
 	private SelectModel sprintsModel;
@@ -128,11 +127,11 @@ public class ProjectRegister {
 	@Inject
 	private SelectModelFactory selectModelFactory;
 
-	private Project project;
+	private ProjectDetails projectDetails;
 
 	@Property
-	private LinkedList<Sprint> sprintsSelected = new LinkedList<>();
-	
+	private LinkedList<SprintDetails> sprintsDetailsSelected = new LinkedList<>();
+
 	@Inject
 	private PageRenderLinkSource pageRenderLS;
 
@@ -141,8 +140,8 @@ public class ProjectRegister {
 		if (!registrationForm.isValid()) {
 			return;
 		}
-		
-		if(!projectReqs.getFileName().endsWith(".pdf")) {
+
+		if (!projectReqs.getFileName().toLowerCase().endsWith(".pdf")) {
 			registrationForm.recordError(messages.get("onlyPDF"));
 		}
 
@@ -151,11 +150,12 @@ public class ProjectRegister {
 	Object onSuccess() {
 
 		Calendar calCreationDate = Calendar.getInstance();
-		User createdBy;
+		UserDetails createdBy;
 		try {
 			createdBy = userService.findUser(userSession.getUserId());
-			project = projectService.createProject(new ProjectDetails(projectName, projectDescription, calCreationDate,
-					null, createdBy, system, sprintsSelected, userStory));
+			sprintsDetailsSelected.add(sprintDetails);
+			projectDetails = projectService.createProject(new ProjectDetails(null, projectName, projectDescription, calCreationDate,
+					null, createdBy, systemDetails, sprintsDetailsSelected, userStoryDetails));
 		} catch (DuplicateInstanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,23 +163,24 @@ public class ProjectRegister {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		File copied = new File(
 				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS),
-				project.getGDAICode() + "_" + projectReqs.getFileName());
+				projectDetails.getGDAICode() + "_" + projectReqs.getFileName());
 		projectReqs.write(copied);
 
 		try {
-			
+
 			String requirementsPath = Config.getInstance().getProperties()
-					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS) + "/" + project.getGDAICode() + "_"
+					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS) + "/" + projectDetails.getGDAICode() + "_"
 					+ projectReqs.getFileName();
-			
-			projectService.updateProjectDetails(project.getProjectId(),
-					new ProjectDetails(project.getProjectName(), project.getProjectDescription(), project.getCreationDate(),
-							requirementsPath, project.getCreatedBy(), project.getSystem(), project.getSprints(),
-							project.getUserStory()));
-			return pageRenderLS.createPageRenderLinkWithContext("tools/project/projectcreated", project.getProjectId());
+
+			projectService.updateProjectDetails(projectDetails.getProjectId(),
+					new ProjectDetails(projectDetails.getProjectId(), projectDetails.getProjectName(), projectDetails.getProjectDescription(),
+							projectDetails.getCreationDate(), requirementsPath, projectDetails.getCreatedBy(), projectDetails.getSystemDetails(),
+							projectDetails.getSprintsDetails(), projectDetails.getUserStoryDetails()));
+			return pageRenderLS.createPageRenderLinkWithContext("tools/project/projectcreated", projectDetails.getProjectId());
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,33 +209,33 @@ public class ProjectRegister {
 
 	void onPrepare() {
 
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC, 10);
+		List<SprintDetails> sprints = sprintService.findAllOrderedBySprintStart(SortingType.DESC, 10);
 
 		if (sprintId != null) {
-			sprint = findSprintInList(sprintId, sprints);
+			sprintDetails = findSprintInList(sprintId, sprints);
 		}
 
-		sprintsModel = selectModelFactory.create(sprints, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprints, "sprintName");
 
-		List<UserStory> userStories = userStoryService.findAllOrderedByUserStoryName();
+		List<UserStoryDetails> userStories = userStoryService.findAllOrderedByUserStoryName();
 
 		if (userStoryId != null) {
-			userStory = findUserStoryInList(userStoryId, userStories);
+			userStoryDetails = findUserStoryInList(userStoryId, userStories);
 		}
 
 		userStoriesModel = selectModelFactory.create(userStories, "userStoryName");
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<SystemDetails> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(systemId, systems);
+			systemDetails = findSystemInList(systemId, systems);
 		}
 
 		systemsModel = selectModelFactory.create(systems, "systemName");
 	}
 
-	private Sprint findSprintInList(Long sprintId, List<Sprint> sprints) {
-		for (Sprint s : sprints) {
+	private SprintDetails findSprintInList(Long sprintId, List<SprintDetails> sprintsDetails) {
+		for (SprintDetails s : sprintsDetails) {
 			if (s.getSprintId().equals(sprintId)) {
 				return s;
 			}
@@ -242,8 +243,8 @@ public class ProjectRegister {
 		return null;
 	}
 
-	private UserStory findUserStoryInList(Long userStoryId, List<UserStory> userStories) {
-		for (UserStory u : userStories) {
+	private UserStoryDetails findUserStoryInList(Long userStoryId, List<UserStoryDetails> userStories) {
+		for (UserStoryDetails u : userStories) {
 			if (u.getUserStoryId().equals(userStoryId)) {
 				return u;
 			}
@@ -251,8 +252,8 @@ public class ProjectRegister {
 		return null;
 	}
 
-	private System findSystemInList(Long systemId, List<System> systems) {
-		for (System s : systems) {
+	private SystemDetails findSystemInList(Long systemId, List<SystemDetails> systems) {
+		for (SystemDetails s : systems) {
 			if (s.getSystemId().equals(systemId)) {
 				return s;
 			}

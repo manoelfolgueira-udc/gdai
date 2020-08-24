@@ -19,11 +19,11 @@
           DataAccessException hierarchy. -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-	<!--  Data source. -->
+	<!--  Data source.
 	<bean id="dataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean"
 		p:jndiName="${dataSource.jndiName}"
-		p:resourceRef="true" />
+		p:resourceRef="true" />  -->
 
 	<!-- ***********************************************************************
 	     To avoid requesting unnecessary connections (not necessary for
@@ -33,6 +33,15 @@
 	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy"
 		p:targetDataSource-ref="dataSource"/>
 	-->
+	
+	<!--  Data source. -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.SingleConnectionDataSource"
+        p:driverClassName="${jdbcDriver.className}"
+        p:url="${testDataSource.url}" p:username="${testDataSource.user}"
+        p:password="${testDataSource.password}" 
+        p:suppressClose="true" />
+	
 
 	<!-- Hibernate Session Factory -->
     <bean id="sessionFactory"

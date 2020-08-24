@@ -18,16 +18,15 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService;
-import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
+import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
@@ -110,13 +109,13 @@ public class ProjectModify {
 	private String result = null;
 
 	@Property
-	private Sprint sprint;
+	private SprintDetails sprintDetails;
 
 	@Property
-	private System system;
+	private SystemDetails systemDetails;
 
 	@Property
-	private UserStory userStory;
+	private UserStoryDetails userStoryDetails;
 
 	@Property
 	private SelectModel sprintsModel;
@@ -130,10 +129,10 @@ public class ProjectModify {
 	@Inject
 	private SelectModelFactory selectModelFactory;
 
-	private Project project;
+	private ProjectDetails projectDetails;
 
 	@Property
-	private List<Sprint> sprintsSelected = new LinkedList<>();
+	private List<SprintDetails> sprintsDetailsSelected = new LinkedList<>();
 
 	@Inject
 	private PageRenderLinkSource pageRenderLS;
@@ -149,15 +148,15 @@ public class ProjectModify {
 	void setupRender() {
 		try {
 
-			project = projectService.findProject(projectId);
+			projectDetails = projectService.findProject(projectId);
 
-			projectName = project.getProjectName();
-			projectDescription = project.getProjectDescription();
+			projectName = projectDetails.getProjectName();
+			projectDescription = projectDetails.getProjectDescription();
 
-			sprintsSelected = project.getSprints();
-			userStory = project.getUserStory();
-			system = project.getSystem();
-			
+			sprintsDetailsSelected = projectDetails.getSprintsDetails();
+			userStoryDetails = projectDetails.getUserStoryDetails();
+			systemDetails = projectDetails.getSystemDetails();
+
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,12 +172,12 @@ public class ProjectModify {
 
 		try {
 			Calendar calCreationDate = Calendar.getInstance();
-			User createdBy = userService.findUser(userSession.getUserId());
-			LinkedList<Sprint> sprints = new LinkedList<>();
-			sprints.add(sprint);
+			UserDetails createdBy = userService.findUser(userSession.getUserId());
+			LinkedList<SprintDetails> sprints = new LinkedList<>();
+			sprints.add(sprintDetails);
 
-			projectService.updateProjectDetails(projectId, new ProjectDetails(projectName, projectDescription,
-					calCreationDate, requirementsPath, createdBy, system, sprints, userStory));
+			projectService.updateProjectDetails(projectId, new ProjectDetails(projectDetails.getProjectId(), projectName, projectDescription,
+					calCreationDate, requirementsPath, createdBy, systemDetails, sprints, userStoryDetails));
 			result = messages.getFormatter("result-ProjectRegister-ok").format(projectName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,7 +191,7 @@ public class ProjectModify {
 		if (projectReqs != null) {
 
 			try {
-				project = projectService.findProject(projectId);
+				projectDetails = projectService.findProject(projectId);
 			} catch (InstanceNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -200,7 +199,7 @@ public class ProjectModify {
 
 			File copied = new File(
 					Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS),
-					project.getGDAICode() + "_" + projectReqs.getFileName());
+					projectDetails.getGDAICode() + "_" + projectReqs.getFileName());
 			projectReqs.write(copied);
 
 		}
@@ -222,35 +221,35 @@ public class ProjectModify {
 
 	void onPrepare() {
 
-		List<Sprint> sprints = sprintService.findAllOrderedBySprintName(SortingType.DESC);
+		List<SprintDetails> sprints = sprintService.findAllOrderedBySprintName(SortingType.DESC);
 
 		if (sprintId != null) {
-			sprint = findSprintInList(sprintId, sprints);
+			sprintDetails = findSprintInList(sprintId, sprints);
 		} else {
-			sprint = sprints.get(0); // we get the current sprint by default
+			sprintDetails = sprints.get(0); // we get the current sprintDetails by default
 		}
 
-		sprintsModel = selectModelFactory.create(sprints, "bSprintName");
+		sprintsModel = selectModelFactory.create(sprints, "sprintName");
 
-		List<UserStory> userStories = userStoryService.findAllOrderedByUserStoryName();
+		List<UserStoryDetails> userStories = userStoryService.findAllOrderedByUserStoryName();
 
 		if (userStoryId != null) {
-			userStory = findUserStoryInList(userStoryId, userStories);
+			userStoryDetails = findUserStoryInList(userStoryId, userStories);
 		}
 
 		userStoriesModel = selectModelFactory.create(userStories, "userStoryName");
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<SystemDetails> systems = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(systemId, systems);
+			systemDetails = findSystemDetailsInList(systemId, systems);
 		}
 
 		systemsModel = selectModelFactory.create(systems, "systemName");
 	}
 
-	private Sprint findSprintInList(Long sprintId, List<Sprint> sprints) {
-		for (Sprint s : sprints) {
+	private SprintDetails findSprintInList(Long sprintId, List<SprintDetails> sprints) {
+		for (SprintDetails s : sprints) {
 			if (s.getSprintId().equals(sprintId)) {
 				return s;
 			}
@@ -258,8 +257,8 @@ public class ProjectModify {
 		return null;
 	}
 
-	private UserStory findUserStoryInList(Long userStoryId, List<UserStory> userStories) {
-		for (UserStory u : userStories) {
+	private UserStoryDetails findUserStoryInList(Long userStoryId, List<UserStoryDetails> userStories) {
+		for (UserStoryDetails u : userStories) {
 			if (u.getUserStoryId().equals(userStoryId)) {
 				return u;
 			}
@@ -267,8 +266,8 @@ public class ProjectModify {
 		return null;
 	}
 
-	private System findSystemInList(Long systemId, List<System> systems) {
-		for (System s : systems) {
+	private SystemDetails findSystemDetailsInList(Long systemId, List<SystemDetails> systems) {
+		for (SystemDetails s : systems) {
 			if (s.getSystemId().equals(systemId)) {
 				return s;
 			}

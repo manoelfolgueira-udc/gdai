@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getSystemDeleteInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="system"/>
+       <t:beandisplay object="systemDetails"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

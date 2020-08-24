@@ -14,16 +14,16 @@
     <!-- Grid de Group con elementos para modificar y eliminar -->
     
     <div class="eg">
-        <t:grid source="groups" row="group" add="manageGroup" rowsPerPage="6" pagerPosition="top" exclude="groupId">
+        <t:grid source="groupsDetails" row="groupDetails" add="manageGroup" rowsPerPage="6" pagerPosition="top" exclude="groupId">
         <p:groupNameCell>
-                <t:pagelink page="group/view" context="group.groupId"><span class="devgroup">${group.groupName}</span></t:pagelink>
+                <t:pagelink page="group/view" context="groupDetails.groupId">${groupDetails.groupName}</t:pagelink>
             </p:groupNameCell>
         <p:manageGroupCell>
         <button type="submit" class="btn btn-danger" t:type="PageLink"
-						t:page="administration/group/delete" t:context="group.groupId">${message:delete}</button>
+						t:page="administration/group/delete" t:context="groupDetails.groupId">${message:delete}</button>
 			<span style="display:inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-						t:page="administration/group/modify" t:context="group.groupId">${message:modify}</button>
+						t:page="administration/group/modify" t:context="groupDetails.groupId">${message:modify}</button>
         </p:manageGroupCell>
         <p:empty>
         	${message:noGroup}

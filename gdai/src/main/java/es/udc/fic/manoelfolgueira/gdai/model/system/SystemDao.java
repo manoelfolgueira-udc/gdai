@@ -7,16 +7,19 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 public interface SystemDao extends GenericDao<System, Long> {
 
-    /**
-     * Returns a System by name
-     * @param name the system identifier
-     * @return the System
-     */
-    public System findByName(String name) throws InstanceNotFoundException;
-    
-    /**
-     * Returns all systems
-     * @return all System
-     */
-    public List<System> findAllOrderedBySystemName();
+	/**
+	 * Returns a System by name
+	 * 
+	 * @param name
+	 *            the system identifier
+	 * @return the System
+	 */
+	public System findByName(String name) throws InstanceNotFoundException;
+
+	/**
+	 * Returns all systems
+	 * 
+	 * @return all System
+	 */
+	public List<System> findAllOrderedBySystemName();
 }

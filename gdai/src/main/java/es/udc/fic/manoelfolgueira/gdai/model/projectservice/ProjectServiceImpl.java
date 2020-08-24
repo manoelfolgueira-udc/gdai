@@ -1,6 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.model.projectservice;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.project.ProjectDao;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -23,18 +25,19 @@ public class ProjectServiceImpl implements ProjectService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Project createProject(ProjectDetails projectDetails) throws DuplicateInstanceException {
+	public ProjectDetails createProject(ProjectDetails projectDetails) throws DuplicateInstanceException {
 		try {
 			projectDao.findByName(projectDetails.getProjectName());
 			throw new DuplicateInstanceException(projectDetails.getProjectName(), Project.class.getName());
 		} catch (InstanceNotFoundException e) {
-
-			Project project = new Project(projectDetails.getProjectName(), projectDetails.getProjectDescription(),
-					projectDetails.getCreationDate(), projectDetails.getRequirementsPath(), projectDetails.getCreatedBy(),
-					projectDetails.getSystem(), projectDetails.getSprints(), projectDetails.getUserStory());
-
-			projectDao.save(project);
-			return project;
+			
+			Project p = new Project(projectDetails);
+			
+			projectDao.save(p);
+			
+			projectDetails.setProjectId(p.getProjectId());
+			
+			return projectDetails;
 		}
 	}
 
@@ -43,8 +46,8 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Project findProject(Long projectId) throws InstanceNotFoundException {
-		return projectDao.find(projectId);
+	public ProjectDetails findProject(Long projectId) throws InstanceNotFoundException {
+		return new ProjectDetails(projectDao.find(projectId));
 	}
 
 	@Override
@@ -53,9 +56,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 		project.setProjectName(projectDetails.getProjectName());
 		project.setProjectDescription(projectDetails.getProjectDescription());
-		if (projectDetails.getRequirementsPath() != null) project.setRequirementsPath(projectDetails.getRequirementsPath());
+		if (projectDetails.getRequirementsPath() != null)
+			project.setRequirementsPath(projectDetails.getRequirementsPath());
 
-		project.setCreatedBy(projectDetails.getCreatedBy()); // should not be modified, consider getting rid of it
+		project.setCreatedBy(new User(projectDetails.getCreatedBy())); // should not be modified, consider getting rid of it
+
+		projectDao.save(project);
 	}
 
 	/**
@@ -63,8 +69,15 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<Project> findAllOrderedByProjectName() {
-		return projectDao.findAllOrderedByProjectName();
+	public List<ProjectDetails> findAllOrderedByProjectName() {
+		
+		LinkedList<ProjectDetails> projectsDetails = new LinkedList<>();
+		
+		projectDao.findAllOrderedByProjectName().forEach(p -> {
+			projectsDetails.add(new ProjectDetails(p));
+		});
+				
+		return projectsDetails;
 	}
 
 	/**
@@ -75,22 +88,22 @@ public class ProjectServiceImpl implements ProjectService {
 		projectDao.remove(projectId);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService#
-	 * findByCriteria(java.lang.String, java.lang.String, java.lang.String,
-	 * java.lang.String, java.util.Calendar, java.util.Calendar,
-	 * es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint,
-	 * es.udc.fic.manoelfolgueira.gdai.model.group.Group,
-	 * es.udc.fic.manoelfolgueira.gdai.model.system.System)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Project> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<ProjectDetails> findByCriteria(String projectId, String projectDescription, String userStoryId,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId) {
-		return projectDao.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
-				creationDateStart, creationDateEnd, sprintId, groupId, systemId);
+		
+		LinkedList<ProjectDetails> projectsDetails = new LinkedList<>();
+		
+		projectDao.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
+				creationDateStart, creationDateEnd, sprintId, groupId, systemId).forEach(p -> {
+					projectsDetails.add(new ProjectDetails(p));
+				});
+		
+		return projectsDetails;
 	}
 
 }

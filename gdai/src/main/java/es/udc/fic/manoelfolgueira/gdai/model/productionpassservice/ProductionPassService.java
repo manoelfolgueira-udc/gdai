@@ -2,7 +2,6 @@ package es.udc.fic.manoelfolgueira.gdai.model.productionpassservice;
 
 import java.util.List;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPass;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -17,7 +16,8 @@ public interface ProductionPassService {
 	 * @return the actual ProductionPass being created
 	 * @throws DuplicateInstanceException
 	 */
-	public ProductionPass createProductionPass(ProductionPassDetails productionPassDetails) throws DuplicateInstanceException;
+	public ProductionPassDetails createProductionPass(ProductionPassDetails productionPassDetails)
+			throws DuplicateInstanceException;
 
 	/**
 	 * Find a ProductionPass by its id
@@ -27,7 +27,7 @@ public interface ProductionPassService {
 	 * @return Returns a ProductionPass referenced by the id provided
 	 * @throws InstanceNotFoundException
 	 */
-	public ProductionPass findProductionPass(Long ProductionPassId) throws InstanceNotFoundException;
+	public ProductionPassDetails findProductionPass(Long ProductionPassId) throws InstanceNotFoundException;
 
 	/**
 	 * Puts up-to-date a ProductionPass using an instance of its DTO
@@ -38,8 +38,9 @@ public interface ProductionPassService {
 	 *            the DTO itself
 	 * @throws InstanceNotFoundException
 	 */
-	public void updateProductionPassDetails(Long ProductionPassId, ProductionPassDetails productionPassDetails) throws InstanceNotFoundException;
-	
+	public void updateProductionPassDetails(Long ProductionPassId, ProductionPassDetails productionPassDetails)
+			throws InstanceNotFoundException;
+
 	/**
 	 * Deletes a ProductionPass by its id
 	 * 
@@ -54,13 +55,14 @@ public interface ProductionPassService {
 	 * 
 	 * @return all ProductionPass
 	 */
-	public List<ProductionPass> findAllOrderedByProductionPassId(SortingType sortingType);
+	public List<ProductionPassDetails> findAllOrderedByProductionPassId(SortingType sortingType);
 
 	/**
 	 * Find ProductionPasss by group
+	 * 
 	 * @param groupId
 	 * @return the ProductionPasss found
 	 */
-	public List<ProductionPass> findByGroup(Long groupId);
+	public List<ProductionPassDetails> findByGroup(Long groupId);
 
 }

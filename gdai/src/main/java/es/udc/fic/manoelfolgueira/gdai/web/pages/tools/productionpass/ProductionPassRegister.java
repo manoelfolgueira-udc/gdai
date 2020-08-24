@@ -17,12 +17,11 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPass;
 import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
@@ -55,7 +54,7 @@ public class ProductionPassRegister {
 
 	@Component(id = "productionPassResolution")
 	private TextField productionPassResolutionField;
-	
+
 	@SessionState(create = false)
 	private UserSession userSession;
 
@@ -73,7 +72,7 @@ public class ProductionPassRegister {
 
 	@Inject
 	private Locale locale;
-	
+
 	@Inject
 	private SystemService systemService;
 
@@ -84,16 +83,16 @@ public class ProductionPassRegister {
 	private String result = null;
 
 	@Property
-	private System system;
-	
+	private SystemDetails systemDetails;
+
 	@Property
 	private SelectModel systemsModel;
 
 	@Inject
 	private SelectModelFactory selectModelFactory;
 
-	private ProductionPass productionPass;
-	
+	private ProductionPassDetails productionPassDetails;
+
 	@Inject
 	private PageRenderLinkSource pageRenderLS;
 
@@ -102,8 +101,8 @@ public class ProductionPassRegister {
 		if (!registrationForm.isValid()) {
 			return;
 		}
-		
-		if(!productionPassReqs.getFileName().endsWith(".pdf")) {
+
+		if (!productionPassReqs.getFileName().endsWith(".pdf")) {
 			registrationForm.recordError(messages.get("onlyPDF"));
 		}
 
@@ -112,11 +111,11 @@ public class ProductionPassRegister {
 	Object onSuccess() {
 
 		Calendar calCreationDate = Calendar.getInstance();
-		User createdBy;
+		UserDetails createdBy;
 		try {
 			createdBy = userService.findUser(userSession.getUserId());
-			productionPass = productionPassService.createProductionPass(new ProductionPassDetails(productionPassName, productionPassResolution, calCreationDate,
-					null, createdBy, system));
+			productionPassDetails = productionPassService.createProductionPass(new ProductionPassDetails(null, productionPassName,
+					productionPassResolution, calCreationDate, null, createdBy, systemDetails));
 		} catch (DuplicateInstanceException e) {
 			registrationForm.recordError(messages.get("error-productionPassNameAlreadyExists"));
 			e.printStackTrace();
@@ -128,19 +127,21 @@ public class ProductionPassRegister {
 
 		File copied = new File(
 				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS),
-				productionPass.getGDAICode() + "_" + productionPassReqs.getFileName());
+				productionPassDetails.getGDAICode() + "_" + productionPassReqs.getFileName());
 		productionPassReqs.write(copied);
 
 		try {
-			
+
 			String passPath = Config.getInstance().getProperties()
-					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS) + "/" + productionPass.getGDAICode() + "_"
-					+ productionPassReqs.getFileName();
-			
-			productionPassService.updateProductionPassDetails(productionPass.getProductionPassId(),
-					new ProductionPassDetails(productionPass.getProductionPassName(), productionPass.getProductionPassResolution(), productionPass.getCreationDate(),
-							passPath, productionPass.getCreatedBy(), productionPass.getSystem()));
-			return pageRenderLS.createPageRenderLinkWithContext("tools/productionPass/productionPasscreated", productionPass.getProductionPassId());
+					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS) + "/" + productionPassDetails.getGDAICode()
+					+ "_" + productionPassReqs.getFileName();
+
+			productionPassService.updateProductionPassDetails(productionPassDetails.getProductionPassId(),
+					new ProductionPassDetails(null, productionPassDetails.getProductionPassName(),
+							productionPassDetails.getProductionPassResolution(), productionPassDetails.getCreationDate(), passPath,
+							productionPassDetails.getCreatedBy(), productionPassDetails.getSystem()));
+			return pageRenderLS.createPageRenderLinkWithContext("tools/productionPass/productionPasscreated",
+					productionPassDetails.getProductionPassId());
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,24 +152,23 @@ public class ProductionPassRegister {
 		return ProductionPassManagement.class;
 	}
 
-
 	public SystemEncoder getSystemEncoder() {
 		return new SystemEncoder(systemService);
 	}
 
 	void onPrepare() {
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<SystemDetails> systemsDetails = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(systemId, systems);
+			systemDetails = findSystemInList(systemId, systemsDetails);
 		}
 
-		systemsModel = selectModelFactory.create(systems, "systemName");
+		systemsModel = selectModelFactory.create(systemsDetails, "systemName");
 	}
 
-	private System findSystemInList(Long systemId, List<System> systems) {
-		for (System s : systems) {
+	private SystemDetails findSystemInList(Long systemId, List<SystemDetails> systemsDetails) {
+		for (SystemDetails s : systemsDetails) {
 			if (s.getSystemId().equals(systemId)) {
 				return s;
 			}

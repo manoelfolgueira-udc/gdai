@@ -3,21 +3,19 @@ package es.udc.fic.manoelfolgueira.gdai.model.util.exceptions;
 @SuppressWarnings("serial")
 public abstract class InstanceException extends Exception {
 
-    private Object key;
-    private String className;
-    
-    /**
+	private Object key;
+	private String className;
+
+	/**
 	 * @see es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException.java
 	 */
-    protected InstanceException(String specificMessage, Object key, 
-        String className) {
-        
-        super(specificMessage + " (key = '" + key + "' - className = '" + 
-            className + "')");
-        this.key = key;
-        this.className = className;
-        
-    }
+	protected InstanceException(String specificMessage, Object key, String className) {
+
+		super(specificMessage + " (key = '" + key + "' - className = '" + className + "')");
+		this.key = key;
+		this.className = className;
+
+	}
 
 	/**
 	 * @return the key
@@ -31,7 +29,6 @@ public abstract class InstanceException extends Exception {
 	 */
 	public String getClassName() {
 		return className;
-	}  
-    
+	}
 
 }

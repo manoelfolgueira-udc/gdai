@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getDeleteProjectInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="project" exclude="requirementsPath"/>
+       <t:beandisplay object="projectDetails" exclude="requirementsPath"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

@@ -15,15 +15,14 @@ public class LanguageDaoHibernate extends GenericDaoHibernate<Language, Long> im
 	 */
 	public Language findByName(String languageName) throws InstanceNotFoundException {
 
-    	Language group = (Language) getSession().createQuery(
-    			"SELECT l FROM Language l WHERE l.languageName = :languageName")
-    			.setParameter("languageName", languageName)
-    			.uniqueResult();
-    	if (group == null) {
-   			throw new InstanceNotFoundException(languageName, Language.class.getName());
-    	} else {
-    		return group;
-    	}
+		Language group = (Language) getSession()
+				.createQuery("SELECT l FROM Language l WHERE l.languageName = :languageName")
+				.setParameter("languageName", languageName).uniqueResult();
+		if (group == null) {
+			throw new InstanceNotFoundException(languageName, Language.class.getName());
+		} else {
+			return group;
+		}
 
 	}
 

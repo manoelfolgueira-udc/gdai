@@ -18,14 +18,14 @@ import javax.persistence.Table;
 
 import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 
 @Entity
-@Table(name="gdai_user")
-public class User extends GDAICodificable {
+@Table(name = "gdai_user")
+public class User {
 
 	@Column(name = "userId")
-	@SequenceGenerator(name = "UserIdGenerator",sequenceName = "UserSeq")
+	@SequenceGenerator(name = "UserIdGenerator", sequenceName = "UserSeq")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "UserIdGenerator")
 	private Long userId;
@@ -36,43 +36,59 @@ public class User extends GDAICodificable {
 	private String email;
 	private String phoneNumber;
 	private String avatarUrl;
-	private Calendar hireDate;	
+	private Calendar hireDate;
 	private Calendar dateOfBirth;
 	private Calendar expirationDate;
 	private String gender;
 	private Boolean isManager;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "groupId")
+	@JoinColumn(name = "groupId")
 	private Group group;
-	
-	@OneToMany(targetEntity=Project.class, mappedBy="createdBy", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(targetEntity = Project.class, mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Project> projects;
+
 
 	/**
 	 * Empty constructor
 	 */
-	public User() {}
+	public User() {
+	}
 
 	/**
 	 * Main constructor
-	 * @param loginName  a login name that does not exist already
-	 * @param encryptedPassword the password encrypted with es.udc.fic.manoelfolgueira.gdai.model.userservice.util.PasswordEncrypter.java
-	 * @param firstName first real name
-	 * @param lastName last real name
-	 * @param gender sex
-	 * @param email electronic mail
-	 * @param phoneNumber a phone
-	 * @param avatarUrl the user current avatar
-	 * @param hireDate when the user was hired
-	 * @param dateOfBirth when the user was born
-	 * @param expirationDate when the user account will expire
-	 * @param group the group which the user belongs to
+	 * 
+	 * @param loginName
+	 *            a login name that does not exist already
+	 * @param encryptedPassword
+	 *            the password encrypted with
+	 *            es.udc.fic.manoelfolgueira.gdai.model.userservice.util.PasswordEncrypter.java
+	 * @param firstName
+	 *            first real name
+	 * @param lastName
+	 *            last real name
+	 * @param gender
+	 *            sex
+	 * @param email
+	 *            electronic mail
+	 * @param phoneNumber
+	 *            a phone
+	 * @param avatarUrl
+	 *            the user current avatar
+	 * @param hireDate
+	 *            when the user was hired
+	 * @param dateOfBirth
+	 *            when the user was born
+	 * @param expirationDate
+	 *            when the user account will expire
+	 * @param group
+	 *            the group which the user belongs to
 	 */
-	public User(String loginName, String encryptedPassword,
-			String firstName, String lastName, String gender, String email, String phoneNumber, String avatarUrl,
-			Calendar hireDate, Calendar dateOfBirth, Calendar expirationDate, Boolean isManager, Group group) {
-		
+	public User(String loginName, String encryptedPassword, String firstName, String lastName, String gender,
+			String email, String phoneNumber, String avatarUrl, Calendar hireDate, Calendar dateOfBirth,
+			Calendar expirationDate, Boolean isManager, Group group) {
+
 		this.loginName = loginName;
 		this.encryptedPassword = encryptedPassword;
 		this.firstName = firstName;
@@ -86,7 +102,29 @@ public class User extends GDAICodificable {
 		this.expirationDate = expirationDate;
 		this.group = group;
 		this.isManager = isManager;
-		
+
+	}
+
+	/**
+	 * @param userDetails
+	 */
+	public User(UserDetails userDetails) {
+
+		this.userId = userDetails.getUserId();
+		this.loginName = userDetails.getLoginName();
+		//this.encryptedPassword = userDetails.getEncryptedPassword(); // this field is not exported in the dto
+		this.firstName = userDetails.getFirstName();
+		this.lastName = userDetails.getLastName();
+		this.gender = userDetails.getGender();
+		this.email = userDetails.getEmail();
+		this.phoneNumber = userDetails.getPhoneNumber();
+		this.avatarUrl = userDetails.getAvatarUrl();
+		this.hireDate = userDetails.getHireDate();
+		this.dateOfBirth = userDetails.getDateOfBirth();
+		this.expirationDate = userDetails.getExpirationDate();
+		this.group = new Group(userDetails.getGroup());
+		this.isManager = userDetails.getIsManager();
+
 	}
 
 	/**
@@ -97,7 +135,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(Long userId) {
 		this.userId = userId;
@@ -111,7 +150,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param loginName the loginName to set
+	 * @param loginName
+	 *            the loginName to set
 	 */
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
@@ -125,7 +165,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param encryptedPassword the encryptedPassword to set
+	 * @param encryptedPassword
+	 *            the encryptedPassword to set
 	 */
 	public void setEncryptedPassword(String encryptedPassword) {
 		this.encryptedPassword = encryptedPassword;
@@ -139,7 +180,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -153,7 +195,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -167,7 +210,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -181,7 +225,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phoneNumber
+	 *            the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
@@ -195,7 +240,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param avatarUrl the avatarUrl to set
+	 * @param avatarUrl
+	 *            the avatarUrl to set
 	 */
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
@@ -209,7 +255,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param hireDate the hireDate to set
+	 * @param hireDate
+	 *            the hireDate to set
 	 */
 	public void setHireDate(Calendar hireDate) {
 		this.hireDate = hireDate;
@@ -223,7 +270,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param dateOfBirth the dateOfBirth to set
+	 * @param dateOfBirth
+	 *            the dateOfBirth to set
 	 */
 	public void setDateOfBirth(Calendar dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -237,7 +285,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param expirationDate the expirationDate to set
+	 * @param expirationDate
+	 *            the expirationDate to set
 	 */
 	public void setExpirationDate(Calendar expirationDate) {
 		this.expirationDate = expirationDate;
@@ -251,7 +300,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param gender the gender to set
+	 * @param gender
+	 *            the gender to set
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
@@ -265,7 +315,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param group the group to set
+	 * @param group
+	 *            the group to set
 	 */
 	public void setGroup(Group group) {
 		this.group = group;
@@ -279,7 +330,8 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param projects
+	 *            the projects to set
 	 */
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
@@ -293,13 +345,16 @@ public class User extends GDAICodificable {
 	}
 
 	/**
-	 * @param isManager the isManager to set
+	 * @param isManager
+	 *            the isManager to set
 	 */
 	public void setIsManager(Boolean isManager) {
 		this.isManager = isManager;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -322,7 +377,9 @@ public class User extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -401,5 +458,5 @@ public class User extends GDAICodificable {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -16,9 +16,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
@@ -32,14 +31,15 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 /**
  * Web page that allows an Administrator modify a User
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UserModify.java
+ * @file UserModify.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserModify {
 
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
+	private PageRenderLinkSource pageRenderLS;
 
 	@Property
 	private String firstName;
@@ -59,14 +59,14 @@ public class UserModify {
 	@Property
 	private String groupName;
 
-	@SessionState(create=false)
+	@SessionState(create = false)
 	private UserSession userSession;
 
 	@Inject
 	private UserService userService;
 
 	@Property
-	private User user;
+	private UserDetails userDetails;
 
 	@Property
 	private String loginName;
@@ -96,7 +96,7 @@ public class UserModify {
 	private SelectModelFactory selectModelFactory;
 
 	@Property
-	private Group group;
+	private GroupDetails groupDetails;
 
 	@Component
 	private Form updateProfileForm;
@@ -109,7 +109,7 @@ public class UserModify {
 
 	@Property
 	private Long userId;
-	
+
 	@Property
 	private Boolean isManager = false;;
 
@@ -124,39 +124,39 @@ public class UserModify {
 	Long onPassivate() {
 		return userId;
 	}
-	
+
 	void setupRender() throws InstanceNotFoundException {
-		user = userService.findUser(userId);
+		userDetails = userService.findUser(userId);
 
-		loginName = user.getLoginName();
-		firstName = user.getFirstName();
-		lastName = user.getLastName();
-		email = user.getEmail();
-		phoneNumber = user.getPhoneNumber();
+		loginName = userDetails.getLoginName();
+		firstName = userDetails.getFirstName();
+		lastName = userDetails.getLastName();
+		email = userDetails.getEmail();
+		phoneNumber = userDetails.getPhoneNumber();
 
-		hireDate = user.getHireDate().getTime();
-		dateOfBirth = user.getDateOfBirth().getTime();
-		expirationDate = user.getExpirationDate().getTime();
+		hireDate = userDetails.getHireDate().getTime();
+		dateOfBirth = userDetails.getDateOfBirth().getTime();
+		expirationDate = userDetails.getExpirationDate().getTime();
 
-		avatarUrl = user.getAvatarUrl() == null ? "" : user.getAvatarUrl();
+		avatarUrl = userDetails.getAvatarUrl() == null ? "" : userDetails.getAvatarUrl();
 
-		groupName = user.getGroup().getGroupName();
-		
-		isManager = user.getIsManager();
-		
-		group = user.getGroup();
-    }
+		groupName = userDetails.getGroup().getGroupName();
+
+		isManager = userDetails.getIsManager();
+
+		groupDetails = userDetails.getGroup();
+	}
 
 	void onPrepare() throws InstanceNotFoundException {
-		
-		List<Group> groups = groupService.findAllOrderedByGroupName();
-		
+
+		List<GroupDetails> groupsDetails = groupService.findAllOrderedByGroupName();
+
 		Long groupId = userService.findUser(userId).getGroup().getGroupId();
 		if (groupId != null) {
-			group = findGroupInList(groupId, groups);
+			groupDetails = findGroupInList(groupId, groupsDetails);
 		}
-		
-		groupsModel = selectModelFactory.create(groups, "groupName");
+
+		groupsModel = selectModelFactory.create(groupsDetails, "groupName");
 	}
 
 	void onValidateFromUpdateProfileForm() {
@@ -170,21 +170,20 @@ public class UserModify {
 			calHireDate.setTime(hireDate);
 			calDateOfBirth.setTime(dateOfBirth);
 			calExpirationDate.setTime(expirationDate);
-			
+
 			// Modifying myself
 			if (userId.equals(userSession.getUserId())) {
-				userSession.setAdministrator(group.getGroupName().equals(
-						Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
+				userSession.setAdministrator(groupDetails.getGroupName().equals(Config.getInstance().getProperties()
+						.getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 			}
 
-			userService.updateUserDetails(
-					userId, new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber,
-							avatarUrl, calHireDate, calDateOfBirth, calExpirationDate, isManager, group));
+			userService.updateUserDetails(userId,
+					new UserDetails(userId, loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
+							calHireDate, calDateOfBirth, calExpirationDate, isManager, groupDetails));
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			updateProfileForm.recordError(messages
-					.get("error-unexpectedError"));
+			updateProfileForm.recordError(messages.get("error-unexpectedError"));
 		}
 
 	}
@@ -194,28 +193,28 @@ public class UserModify {
 	}
 
 	public String getHireDateDBValue() {
-		return Utils.getFormattedDate(user.getHireDate().getTime(), locale);
+		return Utils.getFormattedDate(userDetails.getHireDate().getTime(), locale);
 	}
 
 	public String getDateOfBirthDBValue() {
-		return Utils.getFormattedDate(user.getDateOfBirth().getTime(), locale);
+		return Utils.getFormattedDate(userDetails.getDateOfBirth().getTime(), locale);
 	}
 
 	public String getExpirationDateDBValue() {
-		return Utils.getFormattedDate(user.getExpirationDate().getTime(), locale);
+		return Utils.getFormattedDate(userDetails.getExpirationDate().getTime(), locale);
 	}
 
 	public boolean getTestMale() {
-		return user.getGender().equals("M");
+		return userDetails.getGender().equals("M");
 	}
 
 	public GroupEncoder getGroupEncoder() {
 		return new GroupEncoder(groupService);
 	}
 
-	private Group findGroupInList(Long groupId, List<Group> groups) {
-		
-		for (Group g : groups) {
+	private GroupDetails findGroupInList(Long groupId, List<GroupDetails> groupsDetails) {
+
+		for (GroupDetails g : groupsDetails) {
 			if (g.getGroupId().equals(groupId)) {
 				return g;
 			}

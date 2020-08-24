@@ -8,47 +8,49 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 
 /**
  * Web page that allows User Management
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UserManagement.java
+ * @file UserManagement.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserManagement {
 	@Property
-    private User user;
+	private UserDetails userDetails;
 
-    @Property
-    private String loginName;
-    
-    @Property
-    private String creationDate;
-    
-    @Property
-    private String expirationDate;
-    
-    @Inject
-    private UserService userService;
-    
-    @Inject
-    private SelectModelFactory selectModelFactory;
+	@Property
+	private String loginName;
 
-    @Inject
-    private Messages messages;
+	@Property
+	private String creationDate;
 
-    @Inject
-    private Locale locale;
-    
-    @Property
-    List<User> users;
-    
-    void setupRender() {
-    	// A GridDataSource is not provided due to the little ammount of groups which are going to be in the app at a time
-        users = userService.findAllSortedByName();
-    }
+	@Property
+	private String expirationDate;
+
+	@Inject
+	private UserService userService;
+
+	@Inject
+	private SelectModelFactory selectModelFactory;
+
+	@Inject
+	private Messages messages;
+
+	@Inject
+	private Locale locale;
+
+	@Property
+	List<UserDetails> usersDetails;
+
+	void setupRender() {
+		// A GridDataSource is not provided due to the little ammount of groups which
+		// are going to be in the app at a time
+		usersDetails = userService.findAllSortedByName();
+	}
 }

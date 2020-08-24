@@ -12,6 +12,7 @@ import org.apache.tapestry5.services.Cookies;
 
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
@@ -24,77 +25,80 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Web page that allows any user to authenticate to GDAI
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   Login.java
+ * @file Login.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
 public class Login {
 
-    @Property
-    private String loginName;
+	@Property
+	private String loginName;
 
-    @Property
-    private String password;
+	@Property
+	private String password;
 
-    @Property
-    private boolean rememberMyPassword;
+	@Property
+	private boolean rememberMyPassword;
 
-    @SessionState(create=false)
-    private UserSession userSession;
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Inject
-    private Cookies cookies;
+	@Inject
+	private Cookies cookies;
 
-    @Component
-    private Form loginForm;
+	@Component
+	private Form loginForm;
 
-    @Inject
-    private Messages messages;
+	@Inject
+	private Messages messages;
 
-    @Inject
-    private UserService userService;
+	@Inject
+	private UserService userService;
 
-    private User userProfile = null;
+	private UserDetails userDetails = null;
 
+	void onValidateFromLoginForm() {
 
-    void onValidateFromLoginForm() {
-
-        if (!loginForm.isValid()) {
-            return;
-        }
-
-        try {
-            userProfile = userService.login(loginName, password, false);
-            if ( (userProfile.getExpirationDate() != null) &&
-            		(userProfile.getExpirationDate().compareTo(Calendar.getInstance()) < 0) ) {
-            	throw new UserExpiratedException(userProfile.getUserId(), User.class.getName());
-            }
-        } catch (InstanceNotFoundException | IncorrectPasswordException e) {
-        	e.printStackTrace();
-            loginForm.recordError(messages.get("error-authenticationFailed"));
-        }  catch (UserExpiratedException e) {
-        	e.printStackTrace();
-        	loginForm.recordError(messages.get("error-expiratedUser"));
+		if (!loginForm.isValid()) {
+			return;
 		}
 
-    }
+		try {
+			userDetails = userService.login(loginName, password, false);
+			if ((userDetails.getExpirationDate() != null)
+					&& (userDetails.getExpirationDate().compareTo(Calendar.getInstance()) < 0)) {
+				throw new UserExpiratedException(userDetails.getUserId(), User.class.getName());
+			}
+		} catch (InstanceNotFoundException | IncorrectPasswordException e) {
+			e.printStackTrace();
+			loginForm.recordError(messages.get("error-authenticationFailed"));
+		} catch (UserExpiratedException e) {
+			e.printStackTrace();
+			loginForm.recordError(messages.get("error-expiratedUser"));
+		}
 
-    Object onSuccess() {
+	}
 
-    	userSession = new UserSession();
-        userSession.setUserId(userProfile.getUserId());
-        userSession.setLoginName(userProfile.getLoginName());
-        
-        String userGroupName = userProfile.getGroup() == null ? "" : userProfile.getGroup().getGroupName();
+	Object onSuccess() {
 
-        userSession.setAdministrator(userGroupName.equals(Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
+		userSession = new UserSession();
+		userSession.setUserId(userDetails.getUserId());
+		userSession.setLoginName(userDetails.getLoginName());
 
-        if (rememberMyPassword) {
-            CookiesManager.leaveCookies(cookies, loginName, userProfile
-                    .getEncryptedPassword());
-        }
-        return ControlPanel.class;
+		String userGroupName = userDetails.getGroup() == null ? "" : userDetails.getGroup().getGroupName();
 
-    }
+		userSession.setAdministrator(userGroupName.equals(
+				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
+		
+		User u = new User(userDetails);
+
+		if (rememberMyPassword) {
+			CookiesManager.leaveCookies(cookies, loginName, u.getEncryptedPassword());
+		}
+		
+		return ControlPanel.class;
+
+	}
 
 }

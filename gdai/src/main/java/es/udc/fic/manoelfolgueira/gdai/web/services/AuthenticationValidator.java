@@ -16,18 +16,16 @@ public class AuthenticationValidator {
 	public static final String PAGE_AUTHENTICATION_TYPE = "page-authentication-type";
 	public static final String EVENT_HANDLER_AUTHENTICATION_TYPE = "event-handler-authentication-type";
 
-	public static String checkForPage(String pageName,
-			ApplicationStateManager applicationStateManager,
+	public static String checkForPage(String pageName, ApplicationStateManager applicationStateManager,
 			ComponentSource componentSource, MetaDataLocator locator) {
 
 		String redirectPage = null;
 		Component page = componentSource.getPage(pageName);
 		try {
-			String policyAsString = locator.findMeta(PAGE_AUTHENTICATION_TYPE,
-					page.getComponentResources(), String.class);
+			String policyAsString = locator.findMeta(PAGE_AUTHENTICATION_TYPE, page.getComponentResources(),
+					String.class);
 
-			AuthenticationPolicyType policy = AuthenticationPolicyType
-					.valueOf(policyAsString);
+			AuthenticationPolicyType policy = AuthenticationPolicyType.valueOf(policyAsString);
 			redirectPage = check(policy, applicationStateManager);
 		} catch (RuntimeException e) {
 			System.out.println("Page: '" + pageName + "': " + e.getMessage());
@@ -36,40 +34,32 @@ public class AuthenticationValidator {
 
 	}
 
-	public static String checkForComponentEvent(String pageName,
-			String componentId, String eventId, String eventType,
-			ApplicationStateManager applicationStateManager,
-			ComponentSource componentSource, MetaDataLocator locator) {
+	public static String checkForComponentEvent(String pageName, String componentId, String eventId, String eventType,
+			ApplicationStateManager applicationStateManager, ComponentSource componentSource, MetaDataLocator locator) {
 
 		String redirectPage = null;
-		String authenticationPolicyMeta = EVENT_HANDLER_AUTHENTICATION_TYPE
-				+ "-" + eventId + "-" + eventType;
+		String authenticationPolicyMeta = EVENT_HANDLER_AUTHENTICATION_TYPE + "-" + eventId + "-" + eventType;
 		authenticationPolicyMeta = authenticationPolicyMeta.toLowerCase();
 
 		Component component = null;
 		if (componentId == null) {
 			component = componentSource.getPage(pageName);
 		} else {
-			component = componentSource.getComponent(pageName + ":"
-					+ componentId);
+			component = componentSource.getComponent(pageName + ":" + componentId);
 		}
 		try {
-			String policyAsString = locator.findMeta(authenticationPolicyMeta,
-					component.getComponentResources(), String.class);
-			AuthenticationPolicyType policy = AuthenticationPolicyType
-					.valueOf(policyAsString);
-			redirectPage = AuthenticationValidator.check(policy,
-					applicationStateManager);
+			String policyAsString = locator.findMeta(authenticationPolicyMeta, component.getComponentResources(),
+					String.class);
+			AuthenticationPolicyType policy = AuthenticationPolicyType.valueOf(policyAsString);
+			redirectPage = AuthenticationValidator.check(policy, applicationStateManager);
 		} catch (RuntimeException e) {
-			System.out.println("Component: '" + pageName + ":" + componentId
-					+ "': " + e.getMessage());
+			System.out.println("Component: '" + pageName + ":" + componentId + "': " + e.getMessage());
 		}
 		return redirectPage;
 
 	}
 
-	public static String check(AuthenticationPolicy policy,
-			ApplicationStateManager applicationStateManager) {
+	public static String check(AuthenticationPolicy policy, ApplicationStateManager applicationStateManager) {
 
 		if (policy != null) {
 			return check(policy.value(), applicationStateManager);
@@ -79,12 +69,10 @@ public class AuthenticationValidator {
 
 	}
 
-	public static String check(AuthenticationPolicyType policyType,
-			ApplicationStateManager applicationStateManager) {
+	public static String check(AuthenticationPolicyType policyType, ApplicationStateManager applicationStateManager) {
 		String redirectPage = null;
 
-		boolean userAuthenticated = applicationStateManager
-				.exists(UserSession.class);
+		boolean userAuthenticated = applicationStateManager.exists(UserSession.class);
 
 		switch (policyType) {
 

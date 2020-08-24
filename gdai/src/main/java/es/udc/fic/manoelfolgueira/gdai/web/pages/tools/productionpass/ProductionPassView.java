@@ -18,7 +18,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPass;
+import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -27,83 +27,83 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
 
 /**
  * Delete a productionPass web page
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   ProductionPassDelete.java
+ * @file ProductionPassDelete.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ProductionPassView {
-	
+
 	@Inject
-	private PageRenderLinkSource pageRenderLS;	
-	
+	private PageRenderLinkSource pageRenderLS;
+
 	@Inject
-    private Messages messages;
-	
+	private Messages messages;
+
 	@Inject
 	private ProductionPassService productionPassService;
-	
+
 	@Property
 	private String infoDeleteProductionPass;
-	
+
 	private Long productionPassId;
-	
+
 	@Property
-	private ProductionPass productionPass;
-	
+	private ProductionPassDetails productionPassDetails;
+
 	@Component
 	private Form deleteForm;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
 
-    @Inject
-    private Locale locale;
-	
+	@SessionState(create = false)
+	private UserSession userSession;
+
+	@Inject
+	private Locale locale;
+
 	void setupRender() {
 		try {
-			productionPass = productionPassService.findProductionPass(productionPassId);
+			productionPassDetails = productionPassService.findProductionPass(productionPassId);
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	void onActivate(Long productionPassId) {
 		this.productionPassId = productionPassId;
 	}
-	
-	@Component(id="downloadLink")
+
+	@Component(id = "downloadLink")
 	private ActionLink downloadLink;
 
-	@OnEvent(component="downloadLink")
-	private Object handleDownload() throws InstanceNotFoundException{
+	@OnEvent(component = "downloadLink")
+	private Object handleDownload() throws InstanceNotFoundException {
 		final File file = new File(productionPassService.findProductionPass(productionPassId).getPassPath());
-		
-	    final StreamResponse response = new StreamResponse() {
 
-	        public String getContentType() {
-	            return "application/pdf";
-	        }
+		final StreamResponse response = new StreamResponse() {
 
-	        public void prepareResponse(Response response) {
-	            response.setHeader ("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
-	        }
+			public String getContentType() {
+				return "application/pdf";
+			}
 
+			public void prepareResponse(Response response) {
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+			}
 
 			@Override
 			public InputStream getStream() throws IOException {
 				try {
-	                return new FileInputStream(file);
-	            } catch (Exception e) {
-	                throw new RuntimeException(e);
-	            }    
+					return new FileInputStream(file);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 			}
-	    };
-	    return response;
+		};
+		return response;
 	}
-	
-	public String getPRFileName () {
-		return productionPass.getPassPath().substring(productionPass.getPassPath().lastIndexOf("/") + 1);
+
+	public String getPRFileName() {
+		return productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
 	}
-	
+
 }

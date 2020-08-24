@@ -67,7 +67,8 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 
 		String projectDescriptionParam = "";
 		if (projectDescription != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			projectDescriptionParam = Utils.getSQLWildcardedParam(projectDescription);
 			query += "lower(p.projectDescription) like lower(:projectDescriptionParam) ";
@@ -75,7 +76,8 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 
 		String userStoryIdParam = "";
 		if (userStoryId != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			userStoryIdParam = Utils.getSQLWildcardedParam(userStoryId);
 			query += "cast(u.userStoryId as string) like :userStoryIdParam ";
@@ -83,39 +85,45 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 
 		String userStoryDescriptionParam = "";
 		if (userStoryDescription != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			userStoryDescriptionParam = Utils.getSQLWildcardedParam(userStoryDescription);
 			query += "lower(u.userStoryDescription) like lower(:userStoryDescriptionParam) ";
 		}
 		if (creationDateStart != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			query += "p.creationDate >= :creationDateStartParam ";
 		}
 		if (creationDateEnd != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			query += "p.creationDate <= :creationDateEndParam ";
 		}
 		if (sprintId != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			query += "sp.sprintId = :sprintIdParam ";
 		}
 		if (systemId != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			query += "sy.systemId = :systemIdParam ";
 		}
 		if (groupId != null) {
-			if(alreadyCond) query +="AND ";
+			if (alreadyCond)
+				query += "AND ";
 			alreadyCond = true;
 			query += "g.groupId = :groupIdParam ";
 		}
 
 		query += "order by p.projectId DESC";
-
+		
 		Query q = getSession().createQuery(query);
 
 		if (projectId != null) {
@@ -145,7 +153,7 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 		if (groupId != null) {
 			q.setParameter("groupIdParam", groupId);
 		}
-		
+
 		List<Project> projects = q.list();
 
 		return projects;

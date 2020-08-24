@@ -11,29 +11,29 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 public class ApplicationDaoHibernate extends GenericDaoHibernate<Application, Long> implements ApplicationDao {
 
 	/**
-     * {@inheritDoc}
-     */
+	 * {@inheritDoc}
+	 */
 	public Application findByName(String applicationName) throws InstanceNotFoundException {
 
-    	Application application = (Application) getSession().createQuery(
-    			"SELECT a FROM Application a WHERE a.applicationName = :applicationName")
-    			.setParameter("applicationName", applicationName)
-    			.uniqueResult();
-    	if (application == null) {
-   			throw new InstanceNotFoundException(applicationName, Application.class.getName());
-    	} else {
-    		return application;
-    	}
+		Application application = (Application) getSession()
+				.createQuery("SELECT a FROM Application a WHERE a.applicationName = :applicationName")
+				.setParameter("applicationName", applicationName).uniqueResult();
+		if (application == null) {
+			throw new InstanceNotFoundException(applicationName, Application.class.getName());
+		} else {
+			return application;
+		}
 
 	}
-	
+
 	/**
-     * {@inheritDoc}
-     */
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> findAllOrderedByApplicationName() {
-		List<Application> applications = getSession().createQuery("SELECT a FROM Application a ORDER BY lower(a.applicationName)").list();
+		List<Application> applications = getSession()
+				.createQuery("SELECT a FROM Application a ORDER BY lower(a.applicationName)").list();
 		return applications;
 	}
 

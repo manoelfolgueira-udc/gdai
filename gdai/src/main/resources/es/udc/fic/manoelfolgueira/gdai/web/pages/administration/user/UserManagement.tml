@@ -14,18 +14,18 @@
 <!-- Grid de Group con elementos para modificar y eliminar -->
 
 <div class="eg">
-	<t:grid source="users" row="user" rowsPerPage="20" pagerPosition="top"
+	<t:grid source="usersDetails" row="userDetails" rowsPerPage="20" pagerPosition="top"
 		include="GDAICode, loginName, email, phoneNumber"
 		add="manageUser" exclude="userId">
 		<p:loginNameCell>
-			<t:pagelink page="administration/user/view" context="user.userId">${user.loginName}</t:pagelink>
+			<t:pagelink page="administration/user/view" context="userDetails.userId">${userDetails.loginName}</t:pagelink>
 		</p:loginNameCell>
 		<p:manageUserCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"
-				t:page="administration/user/delete" t:context="user.userId">${message:delete}</button>
+				t:page="administration/user/delete" t:context="userDetails.userId">${message:delete}</button>
 			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-				t:page="administration/user/modify" t:context="user.userId">${message:modify}</button>
+				t:page="administration/user/modify" t:context="userDetails.userId">${message:modify}</button>
 		</p:manageUserCell>
 		<p:empty>
 	        	${message:noUser}

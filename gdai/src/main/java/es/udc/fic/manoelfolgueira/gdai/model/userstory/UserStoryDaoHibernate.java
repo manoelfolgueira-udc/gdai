@@ -15,15 +15,14 @@ public class UserStoryDaoHibernate extends GenericDaoHibernate<UserStory, Long> 
 	 */
 	public UserStory findByName(String userStoryName) throws InstanceNotFoundException {
 
-    	UserStory userStory = (UserStory) getSession().createQuery(
-    			"SELECT us FROM UserStory us WHERE us.userStoryName = :userStoryName")
-    			.setParameter("userStoryName", userStoryName)
-    			.uniqueResult();
-    	if (userStory == null) {
-   			throw new InstanceNotFoundException(userStoryName, UserStory.class.getName());
-    	} else {
-    		return userStory;
-    	}
+		UserStory userStory = (UserStory) getSession()
+				.createQuery("SELECT us FROM UserStory us WHERE us.userStoryName = :userStoryName")
+				.setParameter("userStoryName", userStoryName).uniqueResult();
+		if (userStory == null) {
+			throw new InstanceNotFoundException(userStoryName, UserStory.class.getName());
+		} else {
+			return userStory;
+		}
 
 	}
 
@@ -33,7 +32,8 @@ public class UserStoryDaoHibernate extends GenericDaoHibernate<UserStory, Long> 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserStory> findAllOrderedByUserStoryName() {
-		List<UserStory> userStorys = getSession().createQuery("SELECT us FROM UserStory us ORDER BY lower(us.userStoryName)").list();
+		List<UserStory> userStorys = getSession()
+				.createQuery("SELECT us FROM UserStory us ORDER BY lower(us.userStoryName)").list();
 		return userStorys;
 	}
 

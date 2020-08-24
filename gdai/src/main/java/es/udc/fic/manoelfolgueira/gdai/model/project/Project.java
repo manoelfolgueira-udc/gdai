@@ -1,6 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.model.project;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,16 +17,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
-@Table(name="gdai_project")
-public class Project extends GDAICodificable {
-	
+@Table(name = "gdai_project")
+public class Project {
+
 	@Column(name = "projectId")
 	@SequenceGenerator(name = "projectIdGenerator", sequenceName = "projectSeq")
 	@Id
@@ -35,45 +36,52 @@ public class Project extends GDAICodificable {
 	private String projectDescription;
 	private Calendar creationDate = Calendar.getInstance();
 	private String requirementsPath;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "createdById")
+	@JoinColumn(name = "createdById")
 	private User createdBy;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "systemId")
+	@JoinColumn(name = "systemId")
 	private System system;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "gdai_project_sprint_jt", 
-        joinColumns = { @JoinColumn(name = "projectId") }, 
-        inverseJoinColumns = { @JoinColumn(name = "sprintId") }
-    )
-    List<Sprint> sprints;
-	
+	@JoinTable(name = "gdai_project_sprint_jt", joinColumns = {
+			@JoinColumn(name = "projectId") }, inverseJoinColumns = { @JoinColumn(name = "sprintId") })
+	List<Sprint> sprints;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userStoryId")
+	@JoinColumn(name = "userStoryId")
 	private UserStory userStory;
-	
+
 	/**
 	 * Empty constructor
 	 */
-	public Project() {}
-	
+	public Project() {
+	}
+
 	/**
 	 * Main constructor
-	 * @param projectName a name for this project
-	 * @param projectDescription a description for this project
-	 * @param creationDate when it's created
-	 * @param targetDate when it should be finished
-	 * @param createdBy user that has registered this project
-	 * @param system system related to this project
-	 * @param sprints a list of sprints when this project will take place
-	 * @param userStory the us which this project belongs to
+	 * 
+	 * @param projectName
+	 *            a name for this project
+	 * @param projectDescription
+	 *            a description for this project
+	 * @param creationDate
+	 *            when it's created
+	 * @param targetDate
+	 *            when it should be finished
+	 * @param createdBy
+	 *            user that has registered this project
+	 * @param system
+	 *            system related to this project
+	 * @param sprints
+	 *            a list of sprints when this project will take place
+	 * @param userStory
+	 *            the us which this project belongs to
 	 */
-	public Project(String projectName, String projectDescription, Calendar creationDate,
-			String requirementsPath, User createdBy, System system, List<Sprint> sprints, UserStory userStory) {
+	public Project(String projectName, String projectDescription, Calendar creationDate, String requirementsPath,
+			User createdBy, System system, List<Sprint> sprints, UserStory userStory) {
 
 		this.projectName = projectName;
 		this.projectDescription = projectDescription;
@@ -84,6 +92,38 @@ public class Project extends GDAICodificable {
 		this.sprints = sprints;
 		this.userStory = userStory;
 	}
+		
+	
+	public Project(ProjectDetails projectDetails) {
+		super();
+		this.projectId = projectDetails.getProjectId();
+		this.projectName = projectDetails.getProjectName();
+		this.projectDescription = projectDetails.getProjectDescription();
+		this.creationDate = projectDetails.getCreationDate();
+		this.requirementsPath = projectDetails.getRequirementsPath();
+		this.createdBy = new User(projectDetails.getCreatedBy());
+		this.system = new System(projectDetails.getSystemDetails());
+		this.sprints = new LinkedList<>();
+		projectDetails.getSprintsDetails().forEach(s -> {
+			this.sprints.add(new Sprint(s, this));
+		});
+		this.userStory = new UserStory(projectDetails.getUserStoryDetails());
+	}
+	
+	public Project(ProjectDetails projectDetails, Sprint sprint) {
+		super();
+		this.projectId = projectDetails.getProjectId();
+		this.projectName = projectDetails.getProjectName();
+		this.projectDescription = projectDetails.getProjectDescription();
+		this.creationDate = projectDetails.getCreationDate();
+		this.requirementsPath = projectDetails.getRequirementsPath();
+		this.createdBy = new User(projectDetails.getCreatedBy());
+		this.system = new System(projectDetails.getSystemDetails());
+		this.sprints = new LinkedList<>();
+		this.sprints.add(sprint);
+		this.userStory= new UserStory(projectDetails.getUserStoryDetails());
+	}
+	
 
 	/**
 	 * @return the projectId
@@ -93,7 +133,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param projectId the projectId to set
+	 * @param projectId
+	 *            the projectId to set
 	 */
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
@@ -107,7 +148,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param projectName the projectName to set
+	 * @param projectName
+	 *            the projectName to set
 	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
@@ -121,7 +163,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param projectDescription the projectDescription to set
+	 * @param projectDescription
+	 *            the projectDescription to set
 	 */
 	public void setProjectDescription(String projectDescription) {
 		this.projectDescription = projectDescription;
@@ -135,7 +178,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
@@ -149,7 +193,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param requirementsPath the requirementsPath to set
+	 * @param requirementsPath
+	 *            the requirementsPath to set
 	 */
 	public void setRequirementsPath(String requirementsPath) {
 		this.requirementsPath = requirementsPath;
@@ -163,7 +208,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param createdBy
+	 *            the createdBy to set
 	 */
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
@@ -177,7 +223,8 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param system the system to set
+	 * @param system
+	 *            the system to set
 	 */
 	public void setSystem(System system) {
 		this.system = system;
@@ -191,12 +238,13 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param sprints the sprints to set
+	 * @param sprints
+	 *            the sprints to set
 	 */
 	public void setSprints(List<Sprint> sprints) {
 		this.sprints = sprints;
 	}
-	
+
 	/**
 	 * @return the userStory
 	 */
@@ -205,13 +253,16 @@ public class Project extends GDAICodificable {
 	}
 
 	/**
-	 * @param userStory the userStory to set
+	 * @param userStory
+	 *            the userStory to set
 	 */
 	public void setUserStory(UserStory userStory) {
 		this.userStory = userStory;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -223,7 +274,9 @@ public class Project extends GDAICodificable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -248,6 +301,4 @@ public class Project extends GDAICodificable {
 		return true;
 	}
 
-	
-	
 }

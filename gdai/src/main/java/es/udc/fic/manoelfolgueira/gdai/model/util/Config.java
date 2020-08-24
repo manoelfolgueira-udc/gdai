@@ -6,12 +6,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * A bare class which handles some app general configuration via a properties file
+ * A bare class which handles some app general configuration via a properties
+ * file
  */
 public class Config {
 
 	private static Config instance = null;
-	
+
 	private Properties properties = null;
 
 	protected Config() {
@@ -39,13 +40,13 @@ public class Config {
 					}
 				}
 			}
-			
+
 		}
 		return instance;
 	}
 
 	public Properties getProperties() {
 		return this.properties;
-	}	
-	
+	}
+
 }

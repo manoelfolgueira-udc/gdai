@@ -108,7 +108,7 @@
 	   <div class="form-group">
 	   		<t:label for="groupSelect" class="col-md-offset-3 col-md-2"/>    
 	        <div class="col-md-3">
-	            <t:select t:id="groupSelect" value="group" model="groupsModel" encoder="groupEncoder" />
+	            <t:select t:id="groupSelect" value="groupDetails" model="groupsModel" encoder="groupEncoder" />
 	        </div>
 	   </div>
 	    

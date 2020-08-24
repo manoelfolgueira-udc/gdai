@@ -6,10 +6,13 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 /**
  * The generic DAO interface
- * @param <E> any Entity
- * @param <PK> its primary key
+ * 
+ * @param <E>
+ *            any Entity
+ * @param <PK>
+ *            its primary key
  */
-public interface GenericDao <E, PK extends Serializable> {
+public interface GenericDao<E, PK extends Serializable> {
 
 	void save(E entity);
 
@@ -18,4 +21,3 @@ public interface GenericDao <E, PK extends Serializable> {
 	void remove(PK id) throws InstanceNotFoundException;
 
 }
-

@@ -11,10 +11,8 @@ DROP TABLE IF EXISTS gdai_system;
 DROP TABLE IF EXISTS gdai_application;
 DROP TABLE IF EXISTS gdai_userstory;
 DROP TABLE IF EXISTS gdai_project;
-DROP EVENT IF EXISTS gdai_event_insert_sprint;
 DROP TABLE IF EXISTS gdai_sprint;
 DROP TABLE IF EXISTS gdai_project_sprint_jt;
-DROP TABLE IF EXISTS gdai_user_userstory_jt;
 DROP TABLE IF EXISTS gdai_production_pass;
 DROP TABLE IF EXISTS gdai_gdai_case;
 SET FOREIGN_KEY_CHECKS = 1;
@@ -37,9 +35,11 @@ CREATE INDEX languageName ON gdai_language(languageName);
 -- ------------------------------ Group --------------------------------
 CREATE TABLE gdai_group
   ( 
-     groupId        BIGINT NOT NULL auto_increment,
-     groupName      VARCHAR(30) NOT NULL,
-     creationDate   TIMESTAMP, 
+     groupId          BIGINT NOT NULL auto_increment,
+     groupName        VARCHAR(64) NOT NULL,
+     groupDescription VARCHAR(1000),
+     creationDate     TIMESTAMP,
+     expirationDate   TIMESTAMP,
      CONSTRAINT GroupPK PRIMARY KEY (groupId),
      CONSTRAINT GroupUniqueKeyGroupName UNIQUE (groupName)
   ) 
@@ -81,6 +81,7 @@ CREATE TABLE gdai_system
      systemName        VARCHAR(255) NOT NULL,
      systemDescription VARCHAR(10000) NOT NULL,
      creationDate      TIMESTAMP NOT NULL,
+     expirationDate    TIMESTAMP NOT NULL,
      groupId           BIGINT,
      CONSTRAINT SystemPK PRIMARY KEY (systemId),
      CONSTRAINT SystemUniqueKeySystemName UNIQUE (systemName),
@@ -167,6 +168,7 @@ CREATE TABLE gdai_application
      applicationName        VARCHAR(255) NOT NULL,
      applicationDescription VARCHAR(10000) NOT NULL,
      creationDate           TIMESTAMP NOT NULL,
+     expirationDate         TIMESTAMP NOT NULL, 
      systemId               BIGINT NOT NULL,
      CONSTRAINT ApplicationPK PRIMARY KEY (applicationId),
      CONSTRAINT ApplicationUniqueKeyApplicationName UNIQUE (applicationName),

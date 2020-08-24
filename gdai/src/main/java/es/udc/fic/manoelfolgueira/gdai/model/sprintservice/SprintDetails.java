@@ -2,32 +2,83 @@ package es.udc.fic.manoelfolgueira.gdai.model.sprintservice;
 
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
+import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint;
+import es.udc.fic.manoelfolgueira.gdai.model.util.GDAIDetailsCodificable;
 
-public class SprintDetails {
+public class SprintDetails extends GDAIDetailsCodificable {
 
+	private Long sprintId;
 	private String sprintName;
 	private Calendar startDate = null;
 	private Calendar endDate = null;
 	private Calendar creationDate = Calendar.getInstance();
-    private LinkedList<Project> projects;
+	private List<ProjectDetails> projectsDetails;
 
-    /**
-     * Main constructor
-     * @param sprintName the name of the sprint
-     * @param startDate when it starts
-     * @param endDate when it ends
-     * @param creationDate when it's created in GDAI
-     * @param projects a list of projects the are performed with this sprint
-     */
-	public SprintDetails(String sprintName, Calendar startDate, Calendar endDate, Calendar creationDate,
-			LinkedList<Project> projects) {
+	/**
+	 * Main constructor
+	 * 
+	 * @param sprintName      the name of the sprint
+	 * @param startDate       when it starts
+	 * @param endDate         when it ends
+	 * @param creationDate    when it's created in GDAI
+	 * @param projectsDetails a list of projects the are performed with this sprint
+	 */
+	public SprintDetails(Long sprintId, String sprintName, Calendar startDate, Calendar endDate, Calendar creationDate,
+			List<ProjectDetails> projectsDetails) {
+		super();
+		this.sprintId = sprintId;
 		this.sprintName = sprintName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.creationDate = creationDate;
-		this.projects = projects;
+		this.projectsDetails = projectsDetails;
+	}
+
+	/**
+	 * @param sprint
+	 */
+	public SprintDetails(Sprint sprint) {
+		super();
+		this.sprintId = sprint.getSprintId();
+		this.sprintName = sprint.getSprintName();
+		this.startDate = sprint.getSprintStart();
+		this.endDate = sprint.getSprintEnd();
+		this.creationDate = sprint.getCreationDate();
+		this.projectsDetails = new LinkedList<ProjectDetails>();
+		sprint.getProjects().forEach(p -> {
+			this.projectsDetails.add(new ProjectDetails(p, this));
+		});
+	}
+	
+	/**
+	 * @param sprint
+	 */
+	public SprintDetails(Sprint sprint, ProjectDetails projectDetails) {
+		super();
+		this.sprintId = sprint.getSprintId();
+		this.sprintName = sprint.getSprintName();
+		this.startDate = sprint.getSprintStart();
+		this.endDate = sprint.getSprintEnd();
+		this.creationDate = sprint.getCreationDate();
+		this.projectsDetails = new LinkedList<ProjectDetails>();
+		this.projectsDetails.add(projectDetails);
+	}
+
+	/**
+	 * @return the sprintId
+	 */
+	public Long getSprintId() {
+		return sprintId;
+	}
+
+	/**
+	 * @param sprintId the sprintId to set
+	 */
+	public void setSprintId(Long sprintId) {
+		this.sprintId = sprintId;
 	}
 
 	/**
@@ -87,37 +138,28 @@ public class SprintDetails {
 	}
 
 	/**
-	 * @return the projects
+	 * @return the projectsDetails
 	 */
-	public LinkedList<Project> getProjects() {
-		return projects;
+	public List<ProjectDetails> getProjectsDetails() {
+		return projectsDetails;
 	}
 
 	/**
-	 * @param projects the projects to set
+	 * @param projectsDetails the projectsDetails to set
 	 */
-	public void setProjects(LinkedList<Project> projects) {
-		this.projects = projects;
+	public void setProjectsDetails(List<ProjectDetails> projectsDetails) {
+		this.projectsDetails = projectsDetails;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
+		result = prime * result + ((sprintId == null) ? 0 : sprintId.hashCode());
 		result = prime * result + ((sprintName == null) ? 0 : sprintName.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,32 +169,19 @@ public class SprintDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		SprintDetails other = (SprintDetails) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
+		if (sprintId == null) {
+			if (other.sprintId != null)
 				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (projects == null) {
-			if (other.projects != null)
-				return false;
-		} else if (!projects.equals(other.projects))
+		} else if (!sprintId.equals(other.sprintId))
 			return false;
 		if (sprintName == null) {
 			if (other.sprintName != null)
 				return false;
 		} else if (!sprintName.equals(other.sprintName))
 			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
 		return true;
 	}
+
 	
+
 }

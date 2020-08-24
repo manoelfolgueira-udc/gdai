@@ -14,13 +14,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
-@Table(name="gdai_group")
-public class Group extends GDAICodificable {
+@Table(name = "gdai_group")
+public class Group {
 
 	@Column(name = "groupId")
 	@SequenceGenerator(name = "groupIdGenerator", sequenceName = "groupSeq")
@@ -28,44 +28,42 @@ public class Group extends GDAICodificable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "groupIdGenerator")
 	private Long groupId;
 	private String groupName;
+	private String groupDescription;
 	private Calendar creationDate = Calendar.getInstance();
-	
-	@OneToMany(targetEntity=User.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private Calendar expirationDate = null;
+
+	@OneToMany(targetEntity = User.class, mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<User> users;
-	
-	@OneToMany(targetEntity=System.class, mappedBy="group", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+	@OneToMany(targetEntity = System.class, mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<System> systems;
-	
+
 	/**
 	 * Empty constructor
 	 */
-	public Group() {}
+	public Group() {
+	}
 
-	/**
-	 * Main constructor
-	 * @param groupName the group name
-	 * @param users a collection (list) of users which belong to a the group that is being created
-	 * @param expirationDate when the group expires
-	 * @param system
-	 */
-	public Group(String groupName, List<User> users, List<System> systems) {
+	public Group(String groupName, String groupDescription, Calendar creationDate, Calendar expirationDate,
+			List<User> users, List<System> systems) {
+		super();
 		this.groupName = groupName;
+		this.groupDescription = groupDescription;
+		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
 		this.users = users;
 		this.systems = systems;
 	}
 
-	/**
-	 * @return the groupId
-	 */
-	public Long getGroupId() {
-		return groupId;
-	}
-
-	/**
-	 * @param groupId the groupId to set
-	 */
-	public void setGroupId(Long groupId) {
-		this.groupId = groupId;
+	public Group(GroupDetails groupDetails) {
+		super();
+		this.groupId = groupDetails.getGroupId();
+		this.groupName = groupDetails.getGroupName();
+		this.groupDescription = groupDetails.getGroupDescription();
+		this.creationDate = groupDetails.getCreationDate();
+		this.expirationDate = groupDetails.getExpirationDate();
+		this.users = groupDetails.getUsers();
+		this.systems = groupDetails.getSystems();
 	}
 
 	/**
@@ -76,24 +74,41 @@ public class Group extends GDAICodificable {
 	}
 
 	/**
-	 * @param groupName the groupName to set
+	 * @param groupName
+	 *            the groupName to set
 	 */
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
 
 	/**
-	 * @return the creationDate
+	 * @return the groupDescription
 	 */
-	public Calendar getCreationDate() {
-		return creationDate;
+	public String getGroupDescription() {
+		return groupDescription;
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param groupDescription
+	 *            the groupDescription to set
 	 */
-	public void setCreationDate(Calendar creationDate) {
-		this.creationDate = creationDate;
+	public void setGroupDescription(String groupDescription) {
+		this.groupDescription = groupDescription;
+	}
+
+	/**
+	 * @return the expirationDate
+	 */
+	public Calendar getExpirationDate() {
+		return expirationDate;
+	}
+
+	/**
+	 * @param expirationDate
+	 *            the expirationDate to set
+	 */
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	/**
@@ -104,7 +119,8 @@ public class Group extends GDAICodificable {
 	}
 
 	/**
-	 * @param users the users to set
+	 * @param users
+	 *            the users to set
 	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
@@ -118,28 +134,44 @@ public class Group extends GDAICodificable {
 	}
 
 	/**
-	 * @param systems the systems to set
+	 * @param systems
+	 *            the systems to set
 	 */
 	public void setSystems(List<System> systems) {
 		this.systems = systems;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the groupId
+	 */
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Calendar getCreationDate() {
+		return creationDate;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
 		result = prime * result + ((groupName == null) ? 0 : groupName.hashCode());
-		result = prime * result + ((systems == null) ? 0 : systems.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -151,11 +183,6 @@ public class Group extends GDAICodificable {
 		if (getClass() != obj.getClass())
 			return false;
 		Group other = (Group) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
 		if (groupId == null) {
 			if (other.groupId != null)
 				return false;
@@ -166,24 +193,19 @@ public class Group extends GDAICodificable {
 				return false;
 		} else if (!groupName.equals(other.groupName))
 			return false;
-		if (systems == null) {
-			if (other.systems != null)
-				return false;
-		} else if (!systems.equals(other.systems))
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Group [groupId=" + groupId + ", groupName=" + groupName + "]";
+		return "Group [groupId=" + groupId + ", groupName=" + groupName + ", groupDescription=" + groupDescription
+				+ ", creationDate=" + creationDate + ", expirationDate=" + expirationDate + ", users=" + users
+				+ ", systems=" + systems + "]";
 	}
+
 }

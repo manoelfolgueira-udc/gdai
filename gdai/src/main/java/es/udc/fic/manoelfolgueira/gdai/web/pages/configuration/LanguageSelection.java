@@ -11,34 +11,35 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.AvailableLanguages;
 
 /**
  * Provides language selection to any User
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   LanguageSelection.java
+ * @file LanguageSelection.java
  */
 public class LanguageSelection {
 
-    @Property
-    private String language;
+	@Property
+	private String language;
 
-    @Inject
-    private Locale locale;
+	@Inject
+	private Locale locale;
 
-    @Inject
-    private PersistentLocale persistentLocale;
-    
-    void onPrepareForRender() {
-        language = locale.getLanguage();
-    }
+	@Inject
+	private PersistentLocale persistentLocale;
 
-    public String getLanguages() {
-        return AvailableLanguages.getOptions(locale.getLanguage());
-    }
+	void onPrepareForRender() {
+		language = locale.getLanguage();
+	}
 
-    Object onSuccess() {
+	public String getLanguages() {
+		return AvailableLanguages.getOptions(locale.getLanguage());
+	}
 
-        persistentLocale.set(new Locale(language));
+	Object onSuccess() {
 
-        return Index.class;
+		persistentLocale.set(new Locale(language));
 
-    }
+		return Index.class;
+
+	}
 
 }

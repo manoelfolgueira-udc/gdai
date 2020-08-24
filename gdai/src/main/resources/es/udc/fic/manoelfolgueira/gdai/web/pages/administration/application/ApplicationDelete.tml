@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getApplicationDeleteInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="application"/>
+       <t:beandisplay object="applicationDetails"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

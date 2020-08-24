@@ -15,21 +15,21 @@
 <!-- Grid de Group con elementos para modificar y eliminar -->
 
 <div class="eg">
-	<t:grid source="gdaiCasesSearch" row="gdaiCase"
+	<t:grid source="gdaiCasesSearch" row="gdaiCaseDetails"
 		add="system, gdaiCaseManagement" rowsPerPage="15" pagerPosition="top"
 		exclude="gdaiCaseId">
 		<p:GDAICodeCell>
-			<t:pagelink page="tools/gdaicase/view" context="gdaiCase.gdaiCaseId">${gdaiCase.GDAICode}</t:pagelink>
+			<t:pagelink page="tools/gdaicase/view" context="gdaiCaseDetails.gdaiCaseId">${gdaiCaseDetails.GDAICode}</t:pagelink>
 		</p:GDAICodeCell>
 		<p:systemCell>
-			${gdaiCase.system.systemName}
+			${gdaiCaseDetails.systemDetails.systemName}
 		</p:systemCell>
 		<p:gdaiCaseManagementCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"
-				t:page="tools/gdaicase/delete" t:context="gdaiCase.gdaiCaseId">${message:delete}</button>
+				t:page="tools/gdaicase/delete" t:context="gdaiCaseDetails.gdaiCaseId">${message:delete}</button>
 			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-primary" t:type="PageLink"
-				t:page="tools/gdaicase/modify" t:context="gdaiCase.gdaiCaseId">${message:modify}</button>
+				t:page="tools/gdaicase/modify" t:context="gdaiCaseDetails.gdaiCaseId">${message:modify}</button>
 		</p:gdaiCaseManagementCell>
 		<p:empty>
         	${message:noGDAICase}

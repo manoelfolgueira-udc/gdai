@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getDeleteGDAICaseInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="gdaiCase" exclude="requirementsPath"/>
+       <t:beandisplay object="gdaiCaseDetails" exclude="requirementsPath"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

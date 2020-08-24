@@ -1,5 +1,6 @@
 package es.udc.fic.manoelfolgueira.gdai.model.productionpassservice;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPass;
 import es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPassDao;
+import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
@@ -23,13 +25,13 @@ public class ProductionPassServiceImpl implements ProductionPassService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ProductionPass createProductionPass(ProductionPassDetails productionPassDetails) throws DuplicateInstanceException {
-		ProductionPass productionPass = new ProductionPass(productionPassDetails.getProductionPassName(), productionPassDetails.getProductionPassResolution(),
-				productionPassDetails.getCreationDate(), productionPassDetails.getPassPath(), productionPassDetails.getCreatedBy(),
-				productionPassDetails.getSystem());
-
+	public ProductionPassDetails createProductionPass(ProductionPassDetails productionPassDetails)
+			throws DuplicateInstanceException {
+		
+		ProductionPass productionPass = new ProductionPass(productionPassDetails);
+		
 		productionPassDao.save(productionPass);
-		return productionPass;
+		return new ProductionPassDetails(productionPass);
 	}
 
 	/**
@@ -37,44 +39,67 @@ public class ProductionPassServiceImpl implements ProductionPassService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public ProductionPass findProductionPass(Long productionPassId) throws InstanceNotFoundException {
-		return productionPassDao.find(productionPassId);
+	public ProductionPassDetails findProductionPass(Long productionPassId) throws InstanceNotFoundException {
+		return new ProductionPassDetails(productionPassDao.find(productionPassId));
 	}
 
 	@Override
-	public void updateProductionPassDetails(Long productionPassId, ProductionPassDetails productionPassDetails) throws InstanceNotFoundException {
+	public void updateProductionPassDetails(Long productionPassId, ProductionPassDetails productionPassDetails)
+			throws InstanceNotFoundException {
 		ProductionPass productionPass = productionPassDao.find(productionPassId);
 
 		productionPass.setProductionPassName(productionPassDetails.getProductionPassName());
 		productionPass.setProductionPassResolution(productionPassDetails.getProductionPassResolution());
-		if (productionPassDetails.getPassPath() != null) productionPass.setPassPath(productionPassDetails.getPassPath());
+		if (productionPassDetails.getPassPath() != null)
+			productionPass.setPassPath(productionPassDetails.getPassPath());
 
-		productionPass.setCreatedBy(productionPassDetails.getCreatedBy()); // should not be modified, consider getting rid of it
+		productionPass.setCreatedBy(new User(productionPassDetails.getCreatedBy())); // should not be modified, consider getting
+																			// rid of it
+
+		productionPassDao.save(productionPass);
 	}
 
-	/* (non-Javadoc)
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService#findAllOrderedByProductionPassId(es.udc.fic.manoelfolgueira.gdai.model.util.ModelConstants.SortingType)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProductionPass> findAllOrderedByProductionPassId(SortingType sortingType) {
-		return productionPassDao.findAllOrderedByProductionPassId(sortingType);
+	public List<ProductionPassDetails> findAllOrderedByProductionPassId(SortingType sortingType) {
+		
+		LinkedList<ProductionPassDetails> productionPassesDetails = new LinkedList<>();
+		List<ProductionPass> productionPasses = productionPassDao.findAllOrderedByProductionPassId(sortingType);
+
+		for (ProductionPass productionPass : productionPasses) {
+			productionPassesDetails.add(new ProductionPassDetails(productionPass));
+		}
+
+		return productionPassesDetails;
+		
 	}
 
-	/* (non-Javadoc)
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService#findByGroup(java.lang.Long)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProductionPass> findByGroup(Long groupId) {
-		return productionPassDao.findByGroup(groupId);
+	public List<ProductionPassDetails> findByGroup(Long groupId) {
+	
+		LinkedList<ProductionPassDetails> productionPassesDetails = new LinkedList<>();
+		List<ProductionPass> productionPasses = productionPassDao.findByGroup(groupId);
+
+		for (ProductionPass productionPass : productionPasses) {
+			productionPassesDetails.add(new ProductionPassDetails(productionPass));
+		}
+
+		return productionPassesDetails;
+		
 	}
 
-	/* (non-Javadoc)
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService#removeProductionPass(java.lang.Long)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void removeProductionPass(Long productionPassId) throws InstanceNotFoundException {
 		productionPassDao.remove(productionPassId);
-		
+
 	}
 
 }

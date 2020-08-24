@@ -13,12 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
-import es.udc.fic.manoelfolgueira.gdai.model.util.GDAICodificable;
 
 @Entity
-@Table(name="gdai_application")
-public class Application extends GDAICodificable {
+@Table(name = "gdai_application")
+public class Application {
 
 	@Column(name = "applicationId")
 	@SequenceGenerator(name = "applicationIdGenerator", sequenceName = "applicationSeq")
@@ -28,30 +28,53 @@ public class Application extends GDAICodificable {
 	private String applicationName;
 	private String applicationDescription;
 	private Calendar creationDate = Calendar.getInstance();
-	
+	private Calendar expirationDate;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "systemId")
+	@JoinColumn(name = "systemId")
 	private System system;
-	
 
 	/**
 	 * Empty constructor
 	 */
-	public Application() {}
-	
+	public Application() {
+	}
+
 	/**
 	 * Main constructor
-	 * @param applicationName an application name
-	 * @param applicationDescription an application description
-	 * @param creationDate when the application is created
-	 * @param system the system which the application will belong to
+	 * 
+	 * @param applicationName
+	 *            an application name
+	 * @param applicationDescription
+	 *            an application description
+	 * @param creationDate
+	 *            when the application is created
+	 * @param system
+	 *            the system which the application will belong to
 	 */
-	public Application(String applicationName, String applicationDescription, Calendar creationDate, System system) {
+	public Application(String applicationName, String applicationDescription, Calendar creationDate,
+			Calendar expirationDate, System system) {
 		super();
 		this.applicationName = applicationName;
 		this.applicationDescription = applicationDescription;
 		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
 		this.system = system;
+	}
+
+	/**
+	 * Constructs an application from an ApplicationDetails
+	 * 
+	 * @param applicationDetails
+	 */
+	public Application(ApplicationDetails applicationDetails) {
+		super();
+		this.applicationId = applicationDetails.getApplicationId();
+		this.applicationName = applicationDetails.getApplicationName();
+		this.applicationDescription = applicationDetails.getApplicationDescription();
+		this.creationDate = applicationDetails.getCreationDate();
+		this.expirationDate = applicationDetails.getExpirationDate();
+		this.system = new System(applicationDetails.getSystem());
 	}
 
 	/**
@@ -62,7 +85,8 @@ public class Application extends GDAICodificable {
 	}
 
 	/**
-	 * @param applicationId the applicationId to set
+	 * @param applicationId
+	 *            the applicationId to set
 	 */
 	public void setApplicationId(Long applicationId) {
 		this.applicationId = applicationId;
@@ -76,7 +100,8 @@ public class Application extends GDAICodificable {
 	}
 
 	/**
-	 * @param applicationName the applicationName to set
+	 * @param applicationName
+	 *            the applicationName to set
 	 */
 	public void setApplicationName(String applicationName) {
 		this.applicationName = applicationName;
@@ -90,7 +115,8 @@ public class Application extends GDAICodificable {
 	}
 
 	/**
-	 * @param applicationDescription the applicationDescription to set
+	 * @param applicationDescription
+	 *            the applicationDescription to set
 	 */
 	public void setApplicationDescription(String applicationDescription) {
 		this.applicationDescription = applicationDescription;
@@ -104,10 +130,26 @@ public class Application extends GDAICodificable {
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param creationDate
+	 *            the creationDate to set
 	 */
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	/**
+	 * @return the expirationDate
+	 */
+	public Calendar getExpirationDate() {
+		return expirationDate;
+	}
+
+	/**
+	 * @param expirationDate
+	 *            the expirationDate to set
+	 */
+	public void setExpirationDate(Calendar expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 
 	/**
@@ -118,28 +160,30 @@ public class Application extends GDAICodificable {
 	}
 
 	/**
-	 * @param system the system to set
+	 * @param system
+	 *            the system to set
 	 */
 	public void setSystem(System system) {
 		this.system = system;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((applicationDescription == null) ? 0 : applicationDescription.hashCode());
 		result = prime * result + ((applicationId == null) ? 0 : applicationId.hashCode());
 		result = prime * result + ((applicationName == null) ? 0 : applicationName.hashCode());
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((system == null) ? 0 : system.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -151,11 +195,6 @@ public class Application extends GDAICodificable {
 		if (getClass() != obj.getClass())
 			return false;
 		Application other = (Application) obj;
-		if (applicationDescription == null) {
-			if (other.applicationDescription != null)
-				return false;
-		} else if (!applicationDescription.equals(other.applicationDescription))
-			return false;
 		if (applicationId == null) {
 			if (other.applicationId != null)
 				return false;
@@ -166,19 +205,7 @@ public class Application extends GDAICodificable {
 				return false;
 		} else if (!applicationName.equals(other.applicationName))
 			return false;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (system == null) {
-			if (other.system != null)
-				return false;
-		} else if (!system.equals(other.system))
-			return false;
 		return true;
 	}
-	
-	
 
 }

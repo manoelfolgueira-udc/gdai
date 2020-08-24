@@ -15,15 +15,13 @@ public class SystemDaoHibernate extends GenericDaoHibernate<System, Long> implem
 	 */
 	public System findByName(String systemName) throws InstanceNotFoundException {
 
-    	System system = (System) getSession().createQuery(
-    			"SELECT s FROM System s WHERE s.systemName = :systemName")
-    			.setParameter("systemName", systemName)
-    			.uniqueResult();
-    	if (system == null) {
-   			throw new InstanceNotFoundException(systemName, System.class.getName());
-    	} else {
-    		return system;
-    	}
+		System system = (System) getSession().createQuery("SELECT s FROM System s WHERE s.systemName = :systemName")
+				.setParameter("systemName", systemName).uniqueResult();
+		if (system == null) {
+			throw new InstanceNotFoundException(systemName, System.class.getName());
+		} else {
+			return system;
+		}
 
 	}
 

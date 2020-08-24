@@ -15,15 +15,13 @@ public class GroupDaoHibernate extends GenericDaoHibernate<Group, Long> implemen
 	 */
 	public Group findByName(String groupName) throws InstanceNotFoundException {
 
-    	Group group = (Group) getSession().createQuery(
-    			"SELECT g FROM Group g WHERE g.groupName = :groupName")
-    			.setParameter("groupName", groupName)
-    			.uniqueResult();
-    	if (group == null) {
-   			throw new InstanceNotFoundException(groupName, Group.class.getName());
-    	} else {
-    		return group;
-    	}
+		Group group = (Group) getSession().createQuery("SELECT g FROM Group g WHERE g.groupName = :groupName")
+				.setParameter("groupName", groupName).uniqueResult();
+		if (group == null) {
+			throw new InstanceNotFoundException(groupName, Group.class.getName());
+		} else {
+			return group;
+		}
 
 	}
 

@@ -18,9 +18,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -96,7 +95,7 @@ public class UserRegister {
 	private SelectModelFactory selectModelFactory;
 
 	@Property
-	private Group group;
+	private GroupDetails groupDetails;
 
 	@Component
 	private Form registrationForm;
@@ -121,9 +120,9 @@ public class UserRegister {
 
 	Object onValidateFromRegistrationForm() {
 
-		groupId = group == null ? null : group.getGroupId();
+		groupId = groupDetails == null ? null : groupDetails.getGroupId();
 
-		User user;
+		UserDetails userDetails;
 
 		if (!registrationForm.isValid()) {
 			return null;
@@ -138,7 +137,7 @@ public class UserRegister {
 				Calendar calHireDate = Calendar.getInstance();
 				Calendar calDateOfBirth = Calendar.getInstance();
 				Calendar calExpirationDate = Calendar.getInstance();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 				if (hireDate != null)
 					calHireDate.setTime(sdf.parse(hireDate));
 				else
@@ -152,15 +151,16 @@ public class UserRegister {
 				else
 					calExpirationDate = null;
 
-				user = userService.registerUser(loginName, password,
-						new UserDetails(loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
-								calHireDate, calDateOfBirth, calExpirationDate, isManager, group));
+				userDetails = userService.registerUser(password,
+						new UserDetails(null, loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
+								calHireDate, calDateOfBirth, calExpirationDate, isManager, groupDetails));
 
 				return pageRenderLS.createPageRenderLinkWithContext("administration/user/UserCreated",
-						user.getUserId());
+						userDetails.getUserId());
 			} catch (DuplicateInstanceException e) {
 				registrationForm.recordError(loginNameField, messages.get("error-loginNameAlreadyExists"));
 			} catch (Exception e) {
+				e.printStackTrace();
 				registrationForm.recordError(messages.get("error-unexpectedError"));
 			}
 
@@ -183,17 +183,17 @@ public class UserRegister {
 
 	void onPrepare() {
 
-		List<Group> groups = groupService.findAllOrderedByGroupName();
+		List<GroupDetails> groupsDetails = groupService.findAllOrderedByGroupName();
 
 		if (groupId != null) {
-			group = findGroupInList(groupId, groups);
+			groupDetails = findGroupInList(groupId, groupsDetails);
 		}
 
-		groupsModel = selectModelFactory.create(groups, "groupName");
+		groupsModel = selectModelFactory.create(groupsDetails, "groupName");
 	}
 
-	private Group findGroupInList(Long groupId, List<Group> groups) {
-		for (Group g : groups) {
+	private GroupDetails findGroupInList(Long groupId, List<GroupDetails> groupsDetails) {
+		for (GroupDetails g : groupsDetails) {
 			if (g.getGroupId().equals(groupId)) {
 				return g;
 			}

@@ -9,7 +9,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory;
+import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
@@ -19,59 +19,63 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.Utils;
 
 /**
  * Web page that allows user story Management
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   UserStoryManagement.java
+ * @file UserStoryManagement.java
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class UserStoryManagement {
-    
-    @Property
-    private UserStory userStory;
 
-    @Property
-    private String UserStoryName;
-    
-    @Property
-    private String creationDate;
-    
-    @Property
-    private String expirationDate;
-    
-    @SessionState(create=false)
-    private UserSession userSession;
-    
-    @Inject
-    private UserStoryService UserStoryService;
+	@Property
+	private UserStoryDetails userStoryDetails;
 
-    @Inject
-    private Messages messages;
+	@Property
+	private String UserStoryName;
 
-    @Inject
-    private Locale locale;
-    
-    @Property
-    List<UserStory> UserStorys;
-    
-    @Inject
-    private UserService userService;
-    
-    @Property
-    private boolean isManager;
-    
-    void setupRender() {
-    	// A GridDataSource is not provided due to the little ammount of UserStorys which are going to be in the app at a time
-        UserStorys = UserStoryService.findAllOrderedByUserStoryName();
-        
-        try {
+	@Property
+	private String creationDate;
+
+	@Property
+	private String expirationDate;
+
+	@SessionState(create = false)
+	private UserSession userSession;
+
+	@Inject
+	private UserStoryService UserStoryService;
+
+	@Inject
+	private Messages messages;
+
+	@Inject
+	private Locale locale;
+
+	@Property
+	List<UserStoryDetails> userStoriesDetails;
+
+	@Inject
+	private UserService userService;
+
+	@Property
+	private boolean isManager;
+
+	void setupRender() {
+		// A GridDataSource is not provided due to the little ammount of UserStorys
+		// which are going to be in the app at a time
+		userStoriesDetails = UserStoryService.findAllOrderedByUserStoryName();
+
+		try {
 			isManager = userService.findUser(userSession.getUserId()).getIsManager();
 		} catch (InstanceNotFoundException e) {
 			isManager = false;
 		}
-    }
-    
-    public String getUserStoryCreationDateFormatted() {
-    	
-    	return (userStory.getCreationDate() != null) ? Utils.getFormattedDate(userStory.getCreationDate().getTime(), locale) : "";
-    }
-    
+	}
+
+	public String getUserStoryCreationDateFormatted() {
+
+		return (userStoryDetails.getCreationDate() != null)
+				? Utils.getFormattedDate(userStoryDetails.getCreationDate().getTime(), locale)
+				: "";
+	}
+
 }

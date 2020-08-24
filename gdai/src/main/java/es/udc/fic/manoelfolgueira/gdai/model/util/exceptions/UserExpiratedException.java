@@ -5,11 +5,14 @@ public class UserExpiratedException extends InstanceException {
 
 	/**
 	 * Appears when a user tries to log in and its account is expired
-	 * @param key instance id
-	 * @param className entity class name
+	 * 
+	 * @param key
+	 *            instance id
+	 * @param className
+	 *            entity class name
 	 */
-    public UserExpiratedException(Object key, String className) {
-        super("User Expired", key, className);
-    }
-    
+	public UserExpiratedException(Object key, String className) {
+		super("User Expired", key, className);
+	}
+
 }

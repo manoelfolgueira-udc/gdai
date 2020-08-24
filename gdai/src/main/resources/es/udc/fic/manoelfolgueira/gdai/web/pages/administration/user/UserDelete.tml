@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getDeleteUserInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="user"
+       <t:beandisplay object="userDetails"
        exclude="encryptedPassword, avatarUrl"/>
     </div>
 

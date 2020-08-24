@@ -4,7 +4,7 @@
 	<div class="alert alert-danger">${getDeleteProductionPassInfo()}</div>
    
     <div class="eg">
-       <t:beandisplay object="productionPass" exclude="passPath"/>
+       <t:beandisplay object="productionPassDetails" exclude="passPath"/>
     </div>
 
 	<form t:type="Form" class="form-horizontal" t:id="deleteForm">

@@ -6,11 +6,16 @@ package es.udc.fic.manoelfolgueira.gdai.model.util;
 
 /**
  * Constants and enums to be used across the application
+ * 
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   ModelConstants.java
+ * @file ModelConstants.java
  */
-public class ModelConstants {
+public final class ModelConstants {
 
-	public enum SortingType {ASC, DESC};
-	
+	public enum SortingType {
+		ASC, DESC
+	};
+
+	public static final String SPRING_CONFIG_FILE = "classpath:/spring-config.xml";
+
 }

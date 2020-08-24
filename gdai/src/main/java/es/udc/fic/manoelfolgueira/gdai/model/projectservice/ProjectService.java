@@ -3,7 +3,6 @@ package es.udc.fic.manoelfolgueira.gdai.model.projectservice;
 import java.util.Calendar;
 import java.util.List;
 
-import es.udc.fic.manoelfolgueira.gdai.model.project.Project;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
@@ -17,7 +16,7 @@ public interface ProjectService {
 	 * @return the actual project being created
 	 * @throws DuplicateInstanceException
 	 */
-	public Project createProject(ProjectDetails projectDetails) throws DuplicateInstanceException;
+	public ProjectDetails createProject(ProjectDetails projectDetails) throws DuplicateInstanceException;
 
 	/**
 	 * Find a project by its id
@@ -27,7 +26,7 @@ public interface ProjectService {
 	 * @return Returns a project referenced by the id provided
 	 * @throws InstanceNotFoundException
 	 */
-	public Project findProject(Long projectId) throws InstanceNotFoundException;
+	public ProjectDetails findProject(Long projectId) throws InstanceNotFoundException;
 
 	/**
 	 * Puts up-to-date a Project using an instance of its DTO
@@ -45,7 +44,7 @@ public interface ProjectService {
 	 * 
 	 * @return the list of all projects in the database
 	 */
-	public List<Project> findAllOrderedByProjectName();
+	public List<ProjectDetails> findAllOrderedByProjectName();
 
 	/**
 	 * Deletes a project by its id
@@ -70,7 +69,7 @@ public interface ProjectService {
 	 * @param systemId
 	 * @return a List of projects
 	 */
-	public List<Project> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<ProjectDetails> findByCriteria(String projectId, String projectDescription, String userStoryId,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId);
 

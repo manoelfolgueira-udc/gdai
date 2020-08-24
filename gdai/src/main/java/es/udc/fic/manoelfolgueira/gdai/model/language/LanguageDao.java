@@ -7,22 +7,26 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 public interface LanguageDao extends GenericDao<Language, Long> {
 
-    /**
-     * Returns a Language by name
-     * @param name the language identifier
-     * @return the Language
-     */
-    public Language findByName(String name) throws InstanceNotFoundException;
-    
-    /**
-     * Returns all languages
-     * @return all Language
-     */
-    public List<Language> findAll();
-    
-    /**
-     * Returns all language codes
-     * @return all languageNames
-     */
-    public List<String> findAllNames();
+	/**
+	 * Returns a Language by name
+	 * 
+	 * @param name
+	 *            the language identifier
+	 * @return the Language
+	 */
+	public Language findByName(String name) throws InstanceNotFoundException;
+
+	/**
+	 * Returns all languages
+	 * 
+	 * @return all Language
+	 */
+	public List<Language> findAll();
+
+	/**
+	 * Returns all language codes
+	 * 
+	 * @return all languageNames
+	 */
+	public List<String> findAllNames();
 }

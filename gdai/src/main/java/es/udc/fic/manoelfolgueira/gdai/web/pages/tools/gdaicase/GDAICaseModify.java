@@ -14,12 +14,11 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase;
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.gdaicaseservice.GDAICaseService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.SystemEncoder;
@@ -35,7 +34,7 @@ import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
  */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class GDAICaseModify {
-	
+
 	private Long systemId;
 
 	@Property
@@ -74,7 +73,7 @@ public class GDAICaseModify {
 	private UserService userService;
 
 	@Property
-	private System system;
+	private SystemDetails systemDetails;
 
 	@Property
 	private SelectModel systemsModel;
@@ -82,7 +81,7 @@ public class GDAICaseModify {
 	@Inject
 	private SelectModelFactory selectModelFactory;
 
-	private GDAICase gdaiCase;
+	private GDAICaseDetails gdaiCaseDetails;
 
 	@Inject
 	private PageRenderLinkSource pageRenderLS;
@@ -98,12 +97,12 @@ public class GDAICaseModify {
 	void setupRender() {
 		try {
 
-			gdaiCase = gdaiCaseService.findGDAICase(gdaiCaseId);
+			gdaiCaseDetails = gdaiCaseService.findGDAICase(gdaiCaseId);
 
-			gdaiCaseDescription = gdaiCase.getGDAICaseDescription();
-			gdaiCaseResolution = gdaiCase.getGDAICaseResolution();
+			gdaiCaseDescription = gdaiCaseDetails.getGDAICaseDescription();
+			gdaiCaseResolution = gdaiCaseDetails.getGDAICaseResolution();
 
-			system = gdaiCase.getSystem();
+			systemDetails = gdaiCaseDetails.getSystemDetails();
 
 		} catch (InstanceNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -119,11 +118,11 @@ public class GDAICaseModify {
 		}
 
 		try {
-			User createdBy = userService.findUser(userSession.getUserId());
-			gdaiCase = gdaiCaseService.findGDAICase(gdaiCaseId);
+			UserDetails createdBy = userService.findUser(userSession.getUserId());
+			gdaiCaseDetails = gdaiCaseService.findGDAICase(gdaiCaseId);
 
-			gdaiCaseService.updateGDAICaseDetails(gdaiCaseId, new GDAICaseDetails(gdaiCaseDescription,
-					gdaiCaseResolution, gdaiCase.getCreationDate(), createdBy, system));
+			gdaiCaseService.updateGDAICaseDetails(gdaiCaseId, new GDAICaseDetails(gdaiCaseId, gdaiCaseDescription,
+					gdaiCaseResolution, gdaiCaseDetails.getCreationDate(), createdBy, systemDetails));
 		} catch (Exception e) {
 			e.printStackTrace();
 			registrationForm.recordError(messages.get("error-unexpectedError"));
@@ -136,24 +135,23 @@ public class GDAICaseModify {
 		return pageRenderLS.createPageRenderLinkWithContext("tools/gdaiCase/gdaiCasemodified", gdaiCaseId);
 	}
 
-
 	public SystemEncoder getSystemEncoder() {
 		return new SystemEncoder(systemService);
 	}
-	
+
 	void onPrepare() {
 
-		List<System> systems = systemService.findAllOrderedBySystemName();
+		List<SystemDetails> systemsDetails = systemService.findAllOrderedBySystemName();
 
 		if (systemId != null) {
-			system = findSystemInList(systemId, systems);
+			systemDetails = findSystemInList(systemId, systemsDetails);
 		}
 
-		systemsModel = selectModelFactory.create(systems, "systemName");
+		systemsModel = selectModelFactory.create(systemsDetails, "systemName");
 	}
-	
-	private System findSystemInList(Long systemId, List<System> systems) {
-		for (System s : systems) {
+
+	private SystemDetails findSystemInList(Long systemId, List<SystemDetails> systemsDetails) {
+		for (SystemDetails s : systemsDetails) {
 			if (s.getSystemId().equals(systemId)) {
 				return s;
 			}

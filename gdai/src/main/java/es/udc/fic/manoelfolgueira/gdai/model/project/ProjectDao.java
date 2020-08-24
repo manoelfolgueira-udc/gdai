@@ -8,14 +8,15 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 /**
  * @author Manoel Folgueira <manoel.folgueira@udc.es>
- * @file   ProjectDao.java
+ * @file ProjectDao.java
  */
 public interface ProjectDao extends GenericDao<Project, Long> {
 
 	/**
 	 * Returns a Project by name
 	 * 
-	 * @param name the project identifier
+	 * @param name
+	 *            the project identifier
 	 * @return the Project
 	 */
 	public Project findByName(String name) throws InstanceNotFoundException;

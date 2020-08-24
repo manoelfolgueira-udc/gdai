@@ -1,11 +1,13 @@
 package es.udc.fic.manoelfolgueira.gdai.model.systemservice;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
 import es.udc.fic.manoelfolgueira.gdai.model.system.System;
 import es.udc.fic.manoelfolgueira.gdai.model.system.SystemDao;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
@@ -15,69 +17,72 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 @Transactional
 public class SystemServiceImpl implements SystemService {
 
-    @Autowired
-    private SystemDao systemDao;
+	@Autowired
+	private SystemDao systemDao;
 
-    /**
-     * {@inheritDoc}
-     */
-    public System registerSystem(String name,
-            SystemDetails systemDetails)
-            throws DuplicateInstanceException {
+	/**
+	 * {@inheritDoc}
+	 */
+	public SystemDetails registerSystem(SystemDetails systemDetails) throws DuplicateInstanceException {
 
-        try {
-            systemDao.findByName(name);
-            throw new DuplicateInstanceException(name,
-                    System.class.getName());
-        } catch (InstanceNotFoundException e) {
-        	
-            System system = new System(systemDetails.getSystemName(), systemDetails.getSystemDescription(), systemDetails.getGroup());
+		try {
+			systemDao.findByName(systemDetails.getSystemName());
+			throw new DuplicateInstanceException(systemDetails.getSystemName(), System.class.getName());
+		} catch (InstanceNotFoundException e) {
 
-            systemDao.save(system);
-            return system;
-        }
+			System system = new System(systemDetails);
 
-    }
+			systemDao.save(system);
+			return new SystemDetails(system);
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Transactional(readOnly = true)
-    public System findSystem(Long systemId)
-            throws InstanceNotFoundException {
+	}
 
-        return systemDao.find(systemId);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transactional(readOnly = true)
+	public SystemDetails findSystem(Long systemId) throws InstanceNotFoundException {
 
-    /**
-     * {@inheritDoc}
-     */
-    public void updateSystemDetails(Long systemId,
-            SystemDetails systemDetails)
-            throws InstanceNotFoundException {
+		return new SystemDetails(systemDao.find(systemId));
+	}
 
-        System system = systemDao.find(systemId);
-        
-        system.setSystemName(systemDetails.getSystemName());
-        system.setSystemDescription(systemDetails.getSystemDescription());
-        system.setGroup(systemDetails.getGroup());
-        
-        systemDao.save(system);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public List<System> findAllOrderedBySystemName() {
-    	return systemDao.findAllOrderedBySystemName();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void updateSystemDetails(Long systemId, SystemDetails systemDetails) throws InstanceNotFoundException {
 
-    /**
-     * {@inheritDoc}
-     */
+		System system = systemDao.find(systemId);
+
+		system.setSystemName(systemDetails.getSystemName());
+		system.setSystemDescription(systemDetails.getSystemDescription());
+		system.setExpirationDate(systemDetails.getExpirationDate());
+		system.setGroup(new Group(systemDetails.getGroup()));
+
+		systemDao.save(system);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<SystemDetails> findAllOrderedBySystemName() {
+
+		LinkedList<SystemDetails> systemsDetails = new LinkedList<>();
+		List<System> systems = systemDao.findAllOrderedBySystemName();
+
+		for (System system : systems) {
+			systemsDetails.add(new SystemDetails(system));
+		}
+
+		return systemsDetails;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(Long systemId) throws InstanceNotFoundException {
 		systemDao.remove(systemId);
 	}
-    
+
 }
