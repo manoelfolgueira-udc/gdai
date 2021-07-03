@@ -8,8 +8,8 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;

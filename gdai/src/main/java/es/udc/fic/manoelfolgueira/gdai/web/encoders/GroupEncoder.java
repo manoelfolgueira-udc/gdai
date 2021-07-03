@@ -2,8 +2,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.encoders;
 
 import org.apache.tapestry5.ValueEncoder;
 
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.GroupDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 /**

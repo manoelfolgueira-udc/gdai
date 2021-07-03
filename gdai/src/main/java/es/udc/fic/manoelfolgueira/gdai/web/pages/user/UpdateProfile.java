@@ -10,10 +10,10 @@ import org.apache.tapestry5.corelib.components.RadioGroup;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.group.Group;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.entities.group.Group;
+import es.udc.fic.manoelfolgueira.gdai.model.services.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;

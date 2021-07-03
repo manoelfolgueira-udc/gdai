@@ -18,8 +18,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.productionpassservice.ProductionPassService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ProductionPassDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;

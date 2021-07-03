@@ -8,8 +8,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 

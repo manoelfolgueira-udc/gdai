@@ -37,7 +37,7 @@ public class GenericDaoHibernate<E, PK extends Serializable> implements GenericD
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-
+	
 	public void save(E entity) {
 		getSession().saveOrUpdate(entity);
 	}

@@ -16,12 +16,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.groupservice.GroupService;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.groupservice.GroupService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.GroupDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.encoders.GroupEncoder;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;

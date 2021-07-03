@@ -8,9 +8,9 @@ import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userstoryservice.UserStoryService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;

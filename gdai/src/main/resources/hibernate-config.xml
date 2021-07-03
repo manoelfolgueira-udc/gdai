@@ -13,16 +13,16 @@
         <!-- Backwards compatibility with hibernate 4.x, to map AUTO to the native generator strategy (e.g. identity or sequence) -->
 		<property name="hibernate.id.new_generator_mappings">false</property>
 
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.user.User" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.group.Group" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.language.Language" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.system.System" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.project.Project" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.application.Application" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.sprint.Sprint" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.userstory.UserStory" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.gdaicase.GDAICase" />
-        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.productionpass.ProductionPass" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.user.User" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.group.Group" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.language.Language" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.system.System" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.project.Project" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.application.Application" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.sprint.Sprint" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.userstory.UserStory" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.gdaicase.GDAICase" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.productionpass.ProductionPass" />
         
     </session-factory>
 </hibernate-configuration>
