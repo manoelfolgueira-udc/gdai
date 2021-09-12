@@ -13,6 +13,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.entities.user.UserDao;
 import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.util.PasswordEncrypter;
 import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 @Service("userService")
@@ -89,6 +90,7 @@ public class UserServiceImpl implements UserService {
 		user.setFirstName(userDetails.getFirstName());
 		user.setLastName(userDetails.getLastName());
 		user.setGender(userDetails.getGender());
+		user.setEmail(userDetails.getEmail());
 		user.setPhoneNumber(userDetails.getPhoneNumber());
 		user.setAvatarUrl(userDetails.getAvatarUrl());
 

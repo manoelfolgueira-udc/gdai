@@ -117,7 +117,15 @@
 						<li class="dropdown"><a data-target="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <span
 								class="glyphicon glyphicon-user"> <span
-									class="header-menu-text"> ${userSession.loginName}</span>
+									class="header-menu-text"> ${userSession.loginName}
+									<t:if test="groupName">[ ${groupName} ] </t:if>
+									<t:if test="isUserAdministrator">
+										<t:if test="!isManager">( ${message:userCategoryAdministrator} )</t:if></t:if>
+									<t:if test="!isUserAdministrator">
+										<t:if test="isManager">( ${message:userCategoryManager} )</t:if></t:if>
+									<t:if test="isUserAdministrator">
+										<t:if test="isManager">( ${message:userCategoryAdministrator}, ${message:userCategoryManager} )</t:if></t:if>
+									</span>
 							</span> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li class="dropdown-header">${message:userdropdown-header-user}</li>

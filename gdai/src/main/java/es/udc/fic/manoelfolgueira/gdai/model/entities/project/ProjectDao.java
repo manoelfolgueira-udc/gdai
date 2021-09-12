@@ -42,7 +42,7 @@ public interface ProjectDao extends GenericDao<Project, Long> {
 	 * @param systemId
 	 * @return a List of projects
 	 */
-	public List<Project> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<Project> findByCriteria(String projectName, String projectDescription, String userStoryName,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId);
 }

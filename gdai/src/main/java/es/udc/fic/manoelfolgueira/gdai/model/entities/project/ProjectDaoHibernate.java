@@ -45,24 +45,24 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Project> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<Project> findByCriteria(String projectName, String projectDescription, String userStoryName,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId) {
 
 		boolean alreadyCond = false;
 		String query = "SELECT p FROM Project p inner join p.sprints sp inner join p.system sy inner join p.userStory u inner join sy.group g ";
 
-		if (projectId != null || projectDescription != null || userStoryId != null || userStoryDescription != null
+		if (projectName != null || projectDescription != null || userStoryName != null || userStoryDescription != null
 				|| creationDateStart != null || creationDateEnd != null || sprintId != null || groupId != null
 				|| systemId != null) {
 			query += "WHERE ";
 		}
 
-		String projectIdParam = "";
-		if (projectId != null) {
+		String projectNameParam = "";
+		if (projectName != null) {
 			alreadyCond = true;
-			projectIdParam = Utils.getSQLWildcardedParam(projectId);
-			query += "cast(p.projectId as string) like :projectIdParam ";
+			projectNameParam = Utils.getSQLWildcardedParam(projectName);
+			query += "cast(p.projectName as string) like :projectNameParam ";
 		}
 
 		String projectDescriptionParam = "";
@@ -74,13 +74,13 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 			query += "lower(p.projectDescription) like lower(:projectDescriptionParam) ";
 		}
 
-		String userStoryIdParam = "";
-		if (userStoryId != null) {
+		String userStoryNameParam = "";
+		if (userStoryName != null) {
 			if (alreadyCond)
 				query += "AND ";
 			alreadyCond = true;
-			userStoryIdParam = Utils.getSQLWildcardedParam(userStoryId);
-			query += "cast(u.userStoryId as string) like :userStoryIdParam ";
+			userStoryNameParam = Utils.getSQLWildcardedParam(userStoryName);
+			query += "cast(u.userStoryName as string) like :userStoryNameParam ";
 		}
 
 		String userStoryDescriptionParam = "";
@@ -124,16 +124,18 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
 
 		query += "order by p.projectId DESC";
 		
+		System.out.println("H058 query: " + query);
+		
 		Query q = getSession().createQuery(query);
 
-		if (projectId != null) {
-			q.setParameter("projectIdParam", projectIdParam);
+		if (projectName != null) {
+			q.setParameter("projectNameParam", projectNameParam);
 		}
 		if (projectDescription != null) {
 			q.setParameter("projectDescriptionParam", projectDescriptionParam);
 		}
-		if (userStoryId != null) {
-			q.setParameter("userStoryIdParam", userStoryIdParam);
+		if (userStoryName != null) {
+			q.setParameter("userStoryNameParam", userStoryNameParam);
 		}
 		if (userStoryDescription != null) {
 			q.setParameter("userStoryDescriptionParam", userStoryDescriptionParam);

@@ -1,6 +1,7 @@
 package es.udc.fic.manoelfolgueira.gdai.web.services;
 
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -32,7 +33,12 @@ public class AppModule {
 
 		configuration.add(SymbolConstants.HMAC_PASSPHRASE,
 				Config.getInstance().getProperties().getProperty("HMAC_PASSPHRASE"));
-
+		
+	}
+	
+	public static void contributeIgnoredPathsFilter(
+	        final Configuration<String> configuration) {
+	    configuration.add("/api/.*");
 	}
 
 }

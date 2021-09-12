@@ -80,5 +80,13 @@ public class Layout {
 			return false;
 		}
 	}
+	
+	public String getGroupName() {
+		try {
+			return userService.findUser(userSession.getUserId()).getGroup().getGroupName();
+		} catch (InstanceNotFoundException e) {
+			return "";
+		}
+	}
 
 }

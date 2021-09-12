@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS gdai_system;
 DROP TABLE IF EXISTS gdai_application;
 DROP TABLE IF EXISTS gdai_userstory;
 DROP TABLE IF EXISTS gdai_project;
+DROP TABLE IF EXISTS gdai_projects_filter;
 DROP TABLE IF EXISTS gdai_sprint;
 DROP TABLE IF EXISTS gdai_project_sprint_jt;
 DROP TABLE IF EXISTS gdai_production_pass;
@@ -147,6 +148,26 @@ engine = innodb;
 CREATE INDEX ProjectIndexByProjectName ON gdai_project(projectName); 
 ------------------------------------------------------------------------
 
+-- ------------------------------ Projects Filter ---------------------------------
+CREATE TABLE gdai_projects_filter
+  ( 
+     projectsFilterId         BIGINT NOT NULL auto_increment,
+     createdById              BIGINT NOT NULL,
+     projectName              VARCHAR(255),	
+     projectDescription       VARCHAR(10000),
+     userStoryName            VARCHAR(255),	
+     userStoryDescription     VARCHAR(10000),
+     projectCreationDateStart TIMESTAMP NULL,
+     projectCreationDateEnd   TIMESTAMP NULL,
+     sprintId                 BIGINT,
+     groupId     		      BIGINT,
+     systemId     		      BIGINT,
+     CONSTRAINT ProjectsFilterPK PRIMARY KEY (projectsFilterId),
+     FOREIGN KEY (createdById) REFERENCES gdai_user(userId)
+  ) 
+engine = innodb; 
+------------------------------------------------------------------------
+
 -- ------------------------------ project_sprint_jt --------------------------------
 CREATE TABLE gdai_project_sprint_jt
   ( 
@@ -184,7 +205,7 @@ CREATE TABLE gdai_gdai_case
   ( 
      gdaiCaseId    	     BIGINT NOT NULL auto_increment,
      gdaiCaseDescription VARCHAR(10000) NOT NULL,
-     gdaiCaseResolution  VARCHAR(10000) NOT NULL,
+     gdaiCaseResolution  VARCHAR(10000),
      creationDate    TIMESTAMP NOT NULL,
      createdById     BIGINT NOT NULL,
      systemId        BIGINT NOT NULL,

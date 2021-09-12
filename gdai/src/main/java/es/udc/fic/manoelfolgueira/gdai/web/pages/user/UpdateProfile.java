@@ -116,7 +116,7 @@ public class UpdateProfile {
 	}
 
 	void onValidateFromUpdateProfileForm() {
-
+		
 		if (!updateProfileForm.isValid()) {
 			return;
 		}
@@ -133,7 +133,7 @@ public class UpdateProfile {
 	Object onSuccess() throws InstanceNotFoundException {
 
 		userDetails = userService.findUser(userSession.getUserId());
-
+		
 		userService.updateUserDetails(userSession.getUserId(),
 				new UserDetails(userDetails.getUserId(), loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,
 						userDetails.getHireDate(), userDetails.getDateOfBirth(), userDetails.getExpirationDate(), userDetails.getIsManager(),

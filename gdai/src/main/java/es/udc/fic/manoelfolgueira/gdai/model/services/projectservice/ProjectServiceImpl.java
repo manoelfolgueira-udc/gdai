@@ -93,13 +93,13 @@ public class ProjectServiceImpl implements ProjectService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<ProjectDetails> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<ProjectDetails> findByCriteria(String projectName, String projectDescription, String userStoryName,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId) {
 		
 		LinkedList<ProjectDetails> projectsDetails = new LinkedList<>();
 		
-		projectDao.findByCriteria(projectId, projectDescription, userStoryId, userStoryDescription,
+		projectDao.findByCriteria(projectName, projectDescription, userStoryName, userStoryDescription,
 				creationDateStart, creationDateEnd, sprintId, groupId, systemId).forEach(p -> {
 					projectsDetails.add(new ProjectDetails(p));
 				});

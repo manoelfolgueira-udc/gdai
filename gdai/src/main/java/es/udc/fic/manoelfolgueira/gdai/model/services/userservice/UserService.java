@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 public interface UserService {
@@ -24,7 +25,7 @@ public interface UserService {
 			throws DuplicateInstanceException;
 
 	/**
-	 * Let's a user get to GDAI if they enter they credentials properly
+	 * Lets a user get to GDAI if they enter they credentials properly
 	 * 
 	 * @param loginName
 	 *            the user login name

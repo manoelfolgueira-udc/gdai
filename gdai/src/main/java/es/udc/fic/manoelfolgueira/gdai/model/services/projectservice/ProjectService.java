@@ -70,7 +70,7 @@ public interface ProjectService {
 	 * @param systemId
 	 * @return a List of projects
 	 */
-	public List<ProjectDetails> findByCriteria(String projectId, String projectDescription, String userStoryId,
+	public List<ProjectDetails> findByCriteria(String projectName, String projectDescription, String userStoryName,
 			String userStoryDescription, Calendar creationDateStart, Calendar creationDateEnd, Long sprintId,
 			Long groupId, Long systemId);
 

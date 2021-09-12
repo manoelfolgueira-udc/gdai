@@ -18,6 +18,7 @@
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.language.Language" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.system.System" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.project.Project" />
+        <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.projectsfilter.ProjectsFilter" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.application.Application" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.sprint.Sprint" />
         <mapping class="es.udc.fic.manoelfolgueira.gdai.model.entities.userstory.UserStory" />
