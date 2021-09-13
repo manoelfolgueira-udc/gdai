@@ -2,6 +2,7 @@
 	t:type="Layout" t:title="title" xmlns:p="tapestry:parameter">
 
 
+
 <nav class="navbar navbar-default" role="navigation">
 	<div class="navbar-collapse collapse">
 		<t:if test="userDetails.isManager">
@@ -22,7 +23,7 @@
 	<t:errors />
 
 	<div id="advsearch" class="eg collapse">
-
+		
 		<div class="alert alert-default">
 			<strong>${message:help}</strong>
 			<p class="help-font">${message:help-advancedSearch}</p>
@@ -30,10 +31,10 @@
 
 		<div class="form-row">
 			<div class="col">
-				<label class="control-label">${message:projectId}</label>
+				<label class="control-label">${message:projectName}</label>
 				<div class="form-group">
 					<div class="col-md-4">
-						<input t:id="projectId" t:type="TextField" />
+						<input t:id="projectName" t:type="TextField" />
 					</div>
 				</div>
 			</div>
@@ -46,10 +47,10 @@
 				</div>
 			</div>
 			<div class="col">
-				<label class="control-label">${message:userStoryId}</label>
+				<label class="control-label">${message:userStoryName}</label>
 				<div class="form-group">
 					<div class="col-md-4">
-						<input t:id="userStoryId" t:type="TextField" />
+						<input t:id="userStoryName" t:type="TextField" />
 					</div>
 				</div>
 			</div>
@@ -108,8 +109,15 @@
 		</div>
 
 		<div id="advsearch" class="form-group all-padding">
-			<button type="submit" class="btn btn-default btn-block text-center">Buscar
-				Proyectos</button>
+			<button t:type="submit" class="btn btn-default btn-block text-center" value="${message:searchProjects}"></button>
+		</div>
+		
+		<div id="advsearch" class="form-group all-padding">
+			<button t:type="submit" t:id="filterSave" class="btn btn-default btn-block text-center" value="${message:filter-save}"></button>
+		</div>
+		
+		<div id="advsearch" class="form-group all-padding">
+			<button t:type="submit" t:id="filterLoad" class="btn btn-default btn-block text-center" value="${message:filter-load}"></button>
 		</div>
 
 	</div>
@@ -131,11 +139,11 @@
                 ${projectDetails.userStoryDetails.userStoryName}
             </p:userStoryCell>
 				<p:systemCell>
-					<t:pagelink page="system/view" context="projectDetails.systemDetails.systemId">${projectDetails.systemDetails.systemName}</t:pagelink>
+					<t:pagelink page="system/view" context="[projectDetails.systemDetails.systemId, getCurrentPath()]">${projectDetails.systemDetails.systemName}</t:pagelink>
 				</p:systemCell>
 				<p:groupCell>
 					<t:pagelink page="group/view"
-						context="projectDetails.systemDetails.group.groupId">${projectDetails.systemDetails.group.groupName}</t:pagelink>
+						context="[projectDetails.systemDetails.group.groupId, getCurrentPath()]">${projectDetails.systemDetails.group.groupName}</t:pagelink>
 				</p:groupCell>
 				<!-- 			<p:createdByCell> -->
 				<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->

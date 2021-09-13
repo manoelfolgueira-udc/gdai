@@ -2,7 +2,7 @@ package es.udc.fic.manoelfolgueira.gdai.web.util;
 
 import java.util.Map;
 
-import es.udc.fic.manoelfolgueira.gdai.model.languageservice.LanguageService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.languageservice.LanguageService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 public class AvailableLanguages {

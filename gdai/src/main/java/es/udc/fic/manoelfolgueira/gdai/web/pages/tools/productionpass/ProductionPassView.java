@@ -18,8 +18,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.productionpassservice.ProductionPassService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ProductionPassDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -103,7 +103,8 @@ public class ProductionPassView {
 	}
 
 	public String getPRFileName() {
-		return productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
+		String file = productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
+		return new File(file).exists() ? file : null;
 	}
 
 }

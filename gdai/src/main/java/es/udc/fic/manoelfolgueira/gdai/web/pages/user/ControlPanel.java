@@ -4,10 +4,10 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.pages.tools.project.ProjectManagement;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;

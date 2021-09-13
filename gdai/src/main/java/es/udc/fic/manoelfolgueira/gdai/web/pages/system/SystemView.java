@@ -6,8 +6,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -33,10 +33,17 @@ public class SystemView {
 
 	@Inject
 	private Locale locale;
+	
+	@Property
+	private String goBackUrl;
 
 	void onActivate(Long systemId) throws InstanceNotFoundException {
-
+		goBackUrl = "administration/system/management";
 		systemDetails = systemService.findSystem(systemId);
+	}
 
+	void onActivate(Long systemId, String goBack) throws InstanceNotFoundException {
+		goBackUrl = (goBack.indexOf("tools") > -1 ? goBack.substring(goBack.indexOf("tools")) : goBack.substring(goBack.indexOf("administration")));
+		systemDetails = systemService.findSystem(systemId);
 	}
 }

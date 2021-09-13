@@ -2,8 +2,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.encoders;
 
 import org.apache.tapestry5.ValueEncoder;
 
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.SystemDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 /**

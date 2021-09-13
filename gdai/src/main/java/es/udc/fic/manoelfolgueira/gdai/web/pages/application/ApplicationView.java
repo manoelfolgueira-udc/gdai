@@ -6,8 +6,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.applicationservice.ApplicationService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ApplicationDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -33,10 +33,13 @@ public class ApplicationView {
 
 	@Inject
 	private Locale locale;
-
+	
+	@Property
+	private String goBackUrl;
+	
 	void onActivate(Long applicationId) throws InstanceNotFoundException {
-
+		goBackUrl = "administration/application/management";
 		applicationDetails = applicationService.findApplication(applicationId);
-
 	}
+
 }

@@ -3,13 +3,15 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.application;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.applicationservice.ApplicationService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.applicationservice.ApplicationService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ApplicationDetails;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
 import es.udc.fic.manoelfolgueira.gdai.web.util.UserSession;
@@ -50,6 +52,13 @@ public class ApplicationManagement {
 
 	@Property
 	List<ApplicationDetails> applicationsDetails;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		// A GridDataSource is not provided due to the little ammount of applications

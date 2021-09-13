@@ -7,7 +7,7 @@ public abstract class InstanceException extends Exception {
 	private String className;
 
 	/**
-	 * @see es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException.java
+	 * @see es.udc.fic.manoelfolgueira.gdai.test.util.exceptions.InstanceNotFoundException.java
 	 */
 	protected InstanceException(String specificMessage, Object key, String className) {
 

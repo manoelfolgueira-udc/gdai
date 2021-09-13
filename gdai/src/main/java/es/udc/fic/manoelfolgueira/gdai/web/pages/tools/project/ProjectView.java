@@ -18,8 +18,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 
-import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.projectservice.ProjectService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.projectservice.ProjectService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ProjectDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -107,7 +107,10 @@ public class ProjectView {
 	}
 
 	public String getPRFileName() {
-		return projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
+		
+		String file = projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
+		
+		return new File(file).exists() ? file : null;
 	}
 
 }

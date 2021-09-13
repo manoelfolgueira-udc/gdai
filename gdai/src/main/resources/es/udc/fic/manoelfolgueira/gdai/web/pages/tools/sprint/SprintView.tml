@@ -3,7 +3,7 @@
 	xmlns:p="tapestry:parameter">
 
 <div class="eg">
-	<t:beandisplay object="sprint">
+	<t:beandisplay object="sprintDetails">
 	</t:beandisplay>
 </div>
 

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -12,12 +14,12 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.productionpassservice.ProductionPassService;
-import es.udc.fic.manoelfolgueira.gdai.model.system.System;
-import es.udc.fic.manoelfolgueira.gdai.model.systemservice.SystemService;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.entities.system.System;
+import es.udc.fic.manoelfolgueira.gdai.model.services.productionpassservice.ProductionPassService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.systemservice.SystemService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.ProductionPassDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -70,6 +72,13 @@ public class ProductionPassManagement {
 
 	@Property
 	private UserDetails user;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		try {

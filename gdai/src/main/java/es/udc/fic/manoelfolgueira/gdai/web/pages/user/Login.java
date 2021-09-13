@@ -10,12 +10,12 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Cookies;
 
-import es.udc.fic.manoelfolgueira.gdai.model.user.User;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.IncorrectPasswordException;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.entities.user.User;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.Config;
 import es.udc.fic.manoelfolgueira.gdai.model.util.ConfigPropertyKeys;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserDetails;
+import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.IncorrectPasswordException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.UserExpiratedException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;

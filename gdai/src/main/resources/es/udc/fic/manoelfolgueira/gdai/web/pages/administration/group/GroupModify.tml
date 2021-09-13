@@ -9,7 +9,7 @@
 	        <t:label for="groupName" class="col-md-offset-3 col-md-2"/>
 	        <div class="col-md-3">
 	            <input t:id="groupName" t:type="TextField"
-				       t:validate="required" maxlength="30" />
+				       t:validate="required" maxlength="30" readonly="readonly"/>
 	        </div>
 	   </div>
 	   

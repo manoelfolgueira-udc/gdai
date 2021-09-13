@@ -3,6 +3,8 @@ package es.udc.fic.manoelfolgueira.gdai.model.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.LanguageDetails;
+
 /**
  * All DTOs (which inherite the structure and behaviour from this class) will
  * get an special ID called GDAICode based on their class name.
@@ -71,6 +73,14 @@ public class GDAIDetailsCodificable {
 			return initial + "-" + new String(new char[length - currentCode.length()]).replace('\0', '0') + currentCode;
 
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getGDAICode()  == null) ? 0 : getGDAICode() .hashCode());
+		return result;
+	}
 
 	/**
 	 * Returns the actual database id
@@ -81,6 +91,23 @@ public class GDAIDetailsCodificable {
 	 */
 	public static Long decode(String code) {
 		return Long.parseLong((code.substring(2, code.length() - 1)));
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LanguageDetails other = (LanguageDetails) obj;
+		if (getGDAICode() == null) {
+			if (other.getGDAICode() != null)
+				return false;
+		} else if (!getGDAICode().equals(other.getGDAICode()))
+			return false;
+		return true;
 	}
 
 }

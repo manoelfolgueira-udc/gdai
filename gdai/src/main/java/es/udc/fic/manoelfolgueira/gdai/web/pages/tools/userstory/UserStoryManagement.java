@@ -3,14 +3,16 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.userstory;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.fic.manoelfolgueira.gdai.model.userservice.UserService;
-import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.userstoryservice.UserStoryService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.userstoryservice.UserStoryService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.UserStoryDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;
@@ -58,6 +60,13 @@ public class UserStoryManagement {
 
 	@Property
 	private boolean isManager;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		// A GridDataSource is not provided due to the little ammount of UserStorys

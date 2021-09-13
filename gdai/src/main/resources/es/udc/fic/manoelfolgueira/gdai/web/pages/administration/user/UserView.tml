@@ -40,6 +40,10 @@
 										<td>${getDateOfBirthDBValue()}</td>
 									</tr>
 									<tr>
+										<td>${message:expirationDate}</td>
+										<td>${getExpirationDate()}</td>
+									</tr>
+									<tr>
 										<td>${message:isManager}</td>
 										<td>${getIsManagerUI()}</td>
 									</tr>

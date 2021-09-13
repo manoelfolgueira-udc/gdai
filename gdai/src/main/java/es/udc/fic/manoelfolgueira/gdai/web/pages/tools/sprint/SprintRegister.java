@@ -13,8 +13,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.DuplicateInstanceException;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicy;
 import es.udc.fic.manoelfolgueira.gdai.web.services.AuthenticationPolicyType;

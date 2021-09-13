@@ -2,8 +2,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.encoders;
 
 import org.apache.tapestry5.ValueEncoder;
 
-import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintDetails;
-import es.udc.fic.manoelfolgueira.gdai.model.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.services.sprintservice.SprintService;
+import es.udc.fic.manoelfolgueira.gdai.model.util.dtos.SprintDetails;
 import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundException;
 
 /**
