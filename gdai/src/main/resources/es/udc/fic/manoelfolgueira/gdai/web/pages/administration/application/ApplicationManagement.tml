@@ -22,7 +22,7 @@
 				context="applicationDetails.applicationId">${applicationDetails.applicationName}</t:pagelink>
 		</p:applicationNameCell>
 		<p:systemCell>
-			<t:pagelink page="system/view" context="applicationDetails.system.systemId">${applicationDetails.system.systemName}</t:pagelink>
+			<t:pagelink page="system/view" context="[applicationDetails.system.systemId, getCurrentPath()]">${applicationDetails.system.systemName}</t:pagelink>
 		</p:systemCell>
 		<p:applicationManagementCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"

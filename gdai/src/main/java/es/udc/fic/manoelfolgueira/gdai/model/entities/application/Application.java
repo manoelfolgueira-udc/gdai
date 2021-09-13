@@ -69,12 +69,14 @@ public class Application {
 	 */
 	public Application(ApplicationDetails applicationDetails) {
 		super();
-		this.applicationId = applicationDetails.getApplicationId();
-		this.applicationName = applicationDetails.getApplicationName();
-		this.applicationDescription = applicationDetails.getApplicationDescription();
-		this.creationDate = applicationDetails.getCreationDate();
-		this.expirationDate = applicationDetails.getExpirationDate();
-		this.system = new System(applicationDetails.getSystem());
+		if (applicationDetails != null) {
+			this.applicationId = applicationDetails.getApplicationId();
+			this.applicationName = applicationDetails.getApplicationName();
+			this.applicationDescription = applicationDetails.getApplicationDescription();
+			this.creationDate = applicationDetails.getCreationDate();
+			this.expirationDate = applicationDetails.getExpirationDate();
+			this.system = new System(applicationDetails.getSystem());
+		}
 	}
 
 	/**

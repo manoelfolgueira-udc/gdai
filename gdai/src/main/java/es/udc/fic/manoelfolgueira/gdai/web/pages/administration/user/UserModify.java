@@ -176,6 +176,8 @@ public class UserModify {
 				userSession.setAdministrator(groupDetails.getGroupName().equals(Config.getInstance().getProperties()
 						.getProperty(ConfigPropertyKeys.ADMINISTRATORS_GROUP_NAME)));
 			}
+			
+			System.out.println("H058 loginName"+ loginName);
 
 			userService.updateUserDetails(userId,
 					new UserDetails(userId, loginName, firstName, lastName, genderValue, email, phoneNumber, avatarUrl,

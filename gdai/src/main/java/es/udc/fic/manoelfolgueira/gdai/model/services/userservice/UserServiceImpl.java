@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 		try {
 			userDao.findByLoginName(userDetails.getLoginName());
-			throw new DuplicateInstanceException(userDetails.getLoginName(), User.class.getName());
+			throw new DuplicateInstanceException(userDetails.getLoginName(), UserDetails.class.getName());
 		} catch (InstanceNotFoundException e) {
 			String encryptedPassword = PasswordEncrypter.crypt(clearPassword);
 
@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService {
 
 		User user = userDao.find(userProfileId);
 
+		user.setLoginName(userDetails.getLoginName());
 		user.setFirstName(userDetails.getFirstName());
 		user.setLastName(userDetails.getLastName());
 		user.setGender(userDetails.getGender());

@@ -107,7 +107,10 @@ public class ProjectView {
 	}
 
 	public String getPRFileName() {
-		return projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
+		
+		String file = projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
+		
+		return new File(file).exists() ? file : null;
 	}
 
 }

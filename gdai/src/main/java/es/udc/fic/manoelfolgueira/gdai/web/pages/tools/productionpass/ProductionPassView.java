@@ -103,7 +103,8 @@ public class ProductionPassView {
 	}
 
 	public String getPRFileName() {
-		return productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
+		String file = productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
+		return new File(file).exists() ? file : null;
 	}
 
 }

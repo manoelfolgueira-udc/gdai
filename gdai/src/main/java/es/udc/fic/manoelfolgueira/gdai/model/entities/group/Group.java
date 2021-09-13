@@ -57,13 +57,15 @@ public class Group {
 
 	public Group(GroupDetails groupDetails) {
 		super();
-		this.groupId = groupDetails.getGroupId();
-		this.groupName = groupDetails.getGroupName();
-		this.groupDescription = groupDetails.getGroupDescription();
-		this.creationDate = groupDetails.getCreationDate();
-		this.expirationDate = groupDetails.getExpirationDate();
-		this.users = groupDetails.getUsers();
-		this.systems = groupDetails.getSystems();
+		if (groupDetails != null) {
+			this.groupId = groupDetails.getGroupId();
+			this.groupName = groupDetails.getGroupName();
+			this.groupDescription = groupDetails.getGroupDescription();
+			this.creationDate = groupDetails.getCreationDate();
+			this.expirationDate = groupDetails.getExpirationDate();
+			this.users = groupDetails.getUsers();
+			this.systems = groupDetails.getSystems();
+		}
 	}
 
 	/**

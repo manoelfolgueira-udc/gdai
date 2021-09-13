@@ -74,12 +74,14 @@ public class GDAICase {
 	 * @param gDAICaseDetails
 	 */
 	public GDAICase(GDAICaseDetails gDAICaseDetails) {
-		this.gdaiCaseId = gDAICaseDetails.getGDAICaseId();
-		this.gdaiCaseDescription = gDAICaseDetails.getGDAICaseDescription();
-		this.gdaiCaseResolution = gDAICaseDetails.getGDAICaseResolution();
-		this.creationDate = gDAICaseDetails.getCreationDate();
-		this.createdBy = new User(gDAICaseDetails.getCreatedBy());
-		this.system = new System(gDAICaseDetails.getSystemDetails());
+		if (gDAICaseDetails != null) {
+			this.gdaiCaseId = gDAICaseDetails.getGDAICaseId();
+			this.gdaiCaseDescription = gDAICaseDetails.getGDAICaseDescription();
+			this.gdaiCaseResolution = gDAICaseDetails.getGDAICaseResolution();
+			this.creationDate = gDAICaseDetails.getCreationDate();
+			this.createdBy = new User(gDAICaseDetails.getCreatedBy());
+			this.system = new System(gDAICaseDetails.getSystemDetails());
+		}
 	}
 
 	/**

@@ -29,18 +29,15 @@
 			<param-value>sessionFactory</param-value>
 		</init-param>
 	</filter>
-
-	<filter>
-		<filter-name>app</filter-name>
-		<filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
-	</filter>
-
-
 	<filter-mapping>
 		<filter-name>openSessionInView</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>app</filter-name>
+		<filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>app</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -51,7 +48,7 @@
 	    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 	    <init-param>
 	      <param-name>jersey.config.server.provider.packages</param-name>
-	      <param-value>es.udc.fic.manoelfolgueira.gdai.web.rest.controllers</param-value>
+	      <param-value>es.udc.fic.manoelfolgueira.gdai.web.rest.controllers;es.udc.fic.manoelfolgueira.gdai.web.rest.security</param-value>
 	    </init-param>
 	    <init-param>
 			<param-name>jersey.config.server.provider.scanning.recursive</param-name>

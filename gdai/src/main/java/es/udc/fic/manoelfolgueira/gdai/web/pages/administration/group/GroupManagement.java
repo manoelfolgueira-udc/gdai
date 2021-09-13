@@ -3,6 +3,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.administration.group;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
@@ -55,6 +57,13 @@ public class GroupManagement {
 
 	@Inject
 	private Locale locale;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	// Methods
 

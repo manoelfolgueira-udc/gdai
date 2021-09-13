@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -155,6 +157,13 @@ public class ProjectManagement {
 	
 	@Property
 	private ProjectsFilter projectsFilter;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		try {

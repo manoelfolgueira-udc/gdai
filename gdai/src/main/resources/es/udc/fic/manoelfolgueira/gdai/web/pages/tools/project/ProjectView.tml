@@ -4,7 +4,7 @@
 <div class="eg">
 	<t:beandisplay object="projectDetails">
 		<p:requirementsPath>
-			<a t:id="downloadLink">${message:download} ${getPRFileName()}</a>
+			<a t:id="downloadLink"><t:if test="getPRFileName()">${message:download} ${getPRFileName()}</t:if></a>
 		</p:requirementsPath>
 	</t:beandisplay>
 </div>
@@ -16,7 +16,7 @@
 	<div class="form-group">
 		<div class="col-md-offset-5 col-md-6 col-md-6">
 			<button type="submit" class="btn btn-default" t:type="PageLink"
-				t:page="tools/project/modify" t:context="project.projectId">${message:updateProject}</button>
+				t:page="tools/project/modify" t:context="projectDetails.projectId">${message:updateProject}</button>
 			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-default" t:type="PageLink"
 				t:page="tools/project/management">${message:back}</button>

@@ -33,10 +33,17 @@ public class SystemView {
 
 	@Inject
 	private Locale locale;
+	
+	@Property
+	private String goBackUrl;
 
 	void onActivate(Long systemId) throws InstanceNotFoundException {
-
+		goBackUrl = "administration/system/management";
 		systemDetails = systemService.findSystem(systemId);
+	}
 
+	void onActivate(Long systemId, String goBack) throws InstanceNotFoundException {
+		goBackUrl = (goBack.indexOf("tools") > -1 ? goBack.substring(goBack.indexOf("tools")) : goBack.substring(goBack.indexOf("administration")));
+		systemDetails = systemService.findSystem(systemId);
 	}
 }

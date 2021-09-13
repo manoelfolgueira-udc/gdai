@@ -84,6 +84,10 @@ public class UserView {
 	public String getDateOfBirthDBValue() {
 		return userDetails.getDateOfBirth() == null ? "" : Utils.getFormattedDate(userDetails.getDateOfBirth().getTime(), locale);
 	}
+	
+	public String getExpirationDate() {
+		return userDetails.getExpirationDate() == null ? "" : Utils.getFormattedDate(userDetails.getExpirationDate().getTime(), locale);
+	}
 
 	public String getIsManagerUI() {
 		return userDetails.getIsManager() ? "Y" : "N";

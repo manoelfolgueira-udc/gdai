@@ -3,6 +3,8 @@ package es.udc.fic.manoelfolgueira.gdai.web.pages.tools.sprint;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.Messages;
@@ -59,6 +61,13 @@ public class SprintManagement {
 
 	@Property
 	private boolean isManager;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		// A GridDataSource is not provided due to the little ammount of sprints which

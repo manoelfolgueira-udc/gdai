@@ -71,13 +71,14 @@ public class System {
 	}
 
 	public System(SystemDetails systemDetails) {
-		this.systemId = systemDetails.getSystemId();
-		this.systemName = systemDetails.getSystemName();
-		this.systemDescription = systemDetails.getSystemDescription();
-		this.creationDate = systemDetails.getCreationDate();
-		this.expirationDate = systemDetails.getCreationDate();
-		this.group = new Group(systemDetails.getGroup());
-
+		if (systemDetails != null) {
+			this.systemId = systemDetails.getSystemId();
+			this.systemName = systemDetails.getSystemName();
+			this.systemDescription = systemDetails.getSystemDescription();
+			this.creationDate = systemDetails.getCreationDate();
+			this.expirationDate = systemDetails.getCreationDate();
+			this.group = new Group(systemDetails.getGroup());
+		}
 	}
 
 	/**

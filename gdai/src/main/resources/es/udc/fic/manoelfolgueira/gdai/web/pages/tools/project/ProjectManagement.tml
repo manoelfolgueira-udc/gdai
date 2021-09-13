@@ -139,11 +139,11 @@
                 ${projectDetails.userStoryDetails.userStoryName}
             </p:userStoryCell>
 				<p:systemCell>
-					<t:pagelink page="system/view" context="projectDetails.systemDetails.systemId">${projectDetails.systemDetails.systemName}</t:pagelink>
+					<t:pagelink page="system/view" context="[projectDetails.systemDetails.systemId, getCurrentPath()]">${projectDetails.systemDetails.systemName}</t:pagelink>
 				</p:systemCell>
 				<p:groupCell>
 					<t:pagelink page="group/view"
-						context="projectDetails.systemDetails.group.groupId">${projectDetails.systemDetails.group.groupName}</t:pagelink>
+						context="[projectDetails.systemDetails.group.groupId, getCurrentPath()]">${projectDetails.systemDetails.group.groupName}</t:pagelink>
 				</p:groupCell>
 				<!-- 			<p:createdByCell> -->
 				<!-- 				<t:pagelink page="user/viewprofile" context="projectDetails.createdBy.userId">${projectDetails.createdBy.loginName}</t:pagelink> -->

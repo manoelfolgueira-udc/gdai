@@ -96,18 +96,20 @@ public class Project {
 	
 	public Project(ProjectDetails projectDetails) {
 		super();
-		this.projectId = projectDetails.getProjectId();
-		this.projectName = projectDetails.getProjectName();
-		this.projectDescription = projectDetails.getProjectDescription();
-		this.creationDate = projectDetails.getCreationDate();
-		this.requirementsPath = projectDetails.getRequirementsPath();
-		this.createdBy = new User(projectDetails.getCreatedBy());
-		this.system = new System(projectDetails.getSystemDetails());
-		this.sprints = new LinkedList<>();
-		projectDetails.getSprintsDetails().forEach(s -> {
-			this.sprints.add(new Sprint(s, this));
-		});
-		this.userStory = new UserStory(projectDetails.getUserStoryDetails());
+		if (projectDetails != null) {
+			this.projectId = projectDetails.getProjectId();
+			this.projectName = projectDetails.getProjectName();
+			this.projectDescription = projectDetails.getProjectDescription();
+			this.creationDate = projectDetails.getCreationDate();
+			this.requirementsPath = projectDetails.getRequirementsPath();
+			this.createdBy = new User(projectDetails.getCreatedBy());
+			this.system = new System(projectDetails.getSystemDetails());
+			this.sprints = new LinkedList<>();
+			projectDetails.getSprintsDetails().forEach(s -> {
+				this.sprints.add(new Sprint(s, this));
+			});
+			this.userStory = new UserStory(projectDetails.getUserStoryDetails());
+		}
 	}
 	
 	public Project(ProjectDetails projectDetails, Sprint sprint) {

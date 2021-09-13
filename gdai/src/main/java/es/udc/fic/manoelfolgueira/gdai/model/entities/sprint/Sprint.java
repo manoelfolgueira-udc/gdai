@@ -70,15 +70,17 @@ public class Sprint {
 	 */
 	public Sprint(SprintDetails sprintDetails) {
 		super();
-		this.sprintId = sprintDetails.getSprintId();
-		this.sprintName = sprintDetails.getSprintName();
-		this.sprintStart = sprintDetails.getStartDate();
-		this.sprintEnd = sprintDetails.getEndDate();
-		this.creationDate = sprintDetails.getCreationDate();
-		this.projects = new LinkedList<Project>();
-		sprintDetails.getProjectsDetails().forEach(p -> {
-			this.projects.add(new Project(p, this));
-		});
+		if (sprintDetails != null) {
+			this.sprintId = sprintDetails.getSprintId();
+			this.sprintName = sprintDetails.getSprintName();
+			this.sprintStart = sprintDetails.getStartDate();
+			this.sprintEnd = sprintDetails.getEndDate();
+			this.creationDate = sprintDetails.getCreationDate();
+			this.projects = new LinkedList<Project>();
+			sprintDetails.getProjectsDetails().forEach(p -> {
+				this.projects.add(new Project(p, this));
+			});
+		}
 	}
 	
 	/**

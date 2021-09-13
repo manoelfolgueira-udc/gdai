@@ -31,8 +31,14 @@ public class ProductionPassServiceImpl implements ProductionPassService {
 		
 		ProductionPass productionPass = new ProductionPass(productionPassDetails);
 		
-		productionPassDao.save(productionPass);
-		return new ProductionPassDetails(productionPass);
+		try {
+			productionPassDao.findByName(productionPass.getProductionPassName());
+			throw new DuplicateInstanceException(productionPass.getProductionPassName(), ProductionPassDetails.class.getName());
+		} catch (InstanceNotFoundException e) {
+			productionPassDao.save(productionPass);
+			return new ProductionPassDetails(productionPass);
+		}
+		
 	}
 
 	/**

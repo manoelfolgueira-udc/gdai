@@ -17,9 +17,9 @@ public class ProjectsFilterServiceImpl implements ProjectsFilterService {
 	private ProjectsFilterDao projectsFilterDao;
 
 	@Override
-	public void save(ProjectsFilter pf) {
-		System.out.println(pf);
+	public ProjectsFilter save(ProjectsFilter pf) {
 		projectsFilterDao.save(pf);
+		return pf;
 		
 	}
 

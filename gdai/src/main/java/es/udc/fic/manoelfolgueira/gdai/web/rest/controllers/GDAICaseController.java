@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 
 import es.udc.fic.manoelfolgueira.gdai.model.entities.user.User;
 import es.udc.fic.manoelfolgueira.gdai.model.services.gdaicaseservice.GDAICaseService;
-import es.udc.fic.manoelfolgueira.gdai.model.services.groupservice.GroupService;
 import es.udc.fic.manoelfolgueira.gdai.model.services.systemservice.SystemService;
 import es.udc.fic.manoelfolgueira.gdai.model.services.userservice.UserService;
 import es.udc.fic.manoelfolgueira.gdai.model.util.EmailUtil;
@@ -76,7 +75,7 @@ public class GDAICaseController {
 					}
 				}
 			}
-			
+						
 			String toEmail = userDetailsEmail.getEmail();
 			
 			String subject = "Incidencia grave en " + systemDetails.getSystemName() + ".";

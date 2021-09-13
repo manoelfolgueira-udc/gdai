@@ -110,20 +110,22 @@ public class User {
 	 */
 	public User(UserDetails userDetails) {
 
-		this.userId = userDetails.getUserId();
-		this.loginName = userDetails.getLoginName();
-		//this.encryptedPassword = userDetails.getEncryptedPassword(); // this field is not exported in the dto
-		this.firstName = userDetails.getFirstName();
-		this.lastName = userDetails.getLastName();
-		this.gender = userDetails.getGender();
-		this.email = userDetails.getEmail();
-		this.phoneNumber = userDetails.getPhoneNumber();
-		this.avatarUrl = userDetails.getAvatarUrl();
-		this.hireDate = userDetails.getHireDate();
-		this.dateOfBirth = userDetails.getDateOfBirth();
-		this.expirationDate = userDetails.getExpirationDate();
-		this.group = new Group(userDetails.getGroup());
-		this.isManager = userDetails.getIsManager();
+		if (userDetails != null) {
+			this.userId = userDetails.getUserId();
+			this.loginName = userDetails.getLoginName();
+			//this.encryptedPassword = userDetails.getEncryptedPassword(); // this field is not exported in the dto
+			this.firstName = userDetails.getFirstName();
+			this.lastName = userDetails.getLastName();
+			this.gender = userDetails.getGender();
+			this.email = userDetails.getEmail();
+			this.phoneNumber = userDetails.getPhoneNumber();
+			this.avatarUrl = userDetails.getAvatarUrl();
+			this.hireDate = userDetails.getHireDate();
+			this.dateOfBirth = userDetails.getDateOfBirth();
+			this.expirationDate = userDetails.getExpirationDate();
+			this.group = new Group(userDetails.getGroup());
+			this.isManager = userDetails.getIsManager();
+		}
 
 	}
 

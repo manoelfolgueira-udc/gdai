@@ -72,11 +72,13 @@ public class UserStory extends GDAIDetailsCodificable {
 	 * @param userStoryDetails
 	 */
 	public UserStory(UserStoryDetails userStoryDetails) {
-		this.userStoryId = userStoryDetails.getUserStoryId();
-		this.userStoryName = userStoryDetails.getUserStoryName();
-		this.userStoryDescription = userStoryDetails.getUserStoryDescription();
-		this.creationDate = userStoryDetails.getCreationDate();
-		this.createdBy = new User(userStoryDetails.getCreatedBy());
+		if (userStoryDetails != null) {
+			this.userStoryId = userStoryDetails.getUserStoryId();
+			this.userStoryName = userStoryDetails.getUserStoryName();
+			this.userStoryDescription = userStoryDetails.getUserStoryDescription();
+			this.creationDate = userStoryDetails.getCreationDate();
+			this.createdBy = new User(userStoryDetails.getCreatedBy());
+		}
 	}
 
 	/**

@@ -206,6 +206,79 @@ public class ProjectDetails extends GDAIDetailsCodificable {
 	public void setUserStoryDetails(UserStoryDetails userStoryDetails) {
 		this.userStoryDetails = userStoryDetails;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+		result = prime * result + ((projectDescription == null) ? 0 : projectDescription.hashCode());
+		result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
+		result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
+		result = prime * result + ((requirementsPath == null) ? 0 : requirementsPath.hashCode());
+		result = prime * result + ((sprintsDetails == null) ? 0 : sprintsDetails.hashCode());
+		result = prime * result + ((systemDetails == null) ? 0 : systemDetails.hashCode());
+		result = prime * result + ((userStoryDetails == null) ? 0 : userStoryDetails.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProjectDetails other = (ProjectDetails) obj;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (creationDate == null) {
+			if (other.creationDate != null)
+				return false;
+		} else if (!creationDate.equals(other.creationDate))
+			return false;
+		if (projectDescription == null) {
+			if (other.projectDescription != null)
+				return false;
+		} else if (!projectDescription.equals(other.projectDescription))
+			return false;
+		if (projectId == null) {
+			if (other.projectId != null)
+				return false;
+		} else if (!projectId.equals(other.projectId))
+			return false;
+		if (projectName == null) {
+			if (other.projectName != null)
+				return false;
+		} else if (!projectName.equals(other.projectName))
+			return false;
+		if (requirementsPath == null) {
+			if (other.requirementsPath != null)
+				return false;
+		} else if (!requirementsPath.equals(other.requirementsPath))
+			return false;
+		if (sprintsDetails == null) {
+			if (other.sprintsDetails != null)
+				return false;
+		} else if (!sprintsDetails.equals(other.sprintsDetails))
+			return false;
+		if (systemDetails == null) {
+			if (other.systemDetails != null)
+				return false;
+		} else if (!systemDetails.equals(other.systemDetails))
+			return false;
+		if (userStoryDetails == null) {
+			if (other.userStoryDetails != null)
+				return false;
+		} else if (!userStoryDetails.equals(other.userStoryDetails))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {

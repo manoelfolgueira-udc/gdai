@@ -78,12 +78,16 @@ public class ProductionPass {
 	
 	public ProductionPass(ProductionPassDetails productionPassDetails) {
 
-		this.productionPassName = productionPassDetails.getProductionPassName();
-		this.productionPassResolution = productionPassDetails.getProductionPassResolution();
-		this.creationDate = productionPassDetails.getCreationDate();
-		this.passPath = productionPassDetails.getPassPath();
-		this.createdBy = new User(productionPassDetails.getCreatedBy());
-		this.system = new System(productionPassDetails.getSystem());
+		if (productionPassDetails != null) {
+			this.productionPassId = productionPassDetails.getProductionPassId();
+			this.productionPassName = productionPassDetails.getProductionPassName();
+			this.productionPassResolution = productionPassDetails.getProductionPassResolution();
+			this.creationDate = productionPassDetails.getCreationDate();
+			this.passPath = productionPassDetails.getPassPath();
+			this.createdBy = new User(productionPassDetails.getCreatedBy());
+			this.system = new System(productionPassDetails.getSystem());
+		}
+		
 	}
 
 	/**

@@ -6,7 +6,7 @@ import es.udc.fic.manoelfolgueira.gdai.model.util.exceptions.InstanceNotFoundExc
 
 public interface ProjectsFilterService {
 
-	public void save(ProjectsFilter pf);
+	public ProjectsFilter save(ProjectsFilter pf);
 	public ProjectsFilter load(ProjectsFilter pf) throws InstanceNotFoundException;
 	public ProjectsFilter load(User u) throws InstanceNotFoundException;
 

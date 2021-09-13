@@ -22,8 +22,8 @@
 			<t:pagelink page="tools/gdaicase/view" context="gdaiCaseDetails.gdaiCaseId">${gdaiCaseDetails.GDAICode}</t:pagelink>
 		</p:GDAICodeCell>
 		<p:systemCell>
-			${gdaiCaseDetails.systemDetails.systemName}
-		</p:systemCell>
+					<t:pagelink page="system/view" context="[gdaiCaseDetails.systemDetails.systemId, getCurrentPath()]">${gdaiCaseDetails.systemDetails.systemName}</t:pagelink>
+				</p:systemCell>
 		<p:gdaiCaseManagementCell>
 			<button type="submit" class="btn btn-danger" t:type="PageLink"
 				t:page="tools/gdaicase/delete" t:context="gdaiCaseDetails.gdaiCaseId">${message:delete}</button>

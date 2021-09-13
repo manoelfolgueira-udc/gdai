@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -70,6 +72,13 @@ public class ProductionPassManagement {
 
 	@Property
 	private UserDetails user;
+	
+	@Inject
+	private HttpServletRequest servletRequest;
+	
+	public String getCurrentPath() {
+		return servletRequest.getRequestURL().toString();
+	}
 
 	void setupRender() {
 		try {

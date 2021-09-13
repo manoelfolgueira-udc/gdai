@@ -33,10 +33,13 @@ public class ApplicationView {
 
 	@Inject
 	private Locale locale;
-
+	
+	@Property
+	private String goBackUrl;
+	
 	void onActivate(Long applicationId) throws InstanceNotFoundException {
-
+		goBackUrl = "administration/application/management";
 		applicationDetails = applicationService.findApplication(applicationId);
-
 	}
+
 }
