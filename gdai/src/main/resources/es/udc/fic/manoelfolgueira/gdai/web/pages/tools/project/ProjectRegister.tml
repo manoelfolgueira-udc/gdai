@@ -25,7 +25,7 @@
 		<t:label for="sprintSelect" class="col-md-offset-3 col-md-2" />
 			<div class="col-md-3">
 				<t:select t:id="sprintSelect" value="sprintDetails" model="sprintsModel"
-					encoder="sprintEncoder" />
+					encoder="sprintEncoder" t:validate="required" blankOption="Always"/>
 			</div>
 	</div>
 
@@ -33,7 +33,7 @@
 		<t:label for="userStorySelect" class="col-md-offset-3 col-md-2" />
 		<div class="col-md-3">
 			<t:select t:id="userStorySelect" value="userStoryDetails"
-				model="userStoriesModel" encoder="userStoryEncoder" />
+				model="userStoriesModel" encoder="userStoryEncoder" t:validate="required" blankOption="Always"/>
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 		<t:label for="systemSelect" class="col-md-offset-3 col-md-2" />
 		<div class="col-md-3">
 			<t:select t:id="systemSelect" value="systemDetails" model="systemsModel"
-				encoder="systemEncoder" />
+				encoder="systemEncoder" t:validate="required" blankOption="Always"/>
 		</div>
 	</div>
 

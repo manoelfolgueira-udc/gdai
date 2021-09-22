@@ -18,5 +18,7 @@ public abstract class ConfigPropertyKeys {
 	public static final String GDAICODE_ENTITY_INITIAL_KEY = "_CODE_INITIAL";
 
 	public static final String FOLDER_PROJECT_REQUIREMENTS = "FOLDER_PROJECT_REQUIREMENTS";
+	
+	public static final String FOLDER_PROJECT_PRODUCTION_PASSES= "FOLDER_PROJECT_PRODUCTION_PASSES";
 
 }

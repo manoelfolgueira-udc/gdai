@@ -176,7 +176,7 @@ public class ProjectModify {
 			LinkedList<SprintDetails> sprints = new LinkedList<>();
 			sprints.add(sprintDetails);
 
-			projectService.updateProjectDetails(projectId, new ProjectDetails(projectDetails.getProjectId(), projectName, projectDescription,
+			projectService.updateProjectDetails(projectId, new ProjectDetails(projectId, projectName, projectDescription,
 					calCreationDate, requirementsPath, createdBy, systemDetails, sprints, userStoryDetails));
 			result = messages.getFormatter("result-ProjectRegister-ok").format(projectName);
 		} catch (Exception e) {

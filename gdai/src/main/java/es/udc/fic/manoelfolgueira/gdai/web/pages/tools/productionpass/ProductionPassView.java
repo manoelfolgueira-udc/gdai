@@ -72,6 +72,10 @@ public class ProductionPassView {
 	void onActivate(Long productionPassId) {
 		this.productionPassId = productionPassId;
 	}
+	
+	Long onPassivate() {
+		return productionPassId;
+	}
 
 	@Component(id = "downloadLink")
 	private ActionLink downloadLink;
@@ -102,8 +106,9 @@ public class ProductionPassView {
 		return response;
 	}
 
-	public String getPRFileName() {
-		String file = productionPassDetails.getPassPath().substring(productionPassDetails.getPassPath().lastIndexOf("/") + 1);
+	public String getPRFile() {
+		String file = productionPassDetails.getPassPath();
+				
 		return new File(file).exists() ? file : null;
 	}
 

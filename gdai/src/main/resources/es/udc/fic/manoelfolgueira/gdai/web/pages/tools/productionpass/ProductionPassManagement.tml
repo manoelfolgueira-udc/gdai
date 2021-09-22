@@ -29,7 +29,7 @@
 			</p:productionPassNameCell>
 			<p:systemCell>
 				<t:pagelink page="system/view"
-					context="productionPassDetails.system.systemId">${productionPassDetails.system.systemName}</t:pagelink>
+					context="[productionPassDetails.system.systemId, getCurrentPath()]">${productionPassDetails.system.systemName}</t:pagelink>
 			</p:systemCell>
 			<p:productionPassManagementCell>
 				<button type="submit" class="btn btn-danger" t:type="PageLink"

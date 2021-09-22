@@ -53,7 +53,7 @@ CREATE INDEX GroupIndexByGroupName ON gdai_group(groupName);
 CREATE TABLE gdai_user
   ( 
      userId            BIGINT NOT NULL auto_increment, 
-     loginName         VARCHAR(30) NOT NULL, 
+     loginName         VARCHAR(30) NOT NULL,
      encryptedPassword VARCHAR(13) NOT NULL, 
      firstName         VARCHAR(30) NOT NULL, 
      lastName          VARCHAR(40) NOT NULL, 
@@ -61,8 +61,8 @@ CREATE TABLE gdai_user
      phoneNumber       VARCHAR(20),
      avatarUrl         VARCHAR(500),
      gender            VARCHAR(20),
-     hireDate          DATE, 
-     dateOfBirth       DATE,
+     hireDate          TIMESTAMP,
+     dateOfBirth       TIMESTAMP,
      expirationDate    TIMESTAMP,
      isManager         boolean,
      groupId           BIGINT NOT NULL,
@@ -118,8 +118,7 @@ CREATE TABLE gdai_sprint
      sprintStart        TIMESTAMP NOT NULL,
      sprintEnd    		TIMESTAMP NOT NULL,
      creationDate       TIMESTAMP NOT NULL,
-     CONSTRAINT SprintPK PRIMARY KEY (sprintId),
-     CONSTRAINT SprintUniqueKeySprintName UNIQUE (sprintName)
+     CONSTRAINT SprintPK PRIMARY KEY (sprintId)
   ) 
 engine = innodb; 
 
@@ -223,7 +222,7 @@ CREATE TABLE gdai_production_pass
   ( 
      productionPassId    	   BIGINT NOT NULL auto_increment,
      productionPassName        VARCHAR(255) NOT NULL,
-     productionPassResolution VARCHAR(10000),
+     productionPassResolution  VARCHAR(10000),
      creationDate       	   TIMESTAMP NOT NULL,
      passPath		           VARCHAR(500),
      createdById        	   BIGINT NOT NULL,

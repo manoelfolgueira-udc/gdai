@@ -108,8 +108,10 @@ public class ProjectView {
 
 	public String getPRFileName() {
 		
-		String file = projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
+		// String file = projectDetails.getRequirementsPath().substring(projectDetails.getRequirementsPath().lastIndexOf("/") + 1);
 		
+		String file = projectDetails.getRequirementsPath();
+				
 		return new File(file).exists() ? file : null;
 	}
 

@@ -3,9 +3,9 @@
 
 <div class="eg">
 	<t:beandisplay object="productionPassDetails">
-		<p:requirementsPath>
-			<a t:id="downloadLink"><t:if test="getPRFileName()">${message:download} ${getPRFileName()}</t:if></a>
-		</p:requirementsPath>
+		<p:passPath>
+			<a t:id="downloadLink"><t:if test="getPRFile()">${getPRFile()}</t:if></a>
+		</p:passPath>
 	</t:beandisplay>
 </div>
 

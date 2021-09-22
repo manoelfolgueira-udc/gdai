@@ -64,7 +64,7 @@
 	<div class="form-group">
 		<div class="col-md-offset-4 col-md-6 col-md-6">
 			<button type="submit" class="btn btn-default" t:type="PageLink"
-				t:page="administration/user/management">${message:return}</button>
+				t:page="tools/project/management">${message:return}</button>
 			<span style="display: inline-block; width: 10px;"></span>
 			<button type="submit" class="btn btn-default" t:type="PageLink"
 				t:page="user/updateprofile">${message:updateProfile}</button>

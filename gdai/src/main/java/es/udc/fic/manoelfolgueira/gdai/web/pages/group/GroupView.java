@@ -40,13 +40,8 @@ public class GroupView {
 	@Property
 	private String goBackUrl;
 	
-	void onActivate(Long groupId) throws InstanceNotFoundException {
-		goBackUrl = "administration/group/management";
-		groupDetails = groupService.findGroup(groupId);
-	}
-
 	void onActivate(Long groupId, String goBack) throws InstanceNotFoundException {
-		goBackUrl = (goBack.indexOf("tools") > -1 ? goBack.substring(goBack.indexOf("tools")) : goBack.substring(goBack.indexOf("administration")));
+		goBackUrl = (goBack.indexOf("tools") > -1 ? goBack.substring(goBack.indexOf("tools")) : "administration/group/management");
 		groupDetails = groupService.findGroup(groupId);
 	}
 

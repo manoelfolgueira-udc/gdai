@@ -4,7 +4,7 @@
 <div class="eg">
 	<t:beandisplay object="projectDetails">
 		<p:requirementsPath>
-			<a t:id="downloadLink"><t:if test="getPRFileName()">${message:download} ${getPRFileName()}</t:if></a>
+			<a t:id="downloadLink"><t:if test="getPRFileName()">${getPRFileName()}</t:if></a>
 		</p:requirementsPath>
 	</t:beandisplay>
 </div>

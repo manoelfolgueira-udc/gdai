@@ -126,14 +126,14 @@ public class ProductionPassRegister {
 		}
 
 		File copied = new File(
-				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS),
+				Config.getInstance().getProperties().getProperty(ConfigPropertyKeys.FOLDER_PROJECT_PRODUCTION_PASSES),
 				productionPassDetails.getGDAICode() + "_" + productionPassReqs.getFileName());
 		productionPassReqs.write(copied);
 
 		try {
 
 			String passPath = Config.getInstance().getProperties()
-					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_REQUIREMENTS) + "/" + productionPassDetails.getGDAICode()
+					.getProperty(ConfigPropertyKeys.FOLDER_PROJECT_PRODUCTION_PASSES) + "/" + productionPassDetails.getGDAICode()
 					+ "_" + productionPassReqs.getFileName();
 
 			productionPassService.updateProductionPassDetails(productionPassDetails.getProductionPassId(),
